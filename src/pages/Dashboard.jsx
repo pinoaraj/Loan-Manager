@@ -25,7 +25,7 @@ const StatCard = ({ title, value, icon: Icon, color }) => (
 const Dashboard = () => {
     const navigate = useNavigate();
     const { dashboardStats, clients, alerts, getCollectionProjections } = useLoans();
-    const { totalActiveLoans, totalLent, statusData } = dashboardStats();
+    const { totalActiveLoans, totalLent, statusData } = dashboardStats;
     const projections = getCollectionProjections();
 
     return (
@@ -58,7 +58,7 @@ const Dashboard = () => {
                 />
                 <StatCard
                     title="Clientes Totales"
-                    value={clients.length}
+                    value={dashboardStats.totalClients || 0}
                     icon={Users}
                     color="bg-indigo-500"
                 />

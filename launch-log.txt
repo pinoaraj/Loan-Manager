@@ -49,20 +49,8 @@ Starting startServer function...
 Server Config: Path=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server\index.js, CWD=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server, DB=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server\prisma\dev.db
 Server process forked successfully.
 Creating window...
-[SERVER ERR]: C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server\index.js:20
-const { calculateAmortization } = require('./utils/amortization');
-        ^
-
-SyntaxError: Identifier 'calculateAmortization' has already been declared
-    at wrapSafe (node:internal/modules/cjs/loader:1385:20)
-    at Module._compile (node:internal/modules/cjs/loader:1435:41)
-    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
-    at Module.load (node:internal/modules/cjs/loader:1295:32)
-    at Module._load (node:internal/modules/cjs/loader:1111:12)
-    at c._load (node:electron/js2c/node_init:2:16955)
-    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
-    at node:internal/main/run_main_module:28:49
-
-Node.js v20.18.0
+[SERVER OUT]: [dotenv@17.2.3] injecting env (0) from .env -- tip: 📡 add observability to secrets: https://dotenvx.com/ops
 
 Loading index from: C:\Users\JP\.gemini\antigravity\scratch\loan-manager\dist\index.html
+[SERVER OUT]: Server running on http://localhost:3001
+

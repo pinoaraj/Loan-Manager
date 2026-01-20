@@ -6,13 +6,34 @@ const { authenticateToken } = require('../middleware/auth');
 
 const prisma = new PrismaClient();
 
-// Get all clients
+// GET all clients with pagination
 router.get('/', authenticateToken, async (req, res) => {
     try {
-        const clients = await prisma.client.findMany({
-            include: { loans: true }
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 1000; // Default high for backward compatibility initially
+        const skip = (page - 1) * limit;
+
+        const [total, clients] = await Promise.all([
+            prisma.client.count(),
+            prisma.client.findMany({
+                skip,
+                take: limit,
+                orderBy: { name: 'asc' },
+                include: {
+                    loans: true // Keep including loans for now as frontend expects it
+                }
+            })
+        ]);
+
+        res.json({
+            data: clients,
+            meta: {
+                total,
+                page,
+                limit,
+                totalPages: Math.ceil(total / limit)
+            }
         });
-        res.json(clients);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

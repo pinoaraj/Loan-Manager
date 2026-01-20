@@ -8,18 +8,56 @@ const { authenticateToken } = require('../middleware/auth');
 
 const prisma = new PrismaClient();
 
-// Get all loans
+// GET all loans with pagination, search, and filtering
 router.get('/', authenticateToken, async (req, res) => {
     try {
-        const loans = await prisma.loan.findMany({
-            include: {
-                client: true,
-                payments: {
-                    include: { transactions: true }
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 1000;
+        const search = req.query.search || '';
+        const status = req.query.status || 'All';
+
+        const skip = (page - 1) * limit;
+
+        const where = {};
+
+        if (status !== 'All') {
+            where.status = status;
+        }
+
+        if (search) {
+            where.OR = [
+                { id: { contains: search } }, // SQLite contains is case-sensitive usually? Prisma handles case-insensitive option in newer versions
+                {
+                    client: {
+                        name: { contains: search } // Add mode: 'insensitive' if Postgres, SQLite default depends.
+                    }
                 }
+            ];
+        }
+
+        const [total, loans] = await Promise.all([
+            prisma.loan.count({ where }),
+            prisma.loan.findMany({
+                where,
+                skip,
+                take: limit,
+                include: {
+                    client: true,
+                    payments: true
+                },
+                orderBy: { startDate: 'desc' }
+            })
+        ]);
+
+        res.json({
+            data: loans,
+            meta: {
+                total,
+                page,
+                limit,
+                totalPages: Math.ceil(total / limit)
             }
         });
-        res.json(loans);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

@@ -175,3 +175,23 @@ SyntaxError: Identifier 'calculateAmortization' has already been declared
 Node.js v20.18.0
 
 [2026-01-20T15:00:48.359Z] Loading index from: C:\Users\JP\.gemini\antigravity\scratch\loan-manager\dist\index.html
+[2026-01-20T15:44:22.496Z] --- MAIN PROCESS STARTED ---
+[2026-01-20T15:44:25.308Z] App Ready
+[2026-01-20T15:44:25.309Z] Starting startServer function...
+[2026-01-20T15:44:25.309Z] Server Config: Path=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server\index.js, CWD=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server, DB=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server\prisma\dev.db
+[2026-01-20T15:44:25.324Z] Server process forked successfully.
+[2026-01-20T15:44:25.325Z] Creating window...
+[2026-01-20T15:44:26.369Z] Loading index from: C:\Users\JP\.gemini\antigravity\scratch\loan-manager\dist\index.html
+[2026-01-20T15:44:33.109Z] [SERVER OUT]: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`
+
+[2026-01-20T16:00:37.368Z] --- MAIN PROCESS STARTED ---
+[2026-01-20T16:00:37.413Z] App Ready
+[2026-01-20T16:00:37.413Z] Starting startServer function...
+[2026-01-20T16:00:37.414Z] Server Config: Path=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server\index.js, CWD=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server, DB=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server\prisma\dev.db
+[2026-01-20T16:00:37.428Z] Server process forked successfully.
+[2026-01-20T16:00:37.428Z] Creating window...
+[2026-01-20T16:00:37.937Z] [SERVER OUT]: [dotenv@17.2.3] injecting env (0) from .env -- tip: 📡 add observability to secrets: https://dotenvx.com/ops
+
+[2026-01-20T16:00:38.479Z] Loading index from: C:\Users\JP\.gemini\antigravity\scratch\loan-manager\dist\index.html
+[2026-01-20T16:00:42.128Z] [SERVER OUT]: Server running on http://localhost:3001
+

@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 import { useLoans } from '../context/LoanContext';
+import { useAuth } from '../context/AuthContext';
+import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { Calendar, DollarSign, Clock, Search, Filter } from 'lucide-react';
+import { Calendar, DollarSign, Clock, Search, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
 import ConfirmModal from '../components/ConfirmModal';
 
 const Loans = () => {
     const navigate = useNavigate();
-    const { loans, clients, updateLoanStatus } = useLoans();
+    const { updateLoanStatus } = useLoans();
+    const { token } = useAuth();
+
+    // State
+    const [page, setPage] = useState(1);
+    const limit = 10;
     const [searchTerm, setSearchTerm] = useState('');
     const [statusFilter, setStatusFilter] = useState('All');
 
@@ -14,26 +21,37 @@ const Loans = () => {
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
     const [selectedLoanId, setSelectedLoanId] = useState(null);
 
-    const getClientName = (id) => clients.find(c => c.id === id)?.name || 'Desconocido';
+    // Fetch Loans with Pagination & Filtering
+    const { data: loansData = { data: [], meta: {} }, isLoading, refetch } = useQuery({
+        queryKey: ['loans', page, limit, searchTerm, statusFilter], // Refetch when these change
+        queryFn: async () => {
+            // Debounce search in real app, but for now direct
+            const res = await fetch(`http://localhost:3001/api/loans?page=${page}&limit=${limit}&search=${searchTerm}&status=${statusFilter}`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            return res.json();
+        },
+        keepPreviousData: true,
+        enabled: !!token
+    });
+
+    const loans = loansData.data || [];
+    const meta = loansData.meta || {};
 
     const handleMarkAsPaid = (loanId) => {
         setSelectedLoanId(loanId);
         setIsConfirmOpen(true);
     };
 
-    const confirmPayment = () => {
+    const confirmPayment = async () => {
         if (selectedLoanId) {
-            updateLoanStatus(selectedLoanId, 'Paid');
+            await updateLoanStatus(selectedLoanId, 'Paid');
             setSelectedLoanId(null);
+            refetch(); // Refresh list
         }
     };
 
-    const filteredLoans = loans.filter(loan => {
-        const clientName = getClientName(loan.clientId).toLowerCase();
-        const matchesSearch = clientName.includes(searchTerm.toLowerCase()) || loan.id.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesStatus = statusFilter === 'All' || loan.status === statusFilter;
-        return matchesSearch && matchesStatus;
-    });
+    const getClientName = (loan) => loan.client?.name || 'Desconocido';
 
     return (
         <div className="p-8 space-y-8">
@@ -51,12 +69,18 @@ const Loans = () => {
                             placeholder="Buscar cliente o ID..."
                             className="pl-10 pr-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 w-64 text-sm"
                             value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
+                            onChange={(e) => {
+                                setSearchTerm(e.target.value);
+                                setPage(1); // Reset to page 1 on search
+                            }}
                         />
                     </div>
                     <select
                         value={statusFilter}
-                        onChange={(e) => setStatusFilter(e.target.value)}
+                        onChange={(e) => {
+                            setStatusFilter(e.target.value);
+                            setPage(1); // Reset to page 1 on filter change
+                        }}
                         className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium text-slate-600"
                     >
                         <option value="All">Todos los Estados</option>
@@ -80,22 +104,22 @@ const Loans = () => {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-50">
-                        {filteredLoans.length === 0 ? (
+                        {loans.length === 0 ? (
                             <tr>
                                 <td colSpan="6" className="px-6 py-12 text-center text-slate-400 text-sm">
                                     No se encontraron préstamos que coincidan con los filtros.
                                 </td>
                             </tr>
                         ) : (
-                            filteredLoans.map(loan => (
+                            loans.map(loan => (
                                 <tr key={loan.id} className="hover:bg-slate-50/50 transition-colors">
                                     <td className="px-6 py-4">
-                                        <div className="font-medium text-slate-900">{getClientName(loan.clientId)}</div>
+                                        <div className="font-medium text-slate-900">{getClientName(loan)}</div>
                                         <div className="text-xs text-slate-400 font-mono">{loan.id}</div>
                                     </td>
                                     <td className="px-6 py-4 font-mono text-slate-700 font-semibold">${loan.amount.toLocaleString()}</td>
                                     <td className="px-6 py-4 text-slate-600">{(loan.interestRate * 100).toFixed(0)}%</td>
-                                    <td className="px-6 py-4 text-slate-500 text-sm">{loan.startDate}</td>
+                                    <td className="px-6 py-4 text-slate-500 text-sm">{new Date(loan.startDate).toLocaleDateString()}</td>
                                     <td className="px-6 py-4">
                                         <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${loan.status === 'Active' ? 'bg-blue-100 text-blue-700' :
                                             loan.status === 'Paid' ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'
@@ -128,6 +152,31 @@ const Loans = () => {
                         )}
                     </tbody>
                 </table>
+            </div>
+
+            {/* Pagination Controls */}
+            <div className="flex justify-center items-center gap-4 mt-8">
+                <button
+                    onClick={() => setPage(old => Math.max(old - 1, 1))}
+                    disabled={page === 1}
+                    className="p-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-50 transition-colors"
+                >
+                    <ChevronLeft size={20} className="text-slate-600 dark:text-slate-400" />
+                </button>
+                <span className="text-slate-600 dark:text-slate-400 font-medium">
+                    Página {page} {meta.totalPages ? `de ${meta.totalPages}` : ''}
+                </span>
+                <button
+                    onClick={() => {
+                        if (!meta.totalPages || page < meta.totalPages) {
+                            setPage(old => old + 1);
+                        }
+                    }}
+                    disabled={meta.totalPages ? page >= meta.totalPages : false}
+                    className="p-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-50 transition-colors"
+                >
+                    <ChevronRight size={20} className="text-slate-600 dark:text-slate-400" />
+                </button>
             </div>
 
             <ConfirmModal

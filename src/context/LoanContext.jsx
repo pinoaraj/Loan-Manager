@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useState, useEffect, useMemo } from 'react';
+import React, { createContext, useContext, useMemo } from 'react';
 import { format, isAfter, parseISO, startOfDay, differenceInDays } from 'date-fns';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAuth } from './AuthContext';
 
 const LoanContext = createContext();
@@ -9,89 +10,104 @@ export const useLoans = () => useContext(LoanContext);
 
 export const LoanProvider = ({ children }) => {
     const { token } = useAuth();
-    const [clients, setClients] = useState([]);
-    const [loans, setLoans] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const queryClient = useQueryClient();
 
     const getHeaders = () => ({
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
     });
 
-    const fetchData = async () => {
-        if (!token) return;
+    // --- Queries ---
 
-        try {
-            const [clientsRes, loansRes] = await Promise.all([
-                fetch(`${API_URL}/clients`, { headers: getHeaders() }),
-                fetch(`${API_URL}/loans`, { headers: getHeaders() })
-            ]);
+    // --- Queries ---
 
-            if (clientsRes.ok && loansRes.ok) {
-                const clientsData = await clientsRes.json();
-                const loansData = await loansRes.json();
-                setClients(clientsData);
-                setLoans(loansData);
-            }
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
+    // Dashboard Stats Query
+    const { data: dashboardStats = { totalActiveLoans: 0, totalLent: 0, statusData: [], totalClients: 0 } } = useQuery({
+        queryKey: ['dashboardStats'],
+        queryFn: async () => {
+            if (!token) return { totalActiveLoans: 0, totalLent: 0, statusData: [], totalClients: 0 };
+            const res = await fetch(`${API_URL}/dashboard/stats`, { headers: getHeaders() });
+            return res.json();
+        },
+        enabled: !!token
+    });
 
-    useEffect(() => {
-        if (token) {
-            fetchData();
-        } else {
-            setClients([]);
-            setLoans([]);
-            setLoading(false);
-        }
-    }, [token]);
+    // Alerts Query
+    const { data: alerts = [] } = useQuery({
+        queryKey: ['alerts'],
+        queryFn: async () => {
+            if (!token) return [];
+            const res = await fetch(`${API_URL}/dashboard/alerts`, { headers: getHeaders() });
+            return res.json();
+        },
+        enabled: !!token
+    });
 
-    const getClientLoans = (clientId) => {
-        return loans.filter(loan => loan.clientId === clientId);
-    };
+    // Projections Query
+    const { data: projections = [] } = useQuery({
+        queryKey: ['projections'],
+        queryFn: async () => {
+            if (!token) return [];
+            const res = await fetch(`${API_URL}/dashboard/projections`, { headers: getHeaders() });
+            return res.json();
+        },
+        enabled: !!token
+    });
 
-    const getLoanSchedule = (loan) => {
-        // In the new architecture, payments are stored in the DB
-        return loan.payments || [];
-    };
+    // Removed global fetching of ALL clients/loans to allow pagination in pages
+    // kept empty arrays or removed logic requiring them globally?
+    // Dashboard.jsx uses clients.length (now in dashboardStats.totalClients)
+    // Clients.jsx uses clients list -> needs to be moved to Clients.jsx or paginated here.
+    // Let's keep a simplified `useClients` hook export or just let pages handle it?
+    // For now, to avoid breaking everything, let's keep the global fetches BUT make them paginated (defaults) 
+    // OR just remove them and expose the fetcher.
+    // Scalability best practice: Pages fetch what they need.
+    // So we will NOT fetch them globally here.
 
-    const dashboardStats = () => {
-        const totalActiveLoans = loans.filter(l => l.status === 'Active').length;
-        const totalLent = loans.reduce((acc, curr) => acc + curr.amount, 0);
+    // However, for backward compatibility during this refactor step, we need to handle consumers.
+    // usage: `const { clients } = useLoans()`
+    // If we remove it, Clients page breaks.
+    // So let's provide a "default" list (first page) or empty?
+    // Let's keep the Hooks but move the queries to exported helpers so components can use them.
 
-        const statusData = [
-            { name: 'Activos', value: totalActiveLoans, color: '#3b82f6' },
-            { name: 'Pagados', value: loans.filter(l => l.status === 'Paid').length, color: '#10b981' },
-            { name: 'Vencidos', value: loans.filter(l => l.status === 'Overdue').length, color: '#ef4444' },
-        ].filter(d => d.value > 0);
+    // Actually, let's KEEP the global clients/loans for now but limited to 1000 items (default API) 
+    // so we don't break existing list views immediately.
+    // BUT we will update the internal logic to use the new endpoints.
 
-        return { totalActiveLoans, totalLent, statusData };
-    };
+    const { data: clientsData, isLoading: clientsLoading } = useQuery({
+        queryKey: ['clients'],
+        queryFn: async () => {
+            if (!token) return [];
+            // fetching default page 1 (limit 1000)
+            const res = await fetch(`${API_URL}/clients`, { headers: getHeaders() });
+            const json = await res.json();
+            return Array.isArray(json) ? json : (json.data || []);
+        },
+        enabled: !!token
+    });
 
-    const getCollectionProjections = () => {
-        const projections = {};
-        const today = new Date();
+    const { data: loansData, isLoading: loansLoading } = useQuery({
+        queryKey: ['loans'],
+        queryFn: async () => {
+            if (!token) return [];
+            // fetching default page 1 (limit 1000)
+            const res = await fetch(`${API_URL}/loans`, { headers: getHeaders() });
+            const json = await res.json();
+            return Array.isArray(json) ? json : (json.data || []);
+        },
+        enabled: !!token
+    });
 
-        loans.forEach(loan => {
-            if (loan.status !== 'Active') return;
-            const schedule = getLoanSchedule(loan);
-            schedule.forEach(p => {
-                const date = parseISO(p.dueDate);
-                if (isAfter(date, today) && p.status === 'Pending') {
-                    const monthKey = format(date, 'MMM yy');
-                    projections[monthKey] = (projections[monthKey] || 0) + p.amount;
-                }
-            });
-        });
+    const clients = clientsData || [];
+    const loans = loansData || [];
+    const loading = clientsLoading || loansLoading;
 
-        return Object.entries(projections)
-            .map(([month, amount]) => ({ month, amount }))
-            .sort((a, b) => new Date(a.month) - new Date(b.month))
-            .slice(0, 6);
+    // --- Actions (Mutations) ---
+
+    // Generic helper to invalidate queries
+    const invalidateData = () => {
+        queryClient.invalidateQueries({ queryKey: ['clients'] });
+        queryClient.invalidateQueries({ queryKey: ['loans'] });
     };
 
     const addLoan = async (loanData) => {
@@ -101,7 +117,7 @@ export const LoanProvider = ({ children }) => {
                 headers: getHeaders(),
                 body: JSON.stringify(loanData)
             });
-            if (res.ok) await fetchData();
+            if (res.ok) invalidateData();
         } catch (error) {
             console.error('Error adding loan:', error);
         }
@@ -114,7 +130,7 @@ export const LoanProvider = ({ children }) => {
                 headers: getHeaders(),
                 body: JSON.stringify(clientData)
             });
-            if (res.ok) await fetchData();
+            if (res.ok) invalidateData();
         } catch (error) {
             console.error('Error adding client:', error);
         }
@@ -127,8 +143,11 @@ export const LoanProvider = ({ children }) => {
                 headers: getHeaders(),
                 body: JSON.stringify(clientData)
             });
-            if (res.ok) await fetchData();
-            return res.ok;
+            if (res.ok) {
+                invalidateData();
+                return true;
+            }
+            return false;
         } catch (error) {
             console.error('Error updating client:', error);
             return false;
@@ -142,7 +161,7 @@ export const LoanProvider = ({ children }) => {
                 headers: getHeaders()
             });
             if (res.ok) {
-                await fetchData();
+                invalidateData();
                 return { success: true };
             } else {
                 const data = await res.json();
@@ -161,7 +180,7 @@ export const LoanProvider = ({ children }) => {
                 headers: getHeaders(),
                 body: JSON.stringify({ status: newStatus })
             });
-            if (res.ok) await fetchData();
+            if (res.ok) invalidateData();
         } catch (error) {
             console.error('Error updating loan status:', error);
         }
@@ -173,8 +192,11 @@ export const LoanProvider = ({ children }) => {
                 method: 'POST',
                 headers: getHeaders()
             });
-            if (res.ok) await fetchData();
-            return res.ok;
+            if (res.ok) {
+                invalidateData();
+                return true;
+            }
+            return false;
         } catch (error) {
             console.error('Error recalculating loan:', error);
             return false;
@@ -188,7 +210,7 @@ export const LoanProvider = ({ children }) => {
                 headers: getHeaders(),
                 body: JSON.stringify({ status: newStatus })
             });
-            if (res.ok) await fetchData();
+            if (res.ok) invalidateData();
         } catch (error) {
             console.error('Error updating payment status:', error);
         }
@@ -196,13 +218,13 @@ export const LoanProvider = ({ children }) => {
 
     const registerPayment = async (paymentId, paymentData) => {
         try {
-            const res = await fetch(`${API_URL}/payments/${paymentId / transactions}`, {
+            const res = await fetch(`${API_URL}/payments/${paymentId}/transactions`, {
                 method: 'POST',
                 headers: getHeaders(),
                 body: JSON.stringify(paymentData)
             });
             if (res.ok) {
-                await fetchData();
+                invalidateData();
                 return { success: true };
             } else {
                 const data = await res.json();
@@ -214,52 +236,6 @@ export const LoanProvider = ({ children }) => {
         }
     };
 
-    const alerts = useMemo(() => {
-        const today = startOfDay(new Date());
-        const resultingAlerts = [];
-
-        loans.forEach(loan => {
-            if (loan.status !== 'Active') return;
-
-            const schedule = getLoanSchedule(loan);
-            const pendingPayments = schedule.filter(p => p.status === 'Pending');
-
-            pendingPayments.forEach(payment => {
-                const dueDate = startOfDay(parseISO(payment.dueDate));
-
-                if (isAfter(today, dueDate)) {
-                    resultingAlerts.push({
-                        type: 'overdue',
-                        loanId: loan.id,
-                        clientName: clients.find(c => c.id === loan.clientId)?.name || 'Unknown',
-                        amount: payment.amount,
-                        dueDate: payment.dueDate,
-                        daysOverdue: differenceInDays(today, dueDate)
-                    });
-                }
-                else {
-                    const diffDays = differenceInDays(dueDate, today);
-                    if (diffDays >= 0 && diffDays <= 7) {
-                        resultingAlerts.push({
-                            type: 'upcoming',
-                            loanId: loan.id,
-                            clientName: clients.find(c => c.id === loan.clientId)?.name || 'Unknown',
-                            amount: payment.amount,
-                            dueDate: payment.dueDate,
-                            daysUntil: diffDays
-                        });
-                    }
-                }
-            });
-        });
-
-        return resultingAlerts.sort((a, b) => {
-            if (a.type === 'overdue' && b.type !== 'overdue') return -1;
-            if (a.type !== 'overdue' && b.type === 'overdue') return 1;
-            return new Date(a.dueDate) - new Date(b.dueDate);
-        });
-    }, [loans, clients]);
-
     const importData = async (clientsData, loansData) => {
         try {
             const res = await fetch(`${API_URL}/import`, {
@@ -267,11 +243,31 @@ export const LoanProvider = ({ children }) => {
                 headers: getHeaders(),
                 body: JSON.stringify({ clients: clientsData, loans: loansData })
             });
-            if (res.ok) await fetchData();
+            if (res.ok) invalidateData();
         } catch (error) {
             console.error('Error importing data:', error);
         }
     };
+
+    // --- Selection / Computed Data ---
+
+    const getClientLoans = (clientId) => {
+        // Fallback: try to find in loaded loans (page 1)
+        // ideally should fetch specific client loans from API if not found
+        // But for "Client Detail" page, we should fetch from API in that component.
+        // This helper might be deprecated or needs to be smart.
+        return loans.filter(loan => loan.clientId === clientId);
+    };
+
+    const getLoanSchedule = (loan) => {
+        return loan.payments || [];
+    };
+
+    // dashboardStats is now an object fetched from API
+    // alerts is now an array fetched from API
+
+    // Helper to get projections (now fetched from backend)
+    const getCollectionProjections = () => projections;
 
     return (
         <LoanContext.Provider value={{

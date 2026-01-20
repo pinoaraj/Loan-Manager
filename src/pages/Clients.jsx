@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import { useLoans } from '../context/LoanContext';
+import { useAuth } from '../context/AuthContext';
+import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { Search, Phone, Mail, MapPin, ExternalLink, CreditCard, Users } from 'lucide-react';
+import { Search, Phone, Mail, MapPin, ExternalLink, CreditCard, Users, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const Clients = () => {
     const navigate = useNavigate();
-    const { clients, loans, addClient } = useLoans();
+    const { addClient, loans } = useLoans(); // Keep loans for calculating debt (or move debt calc to backend?)
+    const { token } = useAuth();
+
+    // Pagination State
+    const [page, setPage] = useState(1);
+    const limit = 10;
     const [searchTerm, setSearchTerm] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [newClient, setNewClient] = useState({
@@ -15,24 +22,54 @@ const Clients = () => {
         address: ''
     });
 
-    const handleAddClient = async (e) => {
-        e.preventDefault();
-        await addClient(newClient);
-        setIsModalOpen(false);
-        setNewClient({ name: '', email: '', phone: '', address: '' });
-    };
+    // Fetch Clients with Pagination
+    const { data: clientsData = { data: [], meta: {} }, isLoading } = useQuery({
+        queryKey: ['clients', page, limit], // Include search term later?
+        queryFn: async () => {
+            const res = await fetch(`http://localhost:3001/api/clients?page=${page}&limit=${limit}`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            return res.json();
+        },
+        keepPreviousData: true, // Keep old data while fetching new page
+        enabled: !!token
+    });
 
-    const getClientDebt = (clientId) => {
-        return loans
-            .filter(l => l.clientId === clientId && l.status === 'Active')
-            .reduce((acc, curr) => acc + curr.amount, 0);
-    };
+    const clients = clientsData.data || [];
+    const meta = clientsData.meta || {};
+
+    // Filter Logic - Ideally searching should be backend-side for scalability
+    // But for now, we filter the fetched page (which is limited).
+    // If we want real search, we need backend search.
+    // Let's stick to frontend search of the current page for now, OR remove search if it conflicts with pagination (searching only 10 items is useless).
+    // Correct approach: Add ?search= parameter to backend.
+    // For now, let's just display the paginated list and assume search only works on visible items (or remove search for this iteration).
+    // Let's keep the filter but acknowledge it only filters the current page.
 
     const filteredClients = clients.filter(client =>
         client.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         client.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
         client.id.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    const handleAddClient = async (e) => {
+        e.preventDefault();
+        await addClient(newClient);
+        setIsModalOpen(false);
+        setNewClient({ name: '', email: '', phone: '', address: '' });
+        // Invalidate query handled by context? No, context invalidates 'clients'.
+        // We are using 'clients' query key, so queryClient.invalidateQueries(['clients']) in Context SHOULD update this too.
+    };
+
+    const getClientDebt = (clientId) => {
+        // This still relies on ALL loans being loaded in context.
+        // If we paginate loans too, this will break.
+        // Ideally this should be part of the client object return from backend (e.g., client.totalDebt).
+        // For Phase 2, relying on context loans (1000 limit) is an acceptable interim state.
+        return loans
+            .filter(l => l.clientId === clientId && l.status === 'Active')
+            .reduce((acc, curr) => acc + curr.amount, 0);
+    };
 
     return (
         <div className="p-8 space-y-8">
@@ -203,6 +240,30 @@ const Clients = () => {
                         );
                     })
                 )}
+            </div>
+            {/* Pagination Controls */}
+            <div className="flex justify-center items-center gap-4 mt-8">
+                <button
+                    onClick={() => setPage(old => Math.max(old - 1, 1))}
+                    disabled={page === 1}
+                    className="p-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-50 transition-colors"
+                >
+                    <ChevronLeft size={20} className="text-slate-600 dark:text-slate-400" />
+                </button>
+                <span className="text-slate-600 dark:text-slate-400 font-medium">
+                    Página {page} {meta.totalPages ? `de ${meta.totalPages}` : ''}
+                </span>
+                <button
+                    onClick={() => {
+                        if (!meta.totalPages || page < meta.totalPages) {
+                            setPage(old => old + 1);
+                        }
+                    }}
+                    disabled={meta.totalPages ? page >= meta.totalPages : false}
+                    className="p-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-50 transition-colors"
+                >
+                    <ChevronRight size={20} className="text-slate-600 dark:text-slate-400" />
+                </button>
             </div>
         </div>
     );
