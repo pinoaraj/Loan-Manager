@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { PrismaClient } = require('@prisma/client');
-const { validateClient } = require('../utils/validation');
 const { authenticateToken } = require('../middleware/auth');
+const { validate, clientSchema } = require('../middleware/validation');
 
 const prisma = new PrismaClient();
 
@@ -40,11 +40,8 @@ router.get('/', authenticateToken, async (req, res) => {
 });
 
 // Create client
-router.post('/', authenticateToken, async (req, res) => {
+router.post('/', authenticateToken, validate(clientSchema), async (req, res) => {
     try {
-        const errors = validateClient(req.body);
-        if (errors.length > 0) return res.status(400).json({ error: errors.join(', ') });
-
         const client = await prisma.client.create({
             data: req.body
         });
@@ -55,15 +52,12 @@ router.post('/', authenticateToken, async (req, res) => {
 });
 
 // Update client
-router.put('/:id', authenticateToken, async (req, res) => {
+router.put('/:id', authenticateToken, validate(clientSchema), async (req, res) => {
     try {
-        const { name, email, phone, address } = req.body;
-        const errors = validateClient({ name, email, phone, address });
-        if (errors.length > 0) return res.status(400).json({ error: errors.join(', ') });
-
+        const { id } = req.params;
         const client = await prisma.client.update({
-            where: { id: req.params.id },
-            data: { name, email, phone, address }
+            where: { id },
+            data: req.body
         });
         res.json(client);
     } catch (error) {

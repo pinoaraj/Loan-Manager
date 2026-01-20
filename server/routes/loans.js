@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { PrismaClient } = require('@prisma/client');
-const { validateLoan } = require('../utils/validation');
+const { validate, loanSchema } = require('../middleware/validation');
 const { calculateAmortization } = require('../utils/amortization');
 const { checkAndApplyLateFees } = require('../utils/fees');
 const { authenticateToken } = require('../middleware/auth');
@@ -88,11 +88,8 @@ router.get('/:id', authenticateToken, async (req, res) => {
 });
 
 // Create loan
-router.post('/', authenticateToken, async (req, res) => {
+router.post('/', authenticateToken, validate(loanSchema), async (req, res) => {
     try {
-        const errors = validateLoan(req.body);
-        if (errors.length > 0) return res.status(400).json({ error: errors.join(', ') });
-
         const { clientId, amount, interestRate, durationMonths, startDate, loanType, frequency, graceDays, lateFeeType, lateFeeValue } = req.body;
 
         const schedule = calculateAmortization(
