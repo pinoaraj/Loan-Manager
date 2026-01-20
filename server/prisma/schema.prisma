@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String
+  role      String   @default("admin")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Client {
+  id        String   @id @default(cuid())
+  name      String
+  email     String?
+  phone     String?
+  address   String?
+  loans     Loan[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Loan {
+  id             String    @id @default(cuid())
+  client         Client    @relation(fields: [clientId], references: [id])
+  clientId       String
+  amount         Float
+  interestRate   Float
+  durationMonths Int
+  startDate      DateTime
+  status         String    @default("Active") // Active, Paid, Overdue, Closed
+  loanType       String    @default("Fixed")
+  frequency      String    @default("monthly") // weekly, bi-weekly, monthly
+  
+  // Robustness Additions
+  graceDays      Int       @default(3)
+  lateFeeType    String    @default("Percent") // Fixed, Percent
+  lateFeeValue   Float     @default(0.05)    // 5% default late fee
+  
+  payments       Payment[]
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model Payment {
+  id           String        @id @default(cuid())
+  loan         Loan          @relation(fields: [loanId], references: [id])
+  loanId       String
+  dueDate      DateTime
+  amount       Float         // Expected amount
+  paidAmount   Float         @default(0) // Actual paid so far
+  principal    Float
+  interest     Float
+  lateFee      Float         @default(0)
+  status       String        @default("Pending") // Pending, Paid, Overdue
+  transactions Transaction[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Transaction {
+  id        String   @id @default(cuid())
+  payment   Payment  @relation(fields: [paymentId], references: [id])
+  paymentId String
+  amount    Float
+  date      DateTime @default(now())
+  method    String   @default("Cash") // Cash, Transfer, Card
+  note      String?
+  createdAt DateTime @default(now())
+}

@@ -1,0 +1,68 @@
+Starting Loan Manager... 
+Current Directory: C:\Users\JP\.gemini\antigravity\scratch\loan-manager 
+Starting Electron... 
+
+REQUIRED ELECTRON: {
+  nativeImage: [Getter],
+  shell: [Getter],
+  app: [Getter],
+  autoUpdater: [Getter],
+  BaseWindow: [Getter],
+  BrowserView: [Getter],
+  BrowserWindow: [Getter],
+  clipboard: [Getter],
+  contentTracing: [Getter],
+  crashReporter: [Getter],
+  desktopCapturer: [Getter],
+  dialog: [Getter],
+  globalShortcut: [Getter],
+  ipcMain: [Getter],
+  ImageView: [Getter],
+  inAppPurchase: [Getter],
+  Menu: [Getter],
+  MenuItem: [Getter],
+  MessageChannelMain: [Getter],
+  nativeTheme: [Getter],
+  net: [Getter],
+  netLog: [Getter],
+  Notification: [Getter],
+  powerMonitor: [Getter],
+  powerSaveBlocker: [Getter],
+  pushNotifications: [Getter],
+  protocol: [Getter],
+  safeStorage: [Getter],
+  screen: [Getter],
+  session: [Getter],
+  ShareMenu: [Getter],
+  systemPreferences: [Getter],
+  TouchBar: [Getter],
+  Tray: [Getter],
+  utilityProcess: [Getter],
+  View: [Getter],
+  webContents: [Getter],
+  WebContentsView: [Getter],
+  webFrameMain: [Getter]
+}
+--- MAIN PROCESS STARTED ---
+App Ready
+Starting startServer function...
+Server Config: Path=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server\index.js, CWD=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server, DB=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server\prisma\dev.db
+Server process forked successfully.
+Creating window...
+[SERVER ERR]: C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server\index.js:20
+const { calculateAmortization } = require('./utils/amortization');
+        ^
+
+SyntaxError: Identifier 'calculateAmortization' has already been declared
+    at wrapSafe (node:internal/modules/cjs/loader:1385:20)
+    at Module._compile (node:internal/modules/cjs/loader:1435:41)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1564:10)
+    at Module.load (node:internal/modules/cjs/loader:1295:32)
+    at Module._load (node:internal/modules/cjs/loader:1111:12)
+    at c._load (node:electron/js2c/node_init:2:16955)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:189:12)
+    at node:internal/main/run_main_module:28:49
+
+Node.js v20.18.0
+
+Loading index from: C:\Users\JP\.gemini\antigravity\scratch\loan-manager\dist\index.html
