@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { useLoans } from '../context/LoanContext';
-import { Search, Filter, Plus, ChevronLeft, ChevronRight, ChevronDown, ChevronUp, Calendar } from 'lucide-react';
+import { Search, ChevronLeft, ChevronRight, ChevronDown, ChevronUp, Calendar } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '../context/AuthContext';
 import ConfirmModal from '../components/ConfirmModal';
+import { useLoanHealth } from '../hooks/useLoanHealth';
 
 const Loans = () => {
     const navigate = useNavigate();
     const { updateLoanStatus } = useLoans();
     const { token } = useAuth();
+    const { getLoanHealth } = useLoanHealth();
 
     // State
     const [page, setPage] = useState(1);
@@ -116,102 +118,101 @@ const Loans = () => {
                                 </td>
                             </tr>
                         ) : (
-                            loans.map(loan => (
-                                <React.Fragment key={loan.id}>
-                                    <tr className={`cursor-pointer transition-colors ${selectedLoanId === loan.id ? 'bg-slate-50' : 'hover:bg-slate-50/50'}`} onClick={() => toggleLoan(loan.id)}>
-                                        <td className="px-6 py-4">
-                                            <div className="flex items-center gap-2">
-                                                {selectedLoanId === loan.id ? <ChevronUp size={16} className="text-slate-400" /> : <ChevronDown size={16} className="text-slate-400" />}
-                                                <div>
-                                                    <div className="font-medium text-slate-900">{getClientName(loan)}</div>
-                                                    <div className="text-xs text-slate-400 font-mono">{loan.id}</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td className="px-6 py-4 font-mono text-slate-700 font-semibold">${loan.amount.toLocaleString()}</td>
-                                        <td className="px-6 py-4 text-slate-600">{(loan.interestRate * 100).toFixed(0)}%</td>
-                                        <td className="px-6 py-4 text-slate-500 text-sm">{new Date(loan.startDate).toLocaleDateString()}</td>
-                                        <td className="px-6 py-4">
-                                            <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${loan.status === 'Active' ? 'bg-blue-100 text-blue-700' :
-                                                loan.status === 'Paid' ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'
-                                                }`}>
-                                                {loan.status === 'Active' ? 'Activo' :
-                                                    loan.status === 'Paid' ? 'Pagado' :
-                                                        loan.status === 'Overdue' ? 'Vencido' : loan.status}
-                                            </span>
-                                        </td>
-                                        <td className="px-6 py-4 text-right">
-                                            <div className="flex justify-end gap-2" onClick={(e) => e.stopPropagation()}>
-                                                {loan.status === 'Active' && (
-                                                    <button
-                                                        onClick={() => handleMarkAsPaid(loan.id)}
-                                                        className="text-emerald-600 hover:text-white font-bold text-xs uppercase tracking-widest hover:bg-emerald-500 px-3 py-1.5 rounded-lg transition-all border border-emerald-200 hover:border-emerald-500"
-                                                    >
-                                                        Pagado
-                                                    </button>
-                                                )}
-                                                <button
-                                                    onClick={() => navigate(`/loans/${loan.id}`)}
-                                                    className="text-blue-600 hover:text-blue-800 font-bold text-xs uppercase tracking-widest hover:bg-blue-50 px-3 py-1.5 rounded-lg transition-colors border border-transparent"
-                                                >
-                                                    Detalle
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    {selectedLoanId === loan.id && (
-                                        <tr>
-                                            <td colSpan="6" className="bg-slate-50 p-4 border-b border-slate-100 dark:border-slate-700 shadow-inner">
-                                                <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
-                                                    <h4 className="text-xs font-bold uppercase text-slate-500 mb-3 flex items-center gap-2">
-                                                        <Calendar size={14} /> Próximos Pagos
-                                                    </h4>
-                                                    <div className="overflow-x-auto">
-                                                        <table className="w-full text-sm text-left">
-                                                            <thead className="text-xs text-slate-500 bg-slate-50 uppercase border-b border-slate-100">
-                                                                <tr>
-                                                                    <th className="px-4 py-2">Fecha</th>
-                                                                    <th className="px-4 py-2 text-right">Monto</th>
-                                                                    <th className="px-4 py-2 text-center">Estado</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                {loan.payments && loan.payments.length > 0 ? (
-                                                                    loan.payments.slice(0, 5).map(payment => (
-                                                                        <tr key={payment.id} className="border-b border-slate-50 last:border-0 hover:bg-slate-50">
-                                                                            <td className="px-4 py-2">{new Date(payment.dueDate).toLocaleDateString()}</td>
-                                                                            <td className="px-4 py-2 text-right font-medium">${payment.amount.toLocaleString()}</td>
-                                                                            <td className="px-4 py-2 text-center">
-                                                                                <span className={`px-2 py-0.5 rounded text-[10px] uppercase font-bold ${payment.status === 'Paid' ? 'bg-emerald-100 text-emerald-700' :
-                                                                                    payment.status === 'Overdue' ? 'bg-rose-100 text-rose-700' : 'bg-slate-100 text-slate-500'
-                                                                                    }`}>
-                                                                                    {payment.status}
-                                                                                </span>
-                                                                            </td>
-                                                                        </tr>
-                                                                    ))
-                                                                ) : (
-                                                                    <tr>
-                                                                        <td colSpan="3" className="px-4 py-2 text-center text-slate-400">No hay pagos registrados.</td>
-                                                                    </tr>
-                                                                )}
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                    <div className="mt-2 text-right">
-                                                        <button
-                                                            onClick={() => navigate(`/loans/${loan.id}`)}
-                                                            className="text-xs text-blue-600 font-bold hover:underline"
-                                                        >
-                                                            Ver Cronograma Completo &rarr;
-                                                        </button>
+                            loans.map(loan => {
+                                const health = getLoanHealth(loan);
+                                return (
+                                    <React.Fragment key={loan.id}>
+                                        <tr className={`cursor-pointer transition-colors ${selectedLoanId === loan.id ? 'bg-slate-50' : 'hover:bg-slate-50/50'}`} onClick={() => toggleLoan(loan.id)}>
+                                            <td className="px-6 py-4">
+                                                <div className="flex items-center gap-2">
+                                                    {selectedLoanId === loan.id ? <ChevronUp size={16} className="text-slate-400" /> : <ChevronDown size={16} className="text-slate-400" />}
+                                                    <div>
+                                                        <div className="font-medium text-slate-900">{getClientName(loan)}</div>
+                                                        <div className="text-xs text-slate-400 font-mono">{loan.id}</div>
                                                     </div>
                                                 </div>
                                             </td>
+                                            <td className="px-6 py-4 font-mono text-slate-700 font-semibold">${loan.amount.toLocaleString()}</td>
+                                            <td className="px-6 py-4 text-slate-600">{(loan.interestRate * 100).toFixed(0)}%</td>
+                                            <td className="px-6 py-4 text-slate-500 text-sm">{new Date(loan.startDate).toLocaleDateString()}</td>
+                                            <td className="px-6 py-4">
+                                                <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-${health.color}-100 text-${health.color}-700`}>
+                                                    {health.label}
+                                                </span>
+                                            </td>
+                                            <td className="px-6 py-4 text-right">
+                                                <div className="flex justify-end gap-2" onClick={(e) => e.stopPropagation()}>
+                                                    {loan.status === 'Active' && (
+                                                        <button
+                                                            onClick={() => handleMarkAsPaid(loan.id)}
+                                                            className="text-emerald-600 hover:text-white font-bold text-xs uppercase tracking-widest hover:bg-emerald-500 px-3 py-1.5 rounded-lg transition-all border border-emerald-200 hover:border-emerald-500"
+                                                        >
+                                                            Pagado
+                                                        </button>
+                                                    )}
+                                                    <button
+                                                        onClick={() => navigate(`/loans/${loan.id}`)}
+                                                        className="text-blue-600 hover:text-blue-800 font-bold text-xs uppercase tracking-widest hover:bg-blue-50 px-3 py-1.5 rounded-lg transition-colors border border-transparent"
+                                                    >
+                                                        Detalle
+                                                    </button>
+                                                </div>
+                                            </td>
                                         </tr>
-                                    )}
-                                </React.Fragment>
-                            ))
+                                        {selectedLoanId === loan.id && (
+                                            <tr>
+                                                <td colSpan="6" className="bg-slate-50 p-4 border-b border-slate-100 dark:border-slate-700 shadow-inner">
+                                                    <div className="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
+                                                        <h4 className="text-xs font-bold uppercase text-slate-500 mb-3 flex items-center gap-2">
+                                                            <Calendar size={14} /> Próximos Pagos
+                                                        </h4>
+                                                        <div className="overflow-x-auto">
+                                                            <table className="w-full text-sm text-left">
+                                                                <thead className="text-xs text-slate-500 bg-slate-50 uppercase border-b border-slate-100">
+                                                                    <tr>
+                                                                        <th className="px-4 py-2">Fecha</th>
+                                                                        <th className="px-4 py-2 text-right">Monto</th>
+                                                                        <th className="px-4 py-2 text-center">Estado</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {loan.payments && loan.payments.length > 0 ? (
+                                                                        loan.payments.slice(0, 5).map(payment => (
+                                                                            <tr key={payment.id} className="border-b border-slate-50 last:border-0 hover:bg-slate-50">
+                                                                                <td className="px-4 py-2">{new Date(payment.dueDate).toLocaleDateString()}</td>
+                                                                                <td className="px-4 py-2 text-right font-medium">${payment.amount.toLocaleString()}</td>
+                                                                                <td className="px-4 py-2 text-center">
+                                                                                    <span className={`px-2 py-0.5 rounded text-[10px] uppercase font-bold ${payment.status === 'Paid' ? 'bg-emerald-100 text-emerald-700' :
+                                                                                        payment.status === 'Overdue' ? 'bg-rose-100 text-rose-700' : 'bg-slate-100 text-slate-500'
+                                                                                        }`}>
+                                                                                        {payment.status}
+                                                                                    </span>
+                                                                                </td>
+                                                                            </tr>
+                                                                        ))
+                                                                    ) : (
+                                                                        <tr>
+                                                                            <td colSpan="3" className="px-4 py-2 text-center text-slate-400">No hay pagos registrados.</td>
+                                                                        </tr>
+                                                                    )}
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div className="mt-2 text-right">
+                                                            <button
+                                                                onClick={() => navigate(`/loans/${loan.id}`)}
+                                                                className="text-xs text-blue-600 font-bold hover:underline"
+                                                            >
+                                                                Ver Cronograma Completo &rarr;
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        )}
+                                    </React.Fragment>
+                                )
+                            })
                         )}
                     </tbody>
                 </table>

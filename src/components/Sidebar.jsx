@@ -1,6 +1,7 @@
 import React from 'react';
 import { LayoutDashboard, Users, Calculator, CreditCard, FileSpreadsheet, Moon, Sun, Download, ClipboardList, LogOut } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
+import { toast } from 'sonner';
 import { useTheme } from '../context/ThemeContext';
 import { useLoans } from '../context/LoanContext';
 import { useAuth } from '../context/AuthContext';
@@ -76,10 +77,38 @@ const Footer = () => {
 
             <button
                 onClick={() => exportData(clients, loans)}
+                className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-slate-800 text-slate-300 rounded-xl hover:bg-slate-700 hover:text-white transition-all text-xs font-bold uppercase tracking-wider border border-slate-700 hover:border-slate-600 mb-2"
+            >
+                <Download size={14} />
+                Exportar Excel
+            </button>
+            <button
+                onClick={async () => {
+                    try {
+                        const token = localStorage.getItem('token');
+                        const res = await fetch('http://localhost:3001/api/backup', {
+                            headers: { 'Authorization': `Bearer ${token}` }
+                        });
+                        if (!res.ok) throw new Error('Error downloading backup');
+
+                        const blob = await res.blob();
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `backup-${new Date().toISOString().split('T')[0]}.db`;
+                        document.body.appendChild(a);
+                        a.click();
+                        a.remove();
+                        toast.success('Respaldo descargado correctamente');
+                    } catch (e) {
+                        console.error(e);
+                        toast.error('Error al descargar respaldo');
+                    }
+                }}
                 className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-slate-800 text-slate-300 rounded-xl hover:bg-slate-700 hover:text-white transition-all text-xs font-bold uppercase tracking-wider border border-slate-700 hover:border-slate-600"
             >
                 <Download size={14} />
-                Exportar Datos
+                Backup DB
             </button>
             <div className="flex items-center justify-between text-slate-400 text-sm">
                 <button

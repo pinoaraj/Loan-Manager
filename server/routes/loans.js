@@ -43,7 +43,9 @@ router.get('/', authenticateToken, async (req, res) => {
                 take: limit,
                 include: {
                     client: true,
-                    payments: true
+                    payments: {
+                        include: { transactions: true }
+                    }
                 },
                 orderBy: { startDate: 'desc' }
             })
@@ -187,6 +189,22 @@ router.patch('/:id', authenticateToken, async (req, res) => {
             where: { id: req.params.id },
             data: { status }
         });
+        res.json(loan);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Pause/Unpause loan
+router.patch('/:id/pause', authenticateToken, async (req, res) => {
+    try {
+        const { isPaused } = req.body; // true to pause, false to unpause
+
+        const loan = await prisma.loan.update({
+            where: { id: req.params.id },
+            data: { isPaused }
+        });
+
         res.json(loan);
     } catch (error) {
         res.status(500).json({ error: error.message });

@@ -21,6 +21,7 @@ const clientRoutes = require('./routes/clients');
 const loanRoutes = require('./routes/loans');
 const paymentRoutes = require('./routes/payments');
 const dashboardRoutes = require('./routes/dashboard'); // Import dashboard routes
+const backupRoutes = require('./routes/backup');
 const { authenticateToken } = require('./middleware/auth');
 
 app.use('/api/auth', authRoutes);
@@ -28,6 +29,7 @@ app.use('/api/clients', clientRoutes);
 app.use('/api/loans', loanRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/dashboard', dashboardRoutes); // Mount dashboard routes
+app.use('/api/backup', backupRoutes);
 
 app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date() });

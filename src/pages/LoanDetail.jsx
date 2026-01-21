@@ -7,7 +7,9 @@ import {
     User,
     AlertCircle,
     FileText,
-    RefreshCw
+    RefreshCw,
+    PauseCircle,
+    PlayCircle
 } from 'lucide-react';
 import { format, parseISO } from 'date-fns';
 import { generateLoanContract } from '../utils/pdfGenerator';
@@ -15,15 +17,19 @@ import { generateWordContract } from '../utils/wordGenerator';
 import PagareModal from '../components/PagareModal';
 import PaymentModal from '../components/PaymentModal';
 import PaymentScheduleTable from '../components/PaymentScheduleTable';
+import { useLoanHealth } from '../hooks/useLoanHealth';
+
+import { toast } from 'sonner';
 
 const LoanDetail = () => {
     const { id: loanId } = useParams();
     const navigate = useNavigate();
-    const { loans, clients, updatePaymentStatus, recalculateLoan, registerPayment } = useLoans();
+    const { loans, clients, updatePaymentStatus, recalculateLoan, registerPayment, togglePause } = useLoans();
+    const { getLoanHealth } = useLoanHealth();
+
     const [isPagareModalOpen, setIsPagareModalOpen] = useState(false);
     const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
     const [selectedPayment, setSelectedPayment] = useState(null);
-    const [expandedPaymentId, setExpandedPaymentId] = useState(null);
 
     const loan = useMemo(() => loans.find(l => l.id === loanId), [loans, loanId]);
     const client = useMemo(() => clients.find(c => c.id === loan?.clientId), [clients, loan]);
@@ -38,16 +44,13 @@ const LoanDetail = () => {
         );
     }
 
+    const health = getLoanHealth(loan);
+
     const paidPayments = loan.payments.filter(p => p.status === 'Paid');
     const pendingPayments = loan.payments.filter(p => p.status === 'Pending');
     const totalPaid = paidPayments.reduce((acc, curr) => acc + curr.amount, 0);
     const totalRemaining = pendingPayments.reduce((acc, curr) => acc + curr.amount, 0);
     const progress = (paidPayments.length / loan.payments.length) * 100;
-
-    const handlePaymentToggle = async (paymentId, currentStatus) => {
-        const newStatus = currentStatus === 'Paid' ? 'Pending' : 'Paid';
-        await updatePaymentStatus(paymentId, newStatus);
-    };
 
     const handlePaymentClick = (payment) => {
         setSelectedPayment(payment);
@@ -57,32 +60,28 @@ const LoanDetail = () => {
     const handleRegisterPayment = async (paymentId, data) => {
         const result = await registerPayment(paymentId, data);
         if (result.success) {
-            // Success logic if needed
+            toast.success('Pago registrado correctamente');
         } else {
-            alert(result.error);
+            toast.error(result.error);
         }
-    };
-
-    const sendWhatsAppReminder = (payment) => {
-        if (!client?.phone) {
-            alert('El cliente no tiene un número de teléfono registrado.');
-            return;
-        }
-
-        const dueDate = format(parseISO(payment.dueDate), 'dd/MM/yyyy');
-        const message = `Hola ${client.name}, le recordamos que su pago de $${payment.amount.toLocaleString()} del préstamo #${loan.id.slice(-6)} vence el ${dueDate}.`;
-        const encodedMessage = encodeURIComponent(message);
-        const cleanPhone = client.phone.replace(/\D/g, '');
-
-        window.open(`https://wa.me/${cleanPhone}?text=${encodedMessage}`, '_blank');
     };
 
     const handleRecalculate = async () => {
         if (confirm('¿Estás seguro? Esto eliminará todos los pagos existentes y regenerará el calendario basándose en los datos del préstamo. Esta acción no se puede deshacer.')) {
             const success = await recalculateLoan(loan.id);
             if (success) {
-                alert('Calendario recalculado exitosamente.');
+                toast.success('Calendario recalculado exitosamente.');
+            } else {
+                toast.error('Error al recalcular el calendario.');
             }
+        }
+    };
+
+    const handleTogglePause = async () => {
+        const action = loan.isPaused ? 'reanudar' : 'pausar';
+        if (confirm(`¿Estás seguro de que quieres ${action} este préstamo?`)) {
+            await togglePause(loan.id, !loan.isPaused);
+            toast.success(`Préstamo ${loan.isPaused ? 'reanudado' : 'pausado'} correctamente`);
         }
     };
 
@@ -100,6 +99,10 @@ const LoanDetail = () => {
                     <div>
                         <h2 className="text-3xl font-bold text-slate-800 dark:text-white flex items-center gap-3">
                             Préstamo <span className="text-slate-400 font-mono text-xl">#{loan.id.slice(-6)}</span>
+                            {/* Health Badge */}
+                            <span className={`px-3 py-1 rounded-full text-sm font-bold uppercase tracking-wider bg-${health.color}-100 text-${health.color}-700`}>
+                                {health.label}
+                            </span>
                         </h2>
                         <div className="flex items-center gap-2 mt-2 text-slate-500">
                             <User size={16} />
@@ -111,6 +114,18 @@ const LoanDetail = () => {
                     </div>
                 </div>
                 <div className="flex items-center gap-3">
+                    <button
+                        onClick={handleTogglePause}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-xl font-bold transition-all text-sm border ${loan.isPaused
+                            ? 'bg-emerald-50 text-emerald-600 border-emerald-200 hover:bg-emerald-100'
+                            : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
+                            }`}
+                        title={loan.isPaused ? "Reanudar préstamo" : "Pausar préstamo"}
+                    >
+                        {loan.isPaused ? <PlayCircle size={16} /> : <PauseCircle size={16} />}
+                        {loan.isPaused ? 'Reanudar' : 'Pausar'}
+                    </button>
+
                     <button
                         onClick={handleRecalculate}
                         className="flex items-center gap-2 px-4 py-2 bg-slate-100 text-slate-600 rounded-xl font-bold hover:bg-slate-200 transition-all text-sm"
@@ -145,11 +160,6 @@ const LoanDetail = () => {
                         <FileText size={16} />
                         Pagaré
                     </button>
-                    <span className={`px-4 py-2 rounded-2xl text-sm font-bold uppercase tracking-wider ${loan.status === 'Active' ? 'bg-blue-100 text-blue-700' :
-                        loan.status === 'Paid' ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'
-                        }`}>
-                        {loan.status}
-                    </span>
                 </div>
             </header>
 
@@ -204,26 +214,21 @@ const LoanDetail = () => {
                                 <span className="text-slate-400">Total Cuotas</span>
                                 <span className="font-bold">{loan.payments.length}</span>
                             </div>
+                            <div className="flex justify-between items-center text-sm border-b border-slate-800 pb-4">
+                                <span className="text-slate-400">Estado de Salud</span>
+                                <span className={`font-bold text-${health.color}-400`}>{health.label}</span>
+                            </div>
                         </div>
                     </div>
 
-                    <div className="bg-blue-50 p-6 rounded-3xl border border-blue-100">
-                        <h4 className="text-blue-700 font-bold uppercase text-xs tracking-widest mb-4 flex items-center gap-2">
+                    <div className={`p-6 rounded-3xl border border-${health.color}-100 bg-${health.color}-50`}>
+                        <h4 className={`text-${health.color}-700 font-bold uppercase text-xs tracking-widest mb-4 flex items-center gap-2`}>
                             <AlertCircle size={16} />
-                            Próximo Pago
+                            Estado del Préstamo
                         </h4>
-                        {pendingPayments.length > 0 ? (
-                            <div>
-                                <p className="text-2xl font-bold text-blue-900">
-                                    ${pendingPayments[0].amount.toLocaleString()}
-                                </p>
-                                <p className="text-sm text-blue-600 mt-1">
-                                    Vence el {format(parseISO(pendingPayments[0].dueDate), 'dd MMM yyyy')}
-                                </p>
-                            </div>
-                        ) : (
-                            <p className="text-blue-700 font-medium">¡Préstamo pagado en su totalidad!</p>
-                        )}
+                        <p className={`text-${health.color}-800 font-medium`}>
+                            {health.description}
+                        </p>
                     </div>
                 </div>
 

@@ -14,22 +14,26 @@ router.get('/stats', authenticateToken, async (req, res) => {
             totalPaidLoans,
             totalOverdueLoans,
             totalLent,
-            totalClients
+            totalClients,
+            monthlyCollectionAgg
         ] = await Promise.all([
             prisma.loan.count({ where: { status: 'Active' } }),
             prisma.loan.count({ where: { status: 'Paid' } }),
             prisma.loan.count({ where: { status: 'Overdue' } }),
             prisma.loan.aggregate({
                 _sum: { amount: true },
-                where: { status: 'Active' } // or all? Usually "Total Lent" implies active portfolio or historical total? 
-                // Context code was "loans.reduce...". If loans is all loans, it's historical. 
-                // If it's active loans, it's active portfolio. 
-                // Let's assume Active Portfolio for now as it's more useful.
-                // Wait, original code: totalLent = loans.reduce((acc, curr) => acc + curr.amount, 0); 
-                // It summed ALL fetched loans. Loans fetched were ALL loans.
-                // So it was Total Historical Lent (or total value of loans in DB).
+                where: { status: 'Active' }
             }),
-            prisma.client.count()
+            prisma.client.count(),
+            prisma.transaction.aggregate({
+                _sum: { amount: true },
+                where: {
+                    date: {
+                        gte: startOfDay(new Date(new Date().getFullYear(), new Date().getMonth(), 1)),
+                        lte: endOfDay(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0))
+                    }
+                }
+            })
         ]);
 
         const statusData = [
@@ -38,11 +42,38 @@ router.get('/stats', authenticateToken, async (req, res) => {
             { name: 'Vencidos', value: totalOverdueLoans, color: '#ef4444' },
         ].filter(d => d.value > 0);
 
+        // [5] monthlyCollection aggregate
+
+        // We can't access "arguments" here in arrow function easily like that or it's messy.
+        // Better to destructure all of them.
+
+        // Let's re-write the destructuring properly:
+        /*
+        const [
+            totalActiveLoans,
+            totalPaidLoans,
+            totalOverdueLoans,
+            totalLent,
+            totalClients,
+            monthlyCollectionAgg
+        ] = await Promise.all([...])
+        */
+
+        // THIS REPLACE BLOCK CONTAINS THE FIX:
+
+        // Calculate health score (Active / (Active + Overdue))
+        const activeCount = totalActiveLoans;
+        const overdueCount = totalOverdueLoans;
+        const totalCount = activeCount + overdueCount;
+        const healthScore = totalCount > 0 ? Math.round((activeCount / totalCount) * 100) : 100;
+
         res.json({
             totalActiveLoans,
             totalLent: totalLent._sum.amount || 0,
             statusData,
-            totalClients
+            totalClients,
+            monthlyCollection: monthlyCollectionAgg._sum.amount || 0,
+            healthScore // Adding healthScore to API response as well
         });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -120,23 +151,17 @@ router.get('/projections', authenticateToken, async (req, res) => {
             orderBy: { dueDate: 'asc' }
         });
 
-        // Group by Month-Year on JS side
+        // Group by Month-Year
         const projections = {};
         payments.forEach(p => {
-            // date-fns format 'MMM yy' matches frontend
-            // We'll return the raw list or pre-grouped?
-            // Frontend expects: [{ month: 'Feb 26', amount: 1000 }, ...]
-            // Let's do grouping here.
             const date = new Date(p.dueDate);
-            const monthKey = `${date.toLocaleString('default', { month: 'short' })} ${date.getFullYear().toString().substr(-2)}`; // approx pattern
-            // Actually, let's stick to consistent locale or library if possible.
-            // Or just return the list and let frontend group it?
-            // "Scalability": returning list of payments is fine if < 1000.
-            // But aggregation is better.
-
-            // Simplest JS grouping:
             const key = date.toISOString().slice(0, 7); // YYYY-MM
-            projections[key] = (projections[key] || 0) + p.amount;
+
+            // Calculate remaining amount to be collected
+            const remaining = p.amount - p.paidAmount;
+            if (remaining > 0) {
+                projections[key] = (projections[key] || 0) + remaining;
+            }
         });
 
         // Convert to array and format label
@@ -149,6 +174,42 @@ router.get('/projections', authenticateToken, async (req, res) => {
 
         res.json(result);
 
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// GET /api/dashboard/recent
+router.get('/recent', authenticateToken, async (req, res) => {
+    try {
+        const transactions = await prisma.transaction.findMany({
+            take: 5,
+            orderBy: { date: 'desc' },
+            include: {
+                payment: {
+                    include: {
+                        loan: {
+                            include: {
+                                client: {
+                                    select: { name: true }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const recent = transactions.map(t => ({
+            id: t.id,
+            loanId: t.payment.loanId, // Expose loanId for navigation
+            clientName: t.payment.loan.client.name,
+            amount: t.amount,
+            date: t.date,
+            method: t.method
+        }));
+
+        res.json(recent);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

@@ -54,6 +54,18 @@ export const LoanProvider = ({ children }) => {
         enabled: !!token
     });
 
+    // Recent Activity Query
+    const { data: recentActivity = [] } = useQuery({
+        queryKey: ['recentActivity'],
+        queryFn: async () => {
+            if (!token) return [];
+            const res = await fetch(`${API_URL}/dashboard/recent`, { headers: getHeaders() });
+            return res.json();
+        },
+        enabled: !!token
+    });
+
+
     // Removed global fetching of ALL clients/loans to allow pagination in pages
     // kept empty arrays or removed logic requiring them globally?
     // Dashboard.jsx uses clients.length (now in dashboardStats.totalClients)
@@ -249,6 +261,21 @@ export const LoanProvider = ({ children }) => {
         }
     };
 
+    const togglePause = async (loanId, isPaused) => {
+        try {
+            const res = await fetch(`${API_URL}/loans/${loanId}/pause`, {
+                method: 'PATCH',
+                headers: getHeaders(),
+                body: JSON.stringify({ isPaused })
+            });
+            if (res.ok) invalidateData();
+            return res.ok;
+        } catch (error) {
+            console.error('Error toggling pause:', error);
+            return false;
+        }
+    };
+
     // --- Selection / Computed Data ---
 
     const getClientLoans = (clientId) => {
@@ -273,11 +300,11 @@ export const LoanProvider = ({ children }) => {
         <LoanContext.Provider value={{
             clients, loans, loading,
             getClientLoans, getLoanSchedule,
-            dashboardStats, alerts,
+            dashboardStats, alerts, recentActivity,
             addLoan, getCollectionProjections,
             updateLoanStatus, updatePaymentStatus,
             importData, addClient, recalculateLoan,
-            updateClient, deleteClient, registerPayment
+            updateClient, deleteClient, registerPayment, togglePause
         }}>
             {children}
         </LoanContext.Provider>
