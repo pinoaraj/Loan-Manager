@@ -23,9 +23,15 @@ const ProtectedRoute = ({ children }) => {
 
 const Layout = ({ children }) => {
   return (
-    <div className="flex min-h-screen bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
-      <Sidebar />
-      <main className="flex-1 ml-20 md:ml-64 p-8 overflow-y-auto">
+    <div className="flex min-h-screen bg-[var(--bg-app)] text-[var(--text-main)] transition-colors duration-300">
+      <div className="fixed left-4 top-4 bottom-4 z-50 hidden md:block">
+        <Sidebar />
+      </div>
+      <div className="fixed bottom-4 left-4 right-4 z-50 md:hidden">
+        {/* Mobile Navigation would go here, or adapted Sidebar */}
+        <Sidebar isMobile />
+      </div>
+      <main className="flex-1 md:ml-[300px] p-4 md:p-8 overflow-y-auto">
         {children}
       </main>
     </div>

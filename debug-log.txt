@@ -195,3 +195,89 @@ Node.js v20.18.0
 [2026-01-20T16:00:38.479Z] Loading index from: C:\Users\JP\.gemini\antigravity\scratch\loan-manager\dist\index.html
 [2026-01-20T16:00:42.128Z] [SERVER OUT]: Server running on http://localhost:3001
 
+[2026-01-21T20:20:35.326Z] --- MAIN PROCESS STARTED ---
+[2026-01-21T20:20:35.563Z] App Ready
+[2026-01-21T20:20:35.564Z] Starting startServer function...
+[2026-01-21T20:20:35.564Z] Server Config: Path=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server\index.js, CWD=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server, DB=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server\prisma\dev.db
+[2026-01-21T20:20:35.579Z] Server process forked successfully.
+[2026-01-21T20:20:35.579Z] Creating window...
+[2026-01-21T20:20:36.748Z] Loading index from: C:\Users\JP\.gemini\antigravity\scratch\loan-manager\dist\index.html
+[2026-01-21T20:20:39.680Z] [SERVER OUT]: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] }
+
+[2026-01-21T20:20:56.824Z] --- MAIN PROCESS STARTED ---
+[2026-01-21T20:20:56.868Z] App Ready
+[2026-01-21T20:20:56.869Z] Starting startServer function...
+[2026-01-21T20:20:56.869Z] Server Config: Path=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server\index.js, CWD=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server, DB=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server\prisma\dev.db
+[2026-01-21T20:20:56.884Z] Server process forked successfully.
+[2026-01-21T20:20:56.884Z] Creating window...
+[2026-01-21T20:20:57.338Z] [SERVER OUT]: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  enable debug logging with { debug: true }
+
+[2026-01-21T20:20:57.931Z] Loading index from: C:\Users\JP\.gemini\antigravity\scratch\loan-manager\dist\index.html
+[2026-01-21T20:21:00.783Z] [SERVER OUT]: Server running on http://localhost:3001
+
+[2026-01-21T20:22:38.636Z] --- MAIN PROCESS STARTED ---
+[2026-01-21T20:22:38.685Z] App Ready
+[2026-01-21T20:22:38.686Z] Starting startServer function...
+[2026-01-21T20:22:38.686Z] Server Config: Path=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server\index.js, CWD=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server, DB=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server\prisma\dev.db
+[2026-01-21T20:22:38.701Z] Server process forked successfully.
+[2026-01-21T20:22:38.701Z] Creating window...
+[2026-01-21T20:22:39.158Z] [SERVER OUT]: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  enable debug logging with { debug: true }
+
+[2026-01-21T20:22:39.504Z] [SERVER OUT]: Server running on http://localhost:3001
+
+[2026-01-21T20:22:39.749Z] Loading index from: C:\Users\JP\.gemini\antigravity\scratch\loan-manager\dist\index.html
+[2026-01-21T20:25:22.904Z] --- MAIN PROCESS STARTED ---
+[2026-01-21T20:25:22.949Z] App Ready
+[2026-01-21T20:25:22.949Z] Starting startServer function...
+[2026-01-21T20:25:22.950Z] Server Config: Path=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server\index.js, CWD=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server, DB=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server\prisma\dev.db
+[2026-01-21T20:25:22.964Z] Server process forked successfully.
+[2026-01-21T20:25:22.965Z] Creating window...
+[2026-01-21T20:25:23.442Z] [SERVER OUT]: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔄 add secrets lifecycle management: https://dotenvx.com/ops
+
+[2026-01-21T20:25:23.794Z] [SERVER OUT]: Server running on http://localhost:3001
+
+[2026-01-21T20:25:24.032Z] Loading index from: C:\Users\JP\.gemini\antigravity\scratch\loan-manager\dist\index.html
+[2026-01-21T20:25:51.531Z] --- MAIN PROCESS STARTED ---
+[2026-01-21T20:25:51.572Z] App Ready
+[2026-01-21T20:25:51.573Z] Starting startServer function...
+[2026-01-21T20:25:51.574Z] Server Config: Path=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server\index.js, CWD=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server, DB=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server\prisma\dev.db
+[2026-01-21T20:25:51.588Z] Server process forked successfully.
+[2026-01-21T20:25:51.589Z] Creating window...
+[2026-01-21T20:25:52.011Z] [SERVER OUT]: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🗂️ backup and recover secrets: https://dotenvx.com/ops
+
+[2026-01-21T20:25:52.329Z] [SERVER OUT]: Server running on http://localhost:3001
+
+[2026-01-21T20:25:52.636Z] Loading index from: C:\Users\JP\.gemini\antigravity\scratch\loan-manager\dist\index.html
+[2026-01-21T20:26:38.407Z] --- MAIN PROCESS STARTED ---
+[2026-01-21T20:26:38.449Z] App Ready
+[2026-01-21T20:26:38.450Z] Starting startServer function...
+[2026-01-21T20:26:38.450Z] Server Config: Path=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server\index.js, CWD=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server, DB=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server\prisma\dev.db
+[2026-01-21T20:26:38.464Z] Server process forked successfully.
+[2026-01-21T20:26:38.465Z] Creating window...
+[2026-01-21T20:26:38.897Z] [SERVER OUT]: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔑 add access controls to secrets: https://dotenvx.com/ops
+
+[2026-01-21T20:26:39.202Z] [SERVER OUT]: Server running on http://localhost:3001
+
+[2026-01-21T20:26:39.546Z] Loading index from: C:\Users\JP\.gemini\antigravity\scratch\loan-manager\dist\index.html
+[2026-01-21T20:35:31.294Z] --- MAIN PROCESS STARTED ---
+[2026-01-21T20:35:31.338Z] App Ready
+[2026-01-21T20:35:31.339Z] Starting startServer function...
+[2026-01-21T20:35:31.339Z] Server Config: Path=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server\index.js, CWD=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server, DB=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server\prisma\dev.db
+[2026-01-21T20:35:31.353Z] Server process forked successfully.
+[2026-01-21T20:35:31.354Z] Creating window...
+[2026-01-21T20:35:31.737Z] [SERVER OUT]: [dotenv@17.2.3] injecting env (0) from .env -- tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild
+
+[2026-01-21T20:35:32.003Z] [SERVER OUT]: Server running on http://localhost:3001
+
+[2026-01-21T20:35:32.397Z] Loading index from: C:\Users\JP\.gemini\antigravity\scratch\loan-manager\dist\index.html
+[2026-01-22T18:36:39.505Z] --- MAIN PROCESS STARTED ---
+[2026-01-22T18:36:39.603Z] App Ready
+[2026-01-22T18:36:39.604Z] Starting startServer function...
+[2026-01-22T18:36:39.604Z] Server Config: Path=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server\index.js, CWD=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server, DB=C:\Users\JP\.gemini\antigravity\scratch\loan-manager\server\prisma\dev.db
+[2026-01-22T18:36:39.619Z] Server process forked successfully.
+[2026-01-22T18:36:39.619Z] Creating window...
+[2026-01-22T18:36:40.687Z] Loading index from: C:\Users\JP\.gemini\antigravity\scratch\loan-manager\dist\index.html
+[2026-01-22T18:36:44.358Z] [SERVER OUT]: [dotenv@17.2.3] injecting env (0) from .env -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+
+[2026-01-22T18:36:54.101Z] [SERVER OUT]: Server running on http://localhost:3001
+

@@ -1,8 +1,9 @@
 import React from 'react';
 import { useLoans } from '../context/LoanContext';
 import { useNavigate } from 'react-router-dom';
-import { AlertCircle, MessageCircle } from 'lucide-react';
+import { AlertCircle, MessageCircle, Calendar } from 'lucide-react';
 import { generateWhatsAppLink, getReminderMessage } from '../utils/communication';
+import { generateGoogleCalendarLink, getPaymentEventDetails } from '../utils/calendar';
 import DashboardKPI from '../components/dashboard/DashboardKPI';
 import RevenueChart from '../components/dashboard/RevenueChart';
 import PortfolioChart from '../components/dashboard/PortfolioChart';
@@ -65,9 +66,9 @@ const Dashboard = () => {
                 <div className="flex gap-2">
                     <button
                         onClick={() => navigate('/loans/new')}
-                        className="px-3 py-1.5 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition-all shadow-md hover:shadow-lg text-xs"
+                        className="glass-button px-5 py-2.5 rounded-pill font-bold shadow-lg text-xs tracking-wide flex items-center gap-2"
                     >
-                        + Nuevo Préstamo
+                        + NUEVO PRÉSTAMO
                     </button>
                 </div>
             </header>
@@ -95,17 +96,17 @@ const Dashboard = () => {
                 </div>
 
                 {/* Alerts (2/3 width) */}
-                <div className="xl:col-span-2 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 p-3 h-full overflow-hidden flex flex-col">
-                    <div className="flex justify-between items-center mb-3 shrink-0">
-                        <h3 className="text-base font-bold text-slate-800 dark:text-white flex items-center gap-2">
-                            <AlertCircle className="text-amber-500" size={18} />
+                <div className="xl:col-span-2 glass-panel rounded-3xl p-5 h-full overflow-hidden flex flex-col">
+                    <div className="flex justify-between items-center mb-4 shrink-0">
+                        <h3 className="text-sm font-bold text-slate-700 dark:text-white flex items-center gap-2 uppercase tracking-wider">
+                            <AlertCircle className="text-[var(--color-accent-500)]" size={18} />
                             Alertas de Pago
                         </h3>
                         <button
                             onClick={() => navigate('/collections')}
-                            className="text-xs text-blue-500 font-medium hover:text-blue-600 hover:underline"
+                            className="text-xs text-teal-600 font-bold hover:text-teal-700 hover:underline"
                         >
-                            Ver Todo
+                            VER TODO
                         </button>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 overflow-y-auto pr-1">
@@ -117,6 +118,19 @@ const Dashboard = () => {
                                 const client = clients.find(c => c.name === alert.clientName);
                                 const phone = client?.phone || '';
                                 const reminderMsg = getReminderMessage(alert.clientName, alert.amount, alert.dueDate, alert.type);
+
+                                // Generate Calendar Link
+                                // Note: Alert object structure in this app is simplified. We'll use generic values if detailed payment index isn't available.
+                                const paymentDetails = getPaymentEventDetails(
+                                    alert.clientName,
+                                    alert.amount,
+                                    alert.paymentNumber || 'Pendiente',
+                                    alert.totalPayments || 'Total'
+                                );
+                                const calendarLink = generateGoogleCalendarLink({
+                                    ...paymentDetails,
+                                    date: alert.dueDate
+                                });
 
                                 return (
                                     <div
@@ -146,17 +160,28 @@ const Dashboard = () => {
                                                 }
                                             </p>
                                         </div>
-                                        {phone && (
+                                        <div className="flex gap-1 shrink-0">
                                             <a
-                                                href={generateWhatsAppLink(phone, reminderMsg)}
+                                                href={calendarLink}
                                                 target="_blank"
                                                 rel="noreferrer"
-                                                className="shrink-0 p-1.5 bg-white text-emerald-500 rounded-lg border border-slate-200 hover:text-emerald-600 hover:border-emerald-300 transition-colors shadow-sm"
-                                                title="Enviar WhatsApp"
+                                                className="p-1.5 bg-white text-indigo-500 rounded-lg border border-slate-200 hover:text-indigo-600 hover:border-indigo-300 transition-colors shadow-sm"
+                                                title="Agendar Recordatorio"
                                             >
-                                                <MessageCircle size={16} />
+                                                <Calendar size={16} />
                                             </a>
-                                        )}
+                                            {phone && (
+                                                <a
+                                                    href={generateWhatsAppLink(phone, reminderMsg)}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="p-1.5 bg-white text-emerald-500 rounded-lg border border-slate-200 hover:text-emerald-600 hover:border-emerald-300 transition-colors shadow-sm"
+                                                    title="Enviar WhatsApp"
+                                                >
+                                                    <MessageCircle size={16} />
+                                                </a>
+                                            )}
+                                        </div>
                                     </div>
                                 );
                             })

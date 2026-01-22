@@ -110,8 +110,8 @@ export const LoanProvider = ({ children }) => {
         enabled: !!token
     });
 
-    const clients = clientsData || [];
-    const loans = loansData || [];
+    const clients = Array.isArray(clientsData) ? clientsData : [];
+    const loans = Array.isArray(loansData) ? loansData : [];
     const loading = clientsLoading || loansLoading;
 
     // --- Actions (Mutations) ---

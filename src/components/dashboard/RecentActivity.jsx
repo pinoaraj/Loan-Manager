@@ -33,12 +33,12 @@ const RecentActivity = ({ transactions }) => {
     // loanId IS MISSING. I need to fix backend to include `loanId: t.payment.loan.id`.
 
     return (
-        <div className="bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 h-full">
-            <div className="mb-2 flex justify-between items-center">
-                <h3 className="text-sm font-bold text-slate-800 dark:text-white">Actividad Reciente</h3>
-                <button onClick={() => navigate('/collections')} className="text-xs text-blue-500 font-medium hover:underline">Ver Todo</button>
+        <div className="glass-panel p-5 rounded-3xl h-full flex flex-col">
+            <div className="mb-4 flex justify-between items-center">
+                <h3 className="text-sm font-bold text-slate-700 dark:text-white uppercase tracking-wider">Actividad</h3>
+                <button onClick={() => navigate('/collections')} className="text-xs text-teal-600 font-bold hover:text-teal-700 hover:underline">VER TODO</button>
             </div>
-            <div className="space-y-2">
+            <div className="space-y-2 overflow-y-auto flex-1 pr-1 custom-scrollbar pb-2">
                 {transactions.length === 0 ? (
                     <p className="text-slate-500 text-sm">No hay transacciones recientes.</p>
                 ) : (

@@ -5,23 +5,35 @@ import { DollarSign, Users, TrendingUp, Activity } from 'lucide-react';
 const KPICard = ({ title, value, subtext, icon: Icon, color, trend, onClick }) => (
     <div
         onClick={onClick}
-        className="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 transition-all hover:shadow-lg hover:-translate-y-1 cursor-pointer group"
+        className="glass-panel rounded-3xl p-6 relative overflow-hidden group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-teal-500/10 cursor-pointer"
     >
-        <div className="flex justify-between items-start mb-3">
-            <div className={`p-3 rounded-xl ${color} bg-opacity-10 group-hover:bg-opacity-20 transition-colors`}>
-                <Icon size={22} className={color.replace('bg-', 'text-')} />
+        <div className="flex justify-between items-start z-10 relative">
+            <div>
+                <p className="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">
+                    {title}
+                </p>
+                <h3 className="text-3xl font-display font-bold text-slate-800 dark:text-white tracking-tight">
+                    {value}
+                </h3>
+                {subtext && (
+                    <p className="text-xs font-medium text-slate-400 mt-2 flex items-center gap-1">
+                        {subtext}
+                    </p>
+                )}
             </div>
-            {trend && (
-                <span className={`text-xs font-bold px-2 py-1 rounded-full ${trend >= 0 ? 'bg-emerald-100 text-emerald-600' : 'bg-rose-100 text-rose-600'}`}>
-                    {trend >= 0 ? '+' : ''}{trend}%
-                </span>
-            )}
+            <div className={`p-3.5 rounded-2xl ${color} text-white shadow-lg shadow-black/5 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6`}>
+                <Icon size={24} />
+            </div>
         </div>
-        <div>
-            <h3 className="text-2xl font-bold text-slate-800 dark:text-white mb-1">{value}</h3>
-            <p className="text-slate-500 font-medium text-sm">{title}</p>
-            {subtext && <p className="text-xs text-slate-400 mt-1">{subtext}</p>}
-        </div>
+
+        {/* Decorator Circle */}
+        <div className={`absolute -bottom-6 -right-6 w-32 h-32 rounded-full opacity-0 group-hover:opacity-10 blur-3xl transition-all duration-500 ${color}`} />
+
+        {trend && (
+            <div className={`absolute bottom-6 right-6 text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1 ${trend >= 0 ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}`}>
+                {trend >= 0 ? '↗' : '↘'} {Math.abs(trend)}%
+            </div>
+        )}
     </div>
 );
 
@@ -42,7 +54,7 @@ const DashboardKPI = ({ stats }) => {
                 title="Total Prestado"
                 value={`$${safeStats.totalLent.toLocaleString()}`}
                 icon={DollarSign}
-                color="bg-blue-600"
+                color="bg-gradient-to-br from-blue-500 to-indigo-600"
                 subtext="Capital activo en circulación"
                 onClick={() => navigate('/loans')}
             />
@@ -50,7 +62,7 @@ const DashboardKPI = ({ stats }) => {
                 title="Cobranza Mensual"
                 value={`$${safeStats.monthlyCollection.toLocaleString()}`}
                 icon={TrendingUp}
-                color="bg-emerald-600"
+                color="bg-gradient-to-br from-teal-400 to-emerald-600"
                 subtext="Recaudado este mes"
                 onClick={() => navigate('/collections')}
             />
@@ -58,7 +70,7 @@ const DashboardKPI = ({ stats }) => {
                 title="Clientes Activos"
                 value={safeStats.activeClients}
                 icon={Users}
-                color="bg-violet-600"
+                color="bg-gradient-to-br from-violet-500 to-fuchsia-600"
                 subtext="Total de prestatarios únicos"
                 onClick={() => navigate('/clients')}
             />
@@ -66,7 +78,7 @@ const DashboardKPI = ({ stats }) => {
                 title="Tasa de Cartera"
                 value={`${safeStats.healthScore}%`}
                 icon={Activity}
-                color="bg-indigo-600"
+                color="bg-gradient-to-br from-rose-500 to-orange-500"
                 trend={2.5}
                 subtext="Préstamos al día"
                 onClick={() => navigate('/loans?status=Active')}

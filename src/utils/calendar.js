@@ -1,78 +1,80 @@
-import { format, parseISO, addHours } from 'date-fns';
+import { format } from 'date-fns';
 
 /**
- * Generates an .ics file content and triggers download
- * @param {Object} payment - The payment object
- * @param {string} clientName - The name of the client
+ * Generates a Google Calendar Event URL
+ * @param {Object} params
+ * @param {string} params.title - Event title
+ * @param {string} params.details - Event description
+ * @param {string} params.date - Date in YYYY-MM-DD format
+ * @param {string} params.startTime - Start time in HH:mm format (default 09:00)
+ * @param {string} params.endTime - End time in HH:mm format (default 10:00)
  */
-export const downloadCalendarReminder = (payment, clientName) => {
-    const dueDate = typeof payment.dueDate === 'string' ? parseISO(payment.dueDate) : payment.dueDate;
+export const generateGoogleCalendarLink = ({ title, details, date, startTime = '09:00', endTime = '10:00' }) => {
+    const baseUrl = 'https://calendar.google.com/calendar/render';
 
-    // Set event to 9:00 AM on the due date
-    const start = new Date(dueDate);
-    start.setHours(9, 0, 0);
-    const end = addHours(start, 1);
+    // Format dates to YYYYMMDDTHHmmSSZ
+    // Note: We'll imply local time by not adding Z, or standard text format.
+    // Simpler approach: dates as YYYYMMDDTHHmm00
+    const start = `${date.replace(/-/g, '')}T${startTime.replace(':', '')}00`;
+    const end = `${date.replace(/-/g, '')}T${endTime.replace(':', '')}00`;
 
-    const formatDate = (date) => {
-        return format(date, "yyyyMMdd'T'HHmmss'Z'");
-    };
+    const params = new URLSearchParams({
+        action: 'TEMPLATE',
+        text: title,
+        details: details,
+        dates: `${start}/${end}`,
+        // location: '', // Optional
+    });
 
-    const description = `Recordatorio de pago para el préstamo de ${clientName}.\n` +
-        `Monto: $${payment.amount.toLocaleString()}\n` +
-        `Estado: ${payment.status}`;
-
-    const icsContent = [
-        'BEGIN:VCALENDAR',
-        'VERSION:2.0',
-        'PRODID:-//Loan Manager//ES',
-        'BEGIN:VEVENT',
-        `DTSTAMP:${formatDate(new Date())}`,
-        `DTSTART:${formatDate(start)}`,
-        `DTEND:${formatDate(end)}`,
-        `SUMMARY:Pago de Préstamo - ${clientName}`,
-        `DESCRIPTION:${description.replace(/\n/g, '\\n')}`,
-        'BEGIN:VALARM',
-        'TRIGGER:-PT1D', // 1 day before
-        'ACTION:DISPLAY',
-        'DESCRIPTION:Recordatorio de pago mañana',
-        'END:VALARM',
-        'END:VEVENT',
-        'END:VCALENDAR'
-    ].join('\r\n');
-
-    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-    const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.setAttribute('download', `pago_${clientName.replace(/\s+/g, '_')}_${format(dueDate, 'yyyyMMdd')}.ics`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    return `${baseUrl}?${params.toString()}`;
 };
 
 /**
- * Opens a Google Calendar event creation tab
- * @param {Object} payment - The payment object
- * @param {string} clientName - The name of the client
+ * Generates a standard payment reminder title and description
+ */
+export const getPaymentEventDetails = (clientName, amount, paymentNumber, totalPayments) => {
+    return {
+        title: `Pago ${paymentNumber}/${totalPayments} - ${clientName}`,
+        details: `Recordatorio de pago de préstamo.\nCliente: ${clientName}\nMonto: $${amount}\nCuota: ${paymentNumber} de ${totalPayments}`
+    };
+};
+
+/**
+ * Opens a Google Calendar event for a specific payment
+ * Used by PaymentScheduleTable component
  */
 export const openGoogleCalendar = (payment, clientName) => {
-    const dueDate = typeof payment.dueDate === 'string' ? parseISO(payment.dueDate) : payment.dueDate;
+    const paymentDetails = getPaymentEventDetails(
+        clientName,
+        payment.amount,
+        'Pendiente', // We don't have payment number in this context
+        'Total'
+    );
 
-    // Set event to 9:00 AM on the due date
-    const start = new Date(dueDate);
-    start.setHours(9, 0, 0);
-    const end = addHours(start, 1);
+    const link = generateGoogleCalendarLink({
+        ...paymentDetails,
+        date: payment.dueDate
+    });
 
-    const formatDate = (date) => format(date, "yyyyMMdd'T'HHmmss");
+    window.open(link, '_blank');
+};
 
-    const title = `Pago de Préstamo - ${clientName}`;
-    const desc = `Recordatorio de pago.\nMonto: $${payment.amount.toLocaleString()}\nEstado: ${payment.status}\n\nGenerado por Loan Manager`;
+/**
+ * Downloads/opens a calendar reminder for a payment alert
+ * Used by Collections component
+ */
+export const downloadCalendarReminder = (payment, clientName) => {
+    const paymentDetails = getPaymentEventDetails(
+        clientName,
+        payment.amount,
+        payment.paymentNumber || 'Pendiente',
+        payment.totalPayments || 'Total'
+    );
 
-    const url = new URL('https://calendar.google.com/calendar/render');
-    url.searchParams.append('action', 'TEMPLATE');
-    url.searchParams.append('text', title);
-    url.searchParams.append('dates', `${formatDate(start)}/${formatDate(end)}`);
-    url.searchParams.append('details', desc);
-    url.searchParams.append('trp', 'false'); // Busy status
+    const link = generateGoogleCalendarLink({
+        ...paymentDetails,
+        date: payment.dueDate
+    });
 
-    window.open(url.toString(), '_blank');
+    window.open(link, '_blank');
 };

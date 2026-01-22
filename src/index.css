@@ -1,7 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
+
 @custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Fluid Glass Typography */
+  --font-sans: "Nunito", sans-serif;
+  --font-display: "Outfit", sans-serif;
+
+  /* Fluid Glass Palette (Light Mode) */
+  --color-primary-50: #f0fdfa;
+  --color-primary-100: #ccfbf1;
+  --color-primary-400: #2dd4bf;
+  --color-primary-500: #14b8a6;
+  --color-primary-600: #0d9488;
+  
+  --color-accent-500: #fb7185; /* Soft Coral */
+
+  /* Radius Overrides */
+  --radius-xl: 1.5rem; /* 24px - Super rounded */
+  --radius-2xl: 2rem;
+}
+
+:root {
+  /* CSS Variables for Glass System */
+  --bg-app: #F0F4F8;
+  --glass-surface: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --glass-blur: 20px;
+  --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.07);
+}
+
+.dark {
+  --bg-app: #0f172a;
+  --glass-surface: rgba(30, 41, 59, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.05);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
 
 html,
 body {
-    @apply transition-colors duration-200;
+  @apply transition-colors duration-300;
+  font-family: var(--font-sans);
+  background-color: var(--bg-app);
+  color: #334155; /* Slate 700 */
+}
+
+.dark body {
+  color: #e2e8f0; /* Slate 200 */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+/* Glass Utility Classes */
+.glass-panel {
+  background: var(--glass-surface);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-button {
+  background: linear-gradient(135deg, var(--color-primary-400), var(--color-primary-600));
+  color: white;
+  border: none;
+  box-shadow: 0 4px 15px rgba(20, 184, 166, 0.3);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.glass-button:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(20, 184, 166, 0.4);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 20px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
 }
