@@ -26,8 +26,14 @@ export const LoanProvider = ({ children }) => {
         queryKey: ['dashboardStats'],
         queryFn: async () => {
             if (!token) return { totalActiveLoans: 0, totalLent: 0, statusData: [], totalClients: 0 };
-            const res = await fetch(`${API_URL}/dashboard/stats`, { headers: getHeaders() });
-            return res.json();
+            try {
+                const res = await fetch(`${API_URL}/dashboard/stats`, { headers: getHeaders() });
+                if (!res.ok) throw new Error('Failed to fetch stats');
+                return res.json();
+            } catch (e) {
+                console.error(e);
+                return { totalActiveLoans: 0, totalLent: 0, statusData: [], totalClients: 0 };
+            }
         },
         enabled: !!token
     });
@@ -37,8 +43,14 @@ export const LoanProvider = ({ children }) => {
         queryKey: ['alerts'],
         queryFn: async () => {
             if (!token) return [];
-            const res = await fetch(`${API_URL}/dashboard/alerts`, { headers: getHeaders() });
-            return res.json();
+            try {
+                const res = await fetch(`${API_URL}/dashboard/alerts`, { headers: getHeaders() });
+                if (!res.ok) throw new Error('Failed to fetch alerts');
+                return res.json();
+            } catch (e) {
+                console.error(e);
+                return [];
+            }
         },
         enabled: !!token
     });
@@ -48,8 +60,14 @@ export const LoanProvider = ({ children }) => {
         queryKey: ['projections'],
         queryFn: async () => {
             if (!token) return [];
-            const res = await fetch(`${API_URL}/dashboard/projections`, { headers: getHeaders() });
-            return res.json();
+            try {
+                const res = await fetch(`${API_URL}/dashboard/projections`, { headers: getHeaders() });
+                if (!res.ok) throw new Error('Failed to fetch projections');
+                return res.json();
+            } catch (e) {
+                console.error(e);
+                return [];
+            }
         },
         enabled: !!token
     });
@@ -59,8 +77,14 @@ export const LoanProvider = ({ children }) => {
         queryKey: ['recentActivity'],
         queryFn: async () => {
             if (!token) return [];
-            const res = await fetch(`${API_URL}/dashboard/recent`, { headers: getHeaders() });
-            return res.json();
+            try {
+                const res = await fetch(`${API_URL}/dashboard/recent`, { headers: getHeaders() });
+                if (!res.ok) throw new Error('Failed to fetch recent activity');
+                return res.json();
+            } catch (e) {
+                console.error(e);
+                return [];
+            }
         },
         enabled: !!token
     });
@@ -90,10 +114,16 @@ export const LoanProvider = ({ children }) => {
         queryKey: ['clients'],
         queryFn: async () => {
             if (!token) return [];
-            // fetching default page 1 (limit 1000)
-            const res = await fetch(`${API_URL}/clients`, { headers: getHeaders() });
-            const json = await res.json();
-            return Array.isArray(json) ? json : (json.data || []);
+            try {
+                // fetching default page 1 (limit 1000)
+                const res = await fetch(`${API_URL}/clients`, { headers: getHeaders() });
+                if (!res.ok) throw new Error('Failed to fetch clients');
+                const json = await res.json();
+                return Array.isArray(json) ? json : (json.data || []);
+            } catch (e) {
+                console.error(e);
+                return [];
+            }
         },
         enabled: !!token
     });
@@ -102,10 +132,16 @@ export const LoanProvider = ({ children }) => {
         queryKey: ['loans'],
         queryFn: async () => {
             if (!token) return [];
-            // fetching default page 1 (limit 1000)
-            const res = await fetch(`${API_URL}/loans`, { headers: getHeaders() });
-            const json = await res.json();
-            return Array.isArray(json) ? json : (json.data || []);
+            try {
+                // fetching default page 1 (limit 1000)
+                const res = await fetch(`${API_URL}/loans`, { headers: getHeaders() });
+                if (!res.ok) throw new Error('Failed to fetch loans');
+                const json = await res.json();
+                return Array.isArray(json) ? json : (json.data || []);
+            } catch (e) {
+                console.error(e);
+                return [];
+            }
         },
         enabled: !!token
     });

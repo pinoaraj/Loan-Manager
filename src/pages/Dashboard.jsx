@@ -45,8 +45,8 @@ const Dashboard = () => {
     // Augment dashboardStats with calculated healthScore if missing
     // Assuming healthScore = (Active / (Active + Overdue)) * 100 or something similar
     // The previous code didn't have healthScore, so let's default it or calculate it.
-    const activeCount = statusData.find(d => d.name === 'Activos')?.value || 0;
-    const overdueCount = statusData.find(d => d.name === 'Vencidos')?.value || 0;
+    const activeCount = statusData?.find(d => d.name === 'Activos')?.value || 0;
+    const overdueCount = statusData?.find(d => d.name === 'Vencidos')?.value || 0;
     const totalCount = activeCount + overdueCount;
     const healthScore = totalCount > 0 ? Math.round((activeCount / totalCount) * 100) : 100;
 
