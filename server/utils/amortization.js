@@ -12,10 +12,14 @@ const calculateAmortization = (principal, annualRate, durationMonths, startDate,
     let periodRate;
     let incrementFn;
 
+    // annualRate here is actually the MONTHLY rate (e.g., 0.10 = 10% monthly)
+    // We need to convert it to the appropriate period rate based on frequency
+    const monthlyRate = annualRate;
+
     switch (frequency) {
         case 'weekly':
-            periods = Math.round(durationMonths * (52 / 12));
-            periodRate = annualRate; // Use rate per period
+            periods = Math.round(durationMonths * (52 / 12)); // ~4.33 weeks per month
+            periodRate = monthlyRate / (52 / 12); // Divide monthly rate by ~4.33
             incrementFn = (date, i) => {
                 const d = new Date(date);
                 d.setDate(d.getDate() + (i * 7));
@@ -23,8 +27,8 @@ const calculateAmortization = (principal, annualRate, durationMonths, startDate,
             };
             break;
         case 'bi-weekly':
-            periods = Math.round(durationMonths * (26 / 12));
-            periodRate = annualRate; // Use rate per period
+            periods = Math.round(durationMonths * (26 / 12)); // ~2.17 bi-weeks per month
+            periodRate = monthlyRate / (26 / 12); // Divide monthly rate by ~2.17
             incrementFn = (date, i) => {
                 const d = new Date(date);
                 d.setDate(d.getDate() + (i * 14));
@@ -34,7 +38,7 @@ const calculateAmortization = (principal, annualRate, durationMonths, startDate,
         case 'monthly':
         default:
             periods = durationMonths;
-            periodRate = annualRate; // Use rate per period
+            periodRate = monthlyRate; // No conversion needed
             incrementFn = (date, i) => {
                 const d = new Date(date);
                 d.setMonth(d.getMonth() + i);
@@ -70,8 +74,8 @@ const calculateAmortization = (principal, annualRate, durationMonths, startDate,
             });
         }
     } else {
-        // Simple Interest
-        const totalInterest = principal * annualRate * (durationMonths / 12);
+        // Simple Interest - use periodRate for consistency
+        const totalInterest = principal * periodRate * periods;
         const totalPayment = principal + totalInterest;
         const periodPayment = totalPayment / periods;
         const periodPrincipal = principal / periods;

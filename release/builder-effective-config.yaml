@@ -1,0 +1,17 @@
+directories:
+  output: release
+  buildResources: build
+appId: com.loanmanager.app
+productName: Loan Manager
+files:
+  - filter:
+      - dist/**/*
+      - desktop/**/*
+extraResources:
+  - from: server
+    to: server
+    filter:
+      - '**/*'
+win:
+  target: dir
+electronVersion: 33.2.0
