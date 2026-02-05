@@ -231,14 +231,14 @@ const NewLoan = () => {
                         {isAddingClient && (
                             <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
                                 <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-200">
-                                    <div className="p-8 border-b border-slate-100 dark:border-slate-700 bg-slate-50">
+                                    <div className="p-8 border-b border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50">
                                         <h3 className="text-xl font-bold text-slate-800 dark:text-white">Rápido: Nuevo Cliente</h3>
                                     </div>
                                     <form onSubmit={handleQuickAddClient} className="p-8 space-y-4">
                                         <input
                                             required
                                             placeholder="Nombre Completo"
-                                            className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl outline-none"
+                                            className="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-xl outline-none"
                                             value={newClientData.name}
                                             onChange={(e) => setNewClientData({ ...newClientData, name: e.target.value })}
                                         />
@@ -246,21 +246,21 @@ const NewLoan = () => {
                                             required
                                             type="email"
                                             placeholder="Email"
-                                            className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl outline-none"
+                                            className="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-xl outline-none"
                                             value={newClientData.email}
                                             onChange={(e) => setNewClientData({ ...newClientData, email: e.target.value })}
                                         />
                                         <input
                                             required
                                             placeholder="Teléfono"
-                                            className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl outline-none"
+                                            className="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-xl outline-none"
                                             value={newClientData.phone}
                                             onChange={(e) => setNewClientData({ ...newClientData, phone: e.target.value })}
                                         />
                                         <input
                                             required
                                             placeholder="Dirección"
-                                            className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl outline-none"
+                                            className="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-xl outline-none"
                                             value={newClientData.address}
                                             onChange={(e) => setNewClientData({ ...newClientData, address: e.target.value })}
                                         />
@@ -311,7 +311,7 @@ const NewLoan = () => {
                                     value={formData.amount}
                                     onChange={handleChange}
                                     placeholder="Ej: 5000"
-                                    className={`w-full p-4 bg-slate-50 border rounded-2xl focus:ring-2 outline-none transition-all text-xl font-bold text-slate-800 dark:text-white ${errors.amount ? 'border-rose-400 focus:ring-rose-200' : 'border-slate-200 focus:ring-blue-500'}`}
+                                    className={`w-full p-4 bg-slate-50 dark:bg-slate-700 dark:text-white border rounded-2xl focus:ring-2 outline-none transition-all text-xl font-bold text-slate-800 dark:text-white ${errors.amount ? 'border-rose-400 focus:ring-rose-200' : 'border-slate-200 dark:border-slate-600 focus:ring-blue-500'}`}
                                 />
                                 {errors.amount && <span className="text-xs text-rose-500 font-bold ml-1">{errors.amount}</span>}
                             </div>
@@ -326,7 +326,7 @@ const NewLoan = () => {
                                     name="startDate"
                                     value={formData.startDate}
                                     onChange={handleChange}
-                                    className="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                                    className="w-full p-4 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                                 />
                             </div>
 
@@ -341,7 +341,7 @@ const NewLoan = () => {
                                     name="interestRate"
                                     value={formData.interestRate}
                                     onChange={handleChange}
-                                    className={`w-full p-4 bg-slate-50 border rounded-2xl focus:ring-2 outline-none transition-all ${errors.interestRate ? 'border-rose-400 focus:ring-rose-200' : 'border-slate-200 focus:ring-blue-500'}`}
+                                    className={`w-full p-4 bg-slate-50 dark:bg-slate-700 dark:text-white border rounded-2xl focus:ring-2 outline-none transition-all ${errors.interestRate ? 'border-rose-400 focus:ring-rose-200' : 'border-slate-200 dark:border-slate-600 focus:ring-blue-500'}`}
                                 />
                                 {errors.interestRate && <span className="text-xs text-rose-500 font-bold ml-1">{errors.interestRate}</span>}
                             </div>
@@ -356,7 +356,7 @@ const NewLoan = () => {
                                     name="durationMonths"
                                     value={formData.durationMonths}
                                     onChange={handleChange}
-                                    className={`w-full p-4 bg-slate-50 border rounded-2xl focus:ring-2 outline-none transition-all ${errors.durationMonths ? 'border-rose-400 focus:ring-rose-200' : 'border-slate-200 focus:ring-blue-500'}`}
+                                    className={`w-full p-4 bg-slate-50 dark:bg-slate-700 dark:text-white border rounded-2xl focus:ring-2 outline-none transition-all ${errors.durationMonths ? 'border-rose-400 focus:ring-rose-200' : 'border-slate-200 dark:border-slate-600 focus:ring-blue-500'}`}
                                 />
                                 {errors.durationMonths && <span className="text-xs text-rose-500 font-bold ml-1">{errors.durationMonths}</span>}
                             </div>
@@ -411,7 +411,7 @@ const NewLoan = () => {
                                             name="graceDays"
                                             value={formData.graceDays}
                                             onChange={handleChange}
-                                            className="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-amber-500 transition-all font-bold text-slate-700"
+                                            className="w-full p-4 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-2xl outline-none focus:ring-2 focus:ring-amber-500 transition-all font-bold text-slate-700 dark:text-white"
                                         />
                                         {errors.graceDays && <span className="text-xs text-rose-500 font-bold ml-1">{errors.graceDays}</span>}
                                     </div>
@@ -442,7 +442,7 @@ const NewLoan = () => {
                                             value={formData.lateFeeValue}
                                             onChange={handleChange}
                                             placeholder={formData.lateFeeType === 'Percent' ? 'Ej: 0.05' : 'Ej: 10'}
-                                            className="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-amber-500 transition-all font-bold text-slate-700"
+                                            className="w-full p-4 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-2xl outline-none focus:ring-2 focus:ring-amber-500 transition-all font-bold text-slate-700 dark:text-white"
                                         />
                                         {errors.lateFeeValue && <span className="text-xs text-rose-500 font-bold ml-1">{errors.lateFeeValue}</span>}
                                     </div>

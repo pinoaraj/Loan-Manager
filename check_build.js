@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
+// const { execSync } = require('child_process');
 
 const distDir = path.join(__dirname, 'dist');
 const srcDir = path.join(__dirname, 'src');
@@ -8,11 +8,11 @@ const srcDir = path.join(__dirname, 'src');
 function getNewestFileTime(dir) {
     let newest = 0;
     const files = fs.readdirSync(dir);
-    
+
     for (const file of files) {
         const filePath = path.join(dir, file);
         const stat = fs.statSync(filePath);
-        
+
         if (stat.isDirectory()) {
             const subdirNewest = getNewestFileTime(filePath);
             if (subdirNewest > newest) newest = subdirNewest;
@@ -39,6 +39,7 @@ try {
 
     console.log('Up to date');
     process.exit(0); // No rebuild needed
-} catch (e) {
+} catch (_e) {
+    // console.error(e); // Optionally log error
     process.exit(1);
 }

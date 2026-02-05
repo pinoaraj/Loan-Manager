@@ -24,7 +24,7 @@ import { toast } from 'sonner';
 const LoanDetail = () => {
     const { id: loanId } = useParams();
     const navigate = useNavigate();
-    const { loans, clients, updatePaymentStatus, recalculateLoan, registerPayment, togglePause } = useLoans();
+    const { loans, clients, recalculateLoan, registerPayment, togglePause } = useLoans();
     const { getLoanHealth } = useLoanHealth();
 
     const [isPagareModalOpen, setIsPagareModalOpen] = useState(false);

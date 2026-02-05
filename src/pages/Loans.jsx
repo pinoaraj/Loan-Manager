@@ -24,7 +24,7 @@ const Loans = () => {
     const [selectedLoanId, setSelectedLoanId] = useState(null);
 
     // Fetch Loans with Pagination & Filtering
-    const { data: loansData = { data: [], meta: {} }, isLoading, refetch } = useQuery({
+    const { data: loansData = { data: [], meta: {} }, refetch } = useQuery({
         queryKey: ['loans', page, limit, searchTerm, statusFilter], // Refetch when these change
         queryFn: async () => {
             // Debounce search in real app, but for now direct

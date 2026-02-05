@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, FileText, MessageCircle } from 'lucide-react';
 import { generatePagareFromTemplate } from '../utils/wordGenerator';
 import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
+// import { es } from 'date-fns/locale';
 
 const PagareModal = ({ isOpen, onClose, loan, client }) => {
     const [formData, setFormData] = useState({
@@ -16,6 +16,7 @@ const PagareModal = ({ isOpen, onClose, loan, client }) => {
 
     useEffect(() => {
         if (loan && client) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setFormData({
                 clientName: client.name,
                 id: client.id,

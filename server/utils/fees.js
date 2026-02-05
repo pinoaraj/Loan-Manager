@@ -1,4 +1,4 @@
-const { differenceInDays, addDays, isAfter, startOfDay } = require('date-fns');
+const { differenceInDays, startOfDay } = require('date-fns');
 
 /**
  * Checks and applies late fees for a given loan and its payments.

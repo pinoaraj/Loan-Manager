@@ -44,10 +44,10 @@ const ImportData = () => {
                 setStep(2);
 
                 // Auto-guess mapping
-                const lowerHeader = header.map(h => String(h).toLowerCase());
+                // const lowerHeader = header.map(h => String(h).toLowerCase());
                 const newMapping = { ...mapping };
 
-                header.forEach((h, i) => {
+                header.forEach((h) => {
                     const low = h.toString().toLowerCase();
                     if (low.includes('nom') || low.includes('name') || low.includes('cliente')) newMapping.clientName = h;
                     if (low.includes('mont') || low.includes('amount') || low.includes('prestamo')) newMapping.amount = h;

@@ -4,9 +4,10 @@ import { calculateAmortization } from './amortization';
 describe('calculateAmortization', () => {
     it('correctly calculates Fixed payment for 5 months @ 10% (Verified Case)', () => {
         // Principal: 5000, Annual Rate: 10% (0.10), Duration: 5 months
-        const principal = 5000;
-        const rate = 0.10;
-        const months = 5;
+        // Principal: 5000, Annual Rate: 10% (0.10), Duration: 5 months
+        // const principal = 5000;
+        // const rate = 0.10;
+        // const months = 5;
 
         // Note: The function expects annual rate.
         // 10% annual rate.

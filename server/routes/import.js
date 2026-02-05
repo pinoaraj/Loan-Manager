@@ -18,14 +18,14 @@ router.post('/', authenticateToken, async (req, res) => {
             // 1. Create Clientes (those that are new)
             for (const clientData of clients) {
                 // Remove the temporary ID used in frontend
-                const { id, isNew, ...rest } = clientData;
+                const { id, ...rest } = clientData;
                 const client = await tx.client.create({ data: rest });
                 createdClients.push({ oldId: id, newId: client.id });
             }
 
             // 2. Create Loans
             for (const loanData of loans) {
-                const { clientName, ...rest } = loanData;
+                const { ...rest } = loanData;
 
                 // If the clientId is a temporary one from this import, replace it with the new DB ID
                 const clientRecord = createdClients.find(c => c.oldId === rest.clientId);

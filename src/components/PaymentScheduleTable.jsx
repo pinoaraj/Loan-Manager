@@ -13,7 +13,7 @@ import { generateReceipt } from '../utils/pdfGenerator';
 import { generateWordReceipt } from '../utils/wordGenerator';
 import { openGoogleCalendar } from '../utils/calendar';
 
-const PaymentScheduleTable = ({ loan, client, onRegisterPayment, onUpdateStatus }) => {
+const PaymentScheduleTable = ({ loan, client, onRegisterPayment }) => {
     const [expandedPaymentId, setExpandedPaymentId] = useState(null);
 
     const sendWhatsAppReminder = (payment) => {

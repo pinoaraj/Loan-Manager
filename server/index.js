@@ -4,7 +4,7 @@ const { PrismaClient } = require('@prisma/client');
 require('dotenv').config();
 
 const app = express();
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 const PORT = process.env.PORT || 3001;
 
 app.use(cors({
@@ -21,7 +21,7 @@ const loanRoutes = require('./routes/loans');
 const paymentRoutes = require('./routes/payments');
 const dashboardRoutes = require('./routes/dashboard'); // Import dashboard routes
 const backupRoutes = require('./routes/backup');
-const { authenticateToken } = require('./middleware/auth');
+// const { authenticateToken } = require('./middleware/auth');
 
 const importRoutes = require('./routes/import');
 

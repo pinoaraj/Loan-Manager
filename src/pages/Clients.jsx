@@ -23,7 +23,7 @@ const Clients = () => {
     });
 
     // Fetch Clients with Pagination
-    const { data: clientsData = { data: [], meta: {} }, isLoading } = useQuery({
+    const { data: clientsData = { data: [], meta: {} } } = useQuery({
         queryKey: ['clients', page, limit], // Include search term later?
         queryFn: async () => {
             const res = await fetch(`http://localhost:3001/api/clients?page=${page}&limit=${limit}`, {
@@ -103,7 +103,7 @@ const Clients = () => {
             {isModalOpen && (
                 <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
                     <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-200">
-                        <div className="p-8 border-b border-slate-100 dark:border-slate-700 bg-slate-50">
+                        <div className="p-8 border-b border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50">
                             <h3 className="text-xl font-bold text-slate-800 dark:text-white">Registrar Cliente</h3>
                             <p className="text-slate-500 text-sm">Ingresa los datos del nuevo cliente.</p>
                         </div>
@@ -113,7 +113,7 @@ const Clients = () => {
                                 <input
                                     required
                                     type="text"
-                                    className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                                    className="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                                     value={newClient.name}
                                     onChange={(e) => setNewClient({ ...newClient, name: e.target.value })}
                                 />
@@ -123,7 +123,7 @@ const Clients = () => {
                                 <input
                                     required
                                     type="email"
-                                    className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                                    className="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                                     value={newClient.email}
                                     onChange={(e) => setNewClient({ ...newClient, email: e.target.value })}
                                 />
@@ -133,7 +133,7 @@ const Clients = () => {
                                 <input
                                     required
                                     type="text"
-                                    className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                                    className="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                                     value={newClient.phone}
                                     onChange={(e) => setNewClient({ ...newClient, phone: e.target.value })}
                                 />
@@ -143,7 +143,7 @@ const Clients = () => {
                                 <input
                                     required
                                     type="text"
-                                    className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                                    className="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                                     value={newClient.address}
                                     onChange={(e) => setNewClient({ ...newClient, address: e.target.value })}
                                 />

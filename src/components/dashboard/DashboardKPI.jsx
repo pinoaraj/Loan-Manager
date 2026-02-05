@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DollarSign, Users, TrendingUp, Activity } from 'lucide-react';
 
+// eslint-disable-next-line no-unused-vars
 const KPICard = ({ title, value, subtext, icon: Icon, color, trend, onClick }) => (
     <div
         onClick={onClick}
