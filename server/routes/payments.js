@@ -70,6 +70,23 @@ router.post('/:id/transactions', authenticateToken, async (req, res) => {
                 }
             });
 
+            // Check if all payments for this loan are Paid
+            if (newStatus === 'Paid') {
+                const loanId = payment.loanId;
+                const allPayments = await tx.payment.findMany({
+                    where: { loanId }
+                });
+
+                const allPaid = allPayments.every(p => p.status === 'Paid' || p.id === paymentId);
+                
+                if (allPaid) {
+                    await tx.loan.update({
+                        where: { id: loanId },
+                        data: { status: 'Paid' }
+                    });
+                }
+            }
+
             return { transaction, updatedPayment };
         });
 

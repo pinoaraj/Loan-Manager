@@ -54,11 +54,15 @@ const Clients = () => {
 
     const handleAddClient = async (e) => {
         e.preventDefault();
-        await addClient(newClient);
-        setIsModalOpen(false);
-        setNewClient({ name: '', email: '', phone: '', address: '' });
-        // Invalidate query handled by context? No, context invalidates 'clients'.
-        // We are using 'clients' query key, so queryClient.invalidateQueries(['clients']) in Context SHOULD update this too.
+        try {
+            await addClient(newClient);
+            setIsModalOpen(false);
+            setNewClient({ name: '', email: '', phone: '', address: '' });
+            // Invalidate query handled by context
+        } catch (error) {
+            alert('Error al crear cliente: ' + error.message);
+            console.error('Client creation failed:', error);
+        }
     };
 
     const getClientDebt = (clientId) => {

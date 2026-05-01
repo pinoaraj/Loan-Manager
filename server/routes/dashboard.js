@@ -67,13 +67,34 @@ router.get('/stats', authenticateToken, async (req, res) => {
         const totalCount = activeCount + overdueCount;
         const healthScore = totalCount > 0 ? Math.round((activeCount / totalCount) * 100) : 100;
 
+        // Portfolio at Risk (PAR) - Total amount in overdue loans
+        const parAgg = await prisma.loan.aggregate({
+            _sum: { amount: true },
+            where: { status: 'Overdue' }
+        });
+        const parAmount = parAgg._sum.amount || 0;
+
+        // Expected collection for this month
+        const expectedCollectionAgg = await prisma.payment.aggregate({
+            _sum: { amount: true },
+            where: {
+                dueDate: {
+                    gte: startOfDay(new Date(new Date().getFullYear(), new Date().getMonth(), 1)),
+                    lte: endOfDay(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0))
+                }
+            }
+        });
+        const expectedCollection = expectedCollectionAgg._sum.amount || 0;
+
         res.json({
             totalActiveLoans,
             totalLent: totalLent._sum.amount || 0,
             statusData,
             totalClients,
             monthlyCollection: monthlyCollectionAgg._sum.amount || 0,
-            healthScore // Adding healthScore to API response as well
+            expectedCollection,
+            healthScore,
+            parAmount
         });
     } catch (error) {
         res.status(500).json({ error: error.message });

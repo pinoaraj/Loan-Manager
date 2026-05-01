@@ -16,7 +16,10 @@ export const calculateAmortization = (principal, annualRate, durationMonths, sta
     // We need to convert it to the appropriate period rate based on frequency
     const monthlyRate = annualRate;
 
-    switch (frequency) {
+    // Normalize frequency to handle both 'Monthly' and 'monthly'
+    const normalizedFreq = frequency.toLowerCase();
+
+    switch (normalizedFreq) {
         case 'weekly':
             periods = Math.round(durationMonths * (52 / 12)); // ~4.33 weeks per month
             periodRate = monthlyRate / (52 / 12); // Divide monthly rate by ~4.33

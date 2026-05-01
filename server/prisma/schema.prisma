@@ -34,8 +34,8 @@ model Loan {
   id             String    @id @default(cuid())
   client         Client    @relation(fields: [clientId], references: [id])
   clientId       String
-  amount         Float
-  interestRate   Float
+  amount         Decimal
+  interestRate   Decimal
   durationMonths Int
   startDate      DateTime
   status         String    @default("Active") // Active, Paid, Overdue, Closed
@@ -46,7 +46,7 @@ model Loan {
   // Robustness Additions
   graceDays      Int       @default(3)
   lateFeeType    String    @default("Percent") // Fixed, Percent
-  lateFeeValue   Float     @default(0.05)    // 5% default late fee
+  lateFeeValue   Decimal   @default(0.05)    // 5% default late fee
   
   payments       Payment[]
   createdAt      DateTime  @default(now())
@@ -61,11 +61,11 @@ model Payment {
   loan         Loan          @relation(fields: [loanId], references: [id])
   loanId       String
   dueDate      DateTime
-  amount       Float         // Expected amount
-  paidAmount   Float         @default(0) // Actual paid so far
-  principal    Float
-  interest     Float
-  lateFee      Float         @default(0)
+  amount       Decimal       // Expected amount
+  paidAmount   Decimal       @default(0) // Actual paid so far
+  principal    Decimal
+  interest     Decimal
+  lateFee      Decimal       @default(0)
   status       String        @default("Pending") // Pending, Paid, Overdue
   transactions Transaction[]
   createdAt    DateTime      @default(now())
@@ -80,7 +80,7 @@ model Transaction {
   id        String   @id @default(cuid())
   payment   Payment  @relation(fields: [paymentId], references: [id])
   paymentId String
-  amount    Float
+  amount    Decimal
   date      DateTime @default(now())
   method    String   @default("Cash") // Cash, Transfer, Card
   note      String?

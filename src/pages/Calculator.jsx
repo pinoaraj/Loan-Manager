@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
     Calculator as CalcIcon,
     DollarSign,
@@ -9,29 +9,48 @@ import {
     Download
 } from 'lucide-react';
 import { format } from 'date-fns';
-import { calculateAmortization } from '../utils/amortization';
+import { useLoans } from '../context/LoanContext';
 
 const Calculator = () => {
+    const { getLoanPreview } = useLoans();
     const [formData, setFormData] = useState({
         amount: '5000',
         interestRate: '0.10',
         durationMonths: '5',
         startDate: format(new Date(), 'yyyy-MM-dd'),
-        frequency: 'monthly',
+        frequency: 'Monthly',
         loanType: 'Fixed'
     });
 
-    const schedule = useMemo(() => {
-        if (!formData.amount || !formData.durationMonths) return [];
-        return calculateAmortization(
-            parseFloat(formData.amount) || 0,
-            parseFloat(formData.interestRate) || 0,
-            parseInt(formData.durationMonths) || 0,
-            formData.startDate,
-            formData.frequency,
-            formData.loanType
-        );
-    }, [formData]);
+    const [schedule, setSchedule] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        const fetchPreview = async () => {
+            if (!formData.amount || !formData.durationMonths) {
+                setSchedule([]);
+                return;
+            }
+
+            setIsLoading(true);
+            try {
+                const data = await getLoanPreview(formData);
+                // Ensure dates are parsed back into Date objects for the table
+                const parsedData = data.map(p => ({
+                    ...p,
+                    dueDate: new Date(p.dueDate)
+                }));
+                setSchedule(parsedData);
+            } catch (error) {
+                console.error('Preview error:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        const timer = setTimeout(fetchPreview, 300);
+        return () => clearTimeout(timer);
+    }, [formData, getLoanPreview]);
 
     const totals = useMemo(() => {
         if (schedule.length === 0) return null;
@@ -137,9 +156,9 @@ const Calculator = () => {
                                     onChange={handleChange}
                                     className="w-full p-4 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none appearance-none"
                                 >
-                                    <option value="monthly">Mensual</option>
-                                    <option value="bi-weekly">Quincenal</option>
-                                    <option value="weekly">Semanal</option>
+                                    <option value="Monthly">Mensual</option>
+                                    <option value="Biweekly">Quincenal</option>
+                                    <option value="Weekly">Semanal</option>
                                 </select>
                             </div>
 

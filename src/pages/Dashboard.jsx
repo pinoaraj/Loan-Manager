@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLoans } from '../context/LoanContext';
 import { useNavigate } from 'react-router-dom';
-import { AlertCircle, MessageCircle, Calendar } from 'lucide-react';
+import { AlertCircle, MessageCircle, Calendar, Download } from 'lucide-react';
 import { generateWhatsAppLink, getReminderMessage } from '../utils/communication';
 import { generateGoogleCalendarLink, getPaymentEventDetails } from '../utils/calendar';
 import DashboardKPI from '../components/dashboard/DashboardKPI';
@@ -13,7 +13,7 @@ import { Skeleton } from '../components/ui/Skeleton';
 
 const Dashboard = () => {
     const navigate = useNavigate();
-    const { dashboardStats, alerts, getCollectionProjections, recentActivity, clients, loading } = useLoans();
+    const { dashboardStats, alerts, getCollectionProjections, recentActivity, clients, loading, downloadReport } = useLoans();
     const { statusData } = dashboardStats;
     const projections = getCollectionProjections();
 
@@ -64,6 +64,12 @@ const Dashboard = () => {
                     <p className="text-slate-500 text-xs">Resumen financiero y operativo.</p>
                 </div>
                 <div className="flex gap-2">
+                    <button
+                        onClick={() => downloadReport('loans')}
+                        className="glass-button px-4 py-2 rounded-pill font-bold shadow-md text-[10px] tracking-wide flex items-center gap-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300"
+                    >
+                        <Download size={14} /> EXCEL PRÉSTAMOS
+                    </button>
                     <button
                         onClick={() => navigate('/loans/new')}
                         className="glass-button px-5 py-2.5 rounded-pill font-bold shadow-lg text-xs tracking-wide flex items-center gap-2"

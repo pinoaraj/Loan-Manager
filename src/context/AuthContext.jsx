@@ -46,6 +46,31 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    const fetchWithAuth = async (url, options = {}) => {
+        const headers = {
+            'Content-Type': 'application/json',
+            ...options.headers,
+            'Authorization': `Bearer ${token}`
+        };
+
+        try {
+            const response = await fetch(url, {
+                ...options,
+                headers
+            });
+
+            if (response.status === 401 || response.status === 403) {
+                console.warn('Session expired or invalid token. Logging out...');
+                logout();
+                throw new Error('Sesión expirada. Por favor inicia sesión nuevamente.');
+            }
+
+            return response;
+        } catch (error) {
+            throw error;
+        }
+    };
+
     const register = async (username, password) => {
         try {
             const response = await fetch('http://localhost:3001/api/auth/register', {
@@ -77,6 +102,7 @@ export const AuthProvider = ({ children }) => {
         login,
         register,
         logout,
+        fetchWithAuth,
         isAuthenticated: !!token
     };
 

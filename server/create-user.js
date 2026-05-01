@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const prisma = new PrismaClient();
 
 async function createUser() {
-    const username = 'PInoaraj';
+    const username = 'pinoaraj';
     const password = '1977';
 
     try {

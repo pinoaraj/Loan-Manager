@@ -45,9 +45,15 @@ const DashboardKPI = ({ stats }) => {
     const safeStats = {
         totalLent: stats.totalLent || 0,
         monthlyCollection: stats.monthlyCollection || 0,
+        expectedCollection: stats.expectedCollection || 0,
         activeClients: stats.activeClients || stats.totalClients || 0, // Fallback to totalClients
-        healthScore: stats.healthScore || 0
+        healthScore: stats.healthScore || 0,
+        parAmount: stats.parAmount || 0
     };
+
+    const collectionProgress = safeStats.expectedCollection > 0 
+        ? Math.round((safeStats.monthlyCollection / safeStats.expectedCollection) * 100) 
+        : 0;
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -56,7 +62,7 @@ const DashboardKPI = ({ stats }) => {
                 value={`$${safeStats.totalLent.toLocaleString()}`}
                 icon={DollarSign}
                 color="bg-gradient-to-br from-blue-500 to-indigo-600"
-                subtext="Capital activo en circulación"
+                subtext={`PAR: $${safeStats.parAmount.toLocaleString()} en riesgo`}
                 onClick={() => navigate('/loans')}
             />
             <KPICard
@@ -64,7 +70,7 @@ const DashboardKPI = ({ stats }) => {
                 value={`$${safeStats.monthlyCollection.toLocaleString()}`}
                 icon={TrendingUp}
                 color="bg-gradient-to-br from-teal-400 to-emerald-600"
-                subtext="Recaudado este mes"
+                subtext={`${collectionProgress}% de la meta ($${safeStats.expectedCollection.toLocaleString()})`}
                 onClick={() => navigate('/collections')}
             />
             <KPICard
@@ -76,11 +82,10 @@ const DashboardKPI = ({ stats }) => {
                 onClick={() => navigate('/clients')}
             />
             <KPICard
-                title="Tasa de Cartera"
+                title="Salud de Cartera"
                 value={`${safeStats.healthScore}%`}
                 icon={Activity}
                 color="bg-gradient-to-br from-rose-500 to-orange-500"
-                trend={2.5}
                 subtext="Préstamos al día"
                 onClick={() => navigate('/loans?status=Active')}
             />

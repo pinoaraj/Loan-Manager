@@ -39,7 +39,18 @@ function startServer() {
             if (app.isPackaged) {
                 serverPath = path.join(process.resourcesPath, 'server/index.js');
                 cwd = path.join(process.resourcesPath, 'server');
-                dbPath = path.join(process.resourcesPath, 'server/prisma/dev.db');
+                // En producción, SQLite debe estar en AppData para tener permisos de escritura
+                const userDataPath = app.getPath('userData');
+                dbPath = path.join(userDataPath, 'dev.db');
+                
+                // Si la DB no existe en userData, la copiamos desde resources (base inicial)
+                if (!fs.existsSync(dbPath)) {
+                    const templateDb = path.join(process.resourcesPath, 'server/prisma/dev.db');
+                    if (fs.existsSync(templateDb)) {
+                        fs.copyFileSync(templateDb, dbPath);
+                        log('Database copied to userData');
+                    }
+                }
             } else {
                 serverPath = path.join(__dirname, '../server/index.js');
                 cwd = path.join(__dirname, '../server');

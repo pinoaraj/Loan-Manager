@@ -1,9 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { format, parseISO } from 'date-fns';
+import { Download } from 'lucide-react';
+import { useLoans } from '../../context/LoanContext';
 
 const RecentActivity = ({ transactions }) => {
     const navigate = useNavigate();
+    const { downloadReport } = useLoans();
 
     // transactions might have structure: id, clientName, amount, date, method
     // BUT to navigate to loan, we need loanId. 
@@ -12,30 +15,27 @@ const RecentActivity = ({ transactions }) => {
     /*
         const recent = transactions.map(t => ({
             id: t.id,
+            loanId: t.payment.loanId,
             clientName: t.payment.loan.client.name,
             amount: t.amount,
             date: t.date,
             method: t.method
-            // Missing loanId? t.payment.loan.id is available in query include.
         }));
     */
-    // I need to update Backend first if loanId is missing, OR check if it was included.
-    // Wait, looking at Step 737 replacement content: 
-    /*
-        const recent = transactions.map(t => ({
-             id: t.id,
-             clientName: t.payment.loan.client.name,
-             amount: t.amount,
-             date: t.date,
-             method: t.method
-         }));
-    */
-    // loanId IS MISSING. I need to fix backend to include `loanId: t.payment.loan.id`.
 
     return (
         <div className="glass-panel p-5 rounded-3xl h-full flex flex-col">
             <div className="mb-4 flex justify-between items-center">
-                <h3 className="text-sm font-bold text-slate-700 dark:text-white uppercase tracking-wider">Actividad</h3>
+                <div className="flex items-center gap-2">
+                    <h3 className="text-sm font-bold text-slate-700 dark:text-white uppercase tracking-wider">Actividad</h3>
+                    <button 
+                        onClick={() => downloadReport('transactions')}
+                        className="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-md text-slate-400 transition-colors"
+                        title="Descargar reporte de transacciones"
+                    >
+                        <Download size={14} />
+                    </button>
+                </div>
                 <button onClick={() => navigate('/collections')} className="text-xs text-teal-600 font-bold hover:text-teal-700 hover:underline">VER TODO</button>
             </div>
             <div className="space-y-2 overflow-y-auto flex-1 pr-1 custom-scrollbar pb-2">

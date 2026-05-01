@@ -21,18 +21,21 @@ const validate = (schema) => (req, res, next) => {
 const clientSchema = z.object({
     name: z.string().min(1, 'El nombre es obligatorio'),
     email: z.string().email('Email inválido').optional().or(z.literal('')),
-    phone: z.string().min(1, 'El teléfono es obligatorio'),
-    address: z.string().optional()
+    phone: z.string().optional().or(z.literal('')),
+    address: z.string().optional().or(z.literal(''))
 });
 
 const loanSchema = z.object({
-    clientId: z.string().uuid('ID de cliente inválido'),
+    clientId: z.string(), // Removed strict UUID check as Prisma uses CUIDs
     amount: z.number().positive('El monto debe ser positivo'),
     interestRate: z.number().min(0, 'La tasa no puede ser negativa'),
     durationMonths: z.number().int().positive('La duración debe ser positiva'),
     startDate: z.string().datetime().or(z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Fecha inválida')), // Allow ISO or YYYY-MM-DD
     frequency: z.enum(['Weekly', 'Biweekly', 'Monthly']),
-    loanType: z.string().optional()
+    loanType: z.enum(['Fixed', 'Simple']).optional(),
+    graceDays: z.number().int().min(0).optional(),
+    lateFeeType: z.enum(['Fixed', 'Percent']).optional(),
+    lateFeeValue: z.number().min(0).optional()
 });
 
 const paymentSchema = z.object({

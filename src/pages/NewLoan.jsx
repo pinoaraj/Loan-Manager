@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useLoans } from '../context/LoanContext';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -15,14 +15,16 @@ import {
     AlertCircle
 } from 'lucide-react';
 import { format } from 'date-fns';
-import { calculateAmortization } from '../utils/amortization';
 
 const NewLoan = () => {
     const navigate = useNavigate();
-    const { clients, addLoan, addClient } = useLoans();
+    const { clients, addLoan, addClient, getLoanPreview } = useLoans();
+
     const [step, setStep] = useState(1);
     const [isAddingClient, setIsAddingClient] = useState(false);
     const [newClientData, setNewClientData] = useState({ name: '', email: '', phone: '', address: '' });
+    const [searchTerm, setSearchTerm] = useState('');
+    const [errors, setErrors] = useState({});
 
     const [formData, setFormData] = useState({
         clientId: '',
@@ -30,60 +32,69 @@ const NewLoan = () => {
         interestRate: 0.10,
         durationMonths: 12,
         startDate: format(new Date(), 'yyyy-MM-dd'),
-        frequency: 'monthly',
+        frequency: 'Monthly',
         loanType: 'Fixed',
         graceDays: 3,
         lateFeeType: 'Fixed',
         lateFeeValue: 0,
     });
 
-    const [searchTerm, setSearchTerm] = useState('');
+    const [schedule, setSchedule] = useState([]);
+    const [isPreviewLoading, setIsPreviewLoading] = useState(false);
 
     const filteredClients = useMemo(() => {
-        return clients.filter(c =>
+        return (clients || []).filter(c =>
             c.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             (c.phone && c.phone.includes(searchTerm))
         );
     }, [clients, searchTerm]);
 
-    const handleQuickAddClient = async (e) => {
-        e.preventDefault();
-        // The backend returns the created client
-        const res = await fetch('http://localhost:3001/api/clients', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newClientData)
-        });
-        if (res.ok) {
-            const client = await res.json();
-            // We need to refresh clients in context
-            await addClient(newClientData); // This also refreshes
-            setFormData(prev => ({ ...prev, clientId: client.id }));
-            setIsAddingClient(false);
-            setNewClientData({ name: '', email: '', phone: '', address: '' });
-        }
-    };
-
     const selectedClient = useMemo(() => {
-        return clients.find(c => c.id === formData.clientId);
+        return (clients || []).find(c => c.id === formData.clientId);
     }, [clients, formData.clientId]);
 
-    const schedule = useMemo(() => {
-        if (!formData.amount || !formData.durationMonths || !formData.clientId) return [];
-        return calculateAmortization(
-            parseFloat(formData.amount),
-            parseFloat(formData.interestRate),
-            parseInt(formData.durationMonths),
-            formData.startDate,
-            formData.frequency,
-            formData.loanType
-        );
-    }, [formData]);
+    useEffect(() => {
+        const fetchPreview = async () => {
+            const amount = parseFloat(formData.amount);
+            const duration = parseInt(formData.durationMonths);
+            const rate = parseFloat(formData.interestRate);
+
+            if (isNaN(amount) || isNaN(duration) || amount <= 0) {
+                setSchedule([]);
+                return;
+            }
+
+            setIsPreviewLoading(true);
+            try {
+                const data = await getLoanPreview({
+                    amount: amount,
+                    interestRate: isNaN(rate) ? 0 : rate,
+                    durationMonths: duration,
+                    startDate: formData.startDate,
+                    frequency: formData.frequency,
+                    loanType: formData.loanType
+                });
+                // Ensure dates are parsed back into Date objects for the table
+                const parsedData = (data || []).map(p => ({
+                    ...p,
+                    dueDate: new Date(p.dueDate)
+                }));
+                setSchedule(parsedData);
+            } catch (error) {
+                console.error('Preview error:', error);
+            } finally {
+                setIsPreviewLoading(false);
+            }
+        };
+
+        const timer = setTimeout(fetchPreview, 500); // Debounce
+        return () => clearTimeout(timer);
+    }, [formData, getLoanPreview]);
 
     const totals = useMemo(() => {
-        if (schedule.length === 0) return null;
-        const totalAmount = schedule.reduce((acc, curr) => acc + curr.amount, 0);
-        const totalInterest = schedule.reduce((acc, curr) => acc + curr.interest, 0);
+        if (schedule.length === 0) return { totalAmount: 0, totalInterest: 0 };
+        const totalAmount = schedule.reduce((acc, curr) => acc + (Number(curr.amount) || 0), 0);
+        const totalInterest = schedule.reduce((acc, curr) => acc + (Number(curr.interest) || 0), 0);
         return { totalAmount, totalInterest };
     }, [schedule]);
 
@@ -92,7 +103,19 @@ const NewLoan = () => {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const [errors, setErrors] = useState({});
+    const handleQuickAddClient = async (e) => {
+        e.preventDefault();
+        try {
+            const result = await addClient(newClientData);
+            if (result.success && result.data) {
+                setFormData(prev => ({ ...prev, clientId: result.data.id }));
+                setIsAddingClient(false);
+                setNewClientData({ name: '', email: '', phone: '', address: '' });
+            }
+        } catch (error) {
+            alert('Error al crear cliente: ' + error.message);
+        }
+    };
 
     const validateStep = (currentStep) => {
         const newErrors = {};
@@ -118,19 +141,24 @@ const NewLoan = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!validateStep(3)) return; // Final check
+        try {
+            if (!validateStep(3)) return;
 
-        await addLoan({
-            ...formData,
-            amount: parseFloat(formData.amount),
-            interestRate: parseFloat(formData.interestRate),
-            durationMonths: parseInt(formData.durationMonths),
-            graceDays: parseInt(formData.graceDays),
-            lateFeeType: formData.lateFeeType,
-            lateFeeValue: parseFloat(formData.lateFeeValue)
-        });
+            await addLoan({
+                ...formData,
+                amount: parseFloat(formData.amount),
+                interestRate: parseFloat(formData.interestRate),
+                durationMonths: parseInt(formData.durationMonths),
+                graceDays: parseInt(formData.graceDays),
+                lateFeeType: formData.lateFeeType,
+                lateFeeValue: parseFloat(formData.lateFeeValue)
+            });
 
-        navigate('/loans');
+            navigate('/loans');
+        } catch (error) {
+            console.error('Failed to create loan:', error);
+            alert('Error al crear el préstamo: ' + error.message);
+        }
     };
 
     const steps = [
@@ -243,23 +271,20 @@ const NewLoan = () => {
                                             onChange={(e) => setNewClientData({ ...newClientData, name: e.target.value })}
                                         />
                                         <input
-                                            required
                                             type="email"
-                                            placeholder="Email"
+                                            placeholder="Email (opcional)"
                                             className="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-xl outline-none"
                                             value={newClientData.email}
                                             onChange={(e) => setNewClientData({ ...newClientData, email: e.target.value })}
                                         />
                                         <input
-                                            required
-                                            placeholder="Teléfono"
+                                            placeholder="Teléfono (opcional)"
                                             className="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-xl outline-none"
                                             value={newClientData.phone}
                                             onChange={(e) => setNewClientData({ ...newClientData, phone: e.target.value })}
                                         />
                                         <input
-                                            required
-                                            placeholder="Dirección"
+                                            placeholder="Dirección (opcional)"
                                             className="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-xl outline-none"
                                             value={newClientData.address}
                                             onChange={(e) => setNewClientData({ ...newClientData, address: e.target.value })}
@@ -289,7 +314,7 @@ const NewLoan = () => {
                 {/* Step 2: Loan Config */}
                 {step === 2 && (
                     <div className="p-8 space-y-8">
-                        <div className="flex items-center gap-4 p-4 bg-blue-50 border border-blue-100 rounded-2xl">
+                        <div className="flex items-center gap-4 p-4 bg-blue-50 dark:bg-slate-700/50 border border-blue-100 dark:border-slate-600 rounded-2xl">
                             <div className="w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center">
                                 <User size={20} />
                             </div>
@@ -364,16 +389,20 @@ const NewLoan = () => {
                             <div className="space-y-2">
                                 <label className="text-sm font-bold text-slate-700">Frecuencia de Pagos</label>
                                 <div className="grid grid-cols-3 gap-2">
-                                    {['monthly', 'bi-weekly', 'weekly'].map(freq => (
+                                    {[
+                                        { value: 'Monthly', label: 'Mensual' },
+                                        { value: 'Biweekly', label: 'Quincenal' },
+                                        { value: 'Weekly', label: 'Semanal' }
+                                    ].map(freq => (
                                         <button
-                                            key={freq}
-                                            onClick={() => setFormData(prev => ({ ...prev, frequency: freq }))}
-                                            className={`p-3 rounded-xl border-2 font-medium transition-all ${formData.frequency === freq
+                                            key={freq.value}
+                                            onClick={() => setFormData(prev => ({ ...prev, frequency: freq.value }))}
+                                            className={`p-3 rounded-xl border-2 font-medium transition-all ${formData.frequency === freq.value
                                                 ? 'border-blue-600 bg-blue-50 text-blue-700'
                                                 : 'border-slate-100 dark:border-slate-700 bg-slate-50 text-slate-500 hover:border-slate-200'
                                                 }`}
                                         >
-                                            {freq === 'monthly' ? 'Mensual' : freq === 'bi-weekly' ? 'Quincenal' : 'Semanal'}
+                                            {freq.label}
                                         </button>
                                     ))}
                                 </div>
@@ -397,7 +426,6 @@ const NewLoan = () => {
                                 </div>
                             </div>
 
-                            {/* Late Fee Configuration */}
                             <div className="md:col-span-2 pt-4 border-t border-slate-100 dark:border-slate-700">
                                 <h3 className="text-sm font-bold text-slate-800 dark:text-white mb-4 flex items-center gap-2">
                                     <AlertCircle size={16} className="text-amber-500" />
@@ -481,13 +509,13 @@ const NewLoan = () => {
                                         <div className="pb-4 border-b border-slate-800">
                                             <p className="text-slate-400 text-sm">Cuota Estimada</p>
                                             <p className="text-3xl font-extrabold text-green-400">
-                                                ${schedule[0]?.amount.toFixed(2)}
+                                                ${schedule[0] ? Number(schedule[0].amount).toFixed(2) : '0.00'}
                                             </p>
                                         </div>
                                         <div className="space-y-2">
                                             <div className="flex justify-between text-sm">
                                                 <span className="text-slate-400">Capital</span>
-                                                <span className="font-bold">${parseFloat(formData.amount).toFixed(2)}</span>
+                                                <span className="font-bold">${(Number(formData.amount) || 0).toFixed(2)}</span>
                                             </div>
                                             <div className="flex justify-between text-sm">
                                                 <span className="text-slate-400">Interés Total</span>
@@ -552,9 +580,9 @@ const NewLoan = () => {
                                                 <tr key={p.installment} className="hover:bg-blue-50/50 transition-colors">
                                                     <td className="p-4 font-medium text-slate-400">{p.installment}</td>
                                                     <td className="p-4 text-slate-700">{format(p.dueDate, 'dd MMM yyyy')}</td>
-                                                    <td className="p-4 text-right font-bold text-slate-800 dark:text-white">${p.amount.toFixed(2)}</td>
-                                                    <td className="p-4 text-right text-slate-600">${p.principal.toFixed(2)}</td>
-                                                    <td className="p-4 text-right text-slate-600">${p.interest.toFixed(2)}</td>
+                                                    <td className="p-4 text-right font-bold text-slate-800 dark:text-white">${Number(p.amount).toFixed(2)}</td>
+                                                    <td className="p-4 text-right text-slate-600">${Number(p.principal).toFixed(2)}</td>
+                                                    <td className="p-4 text-right text-slate-600">${Number(p.interest).toFixed(2)}</td>
                                                 </tr>
                                             ))}
                                         </tbody>

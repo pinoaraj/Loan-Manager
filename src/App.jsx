@@ -14,6 +14,7 @@ import LoanDetail from './pages/LoanDetail';
 import Collections from './pages/Collections';
 import Calculator from './pages/Calculator';
 import Login from './pages/Login';
+import ImportData from './pages/ImportData';
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
@@ -61,6 +62,7 @@ const App = () => {
                         <Route path="/loans/:id" element={<LoanDetail />} />
                         <Route path="/collections" element={<Collections />} />
                         <Route path="/calculator" element={<Calculator />} />
+                        <Route path="/import" element={<ImportData />} />
                       </Routes>
                     </Layout>
                   </ProtectedRoute>

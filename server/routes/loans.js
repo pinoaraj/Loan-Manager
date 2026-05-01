@@ -8,6 +8,34 @@ const { authenticateToken } = require('../middleware/auth');
 
 const prisma = new PrismaClient();
 
+// GET preview of loan schedule
+router.get('/preview', authenticateToken, (req, res) => {
+    try {
+        const { amount, interestRate, durationMonths, startDate, loanType, frequency } = req.query;
+
+        if (!amount || !interestRate || !durationMonths || !startDate) {
+            return res.status(400).json({ error: 'Missing required parameters for preview' });
+        }
+
+        // Normalize frequency for amortization engine
+        let engineFrequency = (frequency || 'monthly').toLowerCase();
+        if (engineFrequency === 'biweekly') engineFrequency = 'bi-weekly';
+
+        const schedule = calculateAmortization(
+            parseFloat(amount),
+            parseFloat(interestRate),
+            parseInt(durationMonths),
+            startDate,
+            engineFrequency,
+            loanType || 'Fixed'
+        );
+
+        res.json(schedule);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 // GET all loans with pagination, search, and filtering
 router.get('/', authenticateToken, async (req, res) => {
     try {
@@ -94,12 +122,16 @@ router.post('/', authenticateToken, validate(loanSchema), async (req, res) => {
     try {
         const { clientId, amount, interestRate, durationMonths, startDate, loanType, frequency, graceDays, lateFeeType, lateFeeValue } = req.body;
 
+        // Normalize frequency for amortization engine
+        let engineFrequency = (frequency || 'monthly').toLowerCase();
+        if (engineFrequency === 'biweekly') engineFrequency = 'bi-weekly';
+
         const schedule = calculateAmortization(
             parseFloat(amount),
             parseFloat(interestRate),
             parseInt(durationMonths),
             startDate,
-            frequency || 'monthly',
+            engineFrequency,
             loanType || 'Fixed'
         );
 

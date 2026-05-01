@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useCallback } from 'react';
 // import { format, isAfter, parseISO, startOfDay, differenceInDays } from 'date-fns';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useAuth } from './AuthContext';
@@ -9,13 +9,8 @@ const API_URL = 'http://localhost:3001/api';
 export const useLoans = () => useContext(LoanContext);
 
 export const LoanProvider = ({ children }) => {
-    const { token } = useAuth();
+    const { token, fetchWithAuth } = useAuth();
     const queryClient = useQueryClient();
-
-    const getHeaders = () => ({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-    });
 
     // --- Queries ---
 
@@ -27,7 +22,7 @@ export const LoanProvider = ({ children }) => {
         queryFn: async () => {
             if (!token) return { totalActiveLoans: 0, totalLent: 0, statusData: [], totalClients: 0 };
             try {
-                const res = await fetch(`${API_URL}/dashboard/stats`, { headers: getHeaders() });
+                const res = await fetchWithAuth(`${API_URL}/dashboard/stats`);
                 if (!res.ok) throw new Error('Failed to fetch stats');
                 return res.json();
             } catch (e) {
@@ -44,7 +39,7 @@ export const LoanProvider = ({ children }) => {
         queryFn: async () => {
             if (!token) return [];
             try {
-                const res = await fetch(`${API_URL}/dashboard/alerts`, { headers: getHeaders() });
+                const res = await fetchWithAuth(`${API_URL}/dashboard/alerts`);
                 if (!res.ok) throw new Error('Failed to fetch alerts');
                 return res.json();
             } catch (e) {
@@ -61,7 +56,7 @@ export const LoanProvider = ({ children }) => {
         queryFn: async () => {
             if (!token) return [];
             try {
-                const res = await fetch(`${API_URL}/dashboard/projections`, { headers: getHeaders() });
+                const res = await fetchWithAuth(`${API_URL}/dashboard/projections`);
                 if (!res.ok) throw new Error('Failed to fetch projections');
                 return res.json();
             } catch (e) {
@@ -78,7 +73,7 @@ export const LoanProvider = ({ children }) => {
         queryFn: async () => {
             if (!token) return [];
             try {
-                const res = await fetch(`${API_URL}/dashboard/recent`, { headers: getHeaders() });
+                const res = await fetchWithAuth(`${API_URL}/dashboard/recent`);
                 if (!res.ok) throw new Error('Failed to fetch recent activity');
                 return res.json();
             } catch (e) {
@@ -115,8 +110,8 @@ export const LoanProvider = ({ children }) => {
         queryFn: async () => {
             if (!token) return [];
             try {
-                // fetching default page 1 (limit 1000)
-                const res = await fetch(`${API_URL}/clients`, { headers: getHeaders() });
+                // fetching default page
+                const res = await fetchWithAuth(`${API_URL}/clients`);
                 if (!res.ok) throw new Error('Failed to fetch clients');
                 const json = await res.json();
                 return Array.isArray(json) ? json : (json.data || []);
@@ -133,8 +128,8 @@ export const LoanProvider = ({ children }) => {
         queryFn: async () => {
             if (!token) return [];
             try {
-                // fetching default page 1 (limit 1000)
-                const res = await fetch(`${API_URL}/loans`, { headers: getHeaders() });
+                // fetching default page
+                const res = await fetchWithAuth(`${API_URL}/loans`);
                 if (!res.ok) throw new Error('Failed to fetch loans');
                 const json = await res.json();
                 return Array.isArray(json) ? json : (json.data || []);
@@ -158,37 +153,53 @@ export const LoanProvider = ({ children }) => {
         queryClient.invalidateQueries({ queryKey: ['loans'] });
     };
 
-    const addLoan = async (loanData) => {
+    const addLoan = useCallback(async (loanData) => {
         try {
-            const res = await fetch(`${API_URL}/loans`, {
+            const res = await fetchWithAuth(`${API_URL}/loans`, {
                 method: 'POST',
-                headers: getHeaders(),
                 body: JSON.stringify(loanData)
             });
-            if (res.ok) invalidateData();
+
+            if (!res.ok) {
+                const errorData = await res.json();
+                throw new Error(errorData.error || errorData.details || 'Failed to create loan');
+            }
+
+            const newLoan = await res.json();
+            invalidateData();
+            return { success: true, data: newLoan };
         } catch (error) {
             console.error('Error adding loan:', error);
+            throw error;
         }
-    };
+    }, [fetchWithAuth]);
 
-    const addClient = async (clientData) => {
+    const addClient = useCallback(async (clientData) => {
         try {
-            const res = await fetch(`${API_URL}/clients`, {
+            const res = await fetchWithAuth(`${API_URL}/clients`, {
                 method: 'POST',
-                headers: getHeaders(),
                 body: JSON.stringify(clientData)
             });
-            if (res.ok) invalidateData();
+
+            if (!res.ok) {
+                const errorData = await res.json();
+                console.error('Error adding client:', errorData);
+                throw new Error(errorData.error || errorData.details || 'Failed to create client');
+            }
+
+            const newClient = await res.json();
+            invalidateData();
+            return { success: true, data: newClient };
         } catch (error) {
             console.error('Error adding client:', error);
+            throw error;
         }
-    };
+    }, [fetchWithAuth]);
 
-    const updateClient = async (clientId, clientData) => {
+    const updateClient = useCallback(async (clientId, clientData) => {
         try {
-            const res = await fetch(`${API_URL}/clients/${clientId}`, {
+            const res = await fetchWithAuth(`${API_URL}/clients/${clientId}`, {
                 method: 'PUT',
-                headers: getHeaders(),
                 body: JSON.stringify(clientData)
             });
             if (res.ok) {
@@ -200,13 +211,12 @@ export const LoanProvider = ({ children }) => {
             console.error('Error updating client:', error);
             return false;
         }
-    };
+    }, [fetchWithAuth]);
 
-    const deleteClient = async (clientId) => {
+    const deleteClient = useCallback(async (clientId) => {
         try {
-            const res = await fetch(`${API_URL}/clients/${clientId}`, {
-                method: 'DELETE',
-                headers: getHeaders()
+            const res = await fetchWithAuth(`${API_URL}/clients/${clientId}`, {
+                method: 'DELETE'
             });
             if (res.ok) {
                 invalidateData();
@@ -219,26 +229,24 @@ export const LoanProvider = ({ children }) => {
             console.error('Error deleting client:', error);
             return { success: false, error: 'Network error' };
         }
-    };
+    }, [fetchWithAuth]);
 
-    const updateLoanStatus = async (loanId, newStatus) => {
+    const updateLoanStatus = useCallback(async (loanId, newStatus) => {
         try {
-            const res = await fetch(`${API_URL}/loans/${loanId}`, {
+            const res = await fetchWithAuth(`${API_URL}/loans/${loanId}`, {
                 method: 'PATCH',
-                headers: getHeaders(),
                 body: JSON.stringify({ status: newStatus })
             });
             if (res.ok) invalidateData();
         } catch (error) {
             console.error('Error updating loan status:', error);
         }
-    };
+    }, [fetchWithAuth]);
 
-    const recalculateLoan = async (loanId) => {
+    const recalculateLoan = useCallback(async (loanId) => {
         try {
-            const res = await fetch(`${API_URL}/loans/${loanId}/recalculate`, {
-                method: 'POST',
-                headers: getHeaders()
+            const res = await fetchWithAuth(`${API_URL}/loans/${loanId}/recalculate`, {
+                method: 'POST'
             });
             if (res.ok) {
                 invalidateData();
@@ -249,26 +257,24 @@ export const LoanProvider = ({ children }) => {
             console.error('Error recalculating loan:', error);
             return false;
         }
-    };
+    }, [fetchWithAuth]);
 
-    const updatePaymentStatus = async (paymentId, newStatus) => {
+    const updatePaymentStatus = useCallback(async (paymentId, newStatus) => {
         try {
-            const res = await fetch(`${API_URL}/payments/${paymentId}`, {
+            const res = await fetchWithAuth(`${API_URL}/payments/${paymentId}`, {
                 method: 'PATCH',
-                headers: getHeaders(),
                 body: JSON.stringify({ status: newStatus })
             });
             if (res.ok) invalidateData();
         } catch (error) {
             console.error('Error updating payment status:', error);
         }
-    };
+    }, [fetchWithAuth]);
 
-    const registerPayment = async (paymentId, paymentData) => {
+    const registerPayment = useCallback(async (paymentId, paymentData) => {
         try {
-            const res = await fetch(`${API_URL}/payments/${paymentId}/transactions`, {
+            const res = await fetchWithAuth(`${API_URL}/payments/${paymentId}/transactions`, {
                 method: 'POST',
-                headers: getHeaders(),
                 body: JSON.stringify(paymentData)
             });
             if (res.ok) {
@@ -282,26 +288,24 @@ export const LoanProvider = ({ children }) => {
             console.error('Error registering payment:', error);
             return { success: false, error: 'Network error' };
         }
-    };
+    }, [fetchWithAuth]);
 
-    const importData = async (clientsData, loansData) => {
+    const importData = useCallback(async (clientsData, loansData) => {
         try {
-            const res = await fetch(`${API_URL}/import`, {
+            const res = await fetchWithAuth(`${API_URL}/import`, {
                 method: 'POST',
-                headers: getHeaders(),
                 body: JSON.stringify({ clients: clientsData, loans: loansData })
             });
             if (res.ok) invalidateData();
         } catch (error) {
             console.error('Error importing data:', error);
         }
-    };
+    }, [fetchWithAuth]);
 
-    const togglePause = async (loanId, isPaused) => {
+    const togglePause = useCallback(async (loanId, isPaused) => {
         try {
-            const res = await fetch(`${API_URL}/loans/${loanId}/pause`, {
+            const res = await fetchWithAuth(`${API_URL}/loans/${loanId}/pause`, {
                 method: 'PATCH',
-                headers: getHeaders(),
                 body: JSON.stringify({ isPaused })
             });
             if (res.ok) invalidateData();
@@ -310,7 +314,26 @@ export const LoanProvider = ({ children }) => {
             console.error('Error toggling pause:', error);
             return false;
         }
-    };
+    }, [fetchWithAuth]);
+
+    const downloadReport = useCallback(async (type) => {
+        try {
+            const res = await fetchWithAuth(`${API_URL}/reports/${type}`);
+            if (!res.ok) throw new Error('Failed to download report');
+
+            const blob = await res.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Reporte_${type}_${new Date().toISOString().split('T')[0]}.xlsx`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error('Error downloading report:', error);
+            alert('Error al descargar el reporte.');
+        }
+    }, [fetchWithAuth]);
 
     // --- Selection / Computed Data ---
 
@@ -326,6 +349,21 @@ export const LoanProvider = ({ children }) => {
         return loan.payments || [];
     };
 
+    const getLoanPreview = useCallback(async (params) => {
+        try {
+            const queryParams = new URLSearchParams(params).toString();
+            const res = await fetchWithAuth(`${API_URL}/loans/preview?${queryParams}`);
+            if (!res.ok) {
+                const errorData = await res.json();
+                throw new Error(errorData.error || 'Failed to fetch preview');
+            }
+            return await res.json();
+        } catch (error) {
+            console.error('Error fetching loan preview:', error);
+            throw error;
+        }
+    }, [fetchWithAuth]);
+
     // dashboardStats is now an object fetched from API
     // alerts is now an array fetched from API
 
@@ -337,10 +375,10 @@ export const LoanProvider = ({ children }) => {
             clients, loans, loading,
             getClientLoans, getLoanSchedule,
             dashboardStats, alerts, recentActivity,
-            addLoan, getCollectionProjections,
+            addLoan, getCollectionProjections, getLoanPreview,
             updateLoanStatus, updatePaymentStatus,
             importData, addClient, recalculateLoan,
-            updateClient, deleteClient, registerPayment, togglePause
+            updateClient, deleteClient, registerPayment, togglePause, downloadReport
         }}>
             {children}
         </LoanContext.Provider>
