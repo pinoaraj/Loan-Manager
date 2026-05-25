@@ -72,8 +72,8 @@ router.post('/', authenticateToken, validate(importDataSchema), async (req, res)
                         loanType,
                         frequency,
                         graceDays: Number.isInteger(loanData.graceDays) ? loanData.graceDays : 3,
-                        lateFeeType: loanData.lateFeeType || 'Percent',
-                        lateFeeValue: loanData.lateFeeValue === undefined ? 0.05 : Number(loanData.lateFeeValue),
+                        lateFeeType: loanData.lateFeeType || 'Fixed',
+                        lateFeeValue: loanData.lateFeeValue === undefined ? 0 : Number(loanData.lateFeeValue),
                         status: 'Active'
                     }
                 });

@@ -39,7 +39,7 @@ try {
 
     console.log('Up to date');
     process.exit(0); // No rebuild needed
-} catch (_e) {
+} catch {
     // console.error(e); // Optionally log error
     process.exit(1);
 }

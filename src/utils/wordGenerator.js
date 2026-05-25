@@ -1,13 +1,6 @@
 import { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, WidthType, BorderStyle, HeadingLevel, AlignmentType } from "docx";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
-import PizZip from 'pizzip';
-import Docxtemplater from 'docxtemplater';
-import PizZipUtils from 'pizzip/utils/index.js';
-
-function loadFile(url, callback) {
-    PizZipUtils.getBinaryContent(url, callback);
-}
 
 const getLoanInterestRate = (loan) => Number(loan.interestRate ?? loan.rate ?? 0);
 const getLoanDurationMonths = (loan) => loan.durationMonths ?? loan.term ?? 0;
@@ -30,7 +23,7 @@ export const generateWordContract = async (loan, client) => {
             properties: {},
             children: [
                 new Paragraph({
-                    text: "CONTRATO DE PRÉSTAMO",
+                    text: "CONTRATO DE PRESTAMO",
                     heading: HeadingLevel.TITLE,
                     alignment: AlignmentType.CENTER,
                     spacing: { after: 400 }
@@ -40,29 +33,21 @@ export const generateWordContract = async (loan, client) => {
                     alignment: AlignmentType.CENTER,
                     spacing: { after: 400 }
                 }),
-
-                // Client Info
-                new Paragraph({ text: "Información del Cliente", heading: HeadingLevel.HEADING_2 }),
+                new Paragraph({ text: "Informacion del Cliente", heading: HeadingLevel.HEADING_2 }),
                 new Paragraph({ text: `Nombre: ${client.name}`, bullet: { level: 0 } }),
                 new Paragraph({ text: `ID: ${client.id}`, bullet: { level: 0 } }),
                 new Paragraph({ text: `Email: ${client.email}`, bullet: { level: 0 } }),
-                new Paragraph({ text: `Teléfono: ${client.phone}`, bullet: { level: 0 }, spacing: { after: 300 } }),
-
-                // Loan Details
-                new Paragraph({ text: "Detalles del Préstamo", heading: HeadingLevel.HEADING_2 }),
+                new Paragraph({ text: `Telefono: ${client.phone}`, bullet: { level: 0 }, spacing: { after: 300 } }),
+                new Paragraph({ text: "Detalles del Prestamo", heading: HeadingLevel.HEADING_2 }),
                 new Paragraph({ text: `Monto Prestado: $${loan.amount.toFixed(2)}`, bullet: { level: 0 } }),
-                new Paragraph({ text: `Tasa de Interés: ${(interestRate * 100).toFixed(1)}% (${loan.frequency})`, bullet: { level: 0 } }),
-                new Paragraph({ text: `Duración: ${durationMonths} meses`, bullet: { level: 0 } }),
+                new Paragraph({ text: `Tasa de Interes: ${(interestRate * 100).toFixed(1)}% (${loan.frequency})`, bullet: { level: 0 } }),
+                new Paragraph({ text: `Duracion: ${durationMonths} meses`, bullet: { level: 0 } }),
                 new Paragraph({ text: `Fecha de Inicio: ${format(new Date(loan.startDate), 'dd MMM yyyy')}`, bullet: { level: 0 }, spacing: { after: 300 } }),
-
-                // Terms
-                new Paragraph({ text: "Términos y Condiciones", heading: HeadingLevel.HEADING_2 }),
+                new Paragraph({ text: "Terminos y Condiciones", heading: HeadingLevel.HEADING_2 }),
                 new Paragraph({
-                    text: "El Prestatario se compromete a pagar al Prestamista el monto total del préstamo más los intereses devengados según el cronograma de pagos adjunto. En caso de mora, se aplicarán penalidades adicionales según lo estipulado por la ley vigente.",
+                    text: "El Prestatario se compromete a pagar al Prestamista el monto total del prestamo mas los intereses devengados segun el cronograma de pagos adjunto. En caso de mora, se aplicaran penalidades adicionales segun lo estipulado por la ley vigente.",
                     spacing: { after: 400 }
                 }),
-
-                // Schedule (Simplified for Word)
                 new Paragraph({ text: "Cronograma de Pagos", heading: HeadingLevel.HEADING_2, spacing: { after: 200 } }),
                 new Table({
                     width: { size: 100, type: WidthType.PERCENTAGE },
@@ -87,10 +72,7 @@ export const generateWordContract = async (loan, client) => {
                         )
                     ]
                 }),
-
                 new Paragraph({ text: "\n\n\n", spacing: { after: 400 } }),
-
-                // Signatures
                 new Table({
                     width: { size: 100, type: WidthType.PERCENTAGE },
                     borders: {
@@ -148,7 +130,6 @@ export const generateWordReceipt = async (payment, loan, client) => {
                     alignment: AlignmentType.RIGHT,
                     spacing: { after: 300 }
                 }),
-
                 new Paragraph({
                     children: [
                         new TextRun({ text: "Recibimos de: ", bold: true }),
@@ -156,7 +137,6 @@ export const generateWordReceipt = async (payment, loan, client) => {
                     ],
                     spacing: { after: 200 }
                 }),
-
                 new Paragraph({
                     children: [
                         new TextRun({ text: "La suma de: ", bold: true }),
@@ -164,11 +144,10 @@ export const generateWordReceipt = async (payment, loan, client) => {
                     ],
                     spacing: { after: 200 }
                 }),
-
                 new Paragraph({
                     children: [
                         new TextRun({ text: "Concepto: ", bold: true }),
-                        new TextRun(`Pago de cuota del préstamo #${loan.id}`)
+                        new TextRun(`Pago de cuota del prestamo #${loan.id}`)
                     ],
                     spacing: { after: 100 }
                 }),
@@ -179,7 +158,6 @@ export const generateWordReceipt = async (payment, loan, client) => {
                     ],
                     spacing: { after: 400 }
                 }),
-
                 new Paragraph({
                     text: "Gracias por su pago puntual.",
                     alignment: AlignmentType.CENTER,
@@ -192,112 +170,4 @@ export const generateWordReceipt = async (payment, loan, client) => {
 
     const blob = await Packer.toBlob(doc);
     downloadBlob(blob, `Recibo_${payment.id}_${client.name.replace(/\s+/g, '_')}.docx`);
-};
-
-export const generatePagare = async (loan, client) => {
-    const interestRate = getLoanInterestRate(loan);
-
-    const doc = new Document({
-        sections: [{
-            properties: {},
-            children: [
-                new Paragraph({
-                    text: "PAGARÉ",
-                    heading: HeadingLevel.TITLE,
-                    alignment: AlignmentType.CENTER,
-                    spacing: { after: 400 }
-                }),
-                new Paragraph({
-                    text: `Por valor de: $${loan.amount.toFixed(2)}`,
-                    alignment: AlignmentType.RIGHT,
-                    spacing: { after: 400 }
-                }),
-                new Paragraph({
-                    children: [
-                        new TextRun("Debo y pagaré incondicionalmente a la orden de "),
-                        new TextRun({ text: "Loan Manager", bold: true }), // Or make this configurable
-                        new TextRun(` en la ciudad de _______________, el día ${format(new Date(loan.startDate), 'dd MMM yyyy', { locale: es })}.`)
-                    ],
-                    spacing: { after: 200 },
-                    alignment: AlignmentType.JUSTIFIED
-                }),
-                new Paragraph({
-                    children: [
-                        new TextRun("La cantidad de: "),
-                        new TextRun({ text: `$${loan.amount.toFixed(2)}`, bold: true }),
-                        new TextRun(" ("),
-                        // numberToWords logic could go here if we had a library, skipping for now
-                        new TextRun("valor recibido a mi entera satisfacción).")
-                    ],
-                    spacing: { after: 200 },
-                    alignment: AlignmentType.JUSTIFIED
-                }),
-                new Paragraph({
-                    children: [
-                        new TextRun(`Este pagaré forma parte de una serie numerada del 1 al ${loan.payments.length} y todos están sujetos a la condición de que, al no pagarse cualquiera de ellos a su vencimiento, serán exigibles todos los que le sigan en número, además de los ya vencidos.`)
-                    ],
-                    spacing: { after: 200 },
-                    alignment: AlignmentType.JUSTIFIED
-                }),
-                new Paragraph({
-                    children: [
-                        new TextRun(`Valor recibido a mi entera satisfacción. Este pagaré causará intereses a la tasa de ${(interestRate * 100).toFixed(1)}% mensual sobre saldos insolutos.`)
-                    ],
-                    spacing: { after: 400 },
-                    alignment: AlignmentType.JUSTIFIED
-                }),
-
-                // Signatures
-                new Paragraph({ text: "\n\n\n", spacing: { after: 400 } }),
-                new Paragraph({
-                    text: "__________________________",
-                    alignment: AlignmentType.CENTER
-                }),
-                new Paragraph({
-                    text: client.name,
-                    bold: true,
-                    alignment: AlignmentType.CENTER
-                }),
-                new Paragraph({
-                    text: `ID: ${client.id}`,
-                    alignment: AlignmentType.CENTER
-                }),
-                new Paragraph({
-                    text: "ACEPTO(AMOS)",
-                    alignment: AlignmentType.CENTER,
-                    spacing: { before: 200 }
-                })
-            ],
-        }],
-    });
-
-    const blob = await Packer.toBlob(doc);
-    downloadBlob(blob, `Pagare_${client.name.replace(/\s+/g, '_')}_${loan.id}.docx`);
-};
-
-export const generatePagareFromTemplate = (data, templateName = 'pagare_template.docx') => {
-    loadFile(`/${templateName}`, function (error, content) {
-        if (error) {
-            console.error("Error loading template:", error);
-            alert("Error cargando la plantilla del pagaré. Verifique que 'pagare_template.docx' exista en la carpeta public.");
-            throw error;
-        }
-
-        const zip = new PizZip(content);
-        const doc = new Docxtemplater(zip, {
-            paragraphLoop: true,
-            linebreaks: true,
-        });
-
-        // Data rendering
-        doc.render(data);
-
-        const out = doc.getZip().generate({
-            type: "blob",
-            mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        });
-
-        // Output the document using Data-URI
-        downloadBlob(out, `Pagare_${data.clientName.replace(/\s+/g, '_')}.docx`);
-    });
 };

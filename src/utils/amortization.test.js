@@ -44,4 +44,20 @@ describe('calculateAmortization', () => {
         expect(schedule[0].amount).toBeCloseTo(200, 2);
         expect(schedule.length).toBe(10);
     });
+
+    it('makes biweekly payment exactly half of the monthly payment', () => {
+        const monthlySchedule = calculateAmortization(5000, 0.10, 5, new Date(), 'monthly', 'Fixed');
+        const biweeklySchedule = calculateAmortization(5000, 0.10, 5, new Date(), 'bi-weekly', 'Fixed');
+
+        expect(biweeklySchedule.length).toBe(monthlySchedule.length * 2);
+        expect(biweeklySchedule[0].amount).toBeCloseTo(monthlySchedule[0].amount / 2, 2);
+    });
+
+    it('makes weekly payment exactly one quarter of the monthly payment', () => {
+        const monthlySchedule = calculateAmortization(5000, 0.10, 5, new Date(), 'monthly', 'Fixed');
+        const weeklySchedule = calculateAmortization(5000, 0.10, 5, new Date(), 'weekly', 'Fixed');
+
+        expect(weeklySchedule.length).toBe(monthlySchedule.length * 4);
+        expect(weeklySchedule[0].amount).toBeCloseTo(monthlySchedule[0].amount / 4, 2);
+    });
 });

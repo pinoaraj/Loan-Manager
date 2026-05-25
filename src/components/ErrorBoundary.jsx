@@ -11,32 +11,34 @@ class ErrorBoundary extends React.Component {
     }
 
     componentDidCatch(error, errorInfo) {
-        console.error("Uncaught error:", error, errorInfo);
+        console.error('Uncaught error:', error, errorInfo);
         this.setState({ errorInfo });
     }
 
     render() {
+        const showDetails = import.meta.env.DEV && this.state.error;
+
         if (this.state.hasError) {
             return (
-                <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-                    <div className="max-w-md w-full bg-white shadow-lg rounded-lg p-6">
-                        <div className="flex items-center justify-center w-12 h-12 mx-auto bg-red-100 rounded-full">
-                            <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
+                    <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
+                        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
+                            <svg className="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </div>
-                        <h1 className="mt-4 text-lg font-medium text-gray-900 text-center">
-                            Algo salió mal
+                        <h1 className="mt-4 text-center text-lg font-medium text-gray-900">
+                            Algo salio mal
                         </h1>
-                        <p className="mt-2 text-sm text-gray-500 text-center">
-                            La aplicación encontró un error inesperado. Por favor, recarga la página.
+                        <p className="mt-2 text-center text-sm text-gray-500">
+                            La aplicacion encontro un error inesperado. Por favor, recarga la pagina.
                         </p>
-                        {process.env.NODE_ENV === 'development' && this.state.error && (
-                            <details className="mt-4 p-3 bg-gray-50 rounded text-xs">
-                                <summary className="cursor-pointer text-gray-700 font-medium">
+                        {showDetails && (
+                            <details className="mt-4 rounded bg-gray-50 p-3 text-xs">
+                                <summary className="cursor-pointer font-medium text-gray-700">
                                     Detalles del error
                                 </summary>
-                                <pre className="mt-2 text-red-600 whitespace-pre-wrap break-words">
+                                <pre className="mt-2 whitespace-pre-wrap break-words text-red-600">
                                     {this.state.error.toString()}
                                     {this.state.errorInfo?.componentStack}
                                 </pre>
@@ -44,9 +46,9 @@ class ErrorBoundary extends React.Component {
                         )}
                         <button
                             onClick={() => window.location.reload()}
-                            className="mt-6 w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
+                            className="mt-6 w-full rounded-md bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700"
                         >
-                            Recargar Aplicación
+                            Recargar Aplicacion
                         </button>
                     </div>
                 </div>

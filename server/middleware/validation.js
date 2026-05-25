@@ -1,5 +1,15 @@
 const { z } = require('zod');
 
+const frequencySchema = z.preprocess(
+    (value) => {
+        if (typeof value !== 'string') return value;
+        const normalized = value.trim().toLowerCase();
+        if (normalized === 'biweekly') return 'bi-weekly';
+        return normalized;
+    },
+    z.enum(['weekly', 'bi-weekly', 'monthly'])
+);
+
 // Middleware factory
 const validate = (schema) => (req, res, next) => {
     try {
@@ -32,7 +42,7 @@ const loanSchema = z.object({
     interestRate: z.number().min(0, 'La tasa no puede ser negativa'),
     durationMonths: z.number().int().positive('La duración debe ser positiva'),
     startDate: z.string().datetime().or(z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Fecha inválida')), // Allow ISO or YYYY-MM-DD
-    frequency: z.enum(['Weekly', 'Biweekly', 'Monthly']),
+    frequency: frequencySchema,
     loanType: z.enum(['Fixed', 'Simple']).optional(),
     graceDays: z.number().int().min(0).optional(),
     lateFeeType: z.enum(['Fixed', 'Percent']).optional(),

@@ -1,22 +1,30 @@
 import React, { useState } from 'react';
-import { useLoans } from '../context/LoanContext';
 import { useNavigate } from 'react-router-dom';
-import * as XLSX from 'xlsx';
 import { Upload, FileSpreadsheet, Check, AlertCircle, ArrowRight } from 'lucide-react';
-import ConfirmModal from '../components/ConfirmModal';
 import { toast } from 'sonner';
+import { useLoans } from '../context/LoanContext';
+import ConfirmModal from '../components/ConfirmModal';
+import { downloadBulkLoanCalendars } from '../utils/calendar';
+
+let xlsxModulePromise;
+
+const loadXlsx = async () => {
+    if (!xlsxModulePromise) {
+        xlsxModulePromise = import('xlsx');
+    }
+
+    return xlsxModulePromise;
+};
 
 const ImportData = () => {
     const navigate = useNavigate();
     const { importData, clients } = useLoans();
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-    const [step, setStep] = useState(1); // 1: Upload, 2: Map, 3: Review
+    const [step, setStep] = useState(1);
     const [rawRows, setRawRows] = useState([]);
     const [columns, setColumns] = useState([]);
     const [fileName, setFileName] = useState('');
     const [isImporting, setIsImporting] = useState(false);
-
-    // Mapping state: which excel column maps to key fields
     const [mapping, setMapping] = useState({
         clientName: '',
         amount: '',
@@ -24,98 +32,112 @@ const ImportData = () => {
         duration: '',
         interest: ''
     });
+    const [previewData, setPreviewData] = useState({ clients: [], loans: [], skippedCount: 0 });
 
-    const handleFileUpload = (e) => {
+    const handleFileUpload = async (e) => {
         const file = e.target.files[0];
-        if (!file) return;
+        if (!file) {
+            return;
+        }
 
         setFileName(file.name);
         const reader = new FileReader();
-        reader.onload = (evt) => {
-            const bstr = evt.target.result;
-            const wb = XLSX.read(bstr, { type: 'binary' });
-            const wsname = wb.SheetNames[0];
-            const ws = wb.Sheets[wsname];
-            const data = XLSX.utils.sheet_to_json(ws, { header: 1 });
+        reader.onload = async (evt) => {
+            try {
+                const bstr = evt.target.result;
+                const XLSX = await loadXlsx();
+                const workbook = XLSX.read(bstr, { type: 'binary' });
+                const sheetName = workbook.SheetNames[0];
+                const sheet = workbook.Sheets[sheetName];
+                const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
-            if (data.length > 0) {
+                if (data.length === 0) {
+                    toast.error('El archivo no contiene filas para importar');
+                    return;
+                }
+
                 const header = data[0];
-                const rows = data.slice(1).filter(r => r.length > 0);
+                const rows = data.slice(1).filter((row) => row.length > 0);
                 setColumns(header);
                 setRawRows(rows);
                 setStep(2);
 
-                // Auto-guess mapping
-                // const lowerHeader = header.map(h => String(h).toLowerCase());
-                const newMapping = { ...mapping };
-
-                header.forEach((h) => {
-                    const low = h.toString().toLowerCase();
-                    if (low.includes('nom') || low.includes('name') || low.includes('cliente')) newMapping.clientName = h;
-                    if (low.includes('mont') || low.includes('amount') || low.includes('prestamo')) newMapping.amount = h;
-                    if (low.includes('fec') || low.includes('date') || low.includes('inicio')) newMapping.date = h;
-                    if (low.includes('mes') || low.includes('plazo') || low.includes('duration')) newMapping.duration = h;
-                    if (low.includes('int') || low.includes('rate') || low.includes('tasa')) newMapping.interest = h;
+                const nextMapping = { ...mapping };
+                header.forEach((column) => {
+                    const normalized = column.toString().toLowerCase();
+                    if (normalized.includes('nom') || normalized.includes('name') || normalized.includes('cliente')) nextMapping.clientName = column;
+                    if (normalized.includes('mont') || normalized.includes('amount') || normalized.includes('prestamo')) nextMapping.amount = column;
+                    if (normalized.includes('fec') || normalized.includes('date') || normalized.includes('inicio')) nextMapping.date = column;
+                    if (normalized.includes('mes') || normalized.includes('plazo') || normalized.includes('duration')) nextMapping.duration = column;
+                    if (normalized.includes('int') || normalized.includes('rate') || normalized.includes('tasa')) nextMapping.interest = column;
                 });
-                setMapping(newMapping);
+                setMapping(nextMapping);
+            } catch (error) {
+                console.error(error);
+                toast.error('No se pudo leer el archivo seleccionado');
             }
         };
         reader.readAsBinaryString(file);
     };
 
-    const parseExcelDate = (val) => {
-        if (!val) return new Date().toISOString().split('T')[0];
-        // If it's a number (Excel date)
-        if (typeof val === 'number') {
-            const date = XLSX.SSF.parse_date_code(val);
+    const parseExcelDate = async (value) => {
+        if (!value) {
+            return new Date().toISOString().split('T')[0];
+        }
+
+        if (typeof value === 'number') {
+            const XLSX = await loadXlsx();
+            const date = XLSX.SSF.parse_date_code(value);
             return `${date.y}-${String(date.m).padStart(2, '0')}-${String(date.d).padStart(2, '0')}`;
         }
-        // If it's already a string, try to normalize it
-        if (typeof val === 'string') {
-            const d = new Date(val);
-            if (!isNaN(d.getTime())) return d.toISOString().split('T')[0];
+
+        if (typeof value === 'string') {
+            const date = new Date(value);
+            if (!Number.isNaN(date.getTime())) {
+                return date.toISOString().split('T')[0];
+            }
         }
-        return val;
+
+        return value;
     };
 
-    const [previewData, setPreviewData] = useState({ clients: [], loans: [], skippedCount: 0 });
-
-    const handleReview = () => {
+    const handleReview = async () => {
         const newClients = [];
         const newLoans = [];
         const clientMap = new Map();
         let skippedCount = 0;
 
-        rawRows.forEach((row, idx) => {
-            const getVal = (field) => {
-                const colName = mapping[field];
-                const colIdx = columns.indexOf(colName);
-                if (colIdx === -1) return null;
-                return row[colIdx];
+        for (const [idx, row] of rawRows.entries()) {
+            const getValue = (field) => {
+                const columnName = mapping[field];
+                const columnIndex = columns.indexOf(columnName);
+                if (columnIndex === -1) {
+                    return null;
+                }
+
+                return row[columnIndex];
             };
 
-            const name = String(getVal('clientName') || '').trim();
-            const amountVal = getVal('amount');
-            const amount = parseFloat(amountVal);
+            const name = String(getValue('clientName') || '').trim();
+            const amount = parseFloat(getValue('amount'));
 
-            // Validation: Skip if name missing or amount invalid
-            if (!name || isNaN(amount) || amount <= 0) {
+            if (!name || Number.isNaN(amount) || amount <= 0) {
                 skippedCount++;
-                return;
+                continue;
             }
 
             let clientId;
             if (clientMap.has(name)) {
                 clientId = clientMap.get(name);
             } else {
-                const existing = clients.find(c => c.name.toLowerCase() === name.toLowerCase());
-                if (existing) {
-                    clientId = existing.id;
+                const existingClient = clients.find((client) => client.name.toLowerCase() === name.toLowerCase());
+                if (existingClient) {
+                    clientId = existingClient.id;
                 } else {
                     clientId = `C-IMP-${Date.now()}-${idx}`;
                     newClients.push({
                         id: clientId,
-                        name: name,
+                        name,
                         email: 'importado@example.com',
                         phone: '-',
                         address: '-',
@@ -126,21 +148,17 @@ const ImportData = () => {
             }
 
             newLoans.push({
-                clientId: clientId,
+                clientId,
                 clientName: name,
-                amount: amount,
-                interestRate: parseFloat(getVal('interest')) || 0.1,
-                durationMonths: parseInt(getVal('duration')) || 12,
-                startDate: parseExcelDate(getVal('date'))
+                amount,
+                interestRate: parseFloat(getValue('interest')) || 0.1,
+                durationMonths: parseInt(getValue('duration')) || 12,
+                startDate: await parseExcelDate(getValue('date'))
             });
-        });
+        }
 
         setPreviewData({ clients: newClients, loans: newLoans, skippedCount });
         setStep(3);
-    };
-
-    const handleFinalConfirm = () => {
-        setIsConfirmOpen(true);
     };
 
     const handleFinalConfirmAction = async () => {
@@ -153,23 +171,37 @@ const ImportData = () => {
             return;
         }
 
+        const previewClientMap = new Map(previewData.clients.map((client) => [client.id, client]));
+        const importedClientMap = new Map(clients.map((client) => [client.id, client]));
+
+        (result.data?.createdClients || []).forEach(({ oldId, newId }) => {
+            const previewClient = previewClientMap.get(oldId);
+            if (previewClient) {
+                importedClientMap.set(newId, previewClient);
+            }
+        });
+
+        const calendarEntries = (result.data?.createdLoans || []).map(({ loan, payments }) => ({
+            loan: { ...loan, payments },
+            client: importedClientMap.get(loan.clientId) || { name: 'Cliente importado' }
+        }));
+
+        downloadBulkLoanCalendars(calendarEntries, `loan-manager-importacion-${new Date().toISOString().slice(0, 10)}.ics`);
         toast.success('Importacion completada correctamente');
         setIsConfirmOpen(false);
         navigate('/loans');
     };
 
     return (
-        <div className="p-8 space-y-8">
+        <div className="space-y-8 p-8">
             <header>
                 <h2 className="text-3xl font-bold text-slate-800 dark:text-white">Importar Datos</h2>
-                <p className="text-slate-500">Sube tu Excel para cargar clientes y préstamos masivamente.</p>
+                <p className="text-slate-500">Sube tu Excel para cargar clientes y prestamos masivamente.</p>
             </header>
 
-            <div className="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 dark:border-slate-700 max-w-3xl mx-auto">
-                {/* Steps Visualizer could go here */}
-
+            <div className="mx-auto max-w-3xl rounded-2xl border border-slate-100 bg-white p-8 shadow-sm dark:border-slate-700 dark:bg-slate-800">
                 {step === 1 && (
-                    <div className="text-center py-12 border-2 border-dashed border-slate-300 rounded-xl hover:border-blue-500 transition-colors bg-slate-50 dark:bg-slate-900">
+                    <div className="rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 py-12 text-center transition-colors hover:border-blue-500 dark:bg-slate-900">
                         <input
                             type="file"
                             accept=".xlsx, .xls, .csv"
@@ -177,45 +209,45 @@ const ImportData = () => {
                             className="hidden"
                             id="file-upload"
                         />
-                        <label htmlFor="file-upload" className="cursor-pointer flex flex-col items-center">
-                            <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4">
+                        <label htmlFor="file-upload" className="flex cursor-pointer flex-col items-center">
+                            <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-100 text-blue-600">
                                 <FileSpreadsheet size={32} />
                             </div>
                             <span className="text-lg font-medium text-slate-700">Selecciona tu archivo Excel</span>
-                            <span className="text-sm text-slate-400 mt-2">Soporta .xlsx, .xls, .csv</span>
+                            <span className="mt-2 text-sm text-slate-400">Soporta .xlsx, .xls, .csv</span>
                         </label>
                     </div>
                 )}
 
                 {step === 2 && (
                     <div className="space-y-6">
-                        <div className="flex items-center gap-3 bg-green-50 text-green-800 p-4 rounded-lg">
+                        <div className="flex items-center gap-3 rounded-lg bg-green-50 p-4 text-green-800">
                             <FileSpreadsheet />
                             <span className="font-medium">Archivo cargado: {fileName}</span>
                         </div>
 
                         <div className="space-y-4">
                             <h3 className="font-bold text-slate-700">Asigna las columnas</h3>
-                            <p className="text-sm text-slate-500">Relaciona las columnas de tu Excel con los datos de la App.</p>
+                            <p className="text-sm text-slate-500">Relaciona las columnas de tu Excel con los datos de la app.</p>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                                 {[
                                     { k: 'clientName', label: 'Nombre Cliente' },
-                                    { k: 'amount', label: 'Monto Préstamo' },
-                                    { k: 'interest', label: 'Tasa Interés' },
+                                    { k: 'amount', label: 'Monto Prestamo' },
+                                    { k: 'interest', label: 'Tasa Interes' },
                                     { k: 'duration', label: 'Plazo (Meses)' },
                                     { k: 'date', label: 'Fecha Inicio' }
                                 ].map((field) => (
                                     <div key={field.k}>
-                                        <label className="block text-sm font-medium text-slate-700 mb-1">{field.label}</label>
+                                        <label className="mb-1 block text-sm font-medium text-slate-700">{field.label}</label>
                                         <select
                                             value={mapping[field.k]}
                                             onChange={(e) => setMapping({ ...mapping, [field.k]: e.target.value })}
-                                            className="w-full p-2 border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-blue-500"
+                                            className="w-full rounded-lg border border-slate-200 p-2 outline-none focus:ring-2 focus:ring-blue-500"
                                         >
                                             <option value="">(Ignorar)</option>
-                                            {columns.map(c => (
-                                                <option key={c} value={c}>{c}</option>
+                                            {columns.map((column) => (
+                                                <option key={column} value={column}>{column}</option>
                                             ))}
                                         </select>
                                     </div>
@@ -223,25 +255,24 @@ const ImportData = () => {
                             </div>
                         </div>
 
-                        <div className="pt-6 flex justify-end gap-3 border-t border-slate-50">
+                        <div className="flex justify-end gap-3 border-t border-slate-50 pt-6">
                             <button onClick={() => setStep(1)} className="px-4 py-2 text-slate-500 hover:text-slate-700">Cancelar</button>
                             <button
                                 onClick={handleReview}
-                                className="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 flex items-center gap-2"
+                                className="flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-2 font-medium text-white hover:bg-blue-700"
                             >
                                 <ArrowRight size={18} />
-                                Revisar Importación
+                                Revisar Importacion
                             </button>
                         </div>
 
-                        {/* Preview Table */}
                         <div className="mt-8">
-                            <h4 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-3">Vista Previa (Primeras 5 filas)</h4>
+                            <h4 className="mb-3 text-sm font-bold uppercase tracking-wider text-slate-400">Vista Previa (Primeras 5 filas)</h4>
                             <div className="overflow-x-auto">
-                                <table className="w-full text-sm text-left">
-                                    <thead className="bg-slate-50 dark:bg-slate-900 text-slate-600 font-medium">
+                                <table className="w-full text-left text-sm">
+                                    <thead className="bg-slate-50 font-medium text-slate-600 dark:bg-slate-900">
                                         <tr>
-                                            {columns.map((c, i) => <th key={i} className="px-3 py-2 border-b">{c}</th>)}
+                                            {columns.map((column, i) => <th key={i} className="border-b px-3 py-2">{column}</th>)}
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y">
@@ -260,56 +291,56 @@ const ImportData = () => {
                 {step === 3 && (
                     <div className="space-y-6">
                         <div className="grid grid-cols-2 gap-4">
-                            <div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
-                                <span className="text-blue-600 font-bold text-2xl">{previewData.clients.length}</span>
-                                <p className="text-blue-800 text-sm font-medium">Nuevos Clientes</p>
+                            <div className="rounded-xl border border-blue-100 bg-blue-50 p-4">
+                                <span className="text-2xl font-bold text-blue-600">{previewData.clients.length}</span>
+                                <p className="text-sm font-medium text-blue-800">Nuevos Clientes</p>
                             </div>
-                            <div className="bg-indigo-50 p-4 rounded-xl border border-indigo-100">
-                                <span className="text-indigo-600 font-bold text-2xl">{previewData.loans.length}</span>
-                                <p className="text-indigo-800 text-sm font-medium">Total Préstamos</p>
+                            <div className="rounded-xl border border-indigo-100 bg-indigo-50 p-4">
+                                <span className="text-2xl font-bold text-indigo-600">{previewData.loans.length}</span>
+                                <p className="text-sm font-medium text-indigo-800">Total Prestamos</p>
                             </div>
                         </div>
 
                         {previewData.skippedCount > 0 && (
-                            <div className="bg-rose-50 border border-rose-100 p-4 rounded-xl flex items-center gap-3 text-rose-700">
+                            <div className="flex items-center gap-3 rounded-xl border border-rose-100 bg-rose-50 p-4 text-rose-700">
                                 <AlertCircle size={24} />
                                 <div>
-                                    <p className="font-bold">Se omitieron {previewData.skippedCount} filas inválidas.</p>
-                                    <p className="text-sm">Asegúrate de que la columna "Nombre" y "Monto" tengan valores válidos.</p>
+                                    <p className="font-bold">Se omitieron {previewData.skippedCount} filas invalidas.</p>
+                                    <p className="text-sm">Asegurate de que la columna "Nombre" y "Monto" tengan valores validos.</p>
                                 </div>
                             </div>
                         )}
 
-                        <div className="bg-white dark:bg-slate-800 dark:bg-slate-800 border rounded-xl overflow-hidden">
-                            <table className="w-full text-sm text-left">
-                                <thead className="bg-slate-50 dark:bg-slate-900 text-slate-600 font-medium">
+                        <div className="overflow-hidden rounded-xl border bg-white dark:bg-slate-800">
+                            <table className="w-full text-left text-sm">
+                                <thead className="bg-slate-50 font-medium text-slate-600 dark:bg-slate-900">
                                     <tr>
-                                        <th className="px-4 py-3 border-b">Cliente</th>
-                                        <th className="px-4 py-3 border-b">Monto</th>
-                                        <th className="px-4 py-3 border-b">Fecha</th>
+                                        <th className="border-b px-4 py-3">Cliente</th>
+                                        <th className="border-b px-4 py-3">Monto</th>
+                                        <th className="border-b px-4 py-3">Fecha</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y">
-                                    {previewData.loans.slice(0, 10).map((l, i) => (
+                                    {previewData.loans.slice(0, 10).map((loan, i) => (
                                         <tr key={i}>
-                                            <td className="px-4 py-3 text-slate-700 font-medium">{l.clientName}</td>
-                                            <td className="px-4 py-3 text-slate-600 font-mono">${l.amount.toLocaleString()}</td>
-                                            <td className="px-4 py-3 text-slate-500">{l.startDate}</td>
+                                            <td className="px-4 py-3 font-medium text-slate-700">{loan.clientName}</td>
+                                            <td className="px-4 py-3 font-mono text-slate-600">${loan.amount.toLocaleString()}</td>
+                                            <td className="px-4 py-3 text-slate-500">{loan.startDate}</td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
                             {previewData.loans.length > 10 && (
-                                <p className="p-3 text-center text-xs text-slate-400">Y {previewData.loans.length - 10} registros más...</p>
+                                <p className="p-3 text-center text-xs text-slate-400">Y {previewData.loans.length - 10} registros mas...</p>
                             )}
                         </div>
 
-                        <div className="pt-6 flex justify-end gap-3 border-t border-slate-50">
-                            <button onClick={() => setStep(2)} className="px-4 py-2 text-slate-500 hover:text-slate-700">Atrás</button>
+                        <div className="flex justify-end gap-3 border-t border-slate-50 pt-6">
+                            <button onClick={() => setStep(2)} className="px-4 py-2 text-slate-500 hover:text-slate-700">Atras</button>
                             <button
-                                onClick={handleFinalConfirm}
+                                onClick={() => setIsConfirmOpen(true)}
                                 disabled={isImporting || previewData.loans.length === 0}
-                                className="px-6 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 flex items-center gap-2"
+                                className="flex items-center gap-2 rounded-lg bg-green-600 px-6 py-2 font-medium text-white hover:bg-green-700"
                             >
                                 <Check size={18} />
                                 {isImporting ? 'Importando...' : 'Confirmar e Importar'}
@@ -323,9 +354,9 @@ const ImportData = () => {
                 isOpen={isConfirmOpen}
                 onClose={() => setIsConfirmOpen(false)}
                 onConfirm={handleFinalConfirmAction}
-                title="Confirmar Importación"
-                message={`Estás a punto de importar ${previewData.clients.length} clientes nuevos y ${previewData.loans.length} préstamos. ¿Deseas continuar?`}
-                confirmText="SÍ, IMPORTAR AHORA"
+                title="Confirmar Importacion"
+                message={`Estas a punto de importar ${previewData.clients.length} clientes nuevos y ${previewData.loans.length} prestamos. Deseas continuar?`}
+                confirmText="SI, IMPORTAR AHORA"
                 type="success"
             />
         </div>

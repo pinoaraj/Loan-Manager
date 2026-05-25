@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useLoans } from '../context/LoanContext';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 import {
     Calculator,
     Save,
@@ -15,6 +16,9 @@ import {
     AlertCircle
 } from 'lucide-react';
 import { format } from 'date-fns';
+import { downloadLoanCalendar } from '../utils/calendar';
+
+const isValidEmail = (value) => /^[^\s@,]+@[^\s@,]+\.[^\s@,]+$/.test(value);
 
 const NewLoan = () => {
     const navigate = useNavigate();
@@ -23,6 +27,7 @@ const NewLoan = () => {
     const [step, setStep] = useState(1);
     const [isAddingClient, setIsAddingClient] = useState(false);
     const [newClientData, setNewClientData] = useState({ name: '', email: '', phone: '', address: '' });
+    const [newClientErrors, setNewClientErrors] = useState({});
     const [searchTerm, setSearchTerm] = useState('');
     const [errors, setErrors] = useState({});
 
@@ -40,8 +45,6 @@ const NewLoan = () => {
     });
 
     const [schedule, setSchedule] = useState([]);
-    const [isPreviewLoading, setIsPreviewLoading] = useState(false);
-
     const filteredClients = useMemo(() => {
         return (clients || []).filter(c =>
             c.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -64,7 +67,6 @@ const NewLoan = () => {
                 return;
             }
 
-            setIsPreviewLoading(true);
             try {
                 const data = await getLoanPreview({
                     amount: amount,
@@ -82,8 +84,6 @@ const NewLoan = () => {
                 setSchedule(parsedData);
             } catch (error) {
                 console.error('Preview error:', error);
-            } finally {
-                setIsPreviewLoading(false);
             }
         };
 
@@ -105,12 +105,30 @@ const NewLoan = () => {
 
     const handleQuickAddClient = async (e) => {
         e.preventDefault();
+        const normalizedClient = {
+            name: newClientData.name.trim(),
+            email: newClientData.email.trim(),
+            phone: newClientData.phone.trim(),
+            address: newClientData.address.trim()
+        };
+        const nextErrors = {};
+        if (!normalizedClient.name) nextErrors.name = 'El nombre es obligatorio.';
+        if (normalizedClient.email && !isValidEmail(normalizedClient.email)) {
+            nextErrors.email = 'Ingresa un email valido, por ejemplo nombre@correo.com.';
+        }
+
+        setNewClientErrors(nextErrors);
+        if (Object.keys(nextErrors).length > 0) {
+            return;
+        }
+
         try {
-            const result = await addClient(newClientData);
+            const result = await addClient(normalizedClient);
             if (result.success && result.data) {
                 setFormData(prev => ({ ...prev, clientId: result.data.id }));
                 setIsAddingClient(false);
                 setNewClientData({ name: '', email: '', phone: '', address: '' });
+                setNewClientErrors({});
             }
         } catch (error) {
             alert('Error al crear cliente: ' + error.message);
@@ -144,7 +162,7 @@ const NewLoan = () => {
         try {
             if (!validateStep(3)) return;
 
-            await addLoan({
+            const result = await addLoan({
                 ...formData,
                 amount: parseFloat(formData.amount),
                 interestRate: parseFloat(formData.interestRate),
@@ -153,6 +171,14 @@ const NewLoan = () => {
                 lateFeeType: formData.lateFeeType,
                 lateFeeValue: parseFloat(formData.lateFeeValue)
             });
+
+            if (result?.data?.loan && result?.data?.payments) {
+                downloadLoanCalendar(
+                    { ...result.data.loan, payments: result.data.payments },
+                    selectedClient
+                );
+                toast.success('Prestamo creado y calendario descargado.');
+            }
 
             navigate('/loans');
         } catch (error) {
@@ -262,21 +288,33 @@ const NewLoan = () => {
                                     <div className="p-8 border-b border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50">
                                         <h3 className="text-xl font-bold text-slate-800 dark:text-white">Rápido: Nuevo Cliente</h3>
                                     </div>
-                                    <form onSubmit={handleQuickAddClient} className="p-8 space-y-4">
-                                        <input
-                                            required
-                                            placeholder="Nombre Completo"
-                                            className="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-xl outline-none"
-                                            value={newClientData.name}
-                                            onChange={(e) => setNewClientData({ ...newClientData, name: e.target.value })}
-                                        />
-                                        <input
-                                            type="email"
-                                            placeholder="Email (opcional)"
-                                            className="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-xl outline-none"
-                                            value={newClientData.email}
-                                            onChange={(e) => setNewClientData({ ...newClientData, email: e.target.value })}
-                                        />
+                                    <form noValidate onSubmit={handleQuickAddClient} className="p-8 space-y-4">
+                                        <div className="space-y-1">
+                                            <input
+                                                required
+                                                placeholder="Nombre Completo"
+                                                className="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-xl outline-none"
+                                                value={newClientData.name}
+                                                onChange={(e) => {
+                                                    setNewClientData({ ...newClientData, name: e.target.value });
+                                                    setNewClientErrors(prev => ({ ...prev, name: '' }));
+                                                }}
+                                            />
+                                            {newClientErrors.name && <p className="text-xs font-bold text-rose-500">{newClientErrors.name}</p>}
+                                        </div>
+                                        <div className="space-y-1">
+                                            <input
+                                                type="email"
+                                                placeholder="Email (opcional)"
+                                                className="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-xl outline-none"
+                                                value={newClientData.email}
+                                                onChange={(e) => {
+                                                    setNewClientData({ ...newClientData, email: e.target.value });
+                                                    setNewClientErrors(prev => ({ ...prev, email: '' }));
+                                                }}
+                                            />
+                                            {newClientErrors.email && <p className="text-xs font-bold text-rose-500">{newClientErrors.email}</p>}
+                                        </div>
                                         <input
                                             placeholder="Teléfono (opcional)"
                                             className="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-xl outline-none"

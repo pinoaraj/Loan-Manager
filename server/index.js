@@ -32,7 +32,13 @@ app.use(helmet({
 }));
 
 // CORS configuration from environment
-const allowedOrigins = process.env.CORS_ORIGINS?.split(',') || ['http://localhost:5173'];
+const defaultOrigins = [
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+    'http://localhost:4173',
+    'http://127.0.0.1:4173'
+];
+const allowedOrigins = process.env.CORS_ORIGINS?.split(',').map(origin => origin.trim()).filter(Boolean) || defaultOrigins;
 app.use(cors({
     origin: (origin, callback) => {
         // Allow requests with no origin (mobile apps, curl, Postman)
@@ -110,6 +116,7 @@ app.use('/api', (req, res) => {
 
 // Global error handler
 app.use((err, req, res, next) => {
+    void next;
     logger.error(`Unhandled Error: ${err.message}`);
     logger.error(err.stack);
     res.status(500).json({

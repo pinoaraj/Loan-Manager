@@ -115,7 +115,7 @@ async function runTests() {
         console.log('\n✅ All tests passed!');
     } catch (error) {
         console.error('\n❌ Test suite failed:', error.message);
-        process.exit(1);
+        globalThis.process.exit(1);
     }
 }
 

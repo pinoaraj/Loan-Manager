@@ -5,7 +5,7 @@ import { AlertCircle, Calendar, MessageCircle, ChevronRight, CheckCircle, Search
 import { format, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { generateWhatsAppLink, getReminderMessage } from '../utils/communication';
-import { downloadCalendarReminder } from '../utils/calendar';
+import { downloadPaymentReminder } from '../utils/calendar';
 
 const TabButton = ({ active, onClick, children, count, color }) => (
     <button
@@ -26,7 +26,7 @@ const TabButton = ({ active, onClick, children, count, color }) => (
 
 const Collections = () => {
     const navigate = useNavigate();
-    const { alerts, clients, loading } = useLoans();
+    const { alerts, loading } = useLoans();
     const [activeTab, setActiveTab] = useState('overdue'); // 'overdue' | 'upcoming'
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -128,16 +128,16 @@ const Collections = () => {
                 ) : (
                     <div className="divide-y divide-slate-100 dark:divide-slate-700">
                         {filteredPayments.map((item, index) => {
-                            // Find client to get phone (inefficient lookup but simple for now)
-                            const client = clients.find(c => c.name === item.clientName);
-                            const phone = client?.phone || '';
-                            const reminderMsg = getReminderMessage(item.clientName, item.amount, item.dueDate, item.type);
+                            const phone = item.clientPhone || '';
+                            const reminderMsg = getReminderMessage(item.clientName, item.amount, item.dueDate, item.type, {
+                                loanId: item.loanId
+                            });
 
                             return (
                                 <div key={index} className="p-4 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors flex flex-col md:flex-row items-center gap-4">
                                     <button
-                                        onClick={() => downloadCalendarReminder(item, item.clientName)}
-                                        title="Agregar a calendario"
+                                        onClick={() => downloadPaymentReminder(item, item.clientName, { loanId: item.loanId })}
+                                        title="Descargar recordatorio de calendario"
                                         className={`p-3 rounded-full transition-colors ${activeTab === 'overdue'
                                             ? 'bg-red-50 text-red-500 hover:bg-red-100'
                                             : 'bg-blue-50 text-blue-500 hover:bg-blue-100'

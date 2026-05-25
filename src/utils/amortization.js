@@ -3,96 +3,60 @@
  * Mirror of backend logic for immediate preview.
  */
 
-export const calculateAmortization = (principal, annualRate, durationMonths, startDate, frequency = 'monthly', loanType = 'Fixed') => {
+const normalizeFrequency = (frequency = 'monthly') => {
+    const normalized = String(frequency).trim().toLowerCase();
+    return normalized === 'biweekly' ? 'bi-weekly' : normalized;
+};
+
+const buildMonthlySchedule = (principal, monthlyRate, durationMonths, startDate, loanType = 'Fixed') => {
     const schedule = [];
     const start = new Date(startDate);
 
-    // Adjust frequency and calculate periodic values
-    let periods;
-    let periodRate;
-    let incrementFn;
-
-    // annualRate here is actually the MONTHLY rate (e.g., 0.10 = 10% monthly)
-    // We need to convert it to the appropriate period rate based on frequency
-    const monthlyRate = annualRate;
-
-    // Normalize frequency to handle both 'Monthly' and 'monthly'
-    let normalizedFreq = frequency.toLowerCase();
-    // Normalize 'biweekly' to 'bi-weekly' to match amortization engine
-    if (normalizedFreq === 'biweekly') normalizedFreq = 'bi-weekly';
-
-    switch (normalizedFreq) {
-        case 'weekly':
-            periods = Math.round(durationMonths * (52 / 12)); // ~4.33 weeks per month
-            periodRate = monthlyRate / (52 / 12); // Divide monthly rate by ~4.33
-            incrementFn = (date, i) => {
-                const d = new Date(date);
-                d.setDate(d.getDate() + (i * 7));
-                return d;
-            };
-            break;
-        case 'bi-weekly':
-            periods = Math.round(durationMonths * (26 / 12)); // ~2.17 bi-weeks per month
-            periodRate = monthlyRate / (26 / 12); // Divide monthly rate by ~2.17
-            incrementFn = (date, i) => {
-                const d = new Date(date);
-                d.setDate(d.getDate() + (i * 14));
-                return d;
-            };
-            break;
-        case 'monthly':
-        default:
-            periods = durationMonths;
-            periodRate = monthlyRate; // No conversion needed
-            incrementFn = (date, i) => {
-                const d = new Date(date);
-                d.setMonth(d.getMonth() + i);
-                return d;
-            };
-            break;
-    }
-
     if (loanType === 'Fixed') {
-        // French Amortization (Fixed Payment)
-        let pmt;
-        if (periodRate === 0) {
-            pmt = principal / periods;
+        let paymentAmount;
+        if (monthlyRate === 0) {
+            paymentAmount = principal / durationMonths;
         } else {
-            pmt = (principal * periodRate * Math.pow(1 + periodRate, periods)) / (Math.pow(1 + periodRate, periods) - 1);
+            paymentAmount = (principal * monthlyRate * Math.pow(1 + monthlyRate, durationMonths)) / (Math.pow(1 + monthlyRate, durationMonths) - 1);
         }
 
         let remainingPrincipal = principal;
 
-        for (let i = 1; i <= periods; i++) {
-            const interest = remainingPrincipal * periodRate;
-            const principalPart = pmt - interest;
+        for (let i = 1; i <= durationMonths; i++) {
+            const interest = remainingPrincipal * monthlyRate;
+            const principalPart = paymentAmount - interest;
             remainingPrincipal -= principalPart;
+
+            const dueDate = new Date(start);
+            dueDate.setMonth(dueDate.getMonth() + i);
 
             schedule.push({
                 installment: i,
-                dueDate: incrementFn(start, i),
-                amount: pmt,
+                dueDate,
+                amount: paymentAmount,
                 principal: principalPart,
-                interest: interest,
+                interest,
                 fees: 0,
                 status: 'Pending'
             });
         }
     } else {
-        // Simple Interest - use periodRate for consistency
-        const totalInterest = principal * periodRate * periods;
+        const totalInterest = principal * monthlyRate * durationMonths;
         const totalPayment = principal + totalInterest;
-        const periodPayment = totalPayment / periods;
-        const periodPrincipal = principal / periods;
-        const periodInterest = totalInterest / periods;
+        const paymentAmount = totalPayment / durationMonths;
+        const principalPart = principal / durationMonths;
+        const interestPart = totalInterest / durationMonths;
 
-        for (let i = 1; i <= periods; i++) {
+        for (let i = 1; i <= durationMonths; i++) {
+            const dueDate = new Date(start);
+            dueDate.setMonth(dueDate.getMonth() + i);
+
             schedule.push({
                 installment: i,
-                dueDate: incrementFn(start, i),
-                amount: periodPayment,
-                principal: periodPrincipal,
-                interest: periodInterest,
+                dueDate,
+                amount: paymentAmount,
+                principal: principalPart,
+                interest: interestPart,
                 fees: 0,
                 status: 'Pending'
             });
@@ -100,4 +64,44 @@ export const calculateAmortization = (principal, annualRate, durationMonths, sta
     }
 
     return schedule;
+};
+
+const splitMonthlySchedule = (monthlySchedule, startDate, partsPerMonth, dayStep) => {
+    const start = new Date(startDate);
+    const schedule = [];
+
+    monthlySchedule.forEach((payment, monthIndex) => {
+        for (let part = 1; part <= partsPerMonth; part++) {
+            const installment = (monthIndex * partsPerMonth) + part;
+            const dueDate = new Date(start);
+            dueDate.setDate(dueDate.getDate() + (installment * dayStep));
+
+            schedule.push({
+                installment,
+                dueDate,
+                amount: payment.amount / partsPerMonth,
+                principal: payment.principal / partsPerMonth,
+                interest: payment.interest / partsPerMonth,
+                fees: payment.fees || 0,
+                status: payment.status || 'Pending'
+            });
+        }
+    });
+
+    return schedule;
+};
+
+export const calculateAmortization = (principal, monthlyRate, durationMonths, startDate, frequency = 'monthly', loanType = 'Fixed') => {
+    const normalizedFrequency = normalizeFrequency(frequency);
+    const monthlySchedule = buildMonthlySchedule(principal, monthlyRate, durationMonths, startDate, loanType);
+
+    switch (normalizedFrequency) {
+        case 'weekly':
+            return splitMonthlySchedule(monthlySchedule, startDate, 4, 7);
+        case 'bi-weekly':
+            return splitMonthlySchedule(monthlySchedule, startDate, 2, 14);
+        case 'monthly':
+        default:
+            return monthlySchedule;
+    }
 };

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { API_URL } from '../config/api';
 
 const AuthContext = createContext();
@@ -18,6 +18,7 @@ export const AuthProvider = ({ children }) => {
             setToken(storedToken);
             setUser(JSON.parse(storedUser));
         }
+
         setLoading(false);
     }, []);
 
@@ -30,7 +31,6 @@ export const AuthProvider = ({ children }) => {
             });
 
             const data = await response.json();
-
             if (!response.ok) {
                 throw new Error(data.error || 'Login failed');
             }
@@ -47,29 +47,32 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    const logout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        setToken(null);
+        setUser(null);
+    };
+
     const fetchWithAuth = async (url, options = {}) => {
         const headers = {
             'Content-Type': 'application/json',
             ...options.headers,
-            'Authorization': `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         };
 
-        try {
-            const response = await fetch(url, {
-                ...options,
-                headers
-            });
+        const response = await fetch(url, {
+            ...options,
+            headers
+        });
 
-            if (response.status === 401 || response.status === 403) {
-                console.warn('Session expired or invalid token. Logging out...');
-                logout();
-                throw new Error('Sesión expirada. Por favor inicia sesión nuevamente.');
-            }
-
-            return response;
-        } catch (error) {
-            throw error;
+        if (response.status === 401 || response.status === 403) {
+            console.warn('Session expired or invalid token. Logging out...');
+            logout();
+            throw new Error('Sesion expirada. Por favor inicia sesion nuevamente.');
         }
+
+        return response;
     };
 
     const register = async (username, password) => {
@@ -81,19 +84,14 @@ export const AuthProvider = ({ children }) => {
             });
 
             const data = await response.json();
-            if (!response.ok) throw new Error(data.error);
+            if (!response.ok) {
+                throw new Error(data.error);
+            }
 
             return { success: true };
         } catch (error) {
             return { success: false, error: error.message };
         }
-    };
-
-    const logout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        setToken(null);
-        setUser(null);
     };
 
     const value = {

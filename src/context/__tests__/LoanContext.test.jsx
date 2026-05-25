@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { LoanProvider, useLoans } from '../LoanContext';
 
 // Mock fetch
-global.fetch = vi.fn();
+globalThis.fetch = vi.fn();
 
 // Mock AuthContext
 vi.mock('../AuthContext', () => ({

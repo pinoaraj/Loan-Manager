@@ -148,10 +148,10 @@ export const LoanProvider = ({ children }) => {
     // --- Actions (Mutations) ---
 
     // Generic helper to invalidate queries
-    const invalidateData = () => {
+    const invalidateData = useCallback(() => {
         queryClient.invalidateQueries({ queryKey: ['clients'] });
         queryClient.invalidateQueries({ queryKey: ['loans'] });
-    };
+    }, [queryClient]);
 
     const addLoan = useCallback(async (loanData) => {
         try {
@@ -172,7 +172,7 @@ export const LoanProvider = ({ children }) => {
             console.error('Error adding loan:', error);
             throw error;
         }
-    }, [fetchWithAuth]);
+    }, [fetchWithAuth, invalidateData]);
 
     const addClient = useCallback(async (clientData) => {
         try {
@@ -194,7 +194,7 @@ export const LoanProvider = ({ children }) => {
             console.error('Error adding client:', error);
             throw error;
         }
-    }, [fetchWithAuth]);
+    }, [fetchWithAuth, invalidateData]);
 
     const updateClient = useCallback(async (clientId, clientData) => {
         try {
@@ -211,7 +211,7 @@ export const LoanProvider = ({ children }) => {
             console.error('Error updating client:', error);
             return false;
         }
-    }, [fetchWithAuth]);
+    }, [fetchWithAuth, invalidateData]);
 
     const deleteClient = useCallback(async (clientId) => {
         try {
@@ -229,7 +229,7 @@ export const LoanProvider = ({ children }) => {
             console.error('Error deleting client:', error);
             return { success: false, error: 'Network error' };
         }
-    }, [fetchWithAuth]);
+    }, [fetchWithAuth, invalidateData]);
 
     const updateLoanStatus = useCallback(async (loanId, newStatus) => {
         try {
@@ -241,7 +241,7 @@ export const LoanProvider = ({ children }) => {
         } catch (error) {
             console.error('Error updating loan status:', error);
         }
-    }, [fetchWithAuth]);
+    }, [fetchWithAuth, invalidateData]);
 
     const recalculateLoan = useCallback(async (loanId) => {
         try {
@@ -249,15 +249,16 @@ export const LoanProvider = ({ children }) => {
                 method: 'POST'
             });
             if (res.ok) {
+                const recalculatedLoan = await res.json();
                 invalidateData();
-                return true;
+                return { success: true, data: recalculatedLoan };
             }
-            return false;
+            return { success: false };
         } catch (error) {
             console.error('Error recalculating loan:', error);
-            return false;
+            return { success: false, error };
         }
-    }, [fetchWithAuth]);
+    }, [fetchWithAuth, invalidateData]);
 
     const updatePaymentStatus = useCallback(async (paymentId, newStatus) => {
         try {
@@ -269,7 +270,7 @@ export const LoanProvider = ({ children }) => {
         } catch (error) {
             console.error('Error updating payment status:', error);
         }
-    }, [fetchWithAuth]);
+    }, [fetchWithAuth, invalidateData]);
 
     const registerPayment = useCallback(async (paymentId, paymentData) => {
         try {
@@ -288,7 +289,7 @@ export const LoanProvider = ({ children }) => {
             console.error('Error registering payment:', error);
             return { success: false, error: 'Network error' };
         }
-    }, [fetchWithAuth]);
+    }, [fetchWithAuth, invalidateData]);
 
     const importData = useCallback(async (clientsData, loansData) => {
         try {
@@ -308,7 +309,7 @@ export const LoanProvider = ({ children }) => {
             console.error('Error importing data:', error);
             return { success: false, error: error.message || 'Network error' };
         }
-    }, [fetchWithAuth]);
+    }, [fetchWithAuth, invalidateData]);
 
     const togglePause = useCallback(async (loanId, isPaused) => {
         try {
@@ -322,7 +323,7 @@ export const LoanProvider = ({ children }) => {
             console.error('Error toggling pause:', error);
             return false;
         }
-    }, [fetchWithAuth]);
+    }, [fetchWithAuth, invalidateData]);
 
     const downloadReport = useCallback(async (type) => {
         try {

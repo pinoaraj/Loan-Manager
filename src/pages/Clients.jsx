@@ -3,8 +3,11 @@ import { useLoans } from '../context/LoanContext';
 import { useAuth } from '../context/AuthContext';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { Search, Phone, Mail, MapPin, ExternalLink, CreditCard, Users, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, Phone, Mail, MapPin, MessageCircle, CreditCard, Users, ChevronLeft, ChevronRight } from 'lucide-react';
 import { API_URL } from '../config/api';
+import { generateWhatsAppLink, hasPhoneNumber } from '../utils/communication';
+
+const isValidEmail = (value) => /^[^\s@,]+@[^\s@,]+\.[^\s@,]+$/.test(value);
 
 const Clients = () => {
     const navigate = useNavigate();
@@ -22,6 +25,7 @@ const Clients = () => {
         phone: '',
         address: ''
     });
+    const [formErrors, setFormErrors] = useState({});
 
     // Fetch Clients with Pagination
     const { data: clientsData = { data: [], meta: {} } } = useQuery({
@@ -49,16 +53,35 @@ const Clients = () => {
 
     const filteredClients = clients.filter(client =>
         client.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        client.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (client.email || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
         client.id.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     const handleAddClient = async (e) => {
         e.preventDefault();
+        const normalizedClient = {
+            name: newClient.name.trim(),
+            email: newClient.email.trim(),
+            phone: newClient.phone.trim(),
+            address: newClient.address.trim()
+        };
+
+        const nextErrors = {};
+        if (!normalizedClient.name) nextErrors.name = 'El nombre es obligatorio.';
+        if (normalizedClient.email && !isValidEmail(normalizedClient.email)) {
+            nextErrors.email = 'Ingresa un email valido, por ejemplo nombre@correo.com.';
+        }
+        if (!normalizedClient.phone) nextErrors.phone = 'El telefono es obligatorio.';
+        if (!normalizedClient.address) nextErrors.address = 'La direccion es obligatoria.';
+
+        setFormErrors(nextErrors);
+        if (Object.keys(nextErrors).length > 0) return;
+
         try {
-            await addClient(newClient);
+            await addClient(normalizedClient);
             setIsModalOpen(false);
             setNewClient({ name: '', email: '', phone: '', address: '' });
+            setFormErrors({});
             // Invalidate query handled by context
         } catch (error) {
             alert('Error al crear cliente: ' + error.message);
@@ -112,7 +135,7 @@ const Clients = () => {
                             <h3 className="text-xl font-bold text-slate-800 dark:text-white">Registrar Cliente</h3>
                             <p className="text-slate-500 text-sm">Ingresa los datos del nuevo cliente.</p>
                         </div>
-                        <form onSubmit={handleAddClient} className="p-8 space-y-4">
+                        <form noValidate onSubmit={handleAddClient} className="p-8 space-y-4">
                             <div className="space-y-1">
                                 <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Nombre Completo</label>
                                 <input
@@ -120,18 +143,25 @@ const Clients = () => {
                                     type="text"
                                     className="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                                     value={newClient.name}
-                                    onChange={(e) => setNewClient({ ...newClient, name: e.target.value })}
+                                    onChange={(e) => {
+                                        setNewClient({ ...newClient, name: e.target.value });
+                                        setFormErrors(prev => ({ ...prev, name: '' }));
+                                    }}
                                 />
+                                {formErrors.name && <p className="text-xs font-bold text-rose-500">{formErrors.name}</p>}
                             </div>
                             <div className="space-y-1">
-                                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Email</label>
+                                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Email (Opcional)</label>
                                 <input
-                                    required
                                     type="email"
                                     className="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                                     value={newClient.email}
-                                    onChange={(e) => setNewClient({ ...newClient, email: e.target.value })}
+                                    onChange={(e) => {
+                                        setNewClient({ ...newClient, email: e.target.value });
+                                        setFormErrors(prev => ({ ...prev, email: '' }));
+                                    }}
                                 />
+                                {formErrors.email && <p className="text-xs font-bold text-rose-500">{formErrors.email}</p>}
                             </div>
                             <div className="space-y-1">
                                 <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Teléfono</label>
@@ -140,8 +170,12 @@ const Clients = () => {
                                     type="text"
                                     className="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                                     value={newClient.phone}
-                                    onChange={(e) => setNewClient({ ...newClient, phone: e.target.value })}
+                                    onChange={(e) => {
+                                        setNewClient({ ...newClient, phone: e.target.value });
+                                        setFormErrors(prev => ({ ...prev, phone: '' }));
+                                    }}
                                 />
+                                {formErrors.phone && <p className="text-xs font-bold text-rose-500">{formErrors.phone}</p>}
                             </div>
                             <div className="space-y-1">
                                 <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Dirección</label>
@@ -150,8 +184,12 @@ const Clients = () => {
                                     type="text"
                                     className="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                                     value={newClient.address}
-                                    onChange={(e) => setNewClient({ ...newClient, address: e.target.value })}
+                                    onChange={(e) => {
+                                        setNewClient({ ...newClient, address: e.target.value });
+                                        setFormErrors(prev => ({ ...prev, address: '' }));
+                                    }}
                                 />
+                                {formErrors.address && <p className="text-xs font-bold text-rose-500">{formErrors.address}</p>}
                             </div>
                             <div className="flex gap-3 pt-6">
                                 <button
@@ -210,19 +248,19 @@ const Clients = () => {
                                         <div className="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-500 transition-colors">
                                             <Mail size={16} />
                                         </div>
-                                        <span>{client.email}</span>
+                                        <span>{client.email || 'Sin email registrado'}</span>
                                     </div>
                                     <div className="flex items-center gap-3 text-sm text-slate-600">
                                         <div className="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-500 transition-colors">
                                             <Phone size={16} />
                                         </div>
-                                        <span>{client.phone}</span>
+                                        <span>{client.phone || 'Sin telefono registrado'}</span>
                                     </div>
                                     <div className="flex items-center gap-3 text-sm text-slate-600">
                                         <div className="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-500 transition-colors">
                                             <MapPin size={16} />
                                         </div>
-                                        <span>{client.address}</span>
+                                        <span>{client.address || 'Sin direccion registrada'}</span>
                                     </div>
                                 </div>
 
@@ -237,9 +275,18 @@ const Clients = () => {
                                         <CreditCard size={14} />
                                         Historial
                                     </button>
-                                    <button className="w-12 bg-slate-50 hover:bg-slate-100 text-slate-400 py-2.5 rounded-xl flex items-center justify-center transition-colors">
-                                        <ExternalLink size={16} />
-                                    </button>
+                                    {hasPhoneNumber(client.phone) && (
+                                        <a
+                                            href={generateWhatsAppLink(client.phone, `Hola ${client.name}, le escribimos desde Loan Manager.`)}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            onClick={(e) => e.stopPropagation()}
+                                            className="w-12 bg-slate-50 hover:bg-green-50 hover:text-green-600 text-slate-400 py-2.5 rounded-xl flex items-center justify-center transition-colors"
+                                            title="Contactar por WhatsApp"
+                                        >
+                                            <MessageCircle size={16} />
+                                        </a>
+                                    )}
                                 </div>
                             </div>
                         );

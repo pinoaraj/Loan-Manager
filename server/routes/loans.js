@@ -8,6 +8,11 @@ const { authenticateToken } = require('../middleware/auth');
 
 const prisma = new PrismaClient();
 
+const normalizeFrequency = (frequency = 'monthly') => {
+    const normalized = String(frequency).trim().toLowerCase();
+    return normalized === 'biweekly' ? 'bi-weekly' : normalized;
+};
+
 // GET preview of loan schedule
 router.get('/preview', authenticateToken, (req, res) => {
     try {
@@ -39,8 +44,7 @@ router.get('/preview', authenticateToken, (req, res) => {
         }
 
         // Normalize frequency for amortization engine
-        let engineFrequency = (frequency || 'monthly').toLowerCase();
-        if (engineFrequency === 'biweekly') engineFrequency = 'bi-weekly';
+        const engineFrequency = normalizeFrequency(frequency);
 
         const schedule = calculateAmortization(
             parsedAmount,
@@ -149,15 +153,14 @@ router.post('/', authenticateToken, validate(loanSchema), async (req, res) => {
         const { clientId, amount, interestRate, durationMonths, startDate, loanType, frequency, graceDays, lateFeeType, lateFeeValue } = req.body;
 
         // Normalize frequency for amortization engine
-        let engineFrequency = (frequency || 'monthly').toLowerCase();
-        if (engineFrequency === 'biweekly') engineFrequency = 'bi-weekly';
+        const normalizedFrequency = normalizeFrequency(frequency);
 
         const schedule = calculateAmortization(
             parseFloat(amount),
             parseFloat(interestRate),
             parseInt(durationMonths),
             startDate,
-            engineFrequency,
+            normalizedFrequency,
             loanType || 'Fixed'
         );
 
@@ -170,7 +173,7 @@ router.post('/', authenticateToken, validate(loanSchema), async (req, res) => {
                     durationMonths: parseInt(durationMonths),
                     startDate: new Date(startDate),
                     loanType: loanType || 'Fixed',
-                    frequency: frequency || 'monthly',
+                    frequency: normalizedFrequency,
                     graceDays: parseInt(graceDays) || 3,
                     lateFeeType: lateFeeType || 'Fixed',
                     lateFeeValue: parseFloat(lateFeeValue) || 0,
@@ -212,7 +215,7 @@ router.post('/:id/recalculate', authenticateToken, async (req, res) => {
             loan.interestRate,
             loan.durationMonths,
             loan.startDate,
-            loan.frequency,
+            normalizeFrequency(loan.frequency),
             loan.loanType
         );
 
@@ -233,7 +236,17 @@ router.post('/:id/recalculate', authenticateToken, async (req, res) => {
             ));
         });
 
-        res.json({ message: 'Recalculated successfully' });
+        const recalculatedLoan = await prisma.loan.findUnique({
+            where: { id: loanId },
+            include: {
+                client: true,
+                payments: {
+                    include: { transactions: true }
+                }
+            }
+        });
+
+        res.json(recalculatedLoan);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

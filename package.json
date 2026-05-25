@@ -13,7 +13,8 @@
     "preview": "vite preview",
     "electron:dev": "concurrently \"cross-env BROWSER=none npm run dev\" \"npm run server\" \"wait-on http://localhost:5173 && electron .\"",
     "electron:build": "vite build && electron-builder",
-    "rebuild-desktop": "vite build && electron-builder --win --dir"
+    "rebuild-desktop": "vite build && electron-builder --win --dir",
+    "build:desktop-installer": "vite build && electron-builder --win nsis"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.18",
@@ -62,9 +63,11 @@
   "build": {
     "appId": "com.loanmanager.app",
     "productName": "Loan Manager",
+    "icon": "build/icons/app-icon.png",
     "files": [
       "dist/**/*",
-      "desktop/**/*"
+      "desktop/**/*",
+      "build/icons/**/*"
     ],
     "directories": {
       "output": "release"
@@ -86,7 +89,20 @@
       }
     ],
     "win": {
-      "target": "dir"
+      "icon": "build/icons/app-icon.ico",
+      "target": [
+        "nsis",
+        "dir"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Loan Manager",
+      "artifactName": "LoanManager-Setup-${version}.${ext}"
     }
   }
 }

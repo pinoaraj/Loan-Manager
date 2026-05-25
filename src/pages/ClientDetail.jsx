@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Mail, Phone, MapPin, Calendar, DollarSign, Clock, CheckCircle, AlertTriangle, Edit, Trash2, MessageCircle, Send } from 'lucide-react';
-import { generateWhatsAppLink, generateEmailLink } from '../utils/communication';
+import { generateWhatsAppLink, generateEmailLink, hasPhoneNumber } from '../utils/communication';
 import { useLoans } from '../context/LoanContext';
 import { useParams, useNavigate } from 'react-router-dom';
 import { format, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
+
+const isValidEmail = (value) => /^[^\s@,]+@[^\s@,]+\.[^\s@,]+$/.test(value);
 
 const ClientDetail = () => {
     const { id: clientId } = useParams();
     const navigate = useNavigate();
     const { clients, getClientLoans, updateClient, deleteClient } = useLoans();
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [editErrors, setEditErrors] = useState({});
 
     // Find client data
     const client = clients.find(c => c.id === clientId);
@@ -66,9 +69,29 @@ const ClientDetail = () => {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
-        const success = await updateClient(client.id, editData);
+        const normalizedData = {
+            ...editData,
+            name: editData.name?.trim() || '',
+            email: editData.email?.trim() || '',
+            phone: editData.phone?.trim() || '',
+            address: editData.address?.trim() || ''
+        };
+
+        const nextErrors = {};
+        if (!normalizedData.name) nextErrors.name = 'El nombre es obligatorio.';
+        if (normalizedData.email && !isValidEmail(normalizedData.email)) {
+            nextErrors.email = 'Ingresa un email valido, por ejemplo nombre@correo.com.';
+        }
+
+        setEditErrors(nextErrors);
+        if (Object.keys(nextErrors).length > 0) {
+            return;
+        }
+
+        const success = await updateClient(client.id, normalizedData);
         if (success) {
             setIsEditModalOpen(false);
+            setEditErrors({});
         }
     };
 
@@ -106,22 +129,26 @@ const ClientDetail = () => {
                 </div>
 
                 <div className="flex gap-2">
-                    <a
-                        href={generateWhatsAppLink(client.phone, `Hola ${client.name}, le escribimos desde Loan Manager.`)}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="flex items-center gap-2 px-4 py-2 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 rounded-xl hover:bg-green-100 hover:text-green-800 transition-colors font-semibold shadow-sm"
-                    >
-                        <MessageCircle size={16} />
-                        WhatsApp
-                    </a>
-                    <a
-                        href={generateEmailLink(client.email, 'Consulta Loan Manager', `Hola ${client.name},`)}
-                        className="flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-400 rounded-xl hover:bg-blue-100 hover:text-blue-800 transition-colors font-semibold shadow-sm"
-                    >
-                        <Send size={16} />
-                        Email
-                    </a>
+                    {hasPhoneNumber(client.phone) && (
+                        <a
+                            href={generateWhatsAppLink(client.phone, `Hola ${client.name}, le escribimos desde Loan Manager.`)}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="flex items-center gap-2 px-4 py-2 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 rounded-xl hover:bg-green-100 hover:text-green-800 transition-colors font-semibold shadow-sm"
+                        >
+                            <MessageCircle size={16} />
+                            WhatsApp
+                        </a>
+                    )}
+                    {client.email && (
+                        <a
+                            href={generateEmailLink(client.email, 'Consulta Loan Manager', `Hola ${client.name},`)}
+                            className="flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-400 rounded-xl hover:bg-blue-100 hover:text-blue-800 transition-colors font-semibold shadow-sm"
+                        >
+                            <Send size={16} />
+                            Email
+                        </a>
+                    )}
                     <div className="w-px bg-slate-200 dark:bg-slate-700 mx-1"></div>
                     <button
                         onClick={() => {
@@ -171,15 +198,15 @@ const ClientDetail = () => {
                     <div className="flex flex-wrap gap-6">
                         <div className="flex items-center gap-2 text-slate-600 bg-slate-50 px-4 py-2 rounded-xl border border-slate-100 dark:border-slate-700">
                             <Mail size={18} className="text-blue-500" />
-                            <span>{client.email}</span>
+                            <span>{client.email || 'Sin email registrado'}</span>
                         </div>
                         <div className="flex items-center gap-2 text-slate-600 bg-slate-50 px-4 py-2 rounded-xl border border-slate-100 dark:border-slate-700">
                             <Phone size={18} className="text-blue-500" />
-                            <span>{client.phone}</span>
+                            <span>{client.phone || 'Sin telefono registrado'}</span>
                         </div>
                         <div className="flex items-center gap-2 text-slate-600 bg-slate-50 px-4 py-2 rounded-xl border border-slate-100 dark:border-slate-700">
                             <MapPin size={18} className="text-blue-500" />
-                            <span>{client.address}</span>
+                            <span>{client.address || 'Sin direccion registrada'}</span>
                         </div>
                     </div>
                 </div>
@@ -257,7 +284,7 @@ const ClientDetail = () => {
                             <h3 className="text-xl font-bold text-slate-800 dark:text-white">Editar Cliente</h3>
                             <p className="text-slate-500 text-sm">Actualiza los datos del cliente.</p>
                         </div>
-                        <form onSubmit={handleUpdate} className="p-8 space-y-4">
+                        <form noValidate onSubmit={handleUpdate} className="p-8 space-y-4">
                             <div className="space-y-1">
                                 <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Nombre Completo</label>
                                 <input
@@ -265,18 +292,25 @@ const ClientDetail = () => {
                                     type="text"
                                     className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                                     value={editData.name}
-                                    onChange={(e) => setEditData({ ...editData, name: e.target.value })}
+                                    onChange={(e) => {
+                                        setEditData({ ...editData, name: e.target.value });
+                                        setEditErrors(prev => ({ ...prev, name: '' }));
+                                    }}
                                 />
+                                {editErrors.name && <p className="text-xs font-bold text-rose-500">{editErrors.name}</p>}
                             </div>
                             <div className="space-y-1">
-                                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Email</label>
+                                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Email (Opcional)</label>
                                 <input
-                                    required
                                     type="email"
                                     className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                                     value={editData.email}
-                                    onChange={(e) => setEditData({ ...editData, email: e.target.value })}
+                                    onChange={(e) => {
+                                        setEditData({ ...editData, email: e.target.value });
+                                        setEditErrors(prev => ({ ...prev, email: '' }));
+                                    }}
                                 />
+                                {editErrors.email && <p className="text-xs font-bold text-rose-500">{editErrors.email}</p>}
                             </div>
                             <div className="space-y-1">
                                 <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Teléfono</label>

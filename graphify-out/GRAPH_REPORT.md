@@ -1,16 +1,16 @@
 # Graph Report - LoanManager  (2026-05-25)
 
 ## Corpus Check
-- 94 files · ~1,337,504 words
+- 95 files · ~1,339,755 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 253 nodes · 252 edges · 32 communities detected
-- Extraction: 88% EXTRACTED · 12% INFERRED · 0% AMBIGUOUS · INFERRED: 29 edges (avg confidence: 0.81)
+- 287 nodes · 330 edges · 35 communities detected
+- Extraction: 91% EXTRACTED · 9% INFERRED · 0% AMBIGUOUS · INFERRED: 30 edges (avg confidence: 0.81)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `61438846`
+- Built from commit: `eb7aa760`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -31,8 +31,10 @@
 - [[_COMMUNITY_Community 13|Community 13]]
 - [[_COMMUNITY_Community 14|Community 14]]
 - [[_COMMUNITY_Community 15|Community 15]]
-- [[_COMMUNITY_Community 17|Community 17]]
-- [[_COMMUNITY_Community 61|Community 61]]
+- [[_COMMUNITY_Community 16|Community 16]]
+- [[_COMMUNITY_Community 18|Community 18]]
+- [[_COMMUNITY_Community 19|Community 19]]
+- [[_COMMUNITY_Community 21|Community 21]]
 - [[_COMMUNITY_Community 62|Community 62]]
 - [[_COMMUNITY_Community 63|Community 63]]
 - [[_COMMUNITY_Community 64|Community 64]]
@@ -47,18 +49,19 @@
 - [[_COMMUNITY_Community 73|Community 73]]
 - [[_COMMUNITY_Community 74|Community 74]]
 - [[_COMMUNITY_Community 75|Community 75]]
+- [[_COMMUNITY_Community 76|Community 76]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `Frontend - React 19 + Vite 7` - 28 edges
 2. `useLoans()` - 25 edges
 3. `useAuth()` - 13 edges
 4. `Backend - Express 5 + Prisma 5` - 10 edges
-5. `Loan Creation` - 6 edges
-6. `calculateAmortization()` - 5 edges
-7. `ErrorBoundary` - 5 edges
-8. `useLoanHealth()` - 5 edges
-9. `generateWhatsAppLink()` - 5 edges
-10. `downloadBlob()` - 5 edges
+5. `downloadPaymentReminder()` - 9 edges
+6. `calculateAmortization()` - 8 edges
+7. `generateWhatsAppLink()` - 8 edges
+8. `downloadLoanCalendar()` - 6 edges
+9. `Loan Creation` - 6 edges
+10. `ErrorBoundary` - 5 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `Vite Logo` --shares_infrastructure--> `Frontend - React 19 + Vite 7`  [INFERRED]
@@ -82,62 +85,70 @@
 - **AI Integration Ecosystem** — ai_gemma4_integration, risk_analysis_ai, collections_chatbot [EXTRACTED 1.00]
 - **Type Validation Enums** — loan_type_enum, frequency_enum, late_fee_type_enum [EXTRACTED 1.00]
 
-## Communities (76 total, 22 thin omitted)
+## Communities (77 total, 23 thin omitted)
 
 ### Community 0 - "Community 0"
-Cohesion: 0.09
-Nodes (19): Footer(), Sidebar(), AuthProvider(), useAuth(), LoanProvider(), useLoans(), ThemeProvider(), useTheme() (+11 more)
+Cohesion: 0.08
+Nodes (18): Footer(), Sidebar(), AuthProvider(), useAuth(), LoanProvider(), useLoans(), ThemeProvider(), useTheme() (+10 more)
 
 ### Community 1 - "Community 1"
-Cohesion: 0.07
-Nodes (32): AuthContext, Amortization Calculator, Monthly Cash-Flow Projections, Client Management, Detailed Client Profiles, Dashboard, Data Import (CSV/Excel), Document Generation (+24 more)
+Cohesion: 0.06
+Nodes (36): AuthContext, Amortization Calculator, Monthly Cash-Flow Projections, Client Management, Detailed Client Profiles, Dashboard, Data Import (CSV/Excel), Document Generation (+28 more)
 
 ### Community 2 - "Community 2"
-Cohesion: 0.16
-Nodes (12): ClientDetail(), Collections(), Dashboard(), cn(), Skeleton(), downloadCalendarReminder(), generateGoogleCalendarLink(), getPaymentEventDetails() (+4 more)
+Cohesion: 0.21
+Nodes (18): Dashboard(), buildCalendarFile(), createCalendarEvent(), downloadBulkLoanCalendars(), downloadCalendarBlob(), downloadCalendarReminder(), downloadLoanCalendar(), downloadPaymentReminder() (+10 more)
 
 ### Community 3 - "Community 3"
 Cohesion: 0.12
 Nodes (18): AppData Portability Strategy, Authentication, Backend - Express 5 + Prisma 5, Bcrypt Password Hashing, CORS Middleware, Payment Frequency Enum, Helmet Security Middleware, JWT Authentication (+10 more)
 
 ### Community 4 - "Community 4"
+Cohesion: 0.2
+Nodes (8): ClientDetail(), Collections(), generateEmailLink(), generateWhatsAppLink(), getReminderMessage(), hasPhoneNumber(), normalizePhoneNumber(), generateReceipt()
+
+### Community 5 - "Community 5"
 Cohesion: 0.33
 Nodes (8): downloadBlob(), generatePagare(), generatePagareFromTemplate(), generateWordContract(), generateWordReceipt(), getLoanDurationMonths(), getLoanInterestRate(), loadFile()
 
-### Community 5 - "Community 5"
+### Community 6 - "Community 6"
+Cohesion: 0.25
+Nodes (6): useLoanHealth(), LoanDetail(), Loans(), generateLoanContract(), getLoanDurationMonths(), getLoanInterestRate()
+
+### Community 7 - "Community 7"
 Cohesion: 0.18
 Nodes (11): Conflict Resolution Strategy, Desktop App - Electron 33, Electron Builder, Field Collector Persona, Loan Manager, Mobile App - React Native (Expo), Offline-First Sync Architecture, Outbox Pattern (+3 more)
 
-### Community 6 - "Community 6"
+### Community 8 - "Community 8"
 Cohesion: 0.18
 Nodes (11): AI Integration - Gemma 4, Calendar View, Collections Management, Collections Assistant Chatbot, Fixed-Rate Amortization, Grace Days Configuration, Late Fees Configuration, Loan Creation (+3 more)
 
-### Community 7 - "Community 7"
-Cohesion: 0.38
-Nodes (4): generateLoanContract(), generateReceipt(), getLoanDurationMonths(), getLoanInterestRate()
-
 ### Community 9 - "Community 9"
-Cohesion: 0.7
-Nodes (4): login(), runTests(), testCreateClient(), testCreateClientWithoutPhone()
+Cohesion: 0.46
+Nodes (4): buildMonthlySchedule(), calculateAmortization(), normalizeFrequency(), splitMonthlySchedule()
+
+### Community 11 - "Community 11"
+Cohesion: 0.6
+Nodes (5): downloadBlob(), generatePagare(), generatePagareFromTemplate(), getLoanInterestRate(), loadFile()
 
 ### Community 12 - "Community 12"
-Cohesion: 0.5
-Nodes (4): Automatic Overdue Detection, Partial Payments Feature, Payment Tracking, Transaction History
+Cohesion: 0.7
+Nodes (4): login(), runTests(), testCreateClient(), testCreateClientWithoutPhone()
 
 ## Knowledge Gaps
 - **64 isolated node(s):** `Data Import (CSV/Excel)`, `Tailwind CSS 4`, `React Router 7`, `Lucide React Icons`, `Sonner Toast Notifications` (+59 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **22 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **23 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Frontend - React 19 + Vite 7` connect `Community 1` to `Community 3`, `Community 5`, `Community 6`, `Community 10`, `Community 12`?**
-  _High betweenness centrality (0.282) - this node is a cross-community bridge._
-- **Why does `jsPDF` connect `Community 1` to `Community 7`?**
-  _High betweenness centrality (0.205) - this node is a cross-community bridge._
-- **Why does `useLoans()` connect `Community 0` to `Community 2`?**
-  _High betweenness centrality (0.201) - this node is a cross-community bridge._
+- **Why does `Frontend - React 19 + Vite 7` connect `Community 1` to `Community 8`, `Community 3`, `Community 13`, `Community 7`?**
+  _High betweenness centrality (0.267) - this node is a cross-community bridge._
+- **Why does `jsPDF` connect `Community 1` to `Community 6`?**
+  _High betweenness centrality (0.210) - this node is a cross-community bridge._
+- **Why does `useLoans()` connect `Community 0` to `Community 2`, `Community 4`, `Community 6`?**
+  _High betweenness centrality (0.173) - this node is a cross-community bridge._
 - **Are the 2 inferred relationships involving `Frontend - React 19 + Vite 7` (e.g. with `Vite Logo` and `React Logo`) actually correct?**
   _`Frontend - React 19 + Vite 7` has 2 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 12 inferred relationships involving `useLoans()` (e.g. with `Sidebar()` and `Footer()`) actually correct?**

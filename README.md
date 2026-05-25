@@ -149,6 +149,8 @@ The packaged app will be output to the `release/` directory.
 
 The repo includes a local project graph in `graphify-out/`.
 
+Detailed team workflow: [`docs/GRAPHIFY.md`](docs/GRAPHIFY.md)
+
 Useful commands:
 
 ```bash

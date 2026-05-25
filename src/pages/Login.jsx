@@ -28,33 +28,36 @@ const Login = () => {
         } else {
             const result = await register(username, password);
             if (result.success) {
-                alert('Account created! Please login.');
+                alert('Cuenta creada. Ahora puedes iniciar sesion.');
                 setIsLogin(true);
             } else {
                 setError(result.error);
             }
         }
+
         setLoading(false);
     };
 
     return (
-        <div className="min-h-screen bg-slate-100 dark:bg-slate-900 flex items-center justify-center p-4">
-            <div className="bg-white dark:bg-slate-800 w-full max-w-md rounded-3xl shadow-xl overflow-hidden animate-in fade-in zoom-in duration-300">
-                <div className="p-8 pb-0 text-center">
-                    <div className="w-16 h-16 bg-blue-600 rounded-2xl mx-auto flex items-center justify-center text-white mb-4 shadow-lg shadow-blue-500/30">
+        <div className="flex min-h-screen items-center justify-center bg-slate-100 p-4 dark:bg-slate-900 sm:p-6">
+            <div className="w-full max-w-md overflow-hidden rounded-3xl bg-white shadow-xl animate-in fade-in zoom-in duration-300 dark:bg-slate-800">
+                <div className="px-6 pb-0 pt-6 text-center sm:px-8 sm:pt-8">
+                    <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-lg shadow-blue-500/30 sm:h-16 sm:w-16">
                         <Lock size={32} />
                     </div>
-                    <h1 className="text-2xl font-bold text-slate-800 dark:text-white">
-                        {isLogin ? 'Welcome Back' : 'Create Account'}
+                    <h1 className="text-xl font-bold text-slate-800 dark:text-white sm:text-2xl">
+                        {isLogin ? 'Bienvenido' : 'Crear Cuenta'}
                     </h1>
-                    <p className="text-slate-500 mt-2">
-                        Enter your credentials to access the Loan Manager.
+                    <p className="mt-2 text-sm text-slate-500 sm:text-base">
+                        {isLogin
+                            ? 'Ingresa tus credenciales para acceder a Loan Manager.'
+                            : 'Crea tu usuario para comenzar a usar Loan Manager.'}
                     </p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="p-8 space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-5 p-6 sm:space-y-6 sm:p-8">
                     {error && (
-                        <div className="bg-red-50 text-red-600 p-4 rounded-xl flex items-center gap-3 text-sm">
+                        <div className="flex items-center gap-3 rounded-xl bg-red-50 p-4 text-sm text-red-600">
                             <AlertCircle size={20} />
                             {error}
                         </div>
@@ -62,28 +65,29 @@ const Login = () => {
 
                     <div className="space-y-4">
                         <div className="space-y-1">
-                            <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Username</label>
+                            <label className="text-xs font-bold uppercase tracking-wider text-slate-500">Usuario</label>
                             <div className="relative">
                                 <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
                                 <input
                                     type="text"
                                     required
-                                    className="w-full pl-12 pr-4 py-3 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-                                    placeholder="Enter your username"
+                                    className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-12 pr-4 outline-none transition-all focus:ring-2 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-700/50"
+                                    placeholder="Ingresa tu usuario"
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
                                 />
                             </div>
                         </div>
+
                         <div className="space-y-1">
-                            <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Password</label>
+                            <label className="text-xs font-bold uppercase tracking-wider text-slate-500">Contrasena</label>
                             <div className="relative">
                                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
                                 <input
                                     type="password"
                                     required
-                                    className="w-full pl-12 pr-4 py-3 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-                                    placeholder="••••••••"
+                                    className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-12 pr-4 outline-none transition-all focus:ring-2 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-700/50"
+                                    placeholder="Escribe tu contrasena"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
@@ -94,19 +98,19 @@ const Login = () => {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-blue-600 text-white font-bold py-3.5 rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2 group disabled:opacity-70 disabled:cursor-not-allowed"
+                        className="group flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 py-3.5 font-bold text-white shadow-lg shadow-blue-500/20 transition-all hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70"
                     >
-                        {loading ? 'Processing...' : (isLogin ? 'Sign In' : 'Create Account')}
-                        {!loading && <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />}
+                        {loading ? 'Procesando...' : (isLogin ? 'Ingresar' : 'Crear Cuenta')}
+                        {!loading && <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />}
                     </button>
 
                     <div className="text-center">
                         <button
                             type="button"
                             onClick={() => setIsLogin(!isLogin)}
-                            className="text-sm text-slate-500 hover:text-blue-600 font-medium transition-colors"
+                            className="text-sm font-medium text-slate-500 transition-colors hover:text-blue-600"
                         >
-                            {isLogin ? "Don't have an account? Sign up" : 'Already have an account? Sign in'}
+                            {isLogin ? 'No tienes cuenta? Registrate' : 'Ya tienes cuenta? Inicia sesion'}
                         </button>
                     </div>
                 </form>

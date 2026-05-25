@@ -1,141 +1,299 @@
 try {
     const electron = require('electron');
-    const fs = require('fs'); // Add fs
-    console.log('REQUIRED ELECTRON:', electron);
-    const { app, BrowserWindow, dialog } = electron; // Add dialog
+    const crypto = require('crypto');
+    const fs = require('fs');
     const path = require('path');
     const { fork, spawnSync } = require('child_process');
+    const { app, BrowserWindow, dialog } = electron;
 
-    // LOGGING SETUP
+    console.log('REQUIRED ELECTRON:', electron);
+
+    const SERVER_PORT = 3011;
+    const SERVER_HEALTH_URL = `http://127.0.0.1:${SERVER_PORT}/api/health`;
     const logPath = path.join(__dirname, '../debug-log.txt');
+
     function log(message) {
         try {
-            console.log(message); // Ensure it goes to console too
+            console.log(message);
             fs.appendFileSync(logPath, `[${new Date().toISOString()}] ${message}\n`);
-        } catch (e) {
-            console.error('Failed to write to log:', e);
+        } catch (error) {
+            console.error('Failed to write to log:', error);
         }
+    }
+
+    function findTemplateDb(baseDir) {
+        const candidates = [
+            path.join(baseDir, 'prisma', 'dev.db'),
+            path.join(baseDir, 'dev.db')
+        ];
+
+        return candidates.find((candidate) => fs.existsSync(candidate)) || null;
+    }
+
+    function resolveAppIcon() {
+        const candidates = app.isPackaged
+            ? [
+                path.join(process.resourcesPath, 'build', 'icons', 'app-icon.png'),
+                path.join(process.resourcesPath, 'build', 'icons', 'app-icon.ico')
+            ]
+            : [
+                path.join(__dirname, '../build/icons/app-icon.png'),
+                path.join(__dirname, '../build/icons/app-icon.ico')
+            ];
+
+        return candidates.find((candidate) => fs.existsSync(candidate));
+    }
+
+    function sleep(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+
+    function ensureDesktopJwtSecret() {
+        if (process.env.JWT_SECRET && process.env.JWT_SECRET.length >= 32) {
+            return process.env.JWT_SECRET;
+        }
+
+        const secretPath = path.join(app.getPath('userData'), 'jwt-secret.txt');
+
+        try {
+            if (fs.existsSync(secretPath)) {
+                const existingSecret = fs.readFileSync(secretPath, 'utf8').trim();
+                if (existingSecret.length >= 32) {
+                    log(`Using persisted desktop JWT secret from ${secretPath}`);
+                    return existingSecret;
+                }
+            }
+
+            const generatedSecret = crypto.randomBytes(48).toString('base64url');
+            fs.writeFileSync(secretPath, generatedSecret, 'utf8');
+            log(`Generated desktop JWT secret at ${secretPath}`);
+            return generatedSecret;
+        } catch (error) {
+            log(`Failed to persist desktop JWT secret: ${error.message}`);
+            return crypto.randomBytes(48).toString('base64url');
+        }
+    }
+
+    async function waitForServerReady(timeoutMs = 20000) {
+        const startedAt = Date.now();
+
+        while (Date.now() - startedAt < timeoutMs) {
+            try {
+                const response = await fetch(SERVER_HEALTH_URL);
+                if (response.ok) {
+                    log('Server healthcheck passed.');
+                    return true;
+                }
+            } catch (error) {
+                log(`Server healthcheck pending: ${error.message}`);
+            }
+
+            await sleep(500);
+        }
+
+        return false;
+    }
+
+    function renderStatusPage(mainWindow, title, message) {
+        const html = `
+            <!doctype html>
+            <html>
+                <head>
+                    <meta charset="utf-8" />
+                    <title>${title}</title>
+                    <style>
+                        body {
+                            margin: 0;
+                            font-family: Segoe UI, sans-serif;
+                            background: #0f172a;
+                            color: #e2e8f0;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            min-height: 100vh;
+                        }
+                        .card {
+                            max-width: 560px;
+                            padding: 32px;
+                            border-radius: 18px;
+                            background: rgba(15, 23, 42, 0.88);
+                            border: 1px solid rgba(148, 163, 184, 0.2);
+                            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+                        }
+                        h1 {
+                            margin: 0 0 12px;
+                            font-size: 24px;
+                        }
+                        p {
+                            margin: 0;
+                            line-height: 1.6;
+                            color: #cbd5e1;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="card">
+                        <h1>${title}</h1>
+                        <p>${message}</p>
+                    </div>
+                </body>
+            </html>
+        `;
+
+        mainWindow.loadURL(`data:text/html;charset=utf-8,${encodeURIComponent(html)}`);
     }
 
     log('--- MAIN PROCESS STARTED ---');
 
-    // Global Error Handlers
     process.on('uncaughtException', (error) => {
         log(`UNCAUGHT EXCEPTION: ${error.stack}`);
-        if (dialog) dialog.showErrorBox('Uncaught Exception', error.stack);
+        if (dialog) {
+            dialog.showErrorBox('Uncaught Exception', error.stack);
+        }
     });
 
+    const isDev = !app.isPackaged && process.env.NODE_ENV !== 'production';
+    let serverProcess;
 
-// Determine dev mode
-const isDev = !app.isPackaged && process.env.NODE_ENV !== 'production';
-let serverProcess;
+    async function startServer() {
+        log('Starting startServer function...');
+        if (isDev) {
+            log('Dev mode: Server skipped.');
+            return true;
+        }
 
-function startServer() {
-    log('Starting startServer function...');
-    if (!isDev) {
-        let serverPath, dbPath, cwd;
+        let serverPath;
+        let dbPath;
+        let cwd;
 
         try {
             if (app.isPackaged) {
-                serverPath = path.join(process.resourcesPath, 'server/index.js');
                 cwd = path.join(process.resourcesPath, 'server');
-                // En producción, SQLite debe estar en AppData para tener permisos de escritura
+                serverPath = path.join(cwd, 'index.js');
+
                 const userDataPath = app.getPath('userData');
                 dbPath = path.join(userDataPath, 'dev.db');
-                
-                // Si la DB no existe en userData, la copiamos desde resources (base inicial)
+
                 if (!fs.existsSync(dbPath)) {
-                    const templateDb = path.join(process.resourcesPath, 'server/prisma/dev.db');
-                    if (fs.existsSync(templateDb)) {
+                    const templateDb = findTemplateDb(cwd);
+                    if (templateDb) {
                         fs.copyFileSync(templateDb, dbPath);
-                        log('Database copied to userData');
+                        log(`Database copied to userData from ${templateDb}`);
+                    } else {
+                        log('No packaged template database found. Server will create a fresh database if needed.');
                     }
                 }
             } else {
-                serverPath = path.join(__dirname, '../server/index.js');
                 cwd = path.join(__dirname, '../server');
-                dbPath = path.join(__dirname, '../server/prisma/dev.db');
+                serverPath = path.join(cwd, 'index.js');
+                dbPath = path.join(cwd, 'prisma', 'dev.db');
             }
-            
+
             log(`Server Config: Path=${serverPath}, CWD=${cwd}, DB=${dbPath}`);
-            
+
             if (!fs.existsSync(serverPath)) {
                 throw new Error(`Server file not found at: ${serverPath}`);
             }
 
-            runPrismaMigrations(cwd, dbPath);
+            runPrismaMigrations(cwd, dbPath, app.isPackaged);
+
+            const jwtSecret = ensureDesktopJwtSecret();
 
             serverProcess = fork(serverPath, [], {
-                cwd: cwd,
-                env: { 
-                    ...process.env, 
-                    PORT: 3011, 
-                    DATABASE_URL: `file:${dbPath}`
+                cwd,
+                env: {
+                    ...process.env,
+                    PORT: SERVER_PORT,
+                    DATABASE_URL: `file:${dbPath}`,
+                    JWT_SECRET: jwtSecret,
+                    DESKTOP_APP: 'true'
                 },
                 stdio: 'pipe'
             });
 
-            serverProcess.on('error', (err) => {
-                log(`Server Process Error: ${err.message}`);
+            serverProcess.on('error', (error) => {
+                log(`Server Process Error: ${error.message}`);
             });
-            
+
+            serverProcess.on('exit', (code, signal) => {
+                log(`Server Process Exit: code=${code} signal=${signal}`);
+            });
+
             if (serverProcess.stdout) {
                 serverProcess.stdout.on('data', (data) => log(`[SERVER OUT]: ${data}`));
             }
+
             if (serverProcess.stderr) {
                 serverProcess.stderr.on('data', (data) => log(`[SERVER ERR]: ${data}`));
             }
 
             log('Server process forked successfully.');
 
-        } catch (e) {
-            log(`CRITICAL SERVER START ERROR: ${e.stack}`);
-            dialog.showErrorBox('Server Start Error', e.message);
+            const isReady = await waitForServerReady();
+            if (!isReady) {
+                throw new Error('The local backend did not become ready in time.');
+            }
+
+            return true;
+        } catch (error) {
+            log(`CRITICAL SERVER START ERROR: ${error.stack}`);
+            dialog.showErrorBox('Server Start Error', error.message);
+            return false;
         }
-    } else {
-        log('Dev mode: Server skipped.');
-    }
-}
-
-function createWindow() {
-    log('Creating window...');
-    const mainWindow = new BrowserWindow({
-        width: 1200,
-        height: 800,
-        webPreferences: {
-            nodeIntegration: true,
-            contextIsolation: false,
-        },
-    });
-
-    if (isDev) {
-        mainWindow.loadURL('http://localhost:5173');
-        mainWindow.webContents.openDevTools();
-    } else {
-        setTimeout(() => {
-            const indexPath = path.join(__dirname, '../dist/index.html');
-            log(`Loading index from: ${indexPath}`);
-            mainWindow.loadFile(indexPath);
-        }, 1000);
-    }
-}
-
-function runPrismaMigrations(cwd, dbPath) {
-    const prismaBinary = process.platform === 'win32'
-        ? path.join(cwd, 'node_modules', '.bin', 'prisma.cmd')
-        : path.join(cwd, 'node_modules', '.bin', 'prisma');
-
-    if (!fs.existsSync(prismaBinary)) {
-        log(`Prisma CLI not found at ${prismaBinary}. Skipping migrations.`);
-        return;
     }
 
-    log(`Running Prisma migrations against ${dbPath}...`);
+    function createWindow() {
+        log('Creating window...');
 
-    const migrationResult = spawnSync(
-        prismaBinary,
-        ['migrate', 'deploy', '--schema', path.join(cwd, 'prisma', 'schema.prisma')],
-        {
+        const mainWindow = new BrowserWindow({
+            width: 1200,
+            height: 800,
+            icon: resolveAppIcon(),
+            webPreferences: {
+                nodeIntegration: true,
+                contextIsolation: false,
+            },
+        });
+
+        if (isDev) {
+            mainWindow.loadURL('http://localhost:5173');
+            mainWindow.webContents.openDevTools();
+            return mainWindow;
+        }
+
+        renderStatusPage(mainWindow, 'Starting Loan Manager', 'Preparing the local server and loading your data...');
+        return mainWindow;
+    }
+
+    function loadProductionApp(mainWindow) {
+        const indexPath = path.join(__dirname, '../dist/index.html');
+        log(`Loading index from: ${indexPath}`);
+        mainWindow.loadFile(indexPath);
+    }
+
+    function runPrismaMigrations(cwd, dbPath, isPackagedBuild) {
+        const prismaBinary = process.platform === 'win32'
+            ? path.join(cwd, 'node_modules', '.bin', 'prisma.cmd')
+            : path.join(cwd, 'node_modules', '.bin', 'prisma');
+
+        if (isPackagedBuild) {
+            log('Packaged desktop build detected. Skipping Prisma CLI migrations at startup.');
+            return;
+        }
+
+        if (!fs.existsSync(prismaBinary)) {
+            log(`Prisma CLI not found at ${prismaBinary}. Skipping migrations.`);
+            return;
+        }
+
+        log(`Running Prisma migrations against ${dbPath}...`);
+
+        const command = process.platform === 'win32' ? 'cmd.exe' : prismaBinary;
+        const args = process.platform === 'win32'
+            ? ['/c', prismaBinary, 'migrate', 'deploy', '--schema', path.join(cwd, 'prisma', 'schema.prisma')]
+            : ['migrate', 'deploy', '--schema', path.join(cwd, 'prisma', 'schema.prisma')];
+
+        const migrationResult = spawnSync(command, args, {
             cwd,
             env: {
                 ...process.env,
@@ -144,52 +302,77 @@ function runPrismaMigrations(cwd, dbPath) {
             encoding: 'utf8',
             timeout: 60000,
             windowsHide: true
+        });
+
+        if (migrationResult.error) {
+            log(`Prisma migration error: ${migrationResult.error.message}`);
+            return;
         }
-    );
 
-    if (migrationResult.error) {
-        throw migrationResult.error;
+        if (migrationResult.stdout) {
+            log(`[PRISMA OUT]: ${migrationResult.stdout}`);
+        }
+
+        if (migrationResult.stderr) {
+            log(`[PRISMA ERR]: ${migrationResult.stderr}`);
+        }
+
+        if (migrationResult.status !== 0) {
+            log(`Prisma migrate deploy failed: ${migrationResult.stderr || 'Unknown error'}`);
+            return;
+        }
+
+        log('Prisma migrations completed successfully.');
     }
 
-    if (migrationResult.stdout) {
-        log(`[PRISMA OUT]: ${migrationResult.stdout}`);
-    }
-    if (migrationResult.stderr) {
-        log(`[PRISMA ERR]: ${migrationResult.stderr}`);
-    }
+    app.whenReady().then(async () => {
+        log('App Ready');
 
-    if (migrationResult.status !== 0) {
-        throw new Error(`Prisma migrate deploy failed: ${migrationResult.stderr || 'Unknown error'}`);
-    }
+        const mainWindow = createWindow();
+        const serverReady = await startServer();
 
-    log('Prisma migrations completed successfully.');
-}
+        if (!isDev) {
+            if (serverReady) {
+                loadProductionApp(mainWindow);
+            } else {
+                renderStatusPage(
+                    mainWindow,
+                    'Unable to Start Local Server',
+                    'Loan Manager could not start its local backend. Please close the app and review debug-log.txt for details.'
+                );
+            }
+        }
 
-app.whenReady().then(() => {
-    log('App Ready');
-    startServer();
-    createWindow();
+        app.on('activate', async () => {
+            if (BrowserWindow.getAllWindows().length === 0) {
+                const nextWindow = createWindow();
+                if (isDev || await startServer()) {
+                    if (!isDev) {
+                        loadProductionApp(nextWindow);
+                    }
+                } else {
+                    renderStatusPage(
+                        nextWindow,
+                        'Unable to Start Local Server',
+                        'Loan Manager could not start its local backend. Please close the app and review debug-log.txt for details.'
+                    );
+                }
+            }
+        });
+    });
 
-    app.on('activate', () => {
-        if (BrowserWindow.getAllWindows().length === 0) {
-            createWindow();
+    app.on('before-quit', () => {
+        if (serverProcess) {
+            serverProcess.kill();
         }
     });
-});
-
-
-app.on('before-quit', () => {
-    if (serverProcess) {
-        serverProcess.kill();
-    }
-});
 
     app.on('window-all-closed', () => {
         if (process.platform !== 'darwin') {
             app.quit();
         }
     });
-} catch (err) {
+} catch (error) {
     const fs = require('fs');
-    fs.appendFileSync('fatal-error.txt', err.stack);
+    fs.appendFileSync('fatal-error.txt', error.stack);
 }
