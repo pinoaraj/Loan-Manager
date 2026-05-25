@@ -9,6 +9,9 @@ function loadFile(url, callback) {
     PizZipUtils.getBinaryContent(url, callback);
 }
 
+const getLoanInterestRate = (loan) => Number(loan.interestRate ?? loan.rate ?? 0);
+const getLoanDurationMonths = (loan) => loan.durationMonths ?? loan.term ?? 0;
+
 const downloadBlob = (blob, filename) => {
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -19,6 +22,9 @@ const downloadBlob = (blob, filename) => {
 };
 
 export const generateWordContract = async (loan, client) => {
+    const interestRate = getLoanInterestRate(loan);
+    const durationMonths = getLoanDurationMonths(loan);
+
     const doc = new Document({
         sections: [{
             properties: {},
@@ -45,8 +51,8 @@ export const generateWordContract = async (loan, client) => {
                 // Loan Details
                 new Paragraph({ text: "Detalles del Préstamo", heading: HeadingLevel.HEADING_2 }),
                 new Paragraph({ text: `Monto Prestado: $${loan.amount.toFixed(2)}`, bullet: { level: 0 } }),
-                new Paragraph({ text: `Tasa de Interés: ${(loan.rate * 100).toFixed(1)}% (${loan.frequency})`, bullet: { level: 0 } }),
-                new Paragraph({ text: `Duración: ${loan.term} meses`, bullet: { level: 0 } }),
+                new Paragraph({ text: `Tasa de Interés: ${(interestRate * 100).toFixed(1)}% (${loan.frequency})`, bullet: { level: 0 } }),
+                new Paragraph({ text: `Duración: ${durationMonths} meses`, bullet: { level: 0 } }),
                 new Paragraph({ text: `Fecha de Inicio: ${format(new Date(loan.startDate), 'dd MMM yyyy')}`, bullet: { level: 0 }, spacing: { after: 300 } }),
 
                 // Terms
@@ -189,6 +195,8 @@ export const generateWordReceipt = async (payment, loan, client) => {
 };
 
 export const generatePagare = async (loan, client) => {
+    const interestRate = getLoanInterestRate(loan);
+
     const doc = new Document({
         sections: [{
             properties: {},
@@ -233,7 +241,7 @@ export const generatePagare = async (loan, client) => {
                 }),
                 new Paragraph({
                     children: [
-                        new TextRun(`Valor recibido a mi entera satisfacción. Este pagaré causará intereses a la tasa de ${(loan.rate * 100).toFixed(1)}% mensual sobre saldos insolutos.`)
+                        new TextRun(`Valor recibido a mi entera satisfacción. Este pagaré causará intereses a la tasa de ${(interestRate * 100).toFixed(1)}% mensual sobre saldos insolutos.`)
                     ],
                     spacing: { after: 400 },
                     alignment: AlignmentType.JUSTIFIED

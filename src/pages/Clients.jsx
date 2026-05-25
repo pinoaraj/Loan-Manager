@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { Search, Phone, Mail, MapPin, ExternalLink, CreditCard, Users, ChevronLeft, ChevronRight } from 'lucide-react';
+import { API_URL } from '../config/api';
 
 const Clients = () => {
     const navigate = useNavigate();
@@ -26,7 +27,7 @@ const Clients = () => {
     const { data: clientsData = { data: [], meta: {} } } = useQuery({
         queryKey: ['clients', page, limit], // Include search term later?
         queryFn: async () => {
-            const res = await fetch(`http://localhost:3001/api/clients?page=${page}&limit=${limit}`, {
+            const res = await fetch(`${API_URL}/clients?page=${page}&limit=${limit}`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             return res.json();

@@ -6,8 +6,13 @@ import { es } from 'date-fns/locale';
 const COMPANY_NAME = "Loan Manager";
 const COMPANY_CONTACT = "contacto@loanmanager.com";
 
+const getLoanInterestRate = (loan) => Number(loan.interestRate ?? loan.rate ?? 0);
+const getLoanDurationMonths = (loan) => loan.durationMonths ?? loan.term ?? 0;
+
 export const generateLoanContract = (loan, client) => {
     const doc = new jsPDF();
+    const interestRate = getLoanInterestRate(loan);
+    const durationMonths = getLoanDurationMonths(loan);
 
     // Header
     doc.setFontSize(22);
@@ -30,8 +35,8 @@ export const generateLoanContract = (loan, client) => {
     doc.text("Detalles del Préstamo", 14, 85);
     doc.setFontSize(10);
     doc.text(`Monto Prestado: $${loan.amount.toFixed(2)}`, 14, 95);
-    doc.text(`Tasa de Interés: ${(loan.rate * 100).toFixed(1)}% (${loan.frequency})`, 14, 100);
-    doc.text(`Duración: ${loan.term} meses`, 14, 105);
+    doc.text(`Tasa de Interés: ${(interestRate * 100).toFixed(1)}% (${loan.frequency})`, 14, 100);
+    doc.text(`Duración: ${durationMonths} meses`, 14, 105);
     doc.text(`Fecha de Inicio: ${format(new Date(loan.startDate), 'dd MMM yyyy')}`, 14, 110);
 
     // Terms

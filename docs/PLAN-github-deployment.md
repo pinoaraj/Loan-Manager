@@ -1,35 +1,66 @@
-# Plan de Despliegue y Funcionalidad: Loan Manager (100% Operable)
+# Plan de Despliegue y Estado Actual: Loan Manager Desktop
 
-## Estado Actual de la Aplicación
-1. **Frontend (React + Vite)**: El build de producción se genera exitosamente sin errores fatales (18.91s).
-2. **Backend (Express + Prisma)**: Se cuenta con una API estructurada y con los tipos validados (Zod). La base de datos es SQLite (`dev.db`), la cual es 100% portable a cualquier PC.
-3. **Escritorio (Electron)**: Cuenta con los scripts listos (`rebuild-desktop`, `electron:build`) para generar el empaquetado final (`.exe`).
+## Foco actual
+- **Producto principal**: app local para PC con **Electron + React + Express + Prisma/SQLite**.
+- **Producto secundario**: app Android offline-first. Sigue documentada, pero no es la prioridad actual.
 
-## Qué falta para el 100% de Instalación en cualquier PC:
-1. **Puesta a punto de `.env`**: Asegurarse de que en producción (Electron), la ruta de la base de datos apunte dinámicamente a la carpeta `AppData` del usuario de Windows para que SQLite no tire error de permisos (Read-Only).
-2. **Script de "Primer Arranque"**: Cuando el `.exe` o el backend arranque por primera vez, asegurar que corra `npx prisma migrate deploy` si la base de datos no está inicializada.
-3. **Tests**: Falta escribir los test end-to-end de creación de préstamo y cliente (están lanzando "no test specified" en el server).
+## Estado actual del escritorio
+1. **Frontend (React + Vite)**  
+   El build de producción compila correctamente y genera `dist/`.
+2. **Backend (Express + Prisma)**  
+   La API está operativa, con validaciones Zod y SQLite como base portátil.
+3. **Desktop (Electron)**  
+   El empaquetado `rebuild-desktop` genera `release/win-unpacked/Loan Manager.exe`.
+4. **Base de datos portable**  
+   En producción, Electron mueve la DB a `AppData` (`app.getPath('userData')`) para evitar problemas de permisos.
+5. **Primer arranque / migraciones**  
+   El proceso principal ya ejecuta `prisma migrate deploy` antes de levantar el backend empaquetado.
+6. **Dependencias de backend empaquetadas**  
+   El build ahora incluye `server/node_modules`, Prisma CLI y engines dentro de `release/win-unpacked/resources/server/`.
 
----
+## Mejoras ya cerradas
+- [x] Ruta dinámica de SQLite para Electron/AppData.
+- [x] Ejecución de migraciones Prisma al iniciar la app empaquetada.
+- [x] Inclusión de Prisma CLI y engines en el paquete desktop.
+- [x] Historial de transacciones para pagos parciales en detalle de préstamo.
+- [x] Validación estricta de `loanType` (`Fixed | Simple`) en backend.
+- [x] Endpoint AI base `/api/ai/risk-analysis`.
 
-## 🤖 Integración Propuesta: Gemma 4 / GenAI
-Como solicitaste, he analizado dónde integraríamos **Gemma 4** (o la familia de modelos abiertos de Google):
+## Pendientes reales para desktop
+1. **Prueba manual del ejecutable en entorno limpio**  
+   Validar que `Loan Manager.exe` abre, crea DB, ejecuta migraciones y conecta frontend-backend sin ayuda del entorno de desarrollo.
+2. **Tests del backend / flujo principal**  
+   `server/package.json` todavía no tiene una suite real en `npm test`.
+3. **Revisión legal y de contenido de documentos**  
+   El mapeo técnico de contrato/pagaré/recibo ya está mejorado, pero la plantilla del pagaré todavía necesita revisión de texto y formato legal.
+4. **Optimización del bundle frontend**  
+   Vite sigue advirtiendo chunks grandes en build de producción.
 
-### Casos de Uso en Loan Manager:
-1. **Evaluador de Riesgo Crediticio**:
-   Al crear un préstamo, enviar la metadata del cliente (edad, préstamos pasados pagados/en mora, salario si lo hay) a Gemma 4 para obtener un "Score de Riesgo" y una recomendación sobre si aprobar el crédito o ajustar la tasa de interés.
-2. **Asistente de Colecciones (Chatbot)**:
-   Un input en el Dashboard donde el usuario pregunte en lenguaje natural: *"¿Quiénes están atrasados con los pagos esta semana?"* y Gemma 4 transforme esto en consultas al backend y responda con los clientes específicos y el guion de cobro recomendado.
+## Integración AI ya iniciada
+La integración dejó de ser solo idea:
+- Dependencia instalada: `@google/genai`
+- Ruta existente: `/api/ai/risk-analysis`
+- Modo offline/degradado: respuesta mock si no existe `GEMINI_API_KEY`
 
-### Pasos Técnicos para la Integración:
-1. Hemos instalado la SDK oficial `@google/genai` en el backend.
-2. Crearemos una ruta `/api/ai/risk-analysis` en Express.
-3. El frontend consumirá esta ruta en `NewLoan.jsx` y mostrará un Badge verde/rojo ("Gemma 4: Riesgo Bajo") usando llamadas a la API de Vertex AI o a un endpoint local (como Ollama) si queremos que Gemma corra 100% offline.
+## Graphify
+Estado del grafo actualizado al **25 de mayo de 2026**:
+- `253 nodes`
+- `252 edges`
+- `76 communities` detectadas internamente por la actualización
 
----
+Comandos útiles para ahorrar pasos:
+- `graphify update .`  
+  Refresca el grafo local sin costo de API.
+- `graphify watch .`  
+  Reconstuye el grafo automáticamente mientras cambias código.
+- `graphify query "pregunta"`  
+  Sirve para inspeccionar relaciones sin abrir `graph.json`.
+- `graphify cluster-only .`  
+  Regenera comunidades/reporte sobre un grafo existente.
 
-## Siguientes Pasos (Ejecución Autónoma)
-1. Escribir pruebas unitarias iniciales para el Backend (`npm test`).
-2. Implementar la conexión de la API AI para sentar las bases de Gemma 4.
-3. Ajustar el empaquetado de Electron (`main.cjs`) para asegurar portabilidad de la base de datos de Prisma en cualquier PC.
-4. Finalizar con el despliegue al repositorio GitHub.
+## Próximos pasos recomendados
+1. Probar `release/win-unpacked/Loan Manager.exe` en una máquina o perfil limpio.
+2. Agregar pruebas del flujo crear cliente -> crear préstamo -> registrar pago.
+3. Revisar plantilla legal del pagaré.
+4. Optimizar tamaño del bundle frontend.
+5. Después de eso, retomar Android si vuelve a ser prioridad.

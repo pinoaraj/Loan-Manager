@@ -1,11 +1,16 @@
 # PLAN-android-app
 
+## Estado de prioridad
+- **Prioridad actual**: baja.
+- **Razón**: el foco principal del proyecto es terminar y estabilizar la app local para PC con Electron.
+- **Uso de este documento**: referencia futura cuando se retome la línea móvil.
+
 ## 1. Context & Goals
 - **Goal**: Create a mobile Android application for "Loan Manager" to allow field collectors to view clients and register payments without internet.
 - **Persona**: Field Collector / Admin.
 - **Key Constraint**: **Offline-First**. The app must work perfectly without signal and sync when back online.
 - **Tech Stack Strategy**: **React Native (Expo)**.
-    - *Why?* Reuses existing React logic (hooks, validation, utils) and allows rapid iteration.
+  - *Why?* Reuses existing React logic (hooks, validation, utils) and allows rapid iteration.
 
 ## 2. Architecture: Offline-First
 To achieve robust offline support, we cannot just "cache" API responses. We need a local database that synchronizes.
@@ -30,31 +35,34 @@ To achieve robust offline support, we cannot just "cache" API responses. We need
 - [ ] Configure `WatermelonDB` schema (mirror Prisma schema)
 - [ ] Setup Navigation (Auth Stack vs App Stack)
 
-### Phase 2: Authenticaton & Sync Logic
+### Phase 2: Authentication & Sync Logic
 - [ ] Implement Login Screen (Get JWT)
-- [ ] Create `SyncService`:
-    - `pullChanges()`: Fetch new/updated clients from server.
-    - `pushChanges()`: Upload queued offline transactions.
-- [ ] modifying Backend: Add `/api/sync` endpoint (Critical for offline support).
+- [ ] Create `SyncService`
+  - `pullChanges()`: Fetch new/updated clients from server.
+  - `pushChanges()`: Upload queued offline transactions.
+- [ ] Modify backend: add `/api/sync` endpoint.
 
 ### Phase 3: Core UI (Collector View)
-- [ ] **Dashboard**: specialized for mobile (Summary + Quick Actions).
-- [ ] **Client List**: Searchable, offline-accessible list.
-- [ ] **Loan Detail**: Read-only view of schedule.
-- [ ] **New Payment**: The critical feature.
-    - *Offline Logic*: Create `Transaction` record locally with `status: 'pending_sync'`.
+- [ ] **Dashboard**: specialized for mobile (summary + quick actions)
+- [ ] **Client List**: searchable, offline-accessible list
+- [ ] **Loan Detail**: read-only view of schedule
+- [ ] **New Payment**: critical feature
+  - *Offline logic*: create local `Transaction` record with `status: 'pending_sync'`
 
 ### Phase 4: Verification & Build
-- [ ] Test "Airplane Mode" flow (Login -> Airplane Mode -> Add Payment -> Connect -> Sync).
-- [ ] Build APK (`eas build -p android --profile preview`).
+- [ ] Test airplane mode flow (Login -> Airplane Mode -> Add Payment -> Connect -> Sync)
+- [ ] Build APK (`eas build -p android --profile preview`)
 
 ## 4. Risks & Mitigations
 | Risk | Mitigation |
 |------|------------|
-| **Data Conflict** | User A edits Client X offline, User B edits Client X online. -> Server tracks `updatedAt`. |
-| **Sync Failures** | "Outbox" pattern. Queued transactions stay on device until confirmed 200 OK. |
+| **Data Conflict** | User A edits Client X offline, User B edits Client X online -> server tracks `updatedAt`. |
+| **Sync Failures** | Outbox pattern. Queued transactions stay on device until confirmed 200 OK. |
 | **App Size** | Hermes engine enabled. |
 
-## 5. Next Steps
-1. Run `/create` to initialize the mobile project folder.
-2. We will start with **Phase 1 (Setup)**.
+## 5. Resume point
+When this track is resumed:
+1. create the mobile workspace,
+2. mirror the Prisma schema,
+3. design the sync contract,
+4. start with offline payment registration.

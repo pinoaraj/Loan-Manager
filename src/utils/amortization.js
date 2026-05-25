@@ -17,7 +17,9 @@ export const calculateAmortization = (principal, annualRate, durationMonths, sta
     const monthlyRate = annualRate;
 
     // Normalize frequency to handle both 'Monthly' and 'monthly'
-    const normalizedFreq = frequency.toLowerCase();
+    let normalizedFreq = frequency.toLowerCase();
+    // Normalize 'biweekly' to 'bi-weekly' to match amortization engine
+    if (normalizedFreq === 'biweekly') normalizedFreq = 'bi-weekly';
 
     switch (normalizedFreq) {
         case 'weekly':

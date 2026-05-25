@@ -5,6 +5,8 @@ import { format } from 'date-fns';
 // import { es } from 'date-fns/locale';
 
 const PagareModal = ({ isOpen, onClose, loan, client }) => {
+    const loanInterestRate = Number(loan?.interestRate ?? loan?.rate ?? 0);
+
     const [formData, setFormData] = useState({
         clientName: '',
         id: '',
@@ -23,10 +25,10 @@ const PagareModal = ({ isOpen, onClose, loan, client }) => {
                 amount: loan.amount.toFixed(2),
                 date: format(new Date(), 'dd/MM/yyyy'),
                 city: 'Santa Cruz',
-                rate: (loan.rate * 100).toFixed(1),
+                rate: (loanInterestRate * 100).toFixed(1),
             });
         }
-    }, [loan, client, isOpen]);
+    }, [loan, client, isOpen, loanInterestRate]);
 
     if (!isOpen) return null;
 

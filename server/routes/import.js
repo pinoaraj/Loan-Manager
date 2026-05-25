@@ -3,11 +3,25 @@ const router = express.Router();
 const { PrismaClient } = require('@prisma/client');
 const { calculateAmortization } = require('../utils/amortization');
 const { authenticateToken } = require('../middleware/auth');
+const { validate } = require('../middleware/validation');
+const { importDataSchema } = require('../middleware/validationSchemas');
 
 const prisma = new PrismaClient();
 
+const normalizeFrequency = (frequency = 'monthly') => {
+    const normalized = String(frequency).trim().toLowerCase();
+    return normalized === 'biweekly' ? 'bi-weekly' : normalized;
+};
+
+const buildClientData = (clientData) => ({
+    name: clientData.name.trim(),
+    email: clientData.email || null,
+    phone: clientData.phone || null,
+    address: clientData.address || null
+});
+
 // POST /api/import
-router.post('/', authenticateToken, async (req, res) => {
+router.post('/', authenticateToken, validate(importDataSchema), async (req, res) => {
     try {
         const { clients, loans } = req.body;
 
@@ -18,33 +32,48 @@ router.post('/', authenticateToken, async (req, res) => {
             // 1. Create Clientes (those that are new)
             for (const clientData of clients) {
                 // Remove the temporary ID used in frontend
-                const { id, ...rest } = clientData;
-                const client = await tx.client.create({ data: rest });
-                createdClients.push({ oldId: id, newId: client.id });
+                const client = await tx.client.create({ data: buildClientData(clientData) });
+                if (clientData.id) createdClients.push({ oldId: clientData.id, newId: client.id });
             }
 
             // 2. Create Loans
             for (const loanData of loans) {
-                const { ...rest } = loanData;
-
                 // If the clientId is a temporary one from this import, replace it with the new DB ID
-                const clientRecord = createdClients.find(c => c.oldId === rest.clientId);
-                const finalClientId = clientRecord ? clientRecord.newId : rest.clientId;
+                const clientRecord = createdClients.find(c => c.oldId === loanData.clientId);
+                const finalClientId = clientRecord ? clientRecord.newId : loanData.clientId;
+                const existingClient = clientRecord ? null : await tx.client.findUnique({ where: { id: finalClientId } });
+
+                if (!clientRecord && !existingClient) {
+                    throw new Error(`Client not found for imported loan: ${loanData.clientId}`);
+                }
+
+                const amount = Number(loanData.amount);
+                const interestRate = Number(loanData.interestRate);
+                const durationMonths = Number(loanData.durationMonths);
+                const frequency = normalizeFrequency(loanData.frequency);
+                const loanType = loanData.loanType || 'Fixed';
 
                 const schedule = calculateAmortization(
-                    parseFloat(rest.amount),
-                    parseFloat(rest.interestRate),
-                    parseInt(rest.durationMonths),
-                    rest.startDate,
-                    rest.frequency || 'monthly',
-                    rest.loanType || 'Fixed'
+                    amount,
+                    interestRate,
+                    durationMonths,
+                    loanData.startDate,
+                    frequency,
+                    loanType
                 );
 
                 const loan = await tx.loan.create({
                     data: {
-                        ...rest,
                         clientId: finalClientId,
-                        startDate: new Date(rest.startDate),
+                        amount,
+                        interestRate,
+                        durationMonths,
+                        startDate: new Date(loanData.startDate),
+                        loanType,
+                        frequency,
+                        graceDays: Number.isInteger(loanData.graceDays) ? loanData.graceDays : 3,
+                        lateFeeType: loanData.lateFeeType || 'Percent',
+                        lateFeeValue: loanData.lateFeeValue === undefined ? 0.05 : Number(loanData.lateFeeValue),
                         status: 'Active'
                     }
                 });
@@ -71,7 +100,7 @@ router.post('/', authenticateToken, async (req, res) => {
         res.json(results);
     } catch (error) {
         console.error('Import error:', error);
-        res.status(500).json({ error: error.message });
+        res.status(400).json({ error: error.message });
     }
 });
 

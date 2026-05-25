@@ -4,6 +4,8 @@ A full-stack **loan management system** built with React + Express + Prisma. Man
 
 > **Desktop & Web** — Runs as a local web app or as an Electron desktop application on Windows.
 
+> **Current Priority** — The main product is the local Windows desktop app. Android remains planned, but secondary.
+
 ---
 
 ## ✨ Features
@@ -20,7 +22,7 @@ A full-stack **loan management system** built with React + Express + Prisma. Man
 | **Data Import** | Bulk import clients and loans from CSV/Excel files |
 | **Authentication** | JWT-based auth with bcrypt password hashing, rate-limited login |
 | **Dark / Light Theme** | System-aware theme toggle with smooth transitions |
-| **Desktop App** | Electron wrapper for offline Windows use |
+| **Desktop App** | Electron wrapper for local Windows use with packaged backend, SQLite in AppData and Prisma migrations on startup |
 
 ---
 
@@ -46,6 +48,9 @@ A full-stack **loan management system** built with React + Express + Prisma. Man
 ### Desktop
 - **Electron 33** — native Windows app wrapper
 - **electron-builder** — packaging and distribution
+
+### Project Mapping
+- **Graphify** — local architecture graph and report generation
 
 ---
 
@@ -125,9 +130,40 @@ npm run electron:dev
 
 # Build Windows executable
 npm run electron:build
+
+# Build unpacked desktop app for verification
+npm run rebuild-desktop
 ```
 
 The packaged app will be output to the `release/` directory.
+
+### Desktop Packaging Notes
+- The packaged backend runs from `resources/server/`.
+- SQLite is relocated to the Windows user data folder (`AppData`) at runtime.
+- Electron runs `prisma migrate deploy` before starting the packaged backend.
+- The desktop package includes Prisma CLI, engines and backend runtime dependencies.
+
+---
+
+## Graphify
+
+The repo includes a local project graph in `graphify-out/`.
+
+Useful commands:
+
+```bash
+# Refresh code graph after local changes
+graphify update .
+
+# Rebuild graph automatically while coding
+graphify watch .
+
+# Ask questions about the current graph
+graphify query "What connects the desktop app to Prisma?"
+
+# Re-cluster an existing graph/report
+graphify cluster-only .
+```
 
 ---
 
@@ -178,9 +214,10 @@ LoanManager/
 | `POST` | `/api/loans` | Create a loan (with amortization schedule) |
 | `GET` | `/api/loans/:id` | Get loan detail with payments |
 | `PATCH` | `/api/loans/:id` | Update loan status |
-| `POST` | `/api/payments/:id/pay` | Record a payment |
+| `POST` | `/api/payments/:id/transactions` | Record a payment transaction / partial payment |
 | `GET` | `/api/dashboard` | Dashboard analytics |
 | `GET` | `/api/health` | Health check |
+| `POST` | `/api/ai/risk-analysis` | Base AI risk analysis endpoint |
 
 ---
 

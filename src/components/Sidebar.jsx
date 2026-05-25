@@ -6,6 +6,7 @@ import { useTheme } from '../context/ThemeContext';
 import { useLoans } from '../context/LoanContext';
 import { useAuth } from '../context/AuthContext';
 import { exportData } from '../utils/dataExport';
+import { API_URL } from '../config/api';
 
 const Sidebar = ({ isMobile }) => {
     const { alerts } = useLoans();
@@ -116,7 +117,7 @@ const Footer = () => {
                 onClick={async () => {
                     try {
                         const token = localStorage.getItem('token');
-                        const res = await fetch('http://localhost:3001/api/backup', {
+                        const res = await fetch(`${API_URL}/backup`, {
                             headers: { 'Authorization': `Bearer ${token}` }
                         });
                         if (!res.ok) throw new Error('Error downloading backup');

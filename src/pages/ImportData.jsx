@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import * as XLSX from 'xlsx';
 import { Upload, FileSpreadsheet, Check, AlertCircle, ArrowRight } from 'lucide-react';
 import ConfirmModal from '../components/ConfirmModal';
+import { toast } from 'sonner';
 
 const ImportData = () => {
     const navigate = useNavigate();
@@ -13,6 +14,7 @@ const ImportData = () => {
     const [rawRows, setRawRows] = useState([]);
     const [columns, setColumns] = useState([]);
     const [fileName, setFileName] = useState('');
+    const [isImporting, setIsImporting] = useState(false);
 
     // Mapping state: which excel column maps to key fields
     const [mapping, setMapping] = useState({
@@ -141,8 +143,18 @@ const ImportData = () => {
         setIsConfirmOpen(true);
     };
 
-    const handleFinalConfirmAction = () => {
-        importData(previewData.clients, previewData.loans);
+    const handleFinalConfirmAction = async () => {
+        setIsImporting(true);
+        const result = await importData(previewData.clients, previewData.loans);
+        setIsImporting(false);
+
+        if (!result.success) {
+            toast.error(result.error || 'No se pudo importar el archivo');
+            return;
+        }
+
+        toast.success('Importacion completada correctamente');
+        setIsConfirmOpen(false);
         navigate('/loans');
     };
 
@@ -296,10 +308,11 @@ const ImportData = () => {
                             <button onClick={() => setStep(2)} className="px-4 py-2 text-slate-500 hover:text-slate-700">Atrás</button>
                             <button
                                 onClick={handleFinalConfirm}
+                                disabled={isImporting || previewData.loans.length === 0}
                                 className="px-6 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 flex items-center gap-2"
                             >
                                 <Check size={18} />
-                                Confirmar e Importar
+                                {isImporting ? 'Importando...' : 'Confirmar e Importar'}
                             </button>
                         </div>
                     </div>

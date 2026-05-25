@@ -2,9 +2,9 @@ import React, { createContext, useContext, useCallback } from 'react';
 // import { format, isAfter, parseISO, startOfDay, differenceInDays } from 'date-fns';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useAuth } from './AuthContext';
+import { API_URL } from '../config/api';
 
 const LoanContext = createContext();
-const API_URL = 'http://localhost:3001/api';
 
 export const useLoans = () => useContext(LoanContext);
 
@@ -296,9 +296,17 @@ export const LoanProvider = ({ children }) => {
                 method: 'POST',
                 body: JSON.stringify({ clients: clientsData, loans: loansData })
             });
-            if (res.ok) invalidateData();
+
+            const data = await res.json();
+            if (!res.ok) {
+                throw new Error(data.error || data.details || 'Failed to import data');
+            }
+
+            invalidateData();
+            return { success: true, data };
         } catch (error) {
             console.error('Error importing data:', error);
+            return { success: false, error: error.message || 'Network error' };
         }
     }, [fetchWithAuth]);
 

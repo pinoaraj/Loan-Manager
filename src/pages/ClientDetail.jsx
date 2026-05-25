@@ -19,6 +19,17 @@ const ClientDetail = () => {
 
     const [editData, setEditData] = useState(client || {});
 
+    const getLoanDurationLabel = (loan) => {
+        const duration = loan.durationMonths ?? loan.term ?? 0;
+        const frequency = String(loan.frequency || '').toLowerCase();
+
+        if (frequency === 'monthly') return `${duration} Meses`;
+        if (frequency === 'biweekly' || frequency === 'bi-weekly') return `${duration} Quincenas`;
+        return `${duration} Semanas`;
+    };
+
+    const getLoanInterestLabel = (loan) => `${(Number(loan.interestRate ?? loan.rate ?? 0) * 100).toFixed(1)}%`;
+
     if (!client) {
         return (
             <div className="p-8 text-center">
@@ -219,11 +230,11 @@ const ClientDetail = () => {
                                     <div className="flex items-center gap-8">
                                         <div className="text-right hidden sm:block">
                                             <p className="text-xs text-slate-400 uppercase tracking-wide">Plazo</p>
-                                            <p className="font-semibold text-slate-700">{loan.term} {loan.frequency === 'Monthly' ? 'Meses' : loan.frequency === 'Biweekly' ? 'Quincenas' : 'Semanas'}</p>
+                                            <p className="font-semibold text-slate-700">{getLoanDurationLabel(loan)}</p>
                                         </div>
                                         <div className="text-right hidden sm:block">
                                             <p className="text-xs text-slate-400 uppercase tracking-wide">Interés</p>
-                                            <p className="font-semibold text-slate-700">{loan.rate}%</p>
+                                            <p className="font-semibold text-slate-700">{getLoanInterestLabel(loan)}</p>
                                         </div>
 
                                         <div className={`px-4 py-2 rounded-xl text-sm font-bold border flex items-center gap-2 ${getStatusColor(loan.status)}`}>

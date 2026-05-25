@@ -17,22 +17,48 @@ router.get('/preview', authenticateToken, (req, res) => {
             return res.status(400).json({ error: 'Missing required parameters for preview' });
         }
 
+        // Validate numeric parameters
+        const parsedAmount = parseFloat(amount);
+        const parsedRate = parseFloat(interestRate);
+        const parsedDuration = parseInt(durationMonths);
+
+        if (isNaN(parsedAmount) || parsedAmount <= 0) {
+            return res.status(400).json({ error: 'El monto debe ser un número positivo' });
+        }
+        if (isNaN(parsedRate) || parsedRate < 0 || parsedRate > 1) {
+            return res.status(400).json({ error: 'La tasa de interés debe estar entre 0 y 1' });
+        }
+        if (isNaN(parsedDuration) || parsedDuration <= 0 || parsedDuration > 600) {
+            return res.status(400).json({ error: 'El plazo debe estar entre 1 y 600 meses' });
+        }
+
+        // Validate date format
+        const dateObj = new Date(startDate);
+        if (isNaN(dateObj.getTime())) {
+            return res.status(400).json({ error: 'La fecha de inicio es inválida' });
+        }
+
         // Normalize frequency for amortization engine
         let engineFrequency = (frequency || 'monthly').toLowerCase();
         if (engineFrequency === 'biweekly') engineFrequency = 'bi-weekly';
 
         const schedule = calculateAmortization(
-            parseFloat(amount),
-            parseFloat(interestRate),
-            parseInt(durationMonths),
+            parsedAmount,
+            parsedRate,
+            parsedDuration,
             startDate,
             engineFrequency,
             loanType || 'Fixed'
         );
 
+        if (!schedule || schedule.length === 0) {
+            return res.status(500).json({ error: 'No se pudo calcular el plan de amortización' });
+        }
+
         res.json(schedule);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error('Loan preview error:', error);
+        res.status(500).json({ error: error.message || 'Error al calcular el plan de amortización' });
     }
 });
 

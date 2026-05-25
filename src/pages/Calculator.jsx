@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import {
     Calculator as CalcIcon,
     DollarSign,
@@ -9,10 +9,9 @@ import {
     Download
 } from 'lucide-react';
 import { format } from 'date-fns';
-import { useLoans } from '../context/LoanContext';
+import { calculateAmortization } from '../utils/amortization';
 
 const Calculator = () => {
-    const { getLoanPreview } = useLoans();
     const [formData, setFormData] = useState({
         amount: '5000',
         interestRate: '0.10',
@@ -23,18 +22,75 @@ const Calculator = () => {
     });
 
     const [schedule, setSchedule] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
+
+    // Validation function
+    const validateFormData = useCallback(() => {
+        const amount = parseFloat(formData.amount);
+        const interestRate = parseFloat(formData.interestRate);
+        const durationMonths = parseInt(formData.durationMonths);
+
+        if (!formData.amount || isNaN(amount)) {
+            return 'El monto del préstamo es requerido';
+        }
+        if (amount <= 0) {
+            return 'El monto debe ser mayor a 0';
+        }
+        if (amount > 1000000000) {
+            return 'El monto es demasiado grande';
+        }
+
+        if (!formData.interestRate || isNaN(interestRate)) {
+            return 'La tasa de interés es requerida';
+        }
+        if (interestRate < 0) {
+            return 'La tasa de interés no puede ser negativa';
+        }
+        if (interestRate > 1) {
+            return 'La tasa de interés parece muy alta (máx: 100%)';
+        }
+
+        if (!formData.durationMonths || isNaN(durationMonths)) {
+            return 'El plazo es requerido';
+        }
+        if (durationMonths <= 0) {
+            return 'El plazo debe ser mayor a 0 meses';
+        }
+        if (durationMonths > 600) {
+            return 'El plazo no puede exceder 50 años';
+        }
+
+        if (!formData.startDate) {
+            return 'La fecha de inicio es requerida';
+        }
+
+        return ''; // No errors
+    }, [formData]);
 
     useEffect(() => {
-        const fetchPreview = async () => {
-            if (!formData.amount || !formData.durationMonths) {
+        const calculatePreview = () => {
+            const validationError = validateFormData();
+            if (validationError) {
+                setError(validationError);
                 setSchedule([]);
                 return;
             }
 
-            setIsLoading(true);
+            setError('');
             try {
-                const data = await getLoanPreview(formData);
+                const data = calculateAmortization(
+                    parseFloat(formData.amount),
+                    parseFloat(formData.interestRate),
+                    parseInt(formData.durationMonths),
+                    formData.startDate,
+                    formData.frequency,
+                    formData.loanType
+                );
+                if (!data || data.length === 0) {
+                    setError('No se pudo calcular el plan de amortización');
+                    setSchedule([]);
+                    return;
+                }
                 // Ensure dates are parsed back into Date objects for the table
                 const parsedData = data.map(p => ({
                     ...p,
@@ -43,14 +99,14 @@ const Calculator = () => {
                 setSchedule(parsedData);
             } catch (error) {
                 console.error('Preview error:', error);
-            } finally {
-                setIsLoading(false);
+                setError(error.message || 'Error al calcular el plan de amortización');
+                setSchedule([]);
             }
         };
 
-        const timer = setTimeout(fetchPreview, 300);
+        const timer = setTimeout(calculatePreview, 300);
         return () => clearTimeout(timer);
-    }, [formData, getLoanPreview]);
+    }, [formData, validateFormData]);
 
     const totals = useMemo(() => {
         if (schedule.length === 0) return null;
@@ -185,6 +241,17 @@ const Calculator = () => {
 
                 {/* Results and Schedule */}
                 <div className="lg:col-span-2 space-y-8">
+                    {/* Error Message */}
+                    {error && (
+                        <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-2xl p-4 flex items-start gap-3">
+                            <div className="text-red-600 dark:text-red-400 font-bold text-lg">⚠️</div>
+                            <div>
+                                <h4 className="font-bold text-red-800 dark:text-red-300">Error en la Validación</h4>
+                                <p className="text-red-700 dark:text-red-400 text-sm">{error}</p>
+                            </div>
+                        </div>
+                    )}
+
                     {/* Summary Cards */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div className="bg-slate-900 text-white p-8 rounded-3xl shadow-xl relative overflow-hidden group">

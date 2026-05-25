@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '../context/AuthContext';
 import ConfirmModal from '../components/ConfirmModal';
 import { useLoanHealth } from '../hooks/useLoanHealth';
+import { API_URL } from '../config/api';
 
 const Loans = () => {
     const navigate = useNavigate();
@@ -28,7 +29,7 @@ const Loans = () => {
         queryKey: ['loans', page, limit, searchTerm, statusFilter], // Refetch when these change
         queryFn: async () => {
             // Debounce search in real app, but for now direct
-            const res = await fetch(`http://localhost:3001/api/loans?page=${page}&limit=${limit}&search=${searchTerm}&status=${statusFilter}`, {
+            const res = await fetch(`${API_URL}/loans?page=${page}&limit=${limit}&search=${searchTerm}&status=${statusFilter}`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             return res.json();

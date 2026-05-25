@@ -59,3 +59,19 @@ error.log
 
 # Agent/AI config (development only)
 .agent/
+
+# Graphify generated artifacts
+graphify-out/cache/
+graphify-out/converted/
+graphify-out/.graphify_python
+graphify-out/.graphify_root
+graphify-out/.graphify_semantic_files.txt
+graphify-out/build_graph.py
+graphify-out/check_cache.py
+graphify-out/cost.json
+graphify-out/extract_ast.py
+graphify-out/finalize.py
+graphify-out/inspect_frontend.py
+graphify-out/label_communities.py
+graphify-out/merge_extract.py
+graphify-out/prep_semantic.py

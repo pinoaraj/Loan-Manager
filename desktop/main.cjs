@@ -4,7 +4,7 @@ try {
     console.log('REQUIRED ELECTRON:', electron);
     const { app, BrowserWindow, dialog } = electron; // Add dialog
     const path = require('path');
-    const { fork } = require('child_process');
+    const { fork, spawnSync } = require('child_process');
 
     // LOGGING SETUP
     const logPath = path.join(__dirname, '../debug-log.txt');
@@ -63,11 +63,13 @@ function startServer() {
                 throw new Error(`Server file not found at: ${serverPath}`);
             }
 
+            runPrismaMigrations(cwd, dbPath);
+
             serverProcess = fork(serverPath, [], {
                 cwd: cwd,
                 env: { 
                     ...process.env, 
-                    PORT: 3001, 
+                    PORT: 3011, 
                     DATABASE_URL: `file:${dbPath}`
                 },
                 stdio: 'pipe'
@@ -118,6 +120,51 @@ function createWindow() {
     }
 }
 
+function runPrismaMigrations(cwd, dbPath) {
+    const prismaBinary = process.platform === 'win32'
+        ? path.join(cwd, 'node_modules', '.bin', 'prisma.cmd')
+        : path.join(cwd, 'node_modules', '.bin', 'prisma');
+
+    if (!fs.existsSync(prismaBinary)) {
+        log(`Prisma CLI not found at ${prismaBinary}. Skipping migrations.`);
+        return;
+    }
+
+    log(`Running Prisma migrations against ${dbPath}...`);
+
+    const migrationResult = spawnSync(
+        prismaBinary,
+        ['migrate', 'deploy', '--schema', path.join(cwd, 'prisma', 'schema.prisma')],
+        {
+            cwd,
+            env: {
+                ...process.env,
+                DATABASE_URL: `file:${dbPath}`
+            },
+            encoding: 'utf8',
+            timeout: 60000,
+            windowsHide: true
+        }
+    );
+
+    if (migrationResult.error) {
+        throw migrationResult.error;
+    }
+
+    if (migrationResult.stdout) {
+        log(`[PRISMA OUT]: ${migrationResult.stdout}`);
+    }
+    if (migrationResult.stderr) {
+        log(`[PRISMA ERR]: ${migrationResult.stderr}`);
+    }
+
+    if (migrationResult.status !== 0) {
+        throw new Error(`Prisma migrate deploy failed: ${migrationResult.stderr || 'Unknown error'}`);
+    }
+
+    log('Prisma migrations completed successfully.');
+}
+
 app.whenReady().then(() => {
     log('App Ready');
     startServer();
@@ -146,4 +193,3 @@ app.on('before-quit', () => {
     const fs = require('fs');
     fs.appendFileSync('fatal-error.txt', err.stack);
 }
-
