@@ -95,6 +95,7 @@ const createAuthenticatedLoanFixture = async () => {
         headers: authHeaders,
         body: JSON.stringify({
             name: 'Cliente Prueba',
+            rut: '12.345.678-5',
             email: 'cliente@example.com',
             phone: '555-0101',
             address: 'Calle Falsa 123'
@@ -103,6 +104,7 @@ const createAuthenticatedLoanFixture = async () => {
 
     assert.equal(clientResult.response.status, 200);
     assert.equal(clientResult.body.name, 'Cliente Prueba');
+    assert.equal(clientResult.body.rut, '12.345.678-5');
 
     const loanResult = await request('/api/loans', {
         method: 'POST',
@@ -162,6 +164,14 @@ test('registers, authenticates, creates a client, creates a loan, and records a 
     assert.equal(loanDetailResult.response.status, 200);
     assert.equal(loanDetailResult.body.payments[0].transactions.length, 1);
     assert.equal(loanDetailResult.body.payments[0].status, 'Partial');
+
+    const clientSearchResult = await request('/api/clients?search=12.345.678-5', {
+        headers: fixture.authHeaders
+    });
+
+    assert.equal(clientSearchResult.response.status, 200);
+    assert.equal(clientSearchResult.body.data.length, 1);
+    assert.equal(clientSearchResult.body.data[0].rut, '12.345.678-5');
 });
 
 test('rejects invalid or excessive payment transactions', async () => {

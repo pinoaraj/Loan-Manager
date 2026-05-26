@@ -251,10 +251,10 @@ const LoanDetail = () => {
                     <button
                         onClick={() => setIsPagareModalOpen(true)}
                         className="flex items-center gap-2 rounded-xl bg-slate-800 px-4 py-2 text-sm font-bold text-white shadow-md transition-all hover:bg-slate-700"
-                        title="Descargar Pagare"
+                        title="Abrir documentos legales"
                     >
                         <FileText size={16} />
-                        Pagare
+                        Documentos
                     </button>
                 </div>
             </header>

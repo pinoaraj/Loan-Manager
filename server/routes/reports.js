@@ -111,6 +111,7 @@ router.get('/export-all', authenticateToken, async (req, res) => {
         const clientRows = clients.map((client) => ({
             ID: client.id,
             Nombre: client.name,
+            RUT: client.rut || '',
             Email: client.email || '',
             Telefono: client.phone || '',
             Direccion: client.address || '',

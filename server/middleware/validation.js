@@ -1,5 +1,11 @@
 const { z } = require('zod');
 
+const rutSchema = z
+    .string()
+    .trim()
+    .regex(/^\d{1,2}\.?\d{3}\.?\d{3}-[\dkK]$/, 'RUT invalido. Usa un formato como 12.345.678-9')
+    .transform((value) => value.toUpperCase());
+
 const frequencySchema = z.preprocess(
     (value) => {
         if (typeof value !== 'string') return value;
@@ -10,7 +16,6 @@ const frequencySchema = z.preprocess(
     z.enum(['weekly', 'bi-weekly', 'monthly'])
 );
 
-// Middleware factory
 const validate = (schema) => (req, res, next) => {
     try {
         req.body = schema.parse(req.body);
@@ -20,28 +25,27 @@ const validate = (schema) => (req, res, next) => {
             const details = error.issues || error.errors || [];
             return res.status(400).json({
                 error: 'Validation Error',
-                details: details.map(e => ({ path: e.path.join('.'), message: e.message }))
+                details: details.map((item) => ({ path: item.path.join('.'), message: item.message }))
             });
         }
         res.status(500).json({ error: 'Internal Validation Error' });
     }
 };
 
-// Schemas
-
 const clientSchema = z.object({
     name: z.string().min(1, 'El nombre es obligatorio'),
-    email: z.string().email('Email inválido').optional().or(z.literal('')),
+    rut: rutSchema,
+    email: z.string().email('Email invalido').optional().or(z.literal('')),
     phone: z.string().optional().or(z.literal('')),
     address: z.string().optional().or(z.literal(''))
 });
 
 const loanSchema = z.object({
-    clientId: z.string(), // Removed strict UUID check as Prisma uses CUIDs
+    clientId: z.string(),
     amount: z.number().positive('El monto debe ser positivo'),
     interestRate: z.number().min(0, 'La tasa no puede ser negativa'),
-    durationMonths: z.number().int().positive('La duración debe ser positiva'),
-    startDate: z.string().datetime().or(z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Fecha inválida')), // Allow ISO or YYYY-MM-DD
+    durationMonths: z.number().int().positive('La duracion debe ser positiva'),
+    startDate: z.string().datetime().or(z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Fecha invalida')),
     frequency: frequencySchema,
     loanType: z.enum(['Fixed', 'Simple']).optional(),
     graceDays: z.number().int().min(0).optional(),
@@ -51,7 +55,7 @@ const loanSchema = z.object({
 
 const paymentSchema = z.object({
     amount: z.number().positive('El monto debe ser positivo'),
-    date: z.string().datetime().or(z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Fecha inválida')).optional(),
+    date: z.string().datetime().or(z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Fecha invalida')).optional(),
     method: z.string().optional(),
     note: z.string().optional()
 });

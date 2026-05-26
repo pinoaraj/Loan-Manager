@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { Search, Phone, Mail, MapPin, MessageCircle, CreditCard, Users, ChevronLeft, ChevronRight } from 'lucide-react';
 import { API_URL } from '../config/api';
 import { generateWhatsAppLink, hasPhoneNumber } from '../utils/communication';
+import { formatRutInput, isValidRut } from '../utils/rut';
 
 const isValidEmail = (value) => /^[^\s@,]+@[^\s@,]+\.[^\s@,]+$/.test(value);
 
@@ -20,6 +21,7 @@ const Clients = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [newClient, setNewClient] = useState({
         name: '',
+        rut: '',
         email: '',
         phone: '',
         address: ''
@@ -50,6 +52,7 @@ const Clients = () => {
 
         const normalizedClient = {
             name: newClient.name.trim(),
+            rut: formatRutInput(newClient.rut),
             email: newClient.email.trim(),
             phone: newClient.phone.trim(),
             address: newClient.address.trim()
@@ -57,6 +60,10 @@ const Clients = () => {
 
         const nextErrors = {};
         if (!normalizedClient.name) nextErrors.name = 'El nombre es obligatorio.';
+        if (!normalizedClient.rut) nextErrors.rut = 'El RUT es obligatorio.';
+        if (normalizedClient.rut && !isValidRut(normalizedClient.rut)) {
+            nextErrors.rut = 'Ingresa un RUT valido.';
+        }
         if (normalizedClient.email && !isValidEmail(normalizedClient.email)) {
             nextErrors.email = 'Ingresa un email valido, por ejemplo nombre@correo.com.';
         }
@@ -71,7 +78,7 @@ const Clients = () => {
         try {
             await addClient(normalizedClient);
             setIsModalOpen(false);
-            setNewClient({ name: '', email: '', phone: '', address: '' });
+            setNewClient({ name: '', rut: '', email: '', phone: '', address: '' });
             setFormErrors({});
         } catch (error) {
             alert('Error al crear cliente: ' + error.message);
@@ -97,7 +104,7 @@ const Clients = () => {
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
                         <input
                             type="text"
-                            placeholder="Nombre, email o ID..."
+                            placeholder="Nombre, RUT, email o ID..."
                             className="pl-10 pr-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 w-72 shadow-sm transition-all"
                             value={searchTerm}
                             onChange={(event) => {
@@ -150,6 +157,20 @@ const Clients = () => {
                                     }}
                                 />
                                 {formErrors.email && <p className="text-xs font-bold text-rose-500">{formErrors.email}</p>}
+                            </div>
+                            <div className="space-y-1">
+                                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">RUT</label>
+                                <input
+                                    required
+                                    type="text"
+                                    className="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                                    value={newClient.rut}
+                                    onChange={(event) => {
+                                        setNewClient({ ...newClient, rut: formatRutInput(event.target.value) });
+                                        setFormErrors((previous) => ({ ...previous, rut: '' }));
+                                    }}
+                                />
+                                {formErrors.rut && <p className="text-xs font-bold text-rose-500">{formErrors.rut}</p>}
                             </div>
                             <div className="space-y-1">
                                 <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Telefono</label>
@@ -226,8 +247,8 @@ const Clients = () => {
                                             <h3 className="truncate font-bold text-slate-800 dark:text-white text-lg leading-tight" title={client.name}>
                                                 {client.name}
                                             </h3>
-                                            <span className="block truncate text-xs text-slate-400 font-mono" title={`ID: ${client.id}`}>
-                                                ID: {client.id}
+                                            <span className="block truncate text-xs text-slate-400 font-mono" title={client.rut ? `RUT: ${client.rut}` : `ID: ${client.id}`}>
+                                                {client.rut ? `RUT: ${client.rut}` : `ID: ${client.id}`}
                                             </span>
                                         </div>
                                     </div>

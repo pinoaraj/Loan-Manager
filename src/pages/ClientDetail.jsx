@@ -8,6 +8,7 @@ import { format, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { useAuth } from '../context/AuthContext';
 import { API_URL } from '../config/api';
+import { formatRutInput, isValidRut } from '../utils/rut';
 
 const isValidEmail = (value) => /^[^\s@,]+@[^\s@,]+\.[^\s@,]+$/.test(value);
 
@@ -100,6 +101,7 @@ const ClientDetail = () => {
         const normalizedData = {
             ...editData,
             name: editData.name?.trim() || '',
+            rut: formatRutInput(editData.rut || ''),
             email: editData.email?.trim() || '',
             phone: editData.phone?.trim() || '',
             address: editData.address?.trim() || ''
@@ -107,6 +109,10 @@ const ClientDetail = () => {
 
         const nextErrors = {};
         if (!normalizedData.name) nextErrors.name = 'El nombre es obligatorio.';
+        if (!normalizedData.rut) nextErrors.rut = 'El RUT es obligatorio.';
+        if (normalizedData.rut && !isValidRut(normalizedData.rut)) {
+            nextErrors.rut = 'Ingresa un RUT valido.';
+        }
         if (normalizedData.email && !isValidEmail(normalizedData.email)) {
             nextErrors.email = 'Ingresa un email valido, por ejemplo nombre@correo.com.';
         }
@@ -179,7 +185,7 @@ const ClientDetail = () => {
                     <div className="w-px bg-slate-200 dark:bg-slate-700 mx-1"></div>
                     <button
                         onClick={() => {
-                            setEditData(client);
+                            setEditData({ ...client, rut: client.rut || '' });
                             setIsEditModalOpen(true);
                         }}
                         className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors font-semibold shadow-sm"
@@ -205,6 +211,11 @@ const ClientDetail = () => {
                 <div className="flex-1 space-y-4 min-w-0">
                     <div className="min-w-0">
                         <h1 className="truncate text-3xl font-bold text-slate-800 dark:text-white">{client.name}</h1>
+                        {client.rut && (
+                            <span className="mt-1 block truncate text-sm font-semibold text-blue-600" title={`RUT: ${client.rut}`}>
+                                RUT: {client.rut}
+                            </span>
+                        )}
                         <span className="block truncate text-sm font-mono text-slate-400" title={`ID: ${client.id}`}>
                             ID: {client.id}
                         </span>
@@ -337,6 +348,20 @@ const ClientDetail = () => {
                                     }}
                                 />
                                 {editErrors.email && <p className="text-xs font-bold text-rose-500">{editErrors.email}</p>}
+                            </div>
+                            <div className="space-y-1">
+                                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">RUT</label>
+                                <input
+                                    required
+                                    type="text"
+                                    className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                                    value={editData.rut || ''}
+                                    onChange={(event) => {
+                                        setEditData({ ...editData, rut: formatRutInput(event.target.value) });
+                                        setEditErrors((previous) => ({ ...previous, rut: '' }));
+                                    }}
+                                />
+                                {editErrors.rut && <p className="text-xs font-bold text-rose-500">{editErrors.rut}</p>}
                             </div>
                             <div className="space-y-1">
                                 <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Telefono</label>

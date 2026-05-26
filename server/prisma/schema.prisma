@@ -22,12 +22,15 @@ model User {
 model Client {
   id        String   @id @default(cuid())
   name      String
+  rut       String?
   email     String?
   phone     String?
   address   String?
   loans     Loan[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([rut])
 }
 
 model Loan {

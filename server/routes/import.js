@@ -13,6 +13,7 @@ const normalizeFrequency = (frequency = 'monthly') => {
 
 const buildClientData = (clientData) => ({
     name: clientData.name.trim(),
+    rut: clientData.rut || null,
     email: clientData.email || null,
     phone: clientData.phone || null,
     address: clientData.address || null

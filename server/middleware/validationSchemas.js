@@ -1,6 +1,12 @@
 const { z } = require('zod');
 
-const dateSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid start date format (YYYY-MM-DD)");
+const rutSchema = z
+    .string()
+    .trim()
+    .regex(/^\d{1,2}\.?\d{3}\.?\d{3}-[\dkK]$/, 'Invalid RUT format')
+    .transform((value) => value.toUpperCase());
+
+const dateSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Invalid start date format (YYYY-MM-DD)');
 const frequencySchema = z.preprocess(
     (value) => {
         if (typeof value !== 'string') return value;
@@ -11,39 +17,36 @@ const frequencySchema = z.preprocess(
     z.enum(['weekly', 'bi-weekly', 'monthly']).default('monthly')
 );
 
-// Schema for client data during import
 const importClientSchema = z.object({
-    id: z.string().optional(), // Temporary ID used for linking loans to clients during import
-    name: z.string().min(1, "Client name is required"),
-    email: z.string().email("Invalid email address").optional().or(z.literal('')),
+    id: z.string().optional(),
+    name: z.string().min(1, 'Client name is required'),
+    rut: rutSchema.optional(),
+    email: z.string().email('Invalid email address').optional().or(z.literal('')),
     phone: z.string().optional().or(z.literal('')),
-    address: z.string().optional().or(z.literal('')),
-    // Add other client fields as necessary
+    address: z.string().optional().or(z.literal(''))
 });
 
-// Schema for loan data during import
 const importLoanSchema = z.object({
-    clientId: z.string().min(1, "Client ID is required for a loan"), // Can be temporary ID or existing DB ID
+    clientId: z.string().min(1, 'Client ID is required for a loan'),
     clientName: z.string().optional(),
-    amount: z.coerce.number().positive("Loan amount must be positive"),
-    interestRate: z.coerce.number().min(0, "Interest rate cannot be negative"),
-    durationMonths: z.coerce.number().int().positive("Duration must be a positive integer"),
+    amount: z.coerce.number().positive('Loan amount must be positive'),
+    interestRate: z.coerce.number().min(0, 'Interest rate cannot be negative'),
+    durationMonths: z.coerce.number().int().positive('Duration must be a positive integer'),
     startDate: dateSchema,
     frequency: frequencySchema,
     loanType: z.enum(['Fixed', 'Simple']).default('Fixed'),
     graceDays: z.coerce.number().int().min(0).optional(),
     lateFeeType: z.enum(['Fixed', 'Percent']).optional(),
-    lateFeeValue: z.coerce.number().min(0).optional(),
-    // Add other loan fields as necessary
+    lateFeeValue: z.coerce.number().min(0).optional()
 });
 
 const importDataSchema = z.object({
     clients: z.array(importClientSchema),
-    loans: z.array(importLoanSchema),
+    loans: z.array(importLoanSchema)
 });
 
 module.exports = {
     importClientSchema,
     importLoanSchema,
-    importDataSchema,
+    importDataSchema
 };

@@ -14,9 +14,10 @@ router.get('/', authenticateToken, async (req, res) => {
         const where = search
             ? {
                 OR: [
-                    { name: { contains: search, mode: 'insensitive' } },
-                    { email: { contains: search, mode: 'insensitive' } },
-                    { id: { contains: search, mode: 'insensitive' } }
+                    { name: { contains: search } },
+                    { rut: { contains: search } },
+                    { email: { contains: search } },
+                    { id: { contains: search } }
                 ]
             }
             : undefined;

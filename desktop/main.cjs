@@ -276,17 +276,12 @@ try {
             ? path.join(cwd, 'node_modules', '.bin', 'prisma.cmd')
             : path.join(cwd, 'node_modules', '.bin', 'prisma');
 
-        if (isPackagedBuild) {
-            log('Packaged desktop build detected. Skipping Prisma CLI migrations at startup.');
-            return;
-        }
-
         if (!fs.existsSync(prismaBinary)) {
             log(`Prisma CLI not found at ${prismaBinary}. Skipping migrations.`);
             return;
         }
 
-        log(`Running Prisma migrations against ${dbPath}...`);
+        log(`Running Prisma migrations against ${dbPath} (${isPackagedBuild ? 'packaged' : 'development'})...`);
 
         const command = process.platform === 'win32' ? 'cmd.exe' : prismaBinary;
         const args = process.platform === 'win32'
