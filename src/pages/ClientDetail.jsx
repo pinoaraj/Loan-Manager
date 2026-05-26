@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { ArrowLeft, Mail, Phone, MapPin, Calendar, DollarSign, Clock, CheckCircle, AlertTriangle, Edit, Trash2, MessageCircle, Send } from 'lucide-react';
+import { ArrowLeft, Mail, Phone, MapPin, DollarSign, Clock, CheckCircle, AlertTriangle, Edit, Trash2, MessageCircle, Send } from 'lucide-react';
 import { generateWhatsAppLink, generateEmailLink, hasPhoneNumber } from '../utils/communication';
 import { useLoans } from '../context/LoanContext';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -36,6 +36,7 @@ const ClientDetail = () => {
         () => fetchedClient || clients.find((item) => item.id === clientId),
         [fetchedClient, clients, clientId]
     );
+
     const clientLoans = useMemo(
         () => fetchedClient?.loans || getClientLoans(clientId),
         [fetchedClient, getClientLoans, clientId]
@@ -69,7 +70,6 @@ const ClientDetail = () => {
         );
     }
 
-    // Sort loans: Active first, then by date
     const sortedLoans = [...clientLoans].sort((a, b) => {
         if (a.status === 'Active' && b.status !== 'Active') return -1;
         if (a.status !== 'Active' && b.status === 'Active') return 1;
@@ -94,8 +94,9 @@ const ClientDetail = () => {
         }
     };
 
-    const handleUpdate = async (e) => {
-        e.preventDefault();
+    const handleUpdate = async (event) => {
+        event.preventDefault();
+
         const normalizedData = {
             ...editData,
             name: editData.name?.trim() || '',
@@ -124,11 +125,11 @@ const ClientDetail = () => {
 
     const handleDelete = async () => {
         if (clientLoans.length > 0) {
-            alert('No se puede eliminar un cliente con préstamos asociados. Elimina los préstamos primero.');
+            alert('No se puede eliminar un cliente con prestamos asociados. Elimina los prestamos primero.');
             return;
         }
 
-        if (window.confirm('¿Estás seguro de que deseas eliminar este cliente? Esta acción no se puede deshacer.')) {
+        if (window.confirm('¿Estas seguro de que deseas eliminar este cliente? Esta accion no se puede deshacer.')) {
             const result = await deleteClient(client.id);
             if (result.success) {
                 navigate('/clients');
@@ -140,7 +141,6 @@ const ClientDetail = () => {
 
     return (
         <div className="p-8 max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            {/* Header / Back Button */}
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
                     <button
@@ -151,7 +151,7 @@ const ClientDetail = () => {
                     </button>
                     <div>
                         <h2 className="text-2xl font-bold text-slate-800 dark:text-white">Detalles del Cliente</h2>
-                        <p className="text-slate-500 text-sm">Información completa e historial de préstamos</p>
+                        <p className="text-slate-500 text-sm">Informacion completa e historial de prestamos</p>
                     </div>
                 </div>
 
@@ -197,27 +197,28 @@ const ClientDetail = () => {
                 </div>
             </div>
 
-            {/* Client Profile Card */}
             <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-700 p-8 flex flex-col md:flex-row gap-8 items-start md:items-center">
                 <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-3xl flex items-center justify-center text-white font-bold text-4xl shadow-lg shadow-blue-200 shrink-0">
                     {client.name.charAt(0)}
                 </div>
 
-                <div className="flex-1 space-y-4">
-                    <div>
-                        <h1 className="text-3xl font-bold text-slate-800 dark:text-white">{client.name}</h1>
-                        <span className="text-sm font-mono text-slate-400">ID: {client.id}</span>
+                <div className="flex-1 space-y-4 min-w-0">
+                    <div className="min-w-0">
+                        <h1 className="truncate text-3xl font-bold text-slate-800 dark:text-white">{client.name}</h1>
+                        <span className="block truncate text-sm font-mono text-slate-400" title={`ID: ${client.id}`}>
+                            ID: {client.id}
+                        </span>
                     </div>
 
                     <div className="flex items-center gap-2 mt-2">
-                        {clientLoans.some(l => l.status === 'Active') ? (
+                        {clientLoans.some((loan) => loan.status === 'Active') ? (
                             <span className="inline-flex items-center gap-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-3 py-1 rounded-full text-xs font-bold ring-1 ring-blue-200 dark:ring-blue-700">
                                 <span className="w-2 h-2 bg-blue-600 rounded-full animate-pulse"></span>
-                                Préstamo Activo
+                                Prestamo Activo
                             </span>
                         ) : (
                             <span className="inline-flex items-center gap-2 bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-3 py-1 rounded-full text-xs font-bold ring-1 ring-slate-200 dark:ring-slate-600">
-                                Sin Préstamos Activos
+                                Sin Prestamos Activos
                             </span>
                         )}
                     </div>
@@ -241,28 +242,27 @@ const ClientDetail = () => {
                 <div className="text-right hidden md:block border-l border-slate-100 dark:border-slate-700 pl-8">
                     <p className="text-sm text-slate-500 mb-1">Total Prestado</p>
                     <p className="text-3xl font-bold text-slate-800 dark:text-white">
-                        ${clientLoans.reduce((acc, curr) => acc + curr.amount, 0).toLocaleString()}
+                        ${clientLoans.reduce((acc, current) => acc + current.amount, 0).toLocaleString()}
                     </p>
                     <p className="text-xs text-slate-400 mt-2">
-                        {clientLoans.filter(l => l.status === 'Active').length} Préstamos Activos
+                        {clientLoans.filter((loan) => loan.status === 'Active').length} Prestamos Activos
                     </p>
                 </div>
             </div>
 
-            {/* Loans History Section */}
             <div>
                 <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-4 flex items-center gap-2">
                     <DollarSign className="text-blue-600" />
-                    Historial de Préstamos
+                    Historial de Prestamos
                 </h3>
 
                 {sortedLoans.length === 0 ? (
                     <div className="bg-white dark:bg-slate-800 rounded-3xl p-12 text-center border border-slate-200 border-dashed">
-                        <p className="text-slate-400">Este cliente no tiene préstamos registrados.</p>
+                        <p className="text-slate-400">Este cliente no tiene prestamos registrados.</p>
                     </div>
                 ) : (
                     <div className="grid gap-4">
-                        {sortedLoans.map(loan => (
+                        {sortedLoans.map((loan) => (
                             <div
                                 key={loan.id}
                                 onClick={() => navigate(`/loans/${loan.id}`)}
@@ -287,7 +287,7 @@ const ClientDetail = () => {
                                             <p className="font-semibold text-slate-700">{getLoanDurationLabel(loan)}</p>
                                         </div>
                                         <div className="text-right hidden sm:block">
-                                            <p className="text-xs text-slate-400 uppercase tracking-wide">Interés</p>
+                                            <p className="text-xs text-slate-400 uppercase tracking-wide">Interes</p>
                                             <p className="font-semibold text-slate-700">{getLoanInterestLabel(loan)}</p>
                                         </div>
 
@@ -303,7 +303,6 @@ const ClientDetail = () => {
                 )}
             </div>
 
-            {/* Edit Modal */}
             {isEditModalOpen && (
                 <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
                     <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-200">
@@ -319,9 +318,9 @@ const ClientDetail = () => {
                                     type="text"
                                     className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                                     value={editData.name || ''}
-                                    onChange={(e) => {
-                                        setEditData({ ...editData, name: e.target.value });
-                                        setEditErrors(prev => ({ ...prev, name: '' }));
+                                    onChange={(event) => {
+                                        setEditData({ ...editData, name: event.target.value });
+                                        setEditErrors((previous) => ({ ...previous, name: '' }));
                                     }}
                                 />
                                 {editErrors.name && <p className="text-xs font-bold text-rose-500">{editErrors.name}</p>}
@@ -332,31 +331,31 @@ const ClientDetail = () => {
                                     type="email"
                                     className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                                     value={editData.email || ''}
-                                    onChange={(e) => {
-                                        setEditData({ ...editData, email: e.target.value });
-                                        setEditErrors(prev => ({ ...prev, email: '' }));
+                                    onChange={(event) => {
+                                        setEditData({ ...editData, email: event.target.value });
+                                        setEditErrors((previous) => ({ ...previous, email: '' }));
                                     }}
                                 />
                                 {editErrors.email && <p className="text-xs font-bold text-rose-500">{editErrors.email}</p>}
                             </div>
                             <div className="space-y-1">
-                                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Teléfono</label>
+                                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Telefono</label>
                                 <input
                                     required
                                     type="text"
                                     className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                                     value={editData.phone || ''}
-                                    onChange={(e) => setEditData({ ...editData, phone: e.target.value })}
+                                    onChange={(event) => setEditData({ ...editData, phone: event.target.value })}
                                 />
                             </div>
                             <div className="space-y-1">
-                                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Dirección</label>
+                                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Direccion</label>
                                 <input
                                     required
                                     type="text"
                                     className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                                     value={editData.address || ''}
-                                    onChange={(e) => setEditData({ ...editData, address: e.target.value })}
+                                    onChange={(event) => setEditData({ ...editData, address: event.target.value })}
                                 />
                             </div>
                             <div className="flex gap-3 pt-6">

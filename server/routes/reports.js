@@ -89,4 +89,68 @@ router.get('/transactions', authenticateToken, async (req, res) => {
     }
 });
 
+// GET /api/reports/export-all
+router.get('/export-all', authenticateToken, async (req, res) => {
+    try {
+        const [clients, loans] = await Promise.all([
+            prisma.client.findMany({
+                orderBy: { name: 'asc' },
+                include: {
+                    loans: true
+                }
+            }),
+            prisma.loan.findMany({
+                orderBy: { startDate: 'desc' },
+                include: {
+                    client: { select: { name: true } },
+                    payments: true
+                }
+            })
+        ]);
+
+        const clientRows = clients.map((client) => ({
+            ID: client.id,
+            Nombre: client.name,
+            Email: client.email || '',
+            Telefono: client.phone || '',
+            Direccion: client.address || '',
+            PrestamosActivos: client.loans.filter((loan) => loan.status !== 'Paid').length
+        }));
+
+        const loanRows = loans.map((loan) => {
+            const totalPaid = loan.payments.reduce((acc, payment) => acc + Number(payment.paidAmount || 0), 0);
+            const totalDue = loan.payments.reduce(
+                (acc, payment) => acc + Number(payment.amount || 0) + Number(payment.lateFee || 0),
+                0
+            );
+
+            return {
+                ID: loan.id,
+                Cliente: loan.client?.name || '',
+                ClienteID: loan.clientId,
+                MontoOriginal: Number(loan.amount),
+                TasaInteres: Number(loan.interestRate),
+                Frecuencia: loan.frequency,
+                Tipo: loan.loanType,
+                Estado: loan.status,
+                FechaInicio: loan.startDate,
+                Pagado: totalPaid,
+                Pendiente: totalDue - totalPaid
+            };
+        });
+
+        const workbook = excel.utils.book_new();
+        excel.utils.book_append_sheet(workbook, excel.utils.json_to_sheet(clientRows), 'Clientes');
+        excel.utils.book_append_sheet(workbook, excel.utils.json_to_sheet(loanRows), 'Prestamos');
+
+        const buffer = excel.write(workbook, { type: 'buffer', bookType: 'xlsx' });
+
+        res.setHeader('Content-Disposition', 'attachment; filename="LoanManager_Export_Completo.xlsx"');
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        res.send(buffer);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 module.exports = router;

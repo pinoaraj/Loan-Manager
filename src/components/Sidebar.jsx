@@ -92,12 +92,29 @@ const Sidebar = ({ isMobile }) => {
 
 const Footer = () => {
     const { theme, toggleTheme } = useTheme();
-    const { clients, loans } = useLoans();
-    const { logout, user } = useAuth();
+    const { logout, user, fetchWithAuth } = useAuth();
 
     const handleExportData = async () => {
-        const { exportData } = await import('../utils/dataExport');
-        exportData(clients, loans);
+        try {
+            const response = await fetchWithAuth(`${API_URL}/reports/export-all`);
+            if (!response.ok) {
+                throw new Error('Error exporting data');
+            }
+
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const anchor = document.createElement('a');
+            anchor.href = url;
+            anchor.download = `LoanManager_Export_${new Date().toISOString().split('T')[0]}.xlsx`;
+            document.body.appendChild(anchor);
+            anchor.click();
+            anchor.remove();
+            window.URL.revokeObjectURL(url);
+            toast.success('Exportacion completa descargada correctamente');
+        } catch (error) {
+            console.error(error);
+            toast.error('Error al exportar la informacion');
+        }
     };
 
     return (

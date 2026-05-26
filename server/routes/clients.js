@@ -10,10 +10,21 @@ router.get('/', authenticateToken, async (req, res) => {
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 1000; // Default high for backward compatibility initially
         const skip = (page - 1) * limit;
+        const search = String(req.query.search || '').trim();
+        const where = search
+            ? {
+                OR: [
+                    { name: { contains: search, mode: 'insensitive' } },
+                    { email: { contains: search, mode: 'insensitive' } },
+                    { id: { contains: search, mode: 'insensitive' } }
+                ]
+            }
+            : undefined;
 
         const [total, clients] = await Promise.all([
-            prisma.client.count(),
+            prisma.client.count({ where }),
             prisma.client.findMany({
+                where,
                 skip,
                 take: limit,
                 orderBy: { name: 'asc' },
