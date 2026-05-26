@@ -20,7 +20,7 @@ const frequencySchema = z.preprocess(
 const importClientSchema = z.object({
     id: z.string().optional(),
     name: z.string().min(1, 'Client name is required'),
-    rut: rutSchema.optional(),
+    rut: rutSchema,
     email: z.string().email('Invalid email address').optional().or(z.literal('')),
     phone: z.string().optional().or(z.literal('')),
     address: z.string().optional().or(z.literal(''))

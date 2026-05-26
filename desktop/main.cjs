@@ -195,7 +195,10 @@ try {
                 throw new Error(`Server file not found at: ${serverPath}`);
             }
 
-            runPrismaMigrations(cwd, dbPath, app.isPackaged);
+            const migrationsReady = runPrismaMigrations(cwd, dbPath, app.isPackaged);
+            if (!migrationsReady) {
+                throw new Error('The local database could not be migrated to the required version.');
+            }
 
             const jwtSecret = ensureDesktopJwtSecret();
 
@@ -277,8 +280,8 @@ try {
             : path.join(cwd, 'node_modules', '.bin', 'prisma');
 
         if (!fs.existsSync(prismaBinary)) {
-            log(`Prisma CLI not found at ${prismaBinary}. Skipping migrations.`);
-            return;
+            log(`Prisma CLI not found at ${prismaBinary}.`);
+            return !isPackagedBuild;
         }
 
         log(`Running Prisma migrations against ${dbPath} (${isPackagedBuild ? 'packaged' : 'development'})...`);
@@ -301,7 +304,7 @@ try {
 
         if (migrationResult.error) {
             log(`Prisma migration error: ${migrationResult.error.message}`);
-            return;
+            return false;
         }
 
         if (migrationResult.stdout) {
@@ -314,10 +317,11 @@ try {
 
         if (migrationResult.status !== 0) {
             log(`Prisma migrate deploy failed: ${migrationResult.stderr || 'Unknown error'}`);
-            return;
+            return false;
         }
 
         log('Prisma migrations completed successfully.');
+        return true;
     }
 
     app.whenReady().then(async () => {

@@ -13,7 +13,7 @@ import {
     Save,
     User
 } from 'lucide-react';
-import { useLoans } from '../context/LoanContext';
+import { useLoans } from '../context/useLoans';
 import { downloadLoanCalendar } from '../utils/calendar';
 import { formatRutInput, isValidRut } from '../utils/rut';
 
@@ -129,6 +129,8 @@ const NewLoan = () => {
         if (!normalizedClient.name) nextErrors.name = 'El nombre es obligatorio.';
         if (!normalizedClient.rut) nextErrors.rut = 'El RUT es obligatorio.';
         if (normalizedClient.rut && !isValidRut(normalizedClient.rut)) nextErrors.rut = 'Ingresa un RUT valido.';
+        if (!normalizedClient.phone) nextErrors.phone = 'El telefono es obligatorio.';
+        if (!normalizedClient.address) nextErrors.address = 'La direccion es obligatoria.';
         if (normalizedClient.email && !isValidEmail(normalizedClient.email)) {
             nextErrors.email = 'Ingresa un email valido, por ejemplo nombre@correo.com.';
         }
@@ -608,13 +610,13 @@ const NewLoan = () => {
                                 {newClientErrors.email && <p className="text-xs font-bold text-rose-500">{newClientErrors.email}</p>}
                             </div>
                             <input
-                                placeholder="Telefono (opcional)"
+                                    placeholder="Telefono"
                                 className="w-full rounded-xl border border-slate-200 bg-slate-50 p-3 outline-none dark:border-slate-600 dark:bg-slate-700 dark:text-white"
                                 value={newClientData.phone}
                                 onChange={(event) => setNewClientData({ ...newClientData, phone: event.target.value })}
                             />
                             <input
-                                placeholder="Direccion (opcional)"
+                                placeholder="Direccion"
                                 className="w-full rounded-xl border border-slate-200 bg-slate-50 p-3 outline-none dark:border-slate-600 dark:bg-slate-700 dark:text-white"
                                 value={newClientData.address}
                                 onChange={(event) => setNewClientData({ ...newClientData, address: event.target.value })}

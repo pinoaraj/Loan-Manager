@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AlertCircle, MessageCircle, Calendar, Download } from 'lucide-react';
-import { useLoans } from '../context/LoanContext';
+import { useLoans } from '../context/useLoans';
 import { generateWhatsAppLink, getReminderMessage } from '../utils/communication';
 import { downloadPaymentReminder } from '../utils/calendar';
 import DashboardKPI from '../components/dashboard/DashboardKPI';

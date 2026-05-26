@@ -1,12 +1,9 @@
-import React, { createContext, useContext, useCallback } from 'react';
+import React, { useCallback } from 'react';
 // import { format, isAfter, parseISO, startOfDay, differenceInDays } from 'date-fns';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { useAuth } from './AuthContext';
+import { useAuth } from './useAuth';
 import { API_URL } from '../config/api';
-
-const LoanContext = createContext();
-
-export const useLoans = () => useContext(LoanContext);
+import { LoanContext } from './loan-context';
 
 export const LoanProvider = ({ children }) => {
     const { token, fetchWithAuth } = useAuth();

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Upload, FileSpreadsheet, Check, AlertCircle, ArrowRight } from 'lucide-react';
 import { toast } from 'sonner';
-import { useLoans } from '../context/LoanContext';
+import { useLoans } from '../context/useLoans';
 import ConfirmModal from '../components/ConfirmModal';
 import { downloadBulkLoanCalendars } from '../utils/calendar';
 
@@ -27,6 +27,7 @@ const ImportData = () => {
     const [isImporting, setIsImporting] = useState(false);
     const [mapping, setMapping] = useState({
         clientName: '',
+        rut: '',
         amount: '',
         date: '',
         duration: '',
@@ -66,6 +67,7 @@ const ImportData = () => {
                 header.forEach((column) => {
                     const normalized = column.toString().toLowerCase();
                     if (normalized.includes('nom') || normalized.includes('name') || normalized.includes('cliente')) nextMapping.clientName = column;
+                    if (normalized.includes('rut')) nextMapping.rut = column;
                     if (normalized.includes('mont') || normalized.includes('amount') || normalized.includes('prestamo')) nextMapping.amount = column;
                     if (normalized.includes('fec') || normalized.includes('date') || normalized.includes('inicio')) nextMapping.date = column;
                     if (normalized.includes('mes') || normalized.includes('plazo') || normalized.includes('duration')) nextMapping.duration = column;
@@ -119,6 +121,7 @@ const ImportData = () => {
             };
 
             const name = String(getValue('clientName') || '').trim();
+            const rut = String(getValue('rut') || '').trim();
             const amount = parseFloat(getValue('amount'));
 
             if (!name || Number.isNaN(amount) || amount <= 0) {
@@ -126,25 +129,35 @@ const ImportData = () => {
                 continue;
             }
 
+            const clientKey = rut || name.toLowerCase();
             let clientId;
-            if (clientMap.has(name)) {
-                clientId = clientMap.get(name);
+            if (clientMap.has(clientKey)) {
+                clientId = clientMap.get(clientKey);
             } else {
-                const existingClient = clients.find((client) => client.name.toLowerCase() === name.toLowerCase());
+                const existingClient = clients.find((client) =>
+                    (rut && client.rut && client.rut.toLowerCase() === rut.toLowerCase()) ||
+                    client.name.toLowerCase() === name.toLowerCase()
+                );
                 if (existingClient) {
                     clientId = existingClient.id;
                 } else {
+                    if (!rut) {
+                        skippedCount++;
+                        continue;
+                    }
+
                     clientId = `C-IMP-${Date.now()}-${idx}`;
                     newClients.push({
                         id: clientId,
                         name,
+                        rut,
                         email: 'importado@example.com',
                         phone: '-',
                         address: '-',
                         isNew: true
                     });
                 }
-                clientMap.set(name, clientId);
+                clientMap.set(clientKey, clientId);
             }
 
             newLoans.push({
@@ -233,6 +246,7 @@ const ImportData = () => {
                             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                                 {[
                                     { k: 'clientName', label: 'Nombre Cliente' },
+                                    { k: 'rut', label: 'RUT Cliente' },
                                     { k: 'amount', label: 'Monto Prestamo' },
                                     { k: 'interest', label: 'Tasa Interes' },
                                     { k: 'duration', label: 'Plazo (Meses)' },
@@ -306,7 +320,7 @@ const ImportData = () => {
                                 <AlertCircle size={24} />
                                 <div>
                                     <p className="font-bold">Se omitieron {previewData.skippedCount} filas invalidas.</p>
-                                    <p className="text-sm">Asegurate de que la columna "Nombre" y "Monto" tengan valores validos.</p>
+                                    <p className="text-sm">Asegurate de que "Nombre", "Monto" y el "RUT" de clientes nuevos tengan valores validos.</p>
                                 </div>
                             </div>
                         )}

@@ -1,68 +1,85 @@
 # PLAN-android-app
 
 ## Estado de prioridad
-- **Prioridad actual**: baja.
-- **Razón**: el foco principal del proyecto es terminar y estabilizar la app local para PC con Electron.
-- **Uso de este documento**: referencia futura cuando se retome la línea móvil.
 
-## 1. Context & Goals
-- **Goal**: Create a mobile Android application for "Loan Manager" to allow field collectors to view clients and register payments without internet.
-- **Persona**: Field Collector / Admin.
-- **Key Constraint**: **Offline-First**. The app must work perfectly without signal and sync when back online.
-- **Tech Stack Strategy**: **React Native (Expo)**.
-  - *Why?* Reuses existing React logic (hooks, validation, utils) and allows rapid iteration.
+- Prioridad actual: baja.
+- Razon: el foco principal sigue siendo terminar y estabilizar la beta desktop con Electron.
+- Uso de este documento: punto de relanzamiento cuando se abra la linea mobile.
 
-## 2. Architecture: Offline-First
-To achieve robust offline support, we cannot just "cache" API responses. We need a local database that synchronizes.
+## Objetivo
 
-### Database Strategy: WatermelonDB (Recommended) or SQLite
-- **Local DB**: Store `Clients`, `Loans`, `Payments`, `Transactions` locally on the device.
-- **Sync Engine**: A strict "Pull" (download changes) and "Push" (upload new transactions) protocol.
-- **Conflict Resolution**: "Last write wins" for edits, but "Always Append" for new transactions (safest for money).
+Crear una app Android para cobranza y consulta operativa en terreno, con capacidad offline-first y sincronizacion posterior con el backend principal.
 
-### Tech Stack
-- **Framework**: React Native (Expo SDK 50+)
-- **Language**: TypeScript (Strict)
-- **Local DB**: WatermelonDB (High performance, built for sync)
-- **UI Component**: NativeWind (Tailwind for RN) or Tamagui
-- **Navigation**: Expo Router (File-based, like Next.js)
+## Requisitos funcionales minimos heredados desde desktop
 
-## 3. Phase Breakdown
+La app Android no puede nacer como una version simplificada que ignore datos ya obligatorios en desktop. Debe respetar:
 
-### Phase 1: Foundation & Setup
-- [ ] Initialize Expo project (`npx create-expo-app`)
-- [ ] Setup TypeScript & NativeWind
-- [ ] Configure `WatermelonDB` schema (mirror Prisma schema)
-- [ ] Setup Navigation (Auth Stack vs App Stack)
+- cliente con `RUT`
+- nombre completo
+- direccion
+- telefono
+- prestamos y calendario de pagos
+- transacciones de pago parciales
 
-### Phase 2: Authentication & Sync Logic
-- [ ] Implement Login Screen (Get JWT)
-- [ ] Create `SyncService`
-  - `pullChanges()`: Fetch new/updated clients from server.
-  - `pushChanges()`: Upload queued offline transactions.
-- [ ] Modify backend: add `/api/sync` endpoint.
+Si se crea o edita un cliente desde mobile, el contrato de sincronizacion debe preservar esos campos y no degradar el modelo usado por desktop.
 
-### Phase 3: Core UI (Collector View)
-- [ ] **Dashboard**: specialized for mobile (summary + quick actions)
-- [ ] **Client List**: searchable, offline-accessible list
-- [ ] **Loan Detail**: read-only view of schedule
-- [ ] **New Payment**: critical feature
-  - *Offline logic*: create local `Transaction` record with `status: 'pending_sync'`
+## Arquitectura propuesta
 
-### Phase 4: Verification & Build
-- [ ] Test airplane mode flow (Login -> Airplane Mode -> Add Payment -> Connect -> Sync)
-- [ ] Build APK (`eas build -p android --profile preview`)
+- Framework: React Native con Expo
+- Lenguaje: TypeScript
+- Base local: WatermelonDB o SQLite
+- Navegacion: Expo Router
+- Sync: pull/push con cola de cambios
 
-## 4. Risks & Mitigations
-| Risk | Mitigation |
-|------|------------|
-| **Data Conflict** | User A edits Client X offline, User B edits Client X online -> server tracks `updatedAt`. |
-| **Sync Failures** | Outbox pattern. Queued transactions stay on device until confirmed 200 OK. |
-| **App Size** | Hermes engine enabled. |
+## Modelo offline-first
 
-## 5. Resume point
-When this track is resumed:
-1. create the mobile workspace,
-2. mirror the Prisma schema,
-3. design the sync contract,
-4. start with offline payment registration.
+No basta con cachear respuestas. La app necesita una base local y un protocolo de sincronizacion.
+
+- Pull: descargar clientes, prestamos, pagos y cambios remotos
+- Push: subir transacciones nuevas y actualizaciones pendientes
+- Resolucion de conflictos:
+  - cambios generales: last write wins con `updatedAt`
+  - transacciones de dinero: append-only siempre que sea posible
+
+## Fases sugeridas
+
+### Fase 1. Base del proyecto
+- [ ] Crear workspace mobile
+- [ ] Configurar TypeScript
+- [ ] Definir esquema local alineado con Prisma
+- [ ] Preparar autenticacion JWT
+
+### Fase 2. Contrato de sincronizacion
+- [ ] Definir endpoint `/api/sync`
+- [ ] Diseñar payloads de clientes, prestamos y transacciones
+- [ ] Asegurar soporte de `RUT`, direccion y telefono
+- [ ] Definir estrategia de conflictos
+
+### Fase 3. UI operativa
+- [ ] Dashboard simple para cobrador
+- [ ] Lista de clientes buscable offline
+- [ ] Detalle de prestamo
+- [ ] Registro de pago offline
+
+### Fase 4. Integracion con desktop
+- [ ] Validar que desktop y mobile compartan modelo
+- [ ] Verificar que las importaciones/exportaciones no rompan sincronizacion
+- [ ] Probar flujos mixtos desktop -> mobile -> desktop
+
+## Riesgos
+
+| Riesgo | Mitigacion |
+|---|---|
+| Conflictos de edicion | versionado por `updatedAt` y reglas por entidad |
+| Perdida de transacciones | outbox persistente y confirmacion explicita del servidor |
+| Modelo divergente con desktop | usar Prisma y Zod como contrato fuente |
+| Crear clientes incompletos desde mobile | exigir `RUT`, direccion y telefono igual que en desktop cuando aplique |
+
+## Punto de reanudacion recomendado
+
+Cuando la beta desktop este cerrada:
+
+1. actualizar el grafo del proyecto,
+2. documentar el contrato de sync,
+3. abrir workspace mobile,
+4. empezar por autenticacion + clientes offline.

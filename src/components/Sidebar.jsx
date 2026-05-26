@@ -2,9 +2,9 @@ import React from 'react';
 import { LayoutDashboard, Users, Calculator, CreditCard, FileSpreadsheet, Moon, Sun, Download, ClipboardList, LogOut } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { toast } from 'sonner';
-import { useTheme } from '../context/ThemeContext';
-import { useLoans } from '../context/LoanContext';
-import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/useTheme';
+import { useLoans } from '../context/useLoans';
+import { useAuth } from '../context/useAuth';
 import { API_URL } from '../config/api';
 
 const APP_VERSION = import.meta.env.VITE_APP_VERSION;

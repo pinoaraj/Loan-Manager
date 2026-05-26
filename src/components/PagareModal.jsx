@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { X, FileText, MessageCircle, Landmark } from 'lucide-react';
+import { FileText, Landmark, MessageCircle, X } from 'lucide-react';
 import { formatRutInput, isValidRut } from '../utils/rut';
 
 const PagareModal = ({ isOpen, onClose, loan, client }) => {
@@ -40,7 +40,7 @@ const PagareModal = ({ isOpen, onClose, loan, client }) => {
             await generatePagare(loan, getDocumentPayload());
         } catch (error) {
             console.error(error);
-            alert('Error generando el pagaré');
+            alert('Error generando el pagare');
         }
     };
 
@@ -136,7 +136,7 @@ const PagareModal = ({ isOpen, onClose, loan, client }) => {
                         className="flex items-center justify-center gap-2 rounded-xl bg-blue-600 py-3 font-bold text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                         <FileText size={20} />
-                        Pagaré
+                        Pagare
                     </button>
                     <button
                         onClick={handleGenerateMutuo}

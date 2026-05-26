@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useLoans } from '../context/LoanContext';
+import { useLoans } from '../context/useLoans';
 import { Search, ChevronLeft, ChevronRight, ChevronDown, ChevronUp, Calendar } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/useAuth';
 import ConfirmModal from '../components/ConfirmModal';
 import { useLoanHealth } from '../hooks/useLoanHealth';
 import { API_URL } from '../config/api';

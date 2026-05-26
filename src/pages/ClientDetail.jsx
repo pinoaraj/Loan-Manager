@@ -1,12 +1,12 @@
 import React, { useMemo, useState } from 'react';
 import { ArrowLeft, Mail, Phone, MapPin, DollarSign, Clock, CheckCircle, AlertTriangle, Edit, Trash2, MessageCircle, Send } from 'lucide-react';
 import { generateWhatsAppLink, generateEmailLink, hasPhoneNumber } from '../utils/communication';
-import { useLoans } from '../context/LoanContext';
+import { useLoans } from '../context/useLoans';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { format, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/useAuth';
 import { API_URL } from '../config/api';
 import { formatRutInput, isValidRut } from '../utils/rut';
 
@@ -211,13 +211,8 @@ const ClientDetail = () => {
                 <div className="flex-1 space-y-4 min-w-0">
                     <div className="min-w-0">
                         <h1 className="truncate text-3xl font-bold text-slate-800 dark:text-white">{client.name}</h1>
-                        {client.rut && (
-                            <span className="mt-1 block truncate text-sm font-semibold text-blue-600" title={`RUT: ${client.rut}`}>
-                                RUT: {client.rut}
-                            </span>
-                        )}
-                        <span className="block truncate text-sm font-mono text-slate-400" title={`ID: ${client.id}`}>
-                            ID: {client.id}
+                        <span className={`mt-1 block truncate text-sm font-semibold ${client.rut ? 'text-blue-600' : 'text-amber-600'}`} title={client.rut ? `RUT: ${client.rut}` : 'RUT pendiente'}>
+                            {client.rut ? `RUT: ${client.rut}` : 'RUT pendiente'}
                         </span>
                     </div>
 

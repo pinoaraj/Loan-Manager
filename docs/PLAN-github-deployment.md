@@ -1,66 +1,83 @@
-# Plan de Despliegue y Estado Actual: Loan Manager Desktop
+# Plan de despliegue y estado actual: Loan Manager Desktop
 
 ## Foco actual
-- **Producto principal**: app local para PC con **Electron + React + Express + Prisma/SQLite**.
-- **Producto secundario**: app Android offline-first. Sigue documentada, pero no es la prioridad actual.
+
+- Producto principal: app local para Windows con Electron + React + Express + Prisma/SQLite.
+- Producto siguiente: exploracion Android con integracion futura, pero no es la prioridad de esta beta.
 
 ## Estado actual del escritorio
-1. **Frontend (React + Vite)**  
-   El build de producción compila correctamente y genera `dist/`.
-2. **Backend (Express + Prisma)**  
-   La API está operativa, con validaciones Zod y SQLite como base portátil.
-3. **Desktop (Electron)**  
-   El empaquetado `rebuild-desktop` genera `release/win-unpacked/Loan Manager.exe`.
-4. **Base de datos portable**  
-   En producción, Electron mueve la DB a `AppData` (`app.getPath('userData')`) para evitar problemas de permisos.
-5. **Primer arranque / migraciones**  
-   El proceso principal ya ejecuta `prisma migrate deploy` antes de levantar el backend empaquetado.
-6. **Dependencias de backend empaquetadas**  
-   El build ahora incluye `server/node_modules`, Prisma CLI y engines dentro de `release/win-unpacked/resources/server/`.
 
-## Mejoras ya cerradas
-- [x] Ruta dinámica de SQLite para Electron/AppData.
-- [x] Ejecución de migraciones Prisma al iniciar la app empaquetada.
-- [x] Inclusión de Prisma CLI y engines en el paquete desktop.
-- [x] Historial de transacciones para pagos parciales en detalle de préstamo.
-- [x] Validación estricta de `loanType` (`Fixed | Simple`) en backend.
-- [x] Endpoint AI base `/api/ai/risk-analysis`.
+1. Frontend
+   - `vite build` compila correctamente.
+   - La navegacion principal ya fue revisada en navegador embebido con backend local real.
+2. Backend
+   - La API opera con validaciones, autenticacion y pruebas automatizadas.
+   - `npm test` en `server/` ya cubre el flujo principal real.
+3. Desktop
+   - `electron-builder` genera instalador y version `win-unpacked`.
+   - `desktop/main.cjs` levanta el backend local en `3011`.
+4. Base de datos portable
+   - En produccion, Electron mueve la DB a `AppData`.
+5. Migraciones
+   - El arranque empaquetado ejecuta `prisma migrate deploy`.
+   - Si la migracion falla en build empaquetado, la app ya no continua con un esquema desactualizado.
+6. Documentos legales
+   - `Pagare` usa la plantilla `pagare_template_sc.docx`.
+   - `Mutuo` usa la plantilla `mutuo_template_sc.doc`.
+   - El llenado usa nombre, `RUT` y direccion del cliente.
 
-## Pendientes reales para desktop
-1. **Prueba manual del ejecutable en entorno limpio**  
-   Validar que `Loan Manager.exe` abre, crea DB, ejecuta migraciones y conecta frontend-backend sin ayuda del entorno de desarrollo.
-2. **Tests del backend / flujo principal**  
-   `server/package.json` todavía no tiene una suite real en `npm test`.
-3. **Revisión legal y de contenido de documentos**  
-   El mapeo técnico de contrato/pagaré/recibo ya está mejorado, pero la plantilla del pagaré todavía necesita revisión de texto y formato legal.
-4. **Optimización del bundle frontend**  
-   Vite sigue advirtiendo chunks grandes en build de producción.
+## Mejoras cerradas para beta desktop
 
-## Integración AI ya iniciada
-La integración dejó de ser solo idea:
-- Dependencia instalada: `@google/genai`
-- Ruta existente: `/api/ai/risk-analysis`
-- Modo offline/degradado: respuesta mock si no existe `GEMINI_API_KEY`
+- [x] Cliente con `RUT` integrado en alta, edicion, detalle, busqueda e importacion.
+- [x] Exportacion Excel completa desde backend, no desde una pagina parcial del frontend.
+- [x] Busqueda global de clientes desde backend.
+- [x] Historial de transacciones y pagos parciales estable.
+- [x] Bloqueo de pagos invalidos y sobrepagos.
+- [x] Recalculo bloqueado cuando existen transacciones reales.
+- [x] Plantillas legales conectadas al flujo desktop.
+- [x] Migraciones Prisma bloqueantes en app empaquetada.
+- [x] `lint`, `vitest`, pruebas backend y `build` pasando.
+- [x] Warnings de Fast Refresh eliminados.
+
+## Riesgos aun vigilados
+
+1. QA legal de formato
+   - Los textos y autollenado ya salen desde plantillas reales, pero conviene seguir revisando formato final con casos de clientes reales antes de version estable.
+2. Tamano del bundle
+   - El build sigue siendo valido, pero hay chunks pesados por PDF/XLSX/charting.
+3. Datos historicos
+   - Cualquier instalacion desktop antigua sin CLI o con entorno tocado podria exponer problemas locales propios de esa maquina; el arranque ahora falla de forma segura en vez de seguir silenciosamente.
+
+## Validacion actual
+
+- `npm run lint`: OK
+- `npx vitest run`: OK
+- `server/npm test`: OK
+- `npm run build`: OK
+- `graphify update .`: OK
+- QA visual embebido: rutas principales cargando con backend real
 
 ## Graphify
-Estado del grafo actualizado al **25 de mayo de 2026**:
-- `253 nodes`
-- `252 edges`
-- `76 communities` detectadas internamente por la actualización
 
-Comandos útiles para ahorrar pasos:
-- `graphify update .`  
-  Refresca el grafo local sin costo de API.
-- `graphify watch .`  
-  Reconstuye el grafo automáticamente mientras cambias código.
-- `graphify query "pregunta"`  
-  Sirve para inspeccionar relaciones sin abrir `graph.json`.
-- `graphify cluster-only .`  
-  Regenera comunidades/reporte sobre un grafo existente.
+El grafo local debe mantenerse como parte del cierre de cada mejora.
 
-## Próximos pasos recomendados
-1. Probar `release/win-unpacked/Loan Manager.exe` en una máquina o perfil limpio.
-2. Agregar pruebas del flujo crear cliente -> crear préstamo -> registrar pago.
-3. Revisar plantilla legal del pagaré.
-4. Optimizar tamaño del bundle frontend.
-5. Después de eso, retomar Android si vuelve a ser prioridad.
+Comandos base:
+
+```bash
+graphify update .
+graphify query "What connects Electron startup to Prisma migrations?"
+graphify explain useLoans
+```
+
+Referencia actual:
+
+- `graphify-out/GRAPH_REPORT.md`
+
+## Siguiente hito
+
+Cuando esta beta desktop quede completamente cerrada:
+
+1. publicar el estado final en GitHub,
+2. congelar alcance beta,
+3. abrir la planificacion Android,
+4. definir el contrato de integracion desktop <-> mobile.

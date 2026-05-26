@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useLoans } from '../context/LoanContext';
-import { useAuth } from '../context/AuthContext';
+import { useLoans } from '../context/useLoans';
+import { useAuth } from '../context/useAuth';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { Search, Phone, Mail, MapPin, MessageCircle, CreditCard, Users, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -104,7 +104,7 @@ const Clients = () => {
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
                         <input
                             type="text"
-                            placeholder="Nombre, RUT, email o ID..."
+                            placeholder="Nombre, RUT o email..."
                             className="pl-10 pr-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 w-72 shadow-sm transition-all"
                             value={searchTerm}
                             onChange={(event) => {
@@ -247,8 +247,8 @@ const Clients = () => {
                                             <h3 className="truncate font-bold text-slate-800 dark:text-white text-lg leading-tight" title={client.name}>
                                                 {client.name}
                                             </h3>
-                                            <span className="block truncate text-xs text-slate-400 font-mono" title={client.rut ? `RUT: ${client.rut}` : `ID: ${client.id}`}>
-                                                {client.rut ? `RUT: ${client.rut}` : `ID: ${client.id}`}
+                                            <span className="block truncate text-xs text-slate-400 font-mono" title={client.rut ? `RUT: ${client.rut}` : 'RUT pendiente'}>
+                                                {client.rut ? `RUT: ${client.rut}` : 'RUT pendiente'}
                                             </span>
                                         </div>
                                     </div>

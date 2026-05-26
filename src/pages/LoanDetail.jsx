@@ -4,10 +4,10 @@ import { ArrowLeft, Calendar, User, AlertCircle, FileText, RefreshCw, PauseCircl
 import { useQuery } from '@tanstack/react-query';
 import { format, parseISO } from 'date-fns';
 import { toast } from 'sonner';
-import { useLoans } from '../context/LoanContext';
+import { useLoans } from '../context/useLoans';
 import { useLoanHealth } from '../hooks/useLoanHealth';
 import { downloadLoanCalendar } from '../utils/calendar';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/useAuth';
 import { API_URL } from '../config/api';
 
 const PagareModal = lazy(() => import('../components/PagareModal'));

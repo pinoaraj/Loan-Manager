@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { format, parseISO } from 'date-fns';
 import { Download } from 'lucide-react';
-import { useLoans } from '../../context/LoanContext';
+import { useLoans } from '../../context/useLoans';
 
 const RecentActivity = ({ transactions }) => {
     const navigate = useNavigate();

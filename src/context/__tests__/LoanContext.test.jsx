@@ -1,7 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { LoanProvider, useLoans } from '../LoanContext';
+import { LoanProvider } from '../LoanContext';
+import { useLoans } from '../useLoans';
 
 // Mock fetch
 globalThis.fetch = vi.fn();
@@ -15,7 +16,7 @@ const fetchWithAuthMock = vi.fn((url, options = {}) => fetch(url, {
 }));
 
 // Mock AuthContext
-vi.mock('../AuthContext', () => ({
+vi.mock('../useAuth', () => ({
     useAuth: () => ({ token: null, fetchWithAuth: fetchWithAuthMock })
 }));
 
@@ -45,6 +46,7 @@ describe('LoanContext - addClient', () => {
         const mockClient = {
             id: 'test-123',
             name: 'Test Cliente',
+            rut: '12.345.678-5',
             email: 'test@example.com',
             phone: '1234567890',
             address: 'Test Address'
@@ -60,6 +62,7 @@ describe('LoanContext - addClient', () => {
 
         const response = await result.current.addClient({
             name: 'Test Cliente',
+            rut: '12.345.678-5',
             email: 'test@example.com',
             phone: '1234567890',
             address: 'Test Address'
@@ -72,6 +75,7 @@ describe('LoanContext - addClient', () => {
                 method: 'POST',
                 body: JSON.stringify({
                     name: 'Test Cliente',
+                    rut: '12.345.678-5',
                     email: 'test@example.com',
                     phone: '1234567890',
                     address: 'Test Address'
@@ -84,6 +88,7 @@ describe('LoanContext - addClient', () => {
         const mockClient = {
             id: 'test-456',
             name: 'Test Cliente Minimal',
+            rut: '12.345.678-5',
             email: '',
             phone: '',
             address: ''
@@ -99,6 +104,7 @@ describe('LoanContext - addClient', () => {
 
         const response = await result.current.addClient({
             name: 'Test Cliente Minimal',
+            rut: '12.345.678-5',
             email: '',
             phone: '',
             address: ''
@@ -123,7 +129,7 @@ describe('LoanContext - addClient', () => {
         const { result } = renderHook(() => useLoans(), { wrapper });
 
         await expect(
-            result.current.addClient({ name: '', email: '', phone: '', address: '' })
+            result.current.addClient({ name: '', rut: '12.345.678-5', email: '', phone: '', address: '' })
         ).rejects.toThrow('Validation Error');
     });
 
@@ -142,7 +148,7 @@ describe('LoanContext - addClient', () => {
         const { result } = renderHook(() => useLoans(), { wrapper });
 
         await expect(
-            result.current.addClient({ name: 'Test', email: '', phone: '', address: '' })
+            result.current.addClient({ name: 'Test', rut: '12.345.678-5', email: '', phone: '', address: '' })
         ).rejects.toThrow('Internal Server Error');
     });
 
@@ -153,7 +159,7 @@ describe('LoanContext - addClient', () => {
         const { result } = renderHook(() => useLoans(), { wrapper });
 
         await expect(
-            result.current.addClient({ name: 'Test', email: '', phone: '', address: '' })
+            result.current.addClient({ name: 'Test', rut: '12.345.678-5', email: '', phone: '', address: '' })
         ).rejects.toThrow('Network error');
     });
 
@@ -161,6 +167,7 @@ describe('LoanContext - addClient', () => {
         const mockClient = {
             id: 'test-789',
             name: 'Test Cliente',
+            rut: '12.345.678-5',
             email: 'test@example.com',
             phone: '1234567890',
             address: 'Test Address'
@@ -176,6 +183,7 @@ describe('LoanContext - addClient', () => {
 
         await result.current.addClient({
             name: 'Test Cliente',
+            rut: '12.345.678-5',
             email: 'test@example.com',
             phone: '1234567890',
             address: 'Test Address'

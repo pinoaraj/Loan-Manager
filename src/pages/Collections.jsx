@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLoans } from '../context/LoanContext';
+import { useLoans } from '../context/useLoans';
 import { useNavigate } from 'react-router-dom';
 import { AlertCircle, Calendar, MessageCircle, ChevronRight, CheckCircle, Search } from 'lucide-react';
 import { format, parseISO } from 'date-fns';
