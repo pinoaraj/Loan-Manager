@@ -14,18 +14,21 @@ router.get('/loans', authenticateToken, async (req, res) => {
             }
         });
 
-        const reportData = loans.map(loan => {
-            const totalPaid = loan.payments.reduce((acc, p) => acc + Number(p.paidAmount), 0);
-            const totalDue = loan.payments.reduce((acc, p) => acc + Number(p.amount) + Number(p.lateFee), 0);
-            
+        const reportData = loans.map((loan) => {
+            const totalPaid = loan.payments.reduce((acc, payment) => acc + Number(payment.paidAmount || 0), 0);
+            const totalDue = loan.payments.reduce(
+                (acc, payment) => acc + Number(payment.amount || 0) + Number(payment.lateFee || 0),
+                0
+            );
+
             return {
-                'ID Préstamo': loan.id,
-                'Cliente': loan.client.name,
-                'Teléfono': loan.client.phone,
+                'ID Prestamo': loan.id,
+                Cliente: loan.client.name,
+                Telefono: loan.client.phone,
                 'Monto Original': Number(loan.amount),
-                'Tasa': Number(loan.interestRate),
-                'Frecuencia': loan.frequency,
-                'Estado': loan.status,
+                Tasa: Number(loan.interestRate),
+                Frecuencia: loan.frequency,
+                Estado: loan.status,
                 'Fecha Inicio': loan.startDate,
                 'Total Cobrado': totalPaid,
                 'Total por Cobrar': totalDue,
@@ -33,16 +36,15 @@ router.get('/loans', authenticateToken, async (req, res) => {
             };
         });
 
-        const wb = excel.utils.book_new();
-        const ws = excel.utils.json_to_sheet(reportData);
-        excel.utils.book_append_sheet(wb, ws, 'Préstamos');
-        
-        const buf = excel.write(wb, { type: 'buffer', bookType: 'xlsx' });
-        
+        const workbook = excel.utils.book_new();
+        const worksheet = excel.utils.json_to_sheet(reportData);
+        excel.utils.book_append_sheet(workbook, worksheet, 'Prestamos');
+
+        const buffer = excel.write(workbook, { type: 'buffer', bookType: 'xlsx' });
+
         res.setHeader('Content-Disposition', 'attachment; filename="Reporte_Prestamos.xlsx"');
         res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        res.send(buf);
-
+        res.send(buffer);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -64,25 +66,24 @@ router.get('/transactions', authenticateToken, async (req, res) => {
             orderBy: { date: 'desc' }
         });
 
-        const reportData = transactions.map(t => ({
-            'Fecha': t.date,
-            'Cliente': t.payment.loan.client.name,
-            'Monto': Number(t.amount),
-            'Método': t.method,
-            'Nota': t.note || '',
-            'ID Préstamo': t.payment.loanId
+        const reportData = transactions.map((transaction) => ({
+            Fecha: transaction.date,
+            Cliente: transaction.payment.loan.client.name,
+            Monto: Number(transaction.amount),
+            Metodo: transaction.method,
+            Nota: transaction.note || '',
+            'ID Prestamo': transaction.payment.loanId
         }));
 
-        const wb = excel.utils.book_new();
-        const ws = excel.utils.json_to_sheet(reportData);
-        excel.utils.book_append_sheet(wb, ws, 'Transacciones');
-        
-        const buf = excel.write(wb, { type: 'buffer', bookType: 'xlsx' });
-        
+        const workbook = excel.utils.book_new();
+        const worksheet = excel.utils.json_to_sheet(reportData);
+        excel.utils.book_append_sheet(workbook, worksheet, 'Transacciones');
+
+        const buffer = excel.write(workbook, { type: 'buffer', bookType: 'xlsx' });
+
         res.setHeader('Content-Disposition', 'attachment; filename="Reporte_Transacciones.xlsx"');
         res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        res.send(buf);
-
+        res.send(buffer);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

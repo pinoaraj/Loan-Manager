@@ -1,5 +1,10 @@
 export const normalizePhoneNumber = (phone = '') => String(phone).replace(/\D/g, '');
 
+const formatCurrency = (amount) => Number(amount || 0).toLocaleString('es-CL', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+});
+
 export const hasPhoneNumber = (phone = '') => normalizePhoneNumber(phone).length > 0;
 
 export const generateWhatsAppLink = (phone, message) => {
@@ -19,7 +24,7 @@ export const generateEmailLink = (email, subject, body) => {
 };
 
 export const getReceiptMessage = (clientName, amount, date) => {
-    return `*COMPROBANTE DE PAGO*\n\nHola *${clientName}*,\n\nConfirmamos que hemos recibido satisfactoriamente su pago de *$${amount}* el dia ${date}.\n\nSu saldo ha sido actualizado en el sistema. Gracias por su puntualidad.`;
+    return `*COMPROBANTE DE PAGO*\n\nHola *${clientName}*,\n\nConfirmamos que hemos recibido satisfactoriamente su pago de *$${formatCurrency(amount)}* el dia ${date}.\n\nSu saldo ha sido actualizado en el sistema. Gracias por su puntualidad.`;
 };
 
 export const getReminderMessage = (clientName, amount, dueDate, type = 'upcoming', context = {}) => {
@@ -32,8 +37,8 @@ export const getReminderMessage = (clientName, amount, dueDate, type = 'upcoming
         : '';
 
     if (type === 'overdue') {
-        return `*AVISO DE PAGO VENCIDO*\n\nHola *${clientName}*,\n\nLe informamos que su cuota de *$${amount}* con vencimiento el ${formattedDate} se encuentra *vencida*.${paymentContext}${loanContext}\n\nPor favor, regularice su situacion lo antes posible para evitar recargos adicionales. Si ya realizo el pago, por favor ignore este mensaje.`;
+        return `*AVISO DE PAGO VENCIDO*\n\nHola *${clientName}*,\n\nLe informamos que su cuota de *$${formatCurrency(amount)}* con vencimiento el ${formattedDate} se encuentra *vencida*.${paymentContext}${loanContext}\n\nPor favor, regularice su situacion lo antes posible para evitar recargos adicionales. Si ya realizo el pago, por favor ignore este mensaje.`;
     }
 
-    return `*RECORDATORIO DE PAGO*\n\nHola *${clientName}*,\n\nLe recordamos que su proxima cuota de *$${amount}* vence el dia *${formattedDate}*.${paymentContext}${loanContext}\n\nQuedamos a su disposicion para cualquier consulta.`;
+    return `*RECORDATORIO DE PAGO*\n\nHola *${clientName}*,\n\nLe recordamos que su proxima cuota de *$${formatCurrency(amount)}* vence el dia *${formattedDate}*.${paymentContext}${loanContext}\n\nQuedamos a su disposicion para cualquier consulta.`;
 };
