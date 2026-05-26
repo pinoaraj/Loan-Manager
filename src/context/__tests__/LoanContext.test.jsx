@@ -5,10 +5,18 @@ import { LoanProvider, useLoans } from '../LoanContext';
 
 // Mock fetch
 globalThis.fetch = vi.fn();
+const fetchWithAuthMock = vi.fn((url, options = {}) => fetch(url, {
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer mock-token',
+        ...(options.headers || {})
+    }
+}));
 
 // Mock AuthContext
 vi.mock('../AuthContext', () => ({
-    useAuth: () => ({ token: 'mock-token' })
+    useAuth: () => ({ token: null, fetchWithAuth: fetchWithAuthMock })
 }));
 
 // Helper to create wrapper with QueryClient
@@ -30,6 +38,7 @@ const createWrapper = () => {
 describe('LoanContext - addClient', () => {
     beforeEach(() => {
         fetch.mockClear();
+        fetchWithAuthMock.mockClear();
     });
 
     it('should create client successfully with complete data', async () => {
@@ -57,13 +66,15 @@ describe('LoanContext - addClient', () => {
         });
 
         expect(response).toEqual({ success: true, data: mockClient });
-        expect(fetch).toHaveBeenCalledWith(
-            'http://localhost:3001/api/clients',
+        expect(fetchWithAuthMock).toHaveBeenCalledWith(
+            'http://localhost:3011/api/clients',
             expect.objectContaining({
                 method: 'POST',
-                headers: expect.objectContaining({
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer mock-token'
+                body: JSON.stringify({
+                    name: 'Test Cliente',
+                    email: 'test@example.com',
+                    phone: '1234567890',
+                    address: 'Test Address'
                 })
             })
         );
@@ -155,16 +166,10 @@ describe('LoanContext - addClient', () => {
             address: 'Test Address'
         };
 
-        // Mock both the POST and GET requests
-        fetch
-            .mockResolvedValueOnce({
-                ok: true,
-                json: async () => mockClient
-            })
-            .mockResolvedValueOnce({
-                ok: true,
-                json: async () => ({ data: [mockClient], meta: { total: 1 } })
-            });
+        fetch.mockResolvedValueOnce({
+            ok: true,
+            json: async () => mockClient
+        });
 
         const wrapper = createWrapper();
         const { result } = renderHook(() => useLoans(), { wrapper });
@@ -176,9 +181,8 @@ describe('LoanContext - addClient', () => {
             address: 'Test Address'
         });
 
-        // Wait for the query to be invalidated and refetched
         await waitFor(() => {
-            expect(fetch).toHaveBeenCalledTimes(2);
+            expect(fetchWithAuthMock).toHaveBeenCalledTimes(1);
         });
     });
 });

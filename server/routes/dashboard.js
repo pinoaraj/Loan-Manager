@@ -1,29 +1,45 @@
 const express = require('express');
 const router = express.Router();
-const { PrismaClient } = require('@prisma/client');
-const { startOfDay, endOfDay, addDays } = require('date-fns');
+const { startOfDay, endOfDay, addDays, differenceInCalendarDays } = require('date-fns');
 const { authenticateToken } = require('../middleware/auth');
+const { checkAndApplyLateFees } = require('../utils/fees');
+const prisma = require('../lib/prisma');
 
-const prisma = new PrismaClient();
+const ACTIVE_PAYMENT_STATUSES = ['Pending', 'Partial', 'Overdue'];
+
+const getRemainingAmount = (payment) => {
+    const totalDue = Number(payment.amount) + Number(payment.lateFee || 0);
+    const paidAmount = Number(payment.paidAmount || 0);
+    return Math.max(0, totalDue - paidAmount);
+};
+
+const getLoanStatusFromPayments = (payments) => {
+    if (payments.length > 0 && payments.every((payment) => payment.status === 'Paid')) {
+        return 'Paid';
+    }
+
+    if (payments.some((payment) => payment.status === 'Overdue')) {
+        return 'Overdue';
+    }
+
+    return 'Active';
+};
+
+const syncLoansForDashboard = async () => {
+    const loans = await prisma.loan.findMany({
+        include: {
+            payments: true
+        }
+    });
+
+    return Promise.all(loans.map((loan) => checkAndApplyLateFees(loan, prisma)));
+};
 
 // GET /api/dashboard/stats
 router.get('/stats', authenticateToken, async (req, res) => {
     try {
-        const [
-            totalActiveLoans,
-            totalPaidLoans,
-            totalOverdueLoans,
-            totalLent,
-            totalClients,
-            monthlyCollectionAgg
-        ] = await Promise.all([
-            prisma.loan.count({ where: { status: 'Active' } }),
-            prisma.loan.count({ where: { status: 'Paid' } }),
-            prisma.loan.count({ where: { status: 'Overdue' } }),
-            prisma.loan.aggregate({
-                _sum: { amount: true },
-                where: { status: 'Active' }
-            }),
+        const [loans, totalClients, monthlyCollectionAgg] = await Promise.all([
+            syncLoansForDashboard(),
             prisma.client.count(),
             prisma.transaction.aggregate({
                 _sum: { amount: true },
@@ -36,59 +52,47 @@ router.get('/stats', authenticateToken, async (req, res) => {
             })
         ]);
 
+        const computedLoans = loans.map((loan) => ({
+            ...loan,
+            computedStatus: getLoanStatusFromPayments(loan.payments)
+        }));
+
+        const totalActiveLoans = computedLoans.filter((loan) => loan.computedStatus === 'Active').length;
+        const totalPaidLoans = computedLoans.filter((loan) => loan.computedStatus === 'Paid').length;
+        const totalOverdueLoans = computedLoans.filter((loan) => loan.computedStatus === 'Overdue').length;
+        const totalLent = computedLoans
+            .filter((loan) => loan.computedStatus !== 'Paid')
+            .reduce((sum, loan) => sum + Number(loan.amount), 0);
+
         const statusData = [
             { name: 'Activos', value: totalActiveLoans, color: '#3b82f6' },
             { name: 'Pagados', value: totalPaidLoans, color: '#10b981' },
             { name: 'Vencidos', value: totalOverdueLoans, color: '#ef4444' },
-        ].filter(d => d.value > 0);
+        ].filter((item) => item.value > 0);
 
-        // [5] monthlyCollection aggregate
+        const healthScoreBase = totalActiveLoans + totalOverdueLoans;
+        const healthScore = healthScoreBase > 0
+            ? Math.round((totalActiveLoans / healthScoreBase) * 100)
+            : 100;
 
-        // We can't access "arguments" here in arrow function easily like that or it's messy.
-        // Better to destructure all of them.
+        const parAmount = computedLoans
+            .filter((loan) => loan.computedStatus === 'Overdue')
+            .reduce((sum, loan) => sum + Number(loan.amount), 0);
 
-        // Let's re-write the destructuring properly:
-        /*
-        const [
-            totalActiveLoans,
-            totalPaidLoans,
-            totalOverdueLoans,
-            totalLent,
-            totalClients,
-            monthlyCollectionAgg
-        ] = await Promise.all([...])
-        */
-
-        // THIS REPLACE BLOCK CONTAINS THE FIX:
-
-        // Calculate health score (Active / (Active + Overdue))
-        const activeCount = totalActiveLoans;
-        const overdueCount = totalOverdueLoans;
-        const totalCount = activeCount + overdueCount;
-        const healthScore = totalCount > 0 ? Math.round((activeCount / totalCount) * 100) : 100;
-
-        // Portfolio at Risk (PAR) - Total amount in overdue loans
-        const parAgg = await prisma.loan.aggregate({
-            _sum: { amount: true },
-            where: { status: 'Overdue' }
-        });
-        const parAmount = parAgg._sum.amount || 0;
-
-        // Expected collection for this month
-        const expectedCollectionAgg = await prisma.payment.aggregate({
-            _sum: { amount: true },
-            where: {
-                dueDate: {
-                    gte: startOfDay(new Date(new Date().getFullYear(), new Date().getMonth(), 1)),
-                    lte: endOfDay(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0))
-                }
-            }
-        });
-        const expectedCollection = expectedCollectionAgg._sum.amount || 0;
+        const monthStart = startOfDay(new Date(new Date().getFullYear(), new Date().getMonth(), 1));
+        const monthEnd = endOfDay(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0));
+        const expectedCollection = computedLoans
+            .flatMap((loan) => loan.payments)
+            .filter((payment) => payment.status !== 'Paid')
+            .filter((payment) => {
+                const dueDate = new Date(payment.dueDate);
+                return dueDate >= monthStart && dueDate <= monthEnd;
+            })
+            .reduce((sum, payment) => sum + getRemainingAmount(payment), 0);
 
         res.json({
             totalActiveLoans,
-            totalLent: totalLent._sum.amount || 0,
+            totalLent,
             statusData,
             totalClients,
             monthlyCollection: monthlyCollectionAgg._sum.amount || 0,
@@ -104,20 +108,15 @@ router.get('/stats', authenticateToken, async (req, res) => {
 // GET /api/dashboard/alerts
 router.get('/alerts', authenticateToken, async (req, res) => {
     try {
-        const today = new Date();
-        const nextWeek = addDays(today, 7);
-
-        // Find payments that are Pending and (Overdue OR Upcoming within 7 days)
-        // Note: This relies on Payment records.
-        // Overdue: dueDate < today && status == Pending
-        // Upcoming: dueDate >= today && dueDate <= nextWeek && status == Pending
+        const today = startOfDay(new Date());
+        const nextThirtyDays = endOfDay(addDays(today, 30));
 
         const payments = await prisma.payment.findMany({
             where: {
-                status: 'Pending',
+                status: { in: ACTIVE_PAYMENT_STATUSES },
                 OR: [
-                    { dueDate: { lt: today } }, // Overdue
-                    { dueDate: { gte: today, lte: nextWeek } } // Upcoming
+                    { dueDate: { lt: today } },
+                    { dueDate: { gte: today, lte: nextThirtyDays } }
                 ]
             },
             include: {
@@ -132,23 +131,26 @@ router.get('/alerts', authenticateToken, async (req, res) => {
             orderBy: { dueDate: 'asc' }
         });
 
-        const alerts = payments.map(p => {
-            const isOverdue = new Date(p.dueDate) < today;
-            const diffTime = Math.abs(today - new Date(p.dueDate));
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        const alerts = payments
+            .map((payment) => {
+                const dueDate = startOfDay(new Date(payment.dueDate));
+                const isOverdue = dueDate < today;
+                const diffDays = Math.abs(differenceInCalendarDays(today, dueDate));
 
-            return {
-                type: isOverdue ? 'overdue' : 'upcoming',
-                loanId: p.loanId,
-                clientName: p.loan.client.name,
-                clientPhone: p.loan.client.phone,
-                amount: p.amount,
-                dueDate: p.dueDate,
-                // Calculation here is simplified, date-fns in frontend was more precise with startOfDay
-                daysOverdue: isOverdue ? diffDays : 0,
-                daysUntil: isOverdue ? 0 : diffDays
-            };
-        });
+                return {
+                    type: isOverdue ? 'overdue' : 'upcoming',
+                    loanId: payment.loanId,
+                    paymentId: payment.id,
+                    clientName: payment.loan.client.name,
+                    clientPhone: payment.loan.client.phone,
+                    amount: getRemainingAmount(payment),
+                    dueDate: payment.dueDate,
+                    status: payment.status,
+                    daysOverdue: isOverdue ? diffDays : 0,
+                    daysUntil: isOverdue ? 0 : diffDays
+                };
+            })
+            .filter((alert) => alert.amount > 0);
 
         res.json(alerts);
     } catch (error) {
@@ -159,42 +161,38 @@ router.get('/alerts', authenticateToken, async (req, res) => {
 // GET /api/dashboard/projections
 router.get('/projections', authenticateToken, async (req, res) => {
     try {
-        // Group pending payments by month (SQLite doesn't support complex date grouping easily in Prisma without raw query sometimes)
-        // But let's fetch pending payments for next 6 months.
         const today = new Date();
         const sixMonthsLater = addDays(today, 180);
 
         const payments = await prisma.payment.findMany({
             where: {
-                status: 'Pending',
+                status: { in: ACTIVE_PAYMENT_STATUSES },
                 dueDate: { gte: today, lte: sixMonthsLater }
             },
             orderBy: { dueDate: 'asc' }
         });
 
-        // Group by Month-Year
         const projections = {};
-        payments.forEach(p => {
-            const date = new Date(p.dueDate);
-            const key = date.toISOString().slice(0, 7); // YYYY-MM
+        payments.forEach((payment) => {
+            const date = new Date(payment.dueDate);
+            const key = date.toISOString().slice(0, 7);
+            const remaining = getRemainingAmount(payment);
 
-            // Calculate remaining amount to be collected
-            const remaining = p.amount - p.paidAmount;
             if (remaining > 0) {
                 projections[key] = (projections[key] || 0) + remaining;
             }
         });
 
-        // Convert to array and format label
-        const result = Object.entries(projections).map(([key, amount]) => {
-            const [year, month] = key.split('-');
-            const date = new Date(parseInt(year), parseInt(month) - 1);
-            const label = date.toLocaleString('en-US', { month: 'short', year: '2-digit' }); // 'Jan 26'
-            return { month: label, amount, sortKey: key };
-        }).sort((a, b) => a.sortKey.localeCompare(b.sortKey));
+        const result = Object.entries(projections)
+            .map(([key, amount]) => {
+                const [year, month] = key.split('-');
+                const date = new Date(parseInt(year, 10), parseInt(month, 10) - 1);
+                const label = date.toLocaleString('en-US', { month: 'short', year: '2-digit' });
+                return { month: label, amount, sortKey: key };
+            })
+            .sort((a, b) => a.sortKey.localeCompare(b.sortKey));
 
         res.json(result);
-
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -221,13 +219,13 @@ router.get('/recent', authenticateToken, async (req, res) => {
             }
         });
 
-        const recent = transactions.map(t => ({
-            id: t.id,
-            loanId: t.payment.loanId, // Expose loanId for navigation
-            clientName: t.payment.loan.client.name,
-            amount: t.amount,
-            date: t.date,
-            method: t.method
+        const recent = transactions.map((transaction) => ({
+            id: transaction.id,
+            loanId: transaction.payment.loanId,
+            clientName: transaction.payment.loan.client.name,
+            amount: transaction.amount,
+            date: transaction.date,
+            method: transaction.method
         }));
 
         res.json(recent);

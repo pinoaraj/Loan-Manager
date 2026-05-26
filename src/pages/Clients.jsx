@@ -12,7 +12,7 @@ const isValidEmail = (value) => /^[^\s@,]+@[^\s@,]+\.[^\s@,]+$/.test(value);
 const Clients = () => {
     const navigate = useNavigate();
     const { addClient, loans } = useLoans(); // Keep loans for calculating debt (or move debt calc to backend?)
-    const { token } = useAuth();
+    const { token, fetchWithAuth } = useAuth();
 
     // Pagination State
     const [page, setPage] = useState(1);
@@ -31,13 +31,11 @@ const Clients = () => {
     const { data: clientsData = { data: [], meta: {} } } = useQuery({
         queryKey: ['clients', page, limit], // Include search term later?
         queryFn: async () => {
-            const res = await fetch(`${API_URL}/clients?page=${page}&limit=${limit}`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
+            const res = await fetchWithAuth(`${API_URL}/clients?page=${page}&limit=${limit}`);
             return res.json();
         },
         keepPreviousData: true, // Keep old data while fetching new page
-        enabled: !!token
+        enabled: !!token && typeof fetchWithAuth === 'function'
     });
 
     const clients = clientsData.data || [];

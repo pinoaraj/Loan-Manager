@@ -11,7 +11,9 @@ const TabButton = ({ active, onClick, children, count, color }) => (
     <button
         onClick={onClick}
         className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all ${active
-            ? `bg-${color}-500 text-white shadow-lg shadow-${color}-500/30`
+            ? color === 'red'
+                ? 'bg-red-500 text-white shadow-lg shadow-red-500/30'
+                : 'bg-blue-500 text-white shadow-lg shadow-blue-500/30'
             : 'bg-white dark:bg-slate-800 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-700'
             }`}
     >

@@ -1,11 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('../middleware/auth');
-
-const prisma = new PrismaClient();
+const prisma = require('../lib/prisma');
 
 // Register (for initial setup - usually you'd protect this too or disable it)
 router.post('/register', async (req, res) => {
@@ -14,6 +12,13 @@ router.post('/register', async (req, res) => {
 
         if (!username || !password) {
             return res.status(400).json({ error: 'Username and password required' });
+        }
+
+        const existingUsersCount = await prisma.user.count();
+        if (existingUsersCount > 0) {
+            return res.status(403).json({
+                error: 'Registration is only available during initial setup'
+            });
         }
 
         const existingUser = await prisma.user.findUnique({ where: { username } });

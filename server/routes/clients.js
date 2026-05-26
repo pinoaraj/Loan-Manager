@@ -1,10 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { PrismaClient } = require('@prisma/client');
 const { authenticateToken } = require('../middleware/auth');
 const { validate, clientSchema } = require('../middleware/validation');
-
-const prisma = new PrismaClient();
+const prisma = require('../lib/prisma');
 
 // GET all clients with pagination
 router.get('/', authenticateToken, async (req, res) => {
@@ -45,6 +43,33 @@ router.post('/', authenticateToken, validate(clientSchema), async (req, res) => 
         const client = await prisma.client.create({
             data: req.body
         });
+        res.json(client);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Get single client with related loans
+router.get('/:id', authenticateToken, async (req, res) => {
+    try {
+        const client = await prisma.client.findUnique({
+            where: { id: req.params.id },
+            include: {
+                loans: {
+                    include: {
+                        payments: {
+                            include: { transactions: true }
+                        }
+                    },
+                    orderBy: { startDate: 'desc' }
+                }
+            }
+        });
+
+        if (!client) {
+            return res.status(404).json({ error: 'Client not found' });
+        }
+
         res.json(client);
     } catch (error) {
         res.status(500).json({ error: error.message });

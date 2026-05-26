@@ -8,10 +8,18 @@ import ConfirmModal from '../components/ConfirmModal';
 import { useLoanHealth } from '../hooks/useLoanHealth';
 import { API_URL } from '../config/api';
 
+const HEALTH_BADGE_CLASSES = {
+    emerald: 'bg-emerald-100 text-emerald-700',
+    rose: 'bg-rose-100 text-rose-700',
+    blue: 'bg-blue-100 text-blue-700',
+    amber: 'bg-amber-100 text-amber-700',
+    slate: 'bg-slate-100 text-slate-700'
+};
+
 const Loans = () => {
     const navigate = useNavigate();
     const { updateLoanStatus } = useLoans();
-    const { token } = useAuth();
+    const { token, fetchWithAuth } = useAuth();
     const { getLoanHealth } = useLoanHealth();
 
     const [page, setPage] = useState(1);
@@ -24,13 +32,11 @@ const Loans = () => {
     const { data: loansData = { data: [], meta: {} }, refetch } = useQuery({
         queryKey: ['loans', page, limit, searchTerm, statusFilter],
         queryFn: async () => {
-            const res = await fetch(`${API_URL}/loans?page=${page}&limit=${limit}&search=${searchTerm}&status=${statusFilter}`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            const res = await fetchWithAuth(`${API_URL}/loans?page=${page}&limit=${limit}&search=${searchTerm}&status=${statusFilter}`);
             return res.json();
         },
         keepPreviousData: true,
-        enabled: !!token
+        enabled: !!token && typeof fetchWithAuth === 'function'
     });
 
     const loans = loansData.data || [];
@@ -114,6 +120,7 @@ const Loans = () => {
                             ) : (
                                 loans.map((loan) => {
                                     const health = getLoanHealth(loan);
+                                    const badgeClasses = HEALTH_BADGE_CLASSES[health.color] || HEALTH_BADGE_CLASSES.slate;
 
                                     return (
                                         <React.Fragment key={loan.id}>
@@ -136,7 +143,7 @@ const Loans = () => {
                                                 <td className="px-6 py-4 text-slate-600">{(loan.interestRate * 100).toFixed(0)}%</td>
                                                 <td className="px-6 py-4 text-sm text-slate-500">{new Date(loan.startDate).toLocaleDateString()}</td>
                                                 <td className="px-6 py-4">
-                                                    <span className={`rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider bg-${health.color}-100 text-${health.color}-700`}>
+                                                    <span className={`rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider ${badgeClasses}`}>
                                                         {health.label}
                                                     </span>
                                                 </td>

@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { ArrowLeft, Mail, Phone, MapPin, Calendar, DollarSign, Clock, CheckCircle, AlertTriangle, Edit, Trash2, MessageCircle, Send } from 'lucide-react';
 import { generateWhatsAppLink, generateEmailLink, hasPhoneNumber } from '../utils/communication';
 import { useLoans } from '../context/LoanContext';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import { format, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { useAuth } from '../context/AuthContext';
+import { API_URL } from '../config/api';
 
 const isValidEmail = (value) => /^[^\s@,]+@[^\s@,]+\.[^\s@,]+$/.test(value);
 
@@ -12,15 +15,31 @@ const ClientDetail = () => {
     const { id: clientId } = useParams();
     const navigate = useNavigate();
     const { clients, getClientLoans, updateClient, deleteClient } = useLoans();
+    const { token, fetchWithAuth } = useAuth();
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [editErrors, setEditErrors] = useState({});
+    const [editData, setEditData] = useState({});
 
-    // Find client data
-    const client = clients.find(c => c.id === clientId);
-    // Get client loans
-    const clientLoans = getClientLoans(clientId);
+    const { data: fetchedClient, isLoading } = useQuery({
+        queryKey: ['client-detail', clientId],
+        queryFn: async () => {
+            const response = await fetchWithAuth(`${API_URL}/clients/${clientId}`);
+            if (!response.ok) {
+                throw new Error('No se pudo cargar el cliente');
+            }
+            return response.json();
+        },
+        enabled: !!clientId && !!token && typeof fetchWithAuth === 'function'
+    });
 
-    const [editData, setEditData] = useState(client || {});
+    const client = useMemo(
+        () => fetchedClient || clients.find((item) => item.id === clientId),
+        [fetchedClient, clients, clientId]
+    );
+    const clientLoans = useMemo(
+        () => fetchedClient?.loans || getClientLoans(clientId),
+        [fetchedClient, getClientLoans, clientId]
+    );
 
     const getLoanDurationLabel = (loan) => {
         const duration = loan.durationMonths ?? loan.term ?? 0;
@@ -32,6 +51,14 @@ const ClientDetail = () => {
     };
 
     const getLoanInterestLabel = (loan) => `${(Number(loan.interestRate ?? loan.rate ?? 0) * 100).toFixed(1)}%`;
+
+    if (isLoading && !client) {
+        return (
+            <div className="p-8 text-center">
+                <p className="text-slate-500">Cargando cliente...</p>
+            </div>
+        );
+    }
 
     if (!client) {
         return (
@@ -291,7 +318,7 @@ const ClientDetail = () => {
                                     required
                                     type="text"
                                     className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-                                    value={editData.name}
+                                    value={editData.name || ''}
                                     onChange={(e) => {
                                         setEditData({ ...editData, name: e.target.value });
                                         setEditErrors(prev => ({ ...prev, name: '' }));
@@ -304,7 +331,7 @@ const ClientDetail = () => {
                                 <input
                                     type="email"
                                     className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-                                    value={editData.email}
+                                    value={editData.email || ''}
                                     onChange={(e) => {
                                         setEditData({ ...editData, email: e.target.value });
                                         setEditErrors(prev => ({ ...prev, email: '' }));
@@ -318,7 +345,7 @@ const ClientDetail = () => {
                                     required
                                     type="text"
                                     className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-                                    value={editData.phone}
+                                    value={editData.phone || ''}
                                     onChange={(e) => setEditData({ ...editData, phone: e.target.value })}
                                 />
                             </div>
@@ -328,7 +355,7 @@ const ClientDetail = () => {
                                     required
                                     type="text"
                                     className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-                                    value={editData.address}
+                                    value={editData.address || ''}
                                     onChange={(e) => setEditData({ ...editData, address: e.target.value })}
                                 />
                             </div>

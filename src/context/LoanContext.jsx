@@ -150,7 +150,13 @@ export const LoanProvider = ({ children }) => {
     // Generic helper to invalidate queries
     const invalidateData = useCallback(() => {
         queryClient.invalidateQueries({ queryKey: ['clients'] });
+        queryClient.invalidateQueries({ queryKey: ['client-detail'] });
         queryClient.invalidateQueries({ queryKey: ['loans'] });
+        queryClient.invalidateQueries({ queryKey: ['loan-detail'] });
+        queryClient.invalidateQueries({ queryKey: ['dashboardStats'] });
+        queryClient.invalidateQueries({ queryKey: ['alerts'] });
+        queryClient.invalidateQueries({ queryKey: ['projections'] });
+        queryClient.invalidateQueries({ queryKey: ['recentActivity'] });
     }, [queryClient]);
 
     const addLoan = useCallback(async (loanData) => {

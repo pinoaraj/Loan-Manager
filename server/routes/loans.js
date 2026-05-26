@@ -1,12 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { PrismaClient } = require('@prisma/client');
 const { validate, loanSchema } = require('../middleware/validation');
 const { calculateAmortization } = require('../utils/amortization');
 const { checkAndApplyLateFees } = require('../utils/fees');
 const { authenticateToken } = require('../middleware/auth');
-
-const prisma = new PrismaClient();
+const prisma = require('../lib/prisma');
 
 const normalizeFrequency = (frequency = 'monthly') => {
     const normalized = String(frequency).trim().toLowerCase();
@@ -209,6 +207,20 @@ router.post('/:id/recalculate', authenticateToken, async (req, res) => {
         const loanId = req.params.id;
         const loan = await prisma.loan.findUnique({ where: { id: loanId } });
         if (!loan) return res.status(404).json({ error: 'Loan not found' });
+
+        const transactionCount = await prisma.transaction.count({
+            where: {
+                payment: {
+                    loanId
+                }
+            }
+        });
+
+        if (transactionCount > 0) {
+            return res.status(400).json({
+                error: 'No se puede recalcular un prestamo con pagos registrados'
+            });
+        }
 
         const schedule = calculateAmortization(
             loan.amount,

@@ -1,15 +1,42 @@
 import React, { Suspense, lazy, useMemo, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Calendar, User, AlertCircle, FileText, RefreshCw, PauseCircle, PlayCircle } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
 import { format, parseISO } from 'date-fns';
 import { toast } from 'sonner';
 import { useLoans } from '../context/LoanContext';
 import { useLoanHealth } from '../hooks/useLoanHealth';
 import { downloadLoanCalendar } from '../utils/calendar';
+import { useAuth } from '../context/AuthContext';
+import { API_URL } from '../config/api';
 
 const PagareModal = lazy(() => import('../components/PagareModal'));
 const PaymentModal = lazy(() => import('../components/PaymentModal'));
 const PaymentScheduleTable = lazy(() => import('../components/PaymentScheduleTable'));
+
+const HEALTH_BADGE_CLASSES = {
+    emerald: 'bg-emerald-100 text-emerald-700',
+    rose: 'bg-rose-100 text-rose-700',
+    blue: 'bg-blue-100 text-blue-700',
+    amber: 'bg-amber-100 text-amber-700',
+    slate: 'bg-slate-100 text-slate-700'
+};
+
+const HEALTH_TEXT_CLASSES = {
+    emerald: 'text-emerald-700',
+    rose: 'text-rose-700',
+    blue: 'text-blue-700',
+    amber: 'text-amber-700',
+    slate: 'text-slate-700'
+};
+
+const HEALTH_PANEL_CLASSES = {
+    emerald: 'border-emerald-100 bg-emerald-50',
+    rose: 'border-rose-100 bg-rose-50',
+    blue: 'border-blue-100 bg-blue-50',
+    amber: 'border-amber-100 bg-amber-50',
+    slate: 'border-slate-100 bg-slate-50'
+};
 
 const SectionLoader = () => (
     <div className="rounded-3xl border border-slate-100 bg-white p-6 text-center text-sm font-medium text-slate-500 shadow-sm dark:border-slate-700 dark:bg-slate-800">
@@ -21,14 +48,43 @@ const LoanDetail = () => {
     const { id: loanId } = useParams();
     const navigate = useNavigate();
     const { loans, clients, recalculateLoan, registerPayment, togglePause } = useLoans();
+    const { token, fetchWithAuth } = useAuth();
     const { getLoanHealth } = useLoanHealth();
 
     const [isPagareModalOpen, setIsPagareModalOpen] = useState(false);
     const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
     const [selectedPayment, setSelectedPayment] = useState(null);
 
-    const loan = useMemo(() => loans.find((item) => item.id === loanId), [loans, loanId]);
-    const client = useMemo(() => clients.find((item) => item.id === loan?.clientId), [clients, loan]);
+    const { data: fetchedLoan, isLoading } = useQuery({
+        queryKey: ['loan-detail', loanId],
+        queryFn: async () => {
+            const response = await fetchWithAuth(`${API_URL}/loans/${loanId}`);
+            if (!response.ok) {
+                throw new Error('No se pudo cargar el prestamo');
+            }
+            return response.json();
+        },
+        enabled: !!loanId && !!token && typeof fetchWithAuth === 'function'
+    });
+
+    const loan = useMemo(
+        () => fetchedLoan || loans.find((item) => item.id === loanId),
+        [fetchedLoan, loans, loanId]
+    );
+    const client = useMemo(() => {
+        if (fetchedLoan?.client) {
+            return fetchedLoan.client;
+        }
+        return clients.find((item) => item.id === loan?.clientId);
+    }, [clients, fetchedLoan, loan]);
+
+    if (isLoading && !loan) {
+        return (
+            <div className="p-8 text-center">
+                <p className="text-slate-500">Cargando prestamo...</p>
+            </div>
+        );
+    }
 
     if (!loan) {
         return (
@@ -41,11 +97,19 @@ const LoanDetail = () => {
     }
 
     const health = getLoanHealth(loan);
-    const paidPayments = loan.payments.filter((payment) => payment.status === 'Paid');
-    const pendingPayments = loan.payments.filter((payment) => payment.status === 'Pending');
-    const totalPaid = paidPayments.reduce((acc, payment) => acc + payment.amount, 0);
-    const totalRemaining = pendingPayments.reduce((acc, payment) => acc + payment.amount, 0);
-    const progress = (paidPayments.length / loan.payments.length) * 100;
+    const badgeClasses = HEALTH_BADGE_CLASSES[health.color] || HEALTH_BADGE_CLASSES.slate;
+    const healthTextClass = HEALTH_TEXT_CLASSES[health.color] || HEALTH_TEXT_CLASSES.slate;
+    const healthPanelClass = HEALTH_PANEL_CLASSES[health.color] || HEALTH_PANEL_CLASSES.slate;
+    const totalPaid = loan.payments.reduce((acc, payment) => acc + Number(payment.paidAmount || 0), 0);
+    const totalRemaining = loan.payments.reduce(
+        (acc, payment) => acc + Math.max(0, Number(payment.amount) + Number(payment.lateFee || 0) - Number(payment.paidAmount || 0)),
+        0
+    );
+    const totalScheduled = loan.payments.reduce(
+        (acc, payment) => acc + Number(payment.amount) + Number(payment.lateFee || 0),
+        0
+    );
+    const progress = totalScheduled > 0 ? (totalPaid / totalScheduled) * 100 : 0;
 
     const handlePaymentClick = (payment) => {
         setSelectedPayment(payment);
@@ -124,7 +188,7 @@ const LoanDetail = () => {
                     <div>
                         <h2 className="flex items-center gap-3 text-3xl font-bold text-slate-800 dark:text-white">
                             Prestamo <span className="font-mono text-xl text-slate-400">#{loan.id.slice(-6)}</span>
-                            <span className={`rounded-full px-3 py-1 text-sm font-bold uppercase tracking-wider bg-${health.color}-100 text-${health.color}-700`}>
+                            <span className={`rounded-full px-3 py-1 text-sm font-bold uppercase tracking-wider ${badgeClasses}`}>
                                 {health.label}
                             </span>
                         </h2>
@@ -246,17 +310,17 @@ const LoanDetail = () => {
                             </div>
                             <div className="flex items-center justify-between border-b border-slate-800 pb-4 text-sm">
                                 <span className="text-slate-400">Estado de Salud</span>
-                                <span className={`font-bold text-${health.color}-400`}>{health.label}</span>
+                                <span className={`font-bold ${healthTextClass}`}>{health.label}</span>
                             </div>
                         </div>
                     </div>
 
-                    <div className={`rounded-3xl border border-${health.color}-100 bg-${health.color}-50 p-6`}>
-                        <h4 className={`mb-4 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-${health.color}-700`}>
+                    <div className={`rounded-3xl border p-6 ${healthPanelClass}`}>
+                        <h4 className={`mb-4 flex items-center gap-2 text-xs font-bold uppercase tracking-widest ${healthTextClass}`}>
                             <AlertCircle size={16} />
                             Estado del Prestamo
                         </h4>
-                        <p className={`font-medium text-${health.color}-800`}>
+                        <p className={`font-medium ${healthTextClass}`}>
                             {health.description}
                         </p>
                     </div>

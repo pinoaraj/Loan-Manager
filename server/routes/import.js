@@ -1,12 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { PrismaClient } = require('@prisma/client');
 const { calculateAmortization } = require('../utils/amortization');
 const { authenticateToken } = require('../middleware/auth');
 const { validate } = require('../middleware/validation');
 const { importDataSchema } = require('../middleware/validationSchemas');
-
-const prisma = new PrismaClient();
+const prisma = require('../lib/prisma');
 
 const normalizeFrequency = (frequency = 'monthly') => {
     const normalized = String(frequency).trim().toLowerCase();
