@@ -1,7 +1,7 @@
 # Graph Report - LoanManager  (2026-05-27)
 
 ## Corpus Check
-- 112 files · ~1,345,455 words
+- 112 files · ~1,345,458 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `ce643fa7`
+- Built from commit: `3f96c0f7`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
