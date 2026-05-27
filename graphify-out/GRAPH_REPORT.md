@@ -1,16 +1,16 @@
-# Graph Report - LoanManager  (2026-05-27)
+# Graph Report - LoanManager-publish  (2026-05-27)
 
 ## Corpus Check
-- 110 files · ~1,343,741 words
+- 83 files · ~40,350 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 344 nodes · 470 edges · 34 communities detected
+- 352 nodes · 491 edges · 41 communities detected
 - Extraction: 89% EXTRACTED · 11% INFERRED · 0% AMBIGUOUS · INFERRED: 53 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `c8e001ce`
+- Built from commit: `f61079b8`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -28,12 +28,20 @@
 - [[_COMMUNITY_Community 10|Community 10]]
 - [[_COMMUNITY_Community 11|Community 11]]
 - [[_COMMUNITY_Community 12|Community 12]]
+- [[_COMMUNITY_Community 13|Community 13]]
 - [[_COMMUNITY_Community 14|Community 14]]
 - [[_COMMUNITY_Community 15|Community 15]]
 - [[_COMMUNITY_Community 16|Community 16]]
-- [[_COMMUNITY_Community 18|Community 18]]
+- [[_COMMUNITY_Community 17|Community 17]]
 - [[_COMMUNITY_Community 19|Community 19]]
 - [[_COMMUNITY_Community 20|Community 20]]
+- [[_COMMUNITY_Community 21|Community 21]]
+- [[_COMMUNITY_Community 22|Community 22]]
+- [[_COMMUNITY_Community 23|Community 23]]
+- [[_COMMUNITY_Community 24|Community 24]]
+- [[_COMMUNITY_Community 25|Community 25]]
+- [[_COMMUNITY_Community 26|Community 26]]
+- [[_COMMUNITY_Community 66|Community 66]]
 - [[_COMMUNITY_Community 67|Community 67]]
 - [[_COMMUNITY_Community 68|Community 68]]
 - [[_COMMUNITY_Community 69|Community 69]]
@@ -48,7 +56,6 @@
 - [[_COMMUNITY_Community 78|Community 78]]
 - [[_COMMUNITY_Community 79|Community 79]]
 - [[_COMMUNITY_Community 80|Community 80]]
-- [[_COMMUNITY_Community 81|Community 81]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `Frontend - React 19 + Vite 7` - 28 edges
@@ -84,70 +91,82 @@
 - **AI Integration Ecosystem** — ai_gemma4_integration, risk_analysis_ai, collections_chatbot [EXTRACTED 1.00]
 - **Type Validation Enums** — loan_type_enum, frequency_enum, late_fee_type_enum [EXTRACTED 1.00]
 
-## Communities (82 total, 22 thin omitted)
+## Communities (81 total, 26 thin omitted)
 
 ### Community 0 - "Community 0"
-Cohesion: 0.07
-Nodes (27): Footer(), Sidebar(), AuthProvider(), useAuth(), LoanProvider(), useLoans(), ThemeProvider(), useTheme() (+19 more)
-
-### Community 1 - "Community 1"
 Cohesion: 0.05
 Nodes (41): AuthContext, Amortization Calculator, Monthly Cash-Flow Projections, Client Management, Detailed Client Profiles, Dashboard, Data Import (CSV/Excel), Desktop App - Electron 33 (+33 more)
 
+### Community 1 - "Community 1"
+Cohesion: 0.12
+Nodes (17): useLoans(), useLoans(), RecentActivity(), Calculator(), ClientDetail(), Clients(), Collections(), Dashboard() (+9 more)
+
 ### Community 2 - "Community 2"
-Cohesion: 0.14
-Nodes (30): buildMutuoDocument(), buildMutuoText(), buildPagareIntroParagraphXml(), buildPagareValueParagraphXml(), downloadBlob(), escapeXml(), fetchBinaryTemplate(), formatMoney() (+22 more)
+Cohesion: 0.11
+Nodes (17): Footer(), Sidebar(), AuthProvider(), useAuth(), LoanProvider(), ThemeProvider(), useTheme(), useAuth() (+9 more)
 
 ### Community 3 - "Community 3"
-Cohesion: 0.18
-Nodes (12): ClientDetail(), formatCurrency(), generateEmailLink(), generateWhatsAppLink(), getReceiptMessage(), getReminderMessage(), hasPhoneNumber(), normalizePhoneNumber() (+4 more)
+Cohesion: 0.14
+Nodes (29): buildMutuoDocument(), buildMutuoText(), buildPagareIntroParagraphXml(), buildPagareValueParagraphXml(), downloadBlob(), escapeXml(), fetchBinaryTemplate(), formatMoney() (+21 more)
 
 ### Community 4 - "Community 4"
-Cohesion: 0.26
-Nodes (17): buildCalendarFile(), createCalendarEvent(), downloadBulkLoanCalendars(), downloadCalendarBlob(), downloadCalendarReminder(), downloadLoanCalendar(), downloadPaymentReminder(), escapeIcsText() (+9 more)
+Cohesion: 0.19
+Nodes (18): buildCalendarFile(), createCalendarEvent(), downloadBulkLoanCalendars(), downloadCalendarBlob(), downloadCalendarReminder(), downloadLoanCalendar(), downloadPaymentReminder(), escapeIcsText() (+10 more)
 
 ### Community 5 - "Community 5"
 Cohesion: 0.12
 Nodes (18): AppData Portability Strategy, Authentication, Backend - Express 5 + Prisma 5, Bcrypt Password Hashing, CORS Middleware, Payment Frequency Enum, Helmet Security Middleware, JWT Authentication (+10 more)
 
 ### Community 6 - "Community 6"
-Cohesion: 0.24
-Nodes (12): PagareModal(), cleanRut(), isValidRut(), normalizeRut(), downloadBlob(), generatePagare(), generatePagareFromTemplate(), generateWordContract() (+4 more)
-
-### Community 7 - "Community 7"
 Cohesion: 0.18
 Nodes (11): AI Integration - Gemma 4, Calendar View, Collections Management, Collections Assistant Chatbot, Fixed-Rate Amortization, Grace Days Configuration, Late Fees Configuration, Loan Creation (+3 more)
 
+### Community 7 - "Community 7"
+Cohesion: 0.44
+Nodes (8): downloadBlob(), generatePagare(), generatePagareFromTemplate(), generateWordContract(), generateWordReceipt(), getLoanDurationMonths(), getLoanInterestRate(), loadFile()
+
 ### Community 8 - "Community 8"
-Cohesion: 0.46
-Nodes (4): buildMonthlySchedule(), calculateAmortization(), normalizeFrequency(), splitMonthlySchedule()
+Cohesion: 0.39
+Nodes (8): login(), runTests(), testCreateClient(), testCreateClientWithoutPhone(), login(), runTests(), testCreateClient(), testCreateClientWithoutPhone()
 
 ### Community 9 - "Community 9"
+Cohesion: 0.57
+Nodes (4): buildMonthlySchedule(), calculateAmortization(), normalizeFrequency(), splitMonthlySchedule()
+
+### Community 10 - "Community 10"
+Cohesion: 0.46
+Nodes (6): PagareModal(), cleanRut(), formatRut(), formatRutInput(), isValidRut(), normalizeRut()
+
+### Community 11 - "Community 11"
 Cohesion: 0.29
 Nodes (7): Conflict Resolution Strategy, Field Collector Persona, Mobile App - React Native (Expo), Offline-First Sync Architecture, Outbox Pattern, Pull/Push Sync Protocol, WatermelonDB
 
-### Community 11 - "Community 11"
-Cohesion: 0.7
-Nodes (4): login(), runTests(), testCreateClient(), testCreateClientWithoutPhone()
+### Community 13 - "Community 13"
+Cohesion: 0.6
+Nodes (3): getLoanStatusFromPayments(), getRemainingAmount(), syncLoansForDashboard()
 
-### Community 12 - "Community 12"
+### Community 14 - "Community 14"
 Cohesion: 0.6
 Nodes (3): cn(), Skeleton(), cn()
+
+### Community 17 - "Community 17"
+Cohesion: 0.83
+Nodes (3): generateLoanContract(), getLoanDurationMonths(), getLoanInterestRate()
 
 ## Knowledge Gaps
 - **64 isolated node(s):** `Data Import (CSV/Excel)`, `Tailwind CSS 4`, `React Router 7`, `Lucide React Icons`, `Sonner Toast Notifications` (+59 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **22 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **26 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Frontend - React 19 + Vite 7` connect `Community 1` to `Community 5`, `Community 7`?**
-  _High betweenness centrality (0.248) - this node is a cross-community bridge._
-- **Why does `jsPDF` connect `Community 1` to `Community 3`?**
-  _High betweenness centrality (0.211) - this node is a cross-community bridge._
-- **Why does `generateLoanContract()` connect `Community 3` to `Community 0`?**
-  _High betweenness centrality (0.159) - this node is a cross-community bridge._
+- **Why does `Frontend - React 19 + Vite 7` connect `Community 0` to `Community 5`, `Community 6`?**
+  _High betweenness centrality (0.237) - this node is a cross-community bridge._
+- **Why does `jsPDF` connect `Community 0` to `Community 17`?**
+  _High betweenness centrality (0.202) - this node is a cross-community bridge._
+- **Why does `generateLoanContract()` connect `Community 17` to `Community 2`?**
+  _High betweenness centrality (0.152) - this node is a cross-community bridge._
 - **Are the 2 inferred relationships involving `Frontend - React 19 + Vite 7` (e.g. with `Vite Logo` and `React Logo`) actually correct?**
   _`Frontend - React 19 + Vite 7` has 2 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 12 inferred relationships involving `useLoans()` (e.g. with `Sidebar()` and `Footer()`) actually correct?**
