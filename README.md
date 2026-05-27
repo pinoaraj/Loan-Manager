@@ -23,6 +23,7 @@ The desktop app now fills legal documents from the client record.
 - `Pagare`: generated from `public/templates/pagare_template_sc.docx`
 - `Mutuo`: generated directly from the active loan data as a `.docx` document
 - Autofill fields: client name, `RUT`, address, loan amount and schedule-derived values
+- Desktop builds resolve the `Pagare` template from the packaged `dist/templates/` assets so the same flow works in development and in the installed app.
 
 Because of this flow, `RUT` is now a first-class field in client creation, editing, search and import.
 

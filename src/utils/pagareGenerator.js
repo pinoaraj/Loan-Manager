@@ -4,7 +4,7 @@ import { es } from 'date-fns/locale';
 import PizZip from 'pizzip';
 import { formatRut } from './rut';
 
-const PAGARE_TEMPLATE_PATH = '/templates/pagare_template_sc.docx';
+const PAGARE_TEMPLATE_FILE = 'pagare_template_sc.docx';
 
 const CREDITOR_NAME = 'INVERSIONES SANTA CRUZ Y COMPANIA LIMITADA';
 const CREDITOR_RUT = '76.111.318-6';
@@ -21,12 +21,42 @@ const downloadBlob = (blob, filename) => {
     window.URL.revokeObjectURL(url);
 };
 
-const fetchBinaryTemplate = async (path) => {
-    const response = await fetch(path);
-    if (!response.ok) {
-        throw new Error(`No se pudo cargar la plantilla ${path}`);
+const getTemplateCandidates = (filename) => {
+    const isFileProtocol = window.location.protocol === 'file:';
+
+    if (isFileProtocol) {
+        return [
+            new URL(`./templates/${filename}`, window.location.href).toString(),
+            new URL(`templates/${filename}`, document.baseURI).toString(),
+            new URL(`../templates/${filename}`, window.location.href).toString()
+        ];
     }
-    return response.arrayBuffer();
+
+    return [
+        `/templates/${filename}`,
+        new URL(`./templates/${filename}`, window.location.origin).toString()
+    ];
+};
+
+const fetchBinaryTemplate = async (filename) => {
+    const candidates = getTemplateCandidates(filename);
+    let lastError = null;
+
+    for (const candidate of candidates) {
+        try {
+            const response = await fetch(candidate);
+            if (!response.ok) {
+                lastError = new Error(`No se pudo cargar la plantilla ${candidate}`);
+                continue;
+            }
+
+            return response.arrayBuffer();
+        } catch (error) {
+            lastError = error;
+        }
+    }
+
+    throw lastError || new Error(`No se pudo cargar la plantilla ${filename}`);
 };
 
 const escapeXml = (value = '') => String(value)
@@ -158,8 +188,13 @@ const renderPagareFromTemplate = async (loan, client) => {
     const debtorAddress = getText(client?.address);
     const amount = formatMoney(getLoanAmount(loan));
     const amountWords = `${numberToWords(getLoanAmount(loan))} pesos`;
-    const zip = new PizZip(await fetchBinaryTemplate(PAGARE_TEMPLATE_PATH));
-    let xml = zip.file('word/document.xml').asText();
+    const zip = new PizZip(await fetchBinaryTemplate(PAGARE_TEMPLATE_FILE));
+    const xmlFile = zip.file('word/document.xml');
+    if (!xmlFile) {
+        throw new Error('La plantilla de pagare no contiene word/document.xml');
+    }
+
+    let xml = xmlFile.asText();
 
     xml = replaceParagraphById(xml, '00000004', buildPagareIntroParagraphXml({
         name: debtorName,

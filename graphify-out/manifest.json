@@ -432,8 +432,8 @@
     "hash": "2f836a445f097ec21991cc82808e1378"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\pagareGenerator.js": {
-    "mtime": 1779911969.016504,
-    "hash": "3320f3ee426f74e3fe6dd2412530376d"
+    "mtime": 1779916982.6233337,
+    "hash": "ece1c5923bf1361f6c17554a9fb9fdb6"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\pdfGenerator.js": {
     "mtime": 1779911837.1078088,
@@ -460,8 +460,8 @@
     "hash": "5429b353448b47d93fdd7771001badd3"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\README.md": {
-    "mtime": 1779912015.790489,
-    "hash": "fb5fb75490a79418a83a18d34f1fa929"
+    "mtime": 1779917008.468378,
+    "hash": "e2148f9ffb9133bc9266a51a3e386e47"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\GRAPHIFY.md": {
     "mtime": 1779716266.6234615,
@@ -484,35 +484,35 @@
     "hash": "e163d2f11bba64059536698774e6bbf5"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\graphify-out\\converted\\pagare_template_e62ac02c.md": {
-    "mtime": 1779912024.224854,
+    "mtime": 1779917018.0536418,
     "hash": "3c57105453a9ba7f63d7459152a688e6"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\graphify-out\\converted\\pagare_template_sc_78d1f97f.md": {
-    "mtime": 1779912024.2568548,
+    "mtime": 1779917018.0871415,
     "hash": "9fedb158390f9703fc389a9e887bdcc3"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\builder-debug.yml": {
-    "mtime": 1779911639.3148713,
-    "hash": "b1b0564d809ccb1f53575c77ea1d2fdf"
+    "mtime": 1779912652.6574545,
+    "hash": "5f20808c85cd9d4b1840e08aa71c04e5"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\builder-effective-config.yaml": {
     "mtime": 1770673186.1957,
     "hash": "bed16809b565bb3d711d95cd1ee438b8"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\latest.yml": {
-    "mtime": 1779911640.905065,
-    "hash": "36b766adc969734b369a3362635c5b83"
+    "mtime": 1779912655.408694,
+    "hash": "8ead7dbd2859f486631f6eb9b518afcc"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\LICENSE.electron.txt": {
-    "mtime": 1779911339.2720218,
+    "mtime": 1779912362.8087957,
     "hash": "4d42118d35941e0f664dddbd83f633c5"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\LICENSES.chromium.html": {
-    "mtime": 1779911339.3771346,
+    "mtime": 1779912362.6872623,
     "hash": "6ff57c0aeccdf44c39c95dee9ecea805"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\app-update.yml": {
-    "mtime": 1779911411.1858416,
+    "mtime": 1779912433.063042,
     "hash": "0d5cd47bc3fb7b87705332d1840fd3ab"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\public\\vite.svg": {
