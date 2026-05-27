@@ -180,7 +180,7 @@ const LoanDetail = () => {
                 <div className="space-y-4">
                     <button
                         onClick={() => navigate('/loans')}
-                        className="group flex items-center gap-2 text-slate-500 transition-colors hover:text-blue-600"
+                        className="group flex items-center gap-2 text-slate-500 transition-colors hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-300"
                     >
                         <ArrowLeft size={20} className="transition-transform group-hover:-translate-x-1" />
                         <span className="text-xs font-bold uppercase tracking-widest">Volver a Prestamos</span>
@@ -192,7 +192,7 @@ const LoanDetail = () => {
                                 {health.label}
                             </span>
                         </h2>
-                        <div className="mt-2 flex items-center gap-2 text-slate-500">
+                        <div className="mt-2 flex items-center gap-2 text-slate-500 dark:text-slate-300">
                             <User size={16} />
                             <span className="font-medium">{client?.name}</span>
                             <span className="mx-2">-</span>
@@ -206,7 +206,7 @@ const LoanDetail = () => {
                         onClick={handleTogglePause}
                         className={`flex items-center gap-2 rounded-xl border px-4 py-2 text-sm font-bold transition-all ${loan.isPaused
                             ? 'border-emerald-200 bg-emerald-50 text-emerald-600 hover:bg-emerald-100'
-                            : 'border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100'
+                            : 'border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 dark:hover:bg-slate-600'
                             }`}
                         title={loan.isPaused ? 'Reanudar prestamo' : 'Pausar prestamo'}
                     >
@@ -216,7 +216,7 @@ const LoanDetail = () => {
 
                     <button
                         onClick={handleRecalculate}
-                        className="flex items-center gap-2 rounded-xl bg-slate-100 px-4 py-2 text-sm font-bold text-slate-600 transition-all hover:bg-slate-200"
+                        className="flex items-center gap-2 rounded-xl bg-slate-100 px-4 py-2 text-sm font-bold text-slate-700 transition-all hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-100 dark:hover:bg-slate-600"
                         title="Regenerar pagos con la formula corregida"
                     >
                         <RefreshCw size={16} />
@@ -242,7 +242,7 @@ const LoanDetail = () => {
                     </div>
                     <button
                         onClick={handleDownloadCalendar}
-                        className="flex items-center gap-2 rounded-xl border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-bold text-blue-600 transition-all hover:bg-blue-100"
+                        className="flex items-center gap-2 rounded-xl border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-bold text-blue-700 transition-all hover:bg-blue-100 dark:border-blue-700 dark:bg-blue-950/40 dark:text-blue-200 dark:hover:bg-blue-900/50"
                         title="Descargar calendario de cobros"
                     >
                         <Calendar size={16} />
@@ -261,24 +261,24 @@ const LoanDetail = () => {
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
                 <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800">
-                    <p className="mb-1 text-xs font-bold uppercase tracking-widest text-slate-500">Monto Original</p>
+                    <p className="mb-1 text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-300">Monto Original</p>
                     <h3 className="text-2xl font-bold text-slate-800 dark:text-white">${loan.amount.toLocaleString()}</h3>
                 </div>
                 <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800">
-                    <p className="mb-1 text-xs font-bold uppercase tracking-widest text-slate-500">Pagado</p>
+                    <p className="mb-1 text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-300">Pagado</p>
                     <h3 className="text-2xl font-bold text-emerald-600">${totalPaid.toLocaleString()}</h3>
                 </div>
                 <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800">
-                    <p className="mb-1 text-xs font-bold uppercase tracking-widest text-slate-500">Pendiente</p>
+                    <p className="mb-1 text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-300">Pendiente</p>
                     <h3 className="text-2xl font-bold text-blue-600">${totalRemaining.toLocaleString()}</h3>
                 </div>
                 <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800">
-                    <p className="mb-1 text-xs font-bold uppercase tracking-widest text-slate-500">Progreso</p>
+                    <p className="mb-1 text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-300">Progreso</p>
                     <div className="flex items-center gap-3">
-                        <div className="h-2 flex-1 overflow-hidden rounded-full bg-slate-100">
+                        <div className="h-2 flex-1 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-600">
                             <div className="h-full bg-emerald-500 transition-all duration-500" style={{ width: `${progress}%` }} />
                         </div>
-                        <span className="font-bold text-slate-700">{Math.round(progress)}%</span>
+                        <span className="font-bold text-slate-700 dark:text-slate-100">{Math.round(progress)}%</span>
                     </div>
                 </div>
             </div>
@@ -289,27 +289,27 @@ const LoanDetail = () => {
                         <h4 className="mb-6 text-xs font-bold uppercase tracking-widest text-blue-400">Detalles Tecnicos</h4>
                         <div className="space-y-4">
                             <div className="flex items-center justify-between border-b border-slate-800 pb-4 text-sm">
-                                <span className="text-slate-400">Tipo de Prestamo</span>
+                                <span className="text-slate-300">Tipo de Prestamo</span>
                                 <span className="font-bold">{loan.loanType}</span>
                             </div>
                             <div className="flex items-center justify-between border-b border-slate-800 pb-4 text-sm">
-                                <span className="text-slate-400">Frecuencia de Pago</span>
+                                <span className="text-slate-300">Frecuencia de Pago</span>
                                 <span className="font-bold capitalize">{loan.frequency}</span>
                             </div>
                             <div className="flex items-center justify-between border-b border-slate-800 pb-4 text-sm">
-                                <span className="text-slate-400">Tasa de Interes</span>
+                                <span className="text-slate-300">Tasa de Interes</span>
                                 <span className="font-bold">{(loan.interestRate * 100).toFixed(1)}% (Por Periodo)</span>
                             </div>
                             <div className="flex items-center justify-between border-b border-slate-800 pb-4 text-sm">
-                                <span className="text-slate-400">Duracion</span>
+                                <span className="text-slate-300">Duracion</span>
                                 <span className="font-bold">{loan.durationMonths} Meses</span>
                             </div>
                             <div className="flex items-center justify-between border-b border-slate-800 pb-4 text-sm">
-                                <span className="text-slate-400">Total Cuotas</span>
+                                <span className="text-slate-300">Total Cuotas</span>
                                 <span className="font-bold">{loan.payments.length}</span>
                             </div>
                             <div className="flex items-center justify-between border-b border-slate-800 pb-4 text-sm">
-                                <span className="text-slate-400">Estado de Salud</span>
+                                <span className="text-slate-300">Estado de Salud</span>
                                 <span className={`font-bold ${healthTextClass}`}>{health.label}</span>
                             </div>
                         </div>
@@ -333,10 +333,10 @@ const LoanDetail = () => {
                             Cronograma de Pagos
                         </h4>
                         <div className="flex gap-2">
-                            <span className="flex items-center gap-1.5 text-xs font-bold text-slate-400">
+                            <span className="flex items-center gap-1.5 text-xs font-bold text-slate-300 dark:text-slate-200">
                                 <div className="h-2 w-2 rounded-full bg-emerald-500" /> PAGADO
                             </span>
-                            <span className="flex items-center gap-1.5 text-xs font-bold text-slate-400">
+                            <span className="flex items-center gap-1.5 text-xs font-bold text-slate-300 dark:text-slate-200">
                                 <div className="h-2 w-2 rounded-full bg-slate-200" /> PENDIENTE
                             </span>
                         </div>

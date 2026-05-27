@@ -1,30 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" fill="none">
   <defs>
-    <linearGradient id="gold" x1="244" y1="176" x2="760" y2="848" gradientUnits="userSpaceOnUse">
+    <linearGradient id="gold" x1="260" y1="150" x2="790" y2="830" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#F8E7A2"/>
       <stop offset="0.34" stop-color="#E5C565"/>
       <stop offset="0.68" stop-color="#C9972E"/>
       <stop offset="1" stop-color="#8A6112"/>
     </linearGradient>
-    <filter id="softGlow" x="128" y="128" width="768" height="768" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-      <feGaussianBlur stdDeviation="10" result="blur"/>
-      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.84 0 0 0 0 0.68 0 0 0 0 0.25 0 0 0 0.28 0"/>
+    <filter id="softGlow" x="120" y="120" width="784" height="784" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="16" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.84 0 0 0 0 0.68 0 0 0 0 0.25 0 0 0 0.30 0"/>
       <feBlend in="SourceGraphic" in2="blur" mode="screen"/>
     </filter>
   </defs>
-  <rect width="1024" height="1024" fill="transparent"/>
   <g filter="url(#softGlow)">
-    <text
-      x="512"
-      y="594"
-      text-anchor="middle"
-      font-family="Georgia, 'Times New Roman', serif"
-      font-size="470"
-      font-weight="700"
-      letter-spacing="-34"
-      fill="url(#gold)"
-    >
-      LM
-    </text>
+    <path fill="url(#gold)" fill-rule="evenodd" clip-rule="evenodd" d="M320 246L512 186L602 304H646C688 304 722 338 722 380V760H636L596 804H326V760H276V380C276 338 310 304 352 304H422L512 186L320 246ZM352 340C333.222 340 318 355.222 318 374V718H604V374C604 355.222 588.778 340 570 340H352ZM636 760C636 724.654 664.654 696 700 696C735.346 696 764 724.654 764 760C764 795.346 735.346 824 700 824C664.654 824 636 795.346 636 760ZM368 408C368 398.059 376.059 390 386 390H540C549.941 390 558 398.059 558 408C558 417.941 549.941 426 540 426H386C376.059 426 368 417.941 368 408ZM368 496C368 486.059 376.059 478 386 478H540C549.941 478 558 486.059 558 496C558 505.941 549.941 514 540 514H386C376.059 514 368 505.941 368 496ZM368 584C368 574.059 376.059 566 386 566H540C549.941 566 558 574.059 558 584C558 593.941 549.941 602 540 602H386C376.059 602 368 593.941 368 584Z"/>
+    <path fill="#52330A" fill-rule="evenodd" clip-rule="evenodd" d="M700 680C744.183 680 780 715.817 780 760C780 804.183 744.183 840 700 840C655.817 840 620 804.183 620 760C620 715.817 655.817 680 700 680ZM700 706C729.823 706 754 730.177 754 760C754 789.823 729.823 814 700 814C670.177 814 646 789.823 646 760C646 730.177 670.177 706 700 706Z"/>
   </g>
 </svg>
