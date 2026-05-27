@@ -19,6 +19,10 @@ const HEALTH_BADGE_CLASSES = {
 const getPaymentDetailPath = (loanId, paymentId) => paymentId
     ? `/loans/${loanId}?payment=${paymentId}`
     : `/loans/${loanId}`;
+const getDisplayLoanCode = (loanId) => {
+    const value = String(loanId || '').trim();
+    return value ? `#${value.slice(-6)}` : '#------';
+};
 
 const Loans = () => {
     const navigate = useNavigate();
@@ -144,8 +148,10 @@ const Loans = () => {
                                                             ? <ChevronUp size={16} className="text-slate-400" />
                                                             : <ChevronDown size={16} className="text-slate-400" />}
                                                         <div>
-                                                            <div className="font-medium text-slate-900 dark:text-white">{getClientName(loan)}</div>
-                                                            <div className="font-mono text-xs text-slate-500 dark:text-slate-300">{loan.id}</div>
+                                                            <div className="font-semibold text-slate-900 dark:text-white">{getClientName(loan)}</div>
+                                                            <div className="font-mono text-xs tracking-wide text-slate-600 dark:text-slate-300">
+                                                                {getDisplayLoanCode(loan.id)}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </td>
