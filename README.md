@@ -18,6 +18,7 @@ Loan Manager is a desktop-first loan management system built with React, Express
 
 The desktop app now fills legal documents from the client record.
 
+- Documents can be opened from loan detail and from client detail; when a client has multiple loans, the app lets you choose which loan to use.
 - `Pagare`: generated from `public/templates/pagare_template_sc.docx`
 - `Mutuo`: generated from `public/templates/mutuo_template_sc.doc`
 - Autofill fields: client name, `RUT`, address, loan amount and schedule-derived values

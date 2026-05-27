@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { Suspense, lazy, useMemo, useState } from 'react';
 import { ArrowLeft, Mail, Phone, MapPin, DollarSign, Clock, CheckCircle, AlertTriangle, Edit, Trash2, MessageCircle, Send, CreditCard } from 'lucide-react';
 import { generateWhatsAppLink, generateEmailLink, hasPhoneNumber } from '../utils/communication';
 import { useLoans } from '../context/useLoans';
@@ -11,6 +11,7 @@ import { API_URL } from '../config/api';
 import { formatRutInput, isValidRut } from '../utils/rut';
 
 const isValidEmail = (value) => /^[^\s@,]+@[^\s@,]+\.[^\s@,]+$/.test(value);
+const PagareModal = lazy(() => import('../components/PagareModal'));
 
 const ClientDetail = () => {
     const { id: clientId } = useParams();
@@ -18,6 +19,7 @@ const ClientDetail = () => {
     const { clients, getClientLoans, updateClient, deleteClient } = useLoans();
     const { token, fetchWithAuth } = useAuth();
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isDocumentsModalOpen, setIsDocumentsModalOpen] = useState(false);
     const [editErrors, setEditErrors] = useState({});
     const [editData, setEditData] = useState({});
 
@@ -189,6 +191,14 @@ const ClientDetail = () => {
                     >
                         <CreditCard size={16} />
                         Nuevo Credito
+                    </button>
+                    <button
+                        onClick={() => setIsDocumentsModalOpen(true)}
+                        disabled={sortedLoans.length === 0}
+                        className="flex items-center gap-2 px-4 py-2 bg-slate-800 border border-slate-700 text-white rounded-xl hover:bg-slate-700 transition-colors font-semibold shadow-sm disabled:cursor-not-allowed disabled:opacity-50"
+                    >
+                        <DollarSign size={16} />
+                        Documentos
                     </button>
                     <button
                         onClick={() => {
@@ -404,6 +414,16 @@ const ClientDetail = () => {
                     </div>
                 </div>
             )}
+
+            <Suspense fallback={null}>
+                <PagareModal
+                    isOpen={isDocumentsModalOpen}
+                    onClose={() => setIsDocumentsModalOpen(false)}
+                    loan={sortedLoans[0]}
+                    loans={sortedLoans}
+                    client={client}
+                />
+            </Suspense>
         </div>
     );
 };

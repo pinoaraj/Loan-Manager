@@ -1,16 +1,43 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { FileText, Landmark, MessageCircle, X } from 'lucide-react';
 import { formatRutInput, isValidRut } from '../utils/rut';
 
-const PagareModal = ({ isOpen, onClose, loan, client }) => {
+const getPreferredLoanId = (loans = [], fallbackLoan) => {
+    if (fallbackLoan?.id) {
+        return fallbackLoan.id;
+    }
+
+    const activeLoan = loans.find((item) => item.status === 'Active');
+    if (activeLoan?.id) {
+        return activeLoan.id;
+    }
+
+    const sortedLoans = [...loans].sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
+    return sortedLoans[0]?.id || '';
+};
+
+const PagareModal = ({ isOpen, onClose, loan, loans = [], client }) => {
     const [formData, setFormData] = useState({
         clientName: '',
         rut: '',
         address: ''
     });
+    const [selectedLoanId, setSelectedLoanId] = useState('');
+
+    const availableLoans = useMemo(() => {
+        if (loans.length > 0) {
+            return loans;
+        }
+        return loan ? [loan] : [];
+    }, [loan, loans]);
+
+    const selectedLoan = useMemo(
+        () => availableLoans.find((item) => item.id === selectedLoanId) || availableLoans[0] || loan,
+        [availableLoans, loan, selectedLoanId]
+    );
 
     useEffect(() => {
-        if (!loan || !client || !isOpen) {
+        if (!client || !isOpen) {
             return;
         }
 
@@ -19,13 +46,14 @@ const PagareModal = ({ isOpen, onClose, loan, client }) => {
             rut: formatRutInput(client.rut || ''),
             address: client.address || ''
         });
-    }, [loan, client, isOpen]);
+        setSelectedLoanId(getPreferredLoanId(availableLoans, loan));
+    }, [availableLoans, client, isOpen, loan]);
 
     if (!isOpen) {
         return null;
     }
 
-    const hasRequiredData = formData.clientName.trim() && formData.address.trim() && isValidRut(formData.rut);
+    const hasRequiredData = selectedLoan && formData.clientName.trim() && formData.address.trim() && isValidRut(formData.rut);
 
     const getDocumentPayload = () => ({
         ...client,
@@ -37,7 +65,7 @@ const PagareModal = ({ isOpen, onClose, loan, client }) => {
     const handleGeneratePagare = async () => {
         try {
             const { generatePagare } = await import('../utils/pagareGenerator');
-            await generatePagare(loan, getDocumentPayload());
+            await generatePagare(selectedLoan, getDocumentPayload());
         } catch (error) {
             console.error(error);
             alert('Error generando el pagare');
@@ -47,7 +75,7 @@ const PagareModal = ({ isOpen, onClose, loan, client }) => {
     const handleGenerateMutuo = async () => {
         try {
             const { generateMutuoDocument } = await import('../utils/pagareGenerator');
-            await generateMutuoDocument(loan, getDocumentPayload());
+            await generateMutuoDocument(selectedLoan, getDocumentPayload());
         } catch (error) {
             console.error(error);
             alert('Error generando el mutuo');
@@ -108,9 +136,23 @@ const PagareModal = ({ isOpen, onClose, loan, client }) => {
                         </div>
                         <div className="space-y-2">
                             <label className="text-sm font-bold text-slate-700 dark:text-slate-300">Prestamo</label>
-                            <div className="rounded-xl bg-slate-50 p-3 text-sm font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-200">
-                                ${Number(loan?.amount || 0).toLocaleString('es-CL')}
-                            </div>
+                            {availableLoans.length > 1 ? (
+                                <select
+                                    value={selectedLoanId}
+                                    onChange={(event) => setSelectedLoanId(event.target.value)}
+                                    className="w-full rounded-xl border-none bg-slate-50 p-3 text-sm font-semibold text-slate-700 focus:ring-2 focus:ring-blue-500 dark:bg-slate-800 dark:text-slate-200"
+                                >
+                                    {availableLoans.map((item) => (
+                                        <option key={item.id} value={item.id}>
+                                            {`${new Date(item.startDate).toLocaleDateString('es-CL')} - $${Number(item.amount || 0).toLocaleString('es-CL')} - ${item.status || 'Prestamo'}`}
+                                        </option>
+                                    ))}
+                                </select>
+                            ) : (
+                                <div className="rounded-xl bg-slate-50 p-3 text-sm font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-200">
+                                    ${Number(selectedLoan?.amount || 0).toLocaleString('es-CL')}
+                                </div>
+                            )}
                         </div>
                     </div>
 
