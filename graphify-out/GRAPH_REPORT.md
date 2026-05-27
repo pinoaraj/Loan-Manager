@@ -1,16 +1,16 @@
 # Graph Report - LoanManager  (2026-05-27)
 
 ## Corpus Check
-- 106 files · ~47,200 words
+- 112 files · ~1,343,918 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 234 nodes · 325 edges · 17 communities detected
+- 234 nodes · 325 edges · 16 communities detected
 - Extraction: 91% EXTRACTED · 9% INFERRED · 0% AMBIGUOUS · INFERRED: 30 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `9aef6227`
+- Built from commit: `031f9b6b`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -28,10 +28,9 @@
 - [[_COMMUNITY_Community 10|Community 10]]
 - [[_COMMUNITY_Community 11|Community 11]]
 - [[_COMMUNITY_Community 12|Community 12]]
-- [[_COMMUNITY_Community 14|Community 14]]
+- [[_COMMUNITY_Community 15|Community 15]]
 - [[_COMMUNITY_Community 16|Community 16]]
 - [[_COMMUNITY_Community 17|Community 17]]
-- [[_COMMUNITY_Community 18|Community 18]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `useLoans()` - 22 edges
@@ -46,42 +45,42 @@
 10. `downloadLoanCalendar()` - 6 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `ProtectedRoute()` --calls--> `useAuth()`  [INFERRED]
-  src/App.jsx → src/context/useAuth.js
-- `Collections()` --calls--> `useLoans()`  [INFERRED]
-  src/pages/Collections.jsx → src/context/useLoans.js
-- `Dashboard()` --calls--> `useLoans()`  [INFERRED]
-  src/pages/Dashboard.jsx → src/context/useLoans.js
+- `Sidebar()` --calls--> `useLoans()`  [INFERRED]
+  src/components/Sidebar.jsx → src/context/useLoans.js
 - `NewLoan()` --calls--> `useLoans()`  [INFERRED]
   src/pages/NewLoan.jsx → src/context/useLoans.js
+- `ProtectedRoute()` --calls--> `useAuth()`  [INFERRED]
+  src/App.jsx → src/context/useAuth.js
 - `PagareModal()` --calls--> `isValidRut()`  [INFERRED]
   src/components/PagareModal.jsx → src/utils/rut.js
+- `PortfolioChart()` --calls--> `useElementSize()`  [INFERRED]
+  src/components/dashboard/PortfolioChart.jsx → src/hooks/useElementSize.js
 
-## Communities (57 total, 5 thin omitted)
+## Communities (56 total, 4 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.14
 Nodes (28): buildMutuoDocument(), buildMutuoText(), buildPagareIntroParagraphXml(), buildPagareValueParagraphXml(), downloadBlob(), escapeXml(), fetchBinaryTemplate(), formatMoney() (+20 more)
 
 ### Community 1 - "Community 1"
-Cohesion: 0.11
-Nodes (13): Footer(), Sidebar(), LoanProvider(), useAuth(), useLoans(), useTheme(), RecentActivity(), useLoanHealth() (+5 more)
+Cohesion: 0.12
+Nodes (10): useLoans(), RecentActivity(), useLoanHealth(), Collections(), Dashboard(), ImportData(), LoanDetail(), Loans() (+2 more)
 
 ### Community 2 - "Community 2"
-Cohesion: 0.16
-Nodes (10): ClientDetail(), Collections(), Dashboard(), formatCurrency(), generateEmailLink(), generateWhatsAppLink(), getReceiptMessage(), getReminderMessage() (+2 more)
+Cohesion: 0.11
+Nodes (11): Footer(), Sidebar(), AuthProvider(), LoanProvider(), ThemeProvider(), useAuth(), useTheme(), Login() (+3 more)
 
 ### Community 3 - "Community 3"
 Cohesion: 0.27
 Nodes (16): buildCalendarFile(), createCalendarEvent(), downloadBulkLoanCalendars(), downloadCalendarBlob(), downloadLoanCalendar(), downloadPaymentReminder(), escapeIcsText(), formatCurrentUtcStamp() (+8 more)
 
 ### Community 4 - "Community 4"
-Cohesion: 0.31
-Nodes (7): PagareModal(), NewLoan(), cleanRut(), formatRut(), formatRutInput(), isValidRut(), normalizeRut()
+Cohesion: 0.25
+Nodes (8): ClientDetail(), formatCurrency(), generateEmailLink(), generateWhatsAppLink(), getReceiptMessage(), getReminderMessage(), hasPhoneNumber(), normalizePhoneNumber()
 
 ### Community 5 - "Community 5"
-Cohesion: 0.22
-Nodes (5): AuthProvider(), ThemeProvider(), App(), ProtectedRoute(), useResponsiveDesktopScale()
+Cohesion: 0.23
+Nodes (8): PagareModal(), Clients(), NewLoan(), cleanRut(), formatRut(), formatRutInput(), isValidRut(), normalizeRut()
 
 ### Community 6 - "Community 6"
 Cohesion: 0.39
@@ -108,16 +107,16 @@ Cohesion: 0.6
 Nodes (3): generateLoanContract(), getLoanDurationMonths(), getLoanInterestRate()
 
 ## Knowledge Gaps
-- **5 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **4 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `formatRutInput()` connect `Community 4` to `Community 1`, `Community 2`?**
+- **Why does `formatRutInput()` connect `Community 5` to `Community 4`?**
   _High betweenness centrality (0.106) - this node is a cross-community bridge._
-- **Why does `formatRut()` connect `Community 4` to `Community 0`?**
+- **Why does `formatRut()` connect `Community 5` to `Community 0`?**
   _High betweenness centrality (0.104) - this node is a cross-community bridge._
-- **Why does `useLoans()` connect `Community 1` to `Community 2`, `Community 4`?**
+- **Why does `useLoans()` connect `Community 1` to `Community 2`, `Community 4`, `Community 5`?**
   _High betweenness centrality (0.082) - this node is a cross-community bridge._
 - **Are the 10 inferred relationships involving `useLoans()` (e.g. with `Sidebar()` and `RecentActivity()`) actually correct?**
   _`useLoans()` has 10 INFERRED edges - model-reasoned connections that need verification._
@@ -126,4 +125,4 @@ _Questions this graph is uniquely positioned to answer:_
 - **Should `Community 0` be split into smaller, more focused modules?**
   _Cohesion score 0.14 - nodes in this community are weakly interconnected._
 - **Should `Community 1` be split into smaller, more focused modules?**
-  _Cohesion score 0.11 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.12 - nodes in this community are weakly interconnected._

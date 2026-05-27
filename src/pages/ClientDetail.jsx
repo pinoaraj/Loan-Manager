@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { ArrowLeft, Mail, Phone, MapPin, DollarSign, Clock, CheckCircle, AlertTriangle, Edit, Trash2, MessageCircle, Send } from 'lucide-react';
+import { ArrowLeft, Mail, Phone, MapPin, DollarSign, Clock, CheckCircle, AlertTriangle, Edit, Trash2, MessageCircle, Send, CreditCard } from 'lucide-react';
 import { generateWhatsAppLink, generateEmailLink, hasPhoneNumber } from '../utils/communication';
 import { useLoans } from '../context/useLoans';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -184,6 +184,13 @@ const ClientDetail = () => {
                     )}
                     <div className="w-px bg-slate-200 dark:bg-slate-700 mx-1"></div>
                     <button
+                        onClick={() => navigate('/loans/new', { state: { preselectedClientId: client.id, preselectedClientName: client.name, openStep: 2 } })}
+                        className="flex items-center gap-2 px-4 py-2 bg-blue-600 border border-blue-500 text-white rounded-xl hover:bg-blue-700 transition-colors font-semibold shadow-sm"
+                    >
+                        <CreditCard size={16} />
+                        Nuevo Credito
+                    </button>
+                    <button
                         onClick={() => {
                             setEditData({ ...client, rut: client.rut || '' });
                             setIsEditModalOpen(true);
@@ -312,7 +319,7 @@ const ClientDetail = () => {
             {isEditModalOpen && (
                 <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
                     <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-200">
-                        <div className="p-8 border-b border-slate-100 dark:border-slate-700 bg-slate-50">
+                        <div className="p-8 border-b border-slate-100 bg-slate-50 dark:border-slate-700 dark:bg-slate-800/60">
                             <h3 className="text-xl font-bold text-slate-800 dark:text-white">Editar Cliente</h3>
                             <p className="text-slate-500 text-sm">Actualiza los datos del cliente.</p>
                         </div>
@@ -322,7 +329,7 @@ const ClientDetail = () => {
                                 <input
                                     required
                                     type="text"
-                                    className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                                    className="w-full rounded-xl border border-slate-200 bg-white p-3 text-slate-900 placeholder:text-slate-400 outline-none transition-all focus:ring-2 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 dark:placeholder:text-slate-400"
                                     value={editData.name || ''}
                                     onChange={(event) => {
                                         setEditData({ ...editData, name: event.target.value });
@@ -335,7 +342,7 @@ const ClientDetail = () => {
                                 <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Email (Opcional)</label>
                                 <input
                                     type="email"
-                                    className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                                    className="w-full rounded-xl border border-slate-200 bg-white p-3 text-slate-900 placeholder:text-slate-400 outline-none transition-all focus:ring-2 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 dark:placeholder:text-slate-400"
                                     value={editData.email || ''}
                                     onChange={(event) => {
                                         setEditData({ ...editData, email: event.target.value });
@@ -349,7 +356,7 @@ const ClientDetail = () => {
                                 <input
                                     required
                                     type="text"
-                                    className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                                    className="w-full rounded-xl border border-slate-200 bg-white p-3 text-slate-900 placeholder:text-slate-400 outline-none transition-all focus:ring-2 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 dark:placeholder:text-slate-400"
                                     value={editData.rut || ''}
                                     onChange={(event) => {
                                         setEditData({ ...editData, rut: formatRutInput(event.target.value) });
@@ -363,7 +370,7 @@ const ClientDetail = () => {
                                 <input
                                     required
                                     type="text"
-                                    className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                                    className="w-full rounded-xl border border-slate-200 bg-white p-3 text-slate-900 placeholder:text-slate-400 outline-none transition-all focus:ring-2 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 dark:placeholder:text-slate-400"
                                     value={editData.phone || ''}
                                     onChange={(event) => setEditData({ ...editData, phone: event.target.value })}
                                 />
@@ -373,7 +380,7 @@ const ClientDetail = () => {
                                 <input
                                     required
                                     type="text"
-                                    className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                                    className="w-full rounded-xl border border-slate-200 bg-white p-3 text-slate-900 placeholder:text-slate-400 outline-none transition-all focus:ring-2 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 dark:placeholder:text-slate-400"
                                     value={editData.address || ''}
                                     onChange={(event) => setEditData({ ...editData, address: event.target.value })}
                                 />

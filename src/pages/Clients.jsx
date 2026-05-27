@@ -105,7 +105,7 @@ const Clients = () => {
                         <input
                             type="text"
                             placeholder="Nombre, RUT o email..."
-                            className="pl-10 pr-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 w-72 shadow-sm transition-all"
+                            className="w-72 rounded-xl border border-slate-200 bg-white py-2 pl-10 pr-4 text-slate-900 placeholder:text-slate-400 shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-400"
                             value={searchTerm}
                             onChange={(event) => {
                                 setSearchTerm(event.target.value);
@@ -136,7 +136,7 @@ const Clients = () => {
                                 <input
                                     required
                                     type="text"
-                                    className="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                                    className="w-full rounded-xl border border-slate-200 bg-white p-3 text-slate-900 placeholder:text-slate-400 outline-none transition-all focus:ring-2 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 dark:placeholder:text-slate-400"
                                     value={newClient.name}
                                     onChange={(event) => {
                                         setNewClient({ ...newClient, name: event.target.value });
@@ -149,7 +149,7 @@ const Clients = () => {
                                 <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Email (Opcional)</label>
                                 <input
                                     type="email"
-                                    className="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                                    className="w-full rounded-xl border border-slate-200 bg-white p-3 text-slate-900 placeholder:text-slate-400 outline-none transition-all focus:ring-2 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 dark:placeholder:text-slate-400"
                                     value={newClient.email}
                                     onChange={(event) => {
                                         setNewClient({ ...newClient, email: event.target.value });
@@ -163,7 +163,7 @@ const Clients = () => {
                                 <input
                                     required
                                     type="text"
-                                    className="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                                    className="w-full rounded-xl border border-slate-200 bg-white p-3 text-slate-900 placeholder:text-slate-400 outline-none transition-all focus:ring-2 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 dark:placeholder:text-slate-400"
                                     value={newClient.rut}
                                     onChange={(event) => {
                                         setNewClient({ ...newClient, rut: formatRutInput(event.target.value) });
@@ -177,7 +177,7 @@ const Clients = () => {
                                 <input
                                     required
                                     type="text"
-                                    className="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                                    className="w-full rounded-xl border border-slate-200 bg-white p-3 text-slate-900 placeholder:text-slate-400 outline-none transition-all focus:ring-2 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 dark:placeholder:text-slate-400"
                                     value={newClient.phone}
                                     onChange={(event) => {
                                         setNewClient({ ...newClient, phone: event.target.value });
@@ -191,7 +191,7 @@ const Clients = () => {
                                 <input
                                     required
                                     type="text"
-                                    className="w-full p-3 bg-slate-50 dark:bg-slate-700 dark:text-white border border-slate-200 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                                    className="w-full rounded-xl border border-slate-200 bg-white p-3 text-slate-900 placeholder:text-slate-400 outline-none transition-all focus:ring-2 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 dark:placeholder:text-slate-400"
                                     value={newClient.address}
                                     onChange={(event) => {
                                         setNewClient({ ...newClient, address: event.target.value });

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
 import {
@@ -19,8 +19,13 @@ import { formatRutInput, isValidRut } from '../utils/rut';
 
 const isValidEmail = (value) => /^[^\s@,]+@[^\s@,]+\.[^\s@,]+$/.test(value);
 
+const formLabelClass = 'text-sm font-bold text-slate-700 dark:text-slate-200';
+const baseInputClass = 'w-full rounded-2xl border border-slate-200 bg-white p-4 text-slate-900 outline-none transition-all placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 dark:placeholder:text-slate-400';
+const secondaryButtonClass = 'rounded-2xl bg-slate-100 px-6 py-4 font-bold text-slate-700 transition-all hover:bg-blue-600 hover:text-white dark:bg-slate-700 dark:text-slate-100 dark:hover:bg-blue-600';
+
 const NewLoan = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const { clients, addLoan, addClient, getLoanPreview } = useLoans();
 
     const [step, setStep] = useState(1);
@@ -65,6 +70,25 @@ const NewLoan = () => {
         () => (clients || []).find((client) => client.id === formData.clientId),
         [clients, formData.clientId]
     );
+
+    useEffect(() => {
+        const preselectedClientId = location.state?.preselectedClientId;
+        const requestedStep = location.state?.openStep;
+
+        if (!preselectedClientId || !(clients || []).some((client) => client.id === preselectedClientId)) {
+            return;
+        }
+
+        setFormData((previous) => (
+            previous.clientId === preselectedClientId
+                ? previous
+                : { ...previous, clientId: preselectedClientId }
+        ));
+
+        if (requestedStep === 2) {
+            setStep((previous) => Math.max(previous, 2));
+        }
+    }, [clients, location.state]);
 
     useEffect(() => {
         const fetchPreview = async () => {
@@ -227,7 +251,7 @@ const NewLoan = () => {
             <header className="flex items-center justify-between">
                 <div>
                     <h2 className="text-3xl font-bold text-slate-800 dark:text-white">Constructor de Prestamo</h2>
-                    <p className="text-slate-500">Sigue los pasos para crear un nuevo credito.</p>
+                    <p className="text-slate-500 dark:text-slate-300">Sigue los pasos para crear un nuevo credito.</p>
                 </div>
                 <div className="flex items-center gap-3 rounded-2xl border border-slate-100 bg-white p-3 shadow-sm dark:border-slate-700 dark:bg-slate-800">
                     {steps.map((item) => (
@@ -235,7 +259,7 @@ const NewLoan = () => {
                             <div className={`flex h-10 w-10 items-center justify-center rounded-xl font-bold ${step === item.id ? 'bg-blue-600 text-white' : step > item.id ? 'bg-emerald-100 text-emerald-600' : 'bg-slate-100 text-slate-400'}`}>
                                 {step > item.id ? <CheckCircle2 size={18} /> : item.id}
                             </div>
-                            <span className="hidden text-sm font-semibold text-slate-500 md:block">{item.name}</span>
+                            <span className="hidden text-sm font-semibold text-slate-500 dark:text-slate-300 md:block">{item.name}</span>
                         </div>
                     ))}
                 </div>
@@ -246,7 +270,7 @@ const NewLoan = () => {
                     <div className="space-y-6 p-8">
                         <div className="flex items-end gap-3">
                             <div className="flex-1">
-                                <label className="text-sm font-semibold uppercase tracking-wider text-slate-600">
+                                <label className="text-sm font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-200">
                                     Buscar Cliente
                                     {errors.clientId && <span className="ml-2 font-bold normal-case text-rose-500">{errors.clientId}</span>}
                                 </label>
@@ -255,12 +279,12 @@ const NewLoan = () => {
                                     placeholder="Nombre, telefono o RUT..."
                                     value={searchTerm}
                                     onChange={(event) => setSearchTerm(event.target.value)}
-                                    className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 p-4 outline-none transition-all focus:ring-2 focus:ring-blue-500"
+                                    className={`${baseInputClass} mt-2`}
                                 />
                             </div>
                             <button
                                 onClick={() => setIsAddingClient(true)}
-                                className="rounded-2xl bg-slate-100 px-6 py-4 font-bold text-slate-600 transition-all hover:bg-blue-600 hover:text-white"
+                                className={secondaryButtonClass}
                             >
                                 Nuevo Cliente
                             </button>
@@ -269,7 +293,7 @@ const NewLoan = () => {
                         <div className="grid max-h-[420px] grid-cols-1 gap-4 overflow-y-auto pr-2 md:grid-cols-2">
                             {filteredClients.length === 0 ? (
                                 <div className="col-span-full rounded-3xl border-2 border-dashed border-slate-100 py-12 text-center dark:border-slate-700">
-                                    <p className="font-medium text-slate-400">No se encontraron resultados para "{searchTerm}"</p>
+                                    <p className="font-medium text-slate-500 dark:text-slate-300">No se encontraron resultados para "{searchTerm}"</p>
                                     <button onClick={() => setIsAddingClient(true)} className="mt-4 font-bold text-blue-600 hover:underline">
                                         Crear nuevo cliente
                                     </button>
@@ -313,26 +337,26 @@ const NewLoan = () => {
 
                 {step === 2 && (
                     <div className="space-y-8 p-8">
-                        <div className="rounded-2xl border border-blue-100 bg-blue-50 p-4 dark:border-slate-600 dark:bg-slate-700/50">
-                            <p className="text-xs font-bold uppercase tracking-tight text-blue-600">Cliente Seleccionado</p>
+                        <div className="rounded-2xl border border-blue-100 bg-blue-50 p-4 dark:border-slate-600 dark:bg-slate-700/60">
+                            <p className="text-xs font-bold uppercase tracking-tight text-blue-600 dark:text-blue-300">Cliente Seleccionado</p>
                             <p className="font-bold text-slate-800 dark:text-white">{selectedClient?.name}</p>
-                            {selectedClient?.rut && <p className="text-sm text-slate-500">{selectedClient.rut}</p>}
+                            {selectedClient?.rut && <p className="text-sm text-slate-600 dark:text-slate-300">{selectedClient.rut}</p>}
                         </div>
 
                         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                             <div className="space-y-2">
-                                <label className="text-sm font-bold text-slate-700">Monto</label>
+                                <label className={formLabelClass}>Monto</label>
                                 <input
                                     type="number"
                                     name="amount"
                                     value={formData.amount}
                                     onChange={handleChange}
-                                    className={`w-full rounded-2xl border p-4 outline-none transition-all ${errors.amount ? 'border-rose-400 focus:ring-rose-200' : 'border-slate-200 focus:ring-blue-500 dark:border-slate-600'}`}
+                                    className={`${baseInputClass} ${errors.amount ? 'border-rose-400 focus:ring-rose-200' : ''}`}
                                 />
                                 {errors.amount && <span className="ml-1 text-xs font-bold text-rose-500">{errors.amount}</span>}
                             </div>
                             <div className="space-y-2">
-                                <label className="flex items-center gap-2 text-sm font-bold text-slate-700">
+                                <label className={`flex items-center gap-2 ${formLabelClass}`}>
                                     <Percent size={16} className="text-blue-500" />
                                     Tasa de Interes
                                 </label>
@@ -342,12 +366,12 @@ const NewLoan = () => {
                                     name="interestRate"
                                     value={formData.interestRate}
                                     onChange={handleChange}
-                                    className={`w-full rounded-2xl border p-4 outline-none transition-all ${errors.interestRate ? 'border-rose-400 focus:ring-rose-200' : 'border-slate-200 focus:ring-blue-500 dark:border-slate-600'}`}
+                                    className={`${baseInputClass} ${errors.interestRate ? 'border-rose-400 focus:ring-rose-200' : ''}`}
                                 />
                                 {errors.interestRate && <span className="ml-1 text-xs font-bold text-rose-500">{errors.interestRate}</span>}
                             </div>
                             <div className="space-y-2">
-                                <label className="flex items-center gap-2 text-sm font-bold text-slate-700">
+                                <label className={`flex items-center gap-2 ${formLabelClass}`}>
                                     <Clock size={16} className="text-blue-500" />
                                     Duracion (Meses)
                                 </label>
@@ -356,22 +380,22 @@ const NewLoan = () => {
                                     name="durationMonths"
                                     value={formData.durationMonths}
                                     onChange={handleChange}
-                                    className={`w-full rounded-2xl border p-4 outline-none transition-all ${errors.durationMonths ? 'border-rose-400 focus:ring-rose-200' : 'border-slate-200 focus:ring-blue-500 dark:border-slate-600'}`}
+                                    className={`${baseInputClass} ${errors.durationMonths ? 'border-rose-400 focus:ring-rose-200' : ''}`}
                                 />
                                 {errors.durationMonths && <span className="ml-1 text-xs font-bold text-rose-500">{errors.durationMonths}</span>}
                             </div>
                             <div className="space-y-2">
-                                <label className="text-sm font-bold text-slate-700">Fecha de Inicio</label>
+                                <label className={formLabelClass}>Fecha de Inicio</label>
                                 <input
                                     type="date"
                                     name="startDate"
                                     value={formData.startDate}
                                     onChange={handleChange}
-                                    className="w-full rounded-2xl border border-slate-200 p-4 outline-none transition-all focus:ring-2 focus:ring-blue-500 dark:border-slate-600"
+                                    className={baseInputClass}
                                 />
                             </div>
                             <div className="space-y-2">
-                                <label className="text-sm font-bold text-slate-700">Frecuencia de Pagos</label>
+                                <label className={formLabelClass}>Frecuencia de Pagos</label>
                                 <div className="grid grid-cols-3 gap-2">
                                     {[
                                         { value: 'Monthly', label: 'Mensual' },
@@ -382,7 +406,7 @@ const NewLoan = () => {
                                             key={frequency.value}
                                             type="button"
                                             onClick={() => setFormData((previous) => ({ ...previous, frequency: frequency.value }))}
-                                            className={`rounded-xl border-2 p-3 font-medium transition-all ${formData.frequency === frequency.value ? 'border-blue-600 bg-blue-50 text-blue-700' : 'border-slate-100 bg-slate-50 text-slate-500 hover:border-slate-200'}`}
+                                            className={`rounded-xl border-2 p-3 font-medium transition-all ${formData.frequency === frequency.value ? 'border-blue-600 bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-200' : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 dark:hover:border-slate-500'}`}
                                         >
                                             {frequency.label}
                                         </button>
@@ -390,14 +414,14 @@ const NewLoan = () => {
                                 </div>
                             </div>
                             <div className="space-y-2">
-                                <label className="text-sm font-bold text-slate-700">Tipo de Amortizacion</label>
+                                <label className={formLabelClass}>Tipo de Amortizacion</label>
                                 <div className="grid grid-cols-2 gap-2">
                                     {['Fixed', 'Simple'].map((type) => (
                                         <button
                                             key={type}
                                             type="button"
                                             onClick={() => setFormData((previous) => ({ ...previous, loanType: type }))}
-                                            className={`rounded-xl border-2 p-3 font-medium transition-all ${formData.loanType === type ? 'border-blue-600 bg-blue-50 text-blue-700' : 'border-slate-100 bg-slate-50 text-slate-500 hover:border-slate-200'}`}
+                                            className={`rounded-xl border-2 p-3 font-medium transition-all ${formData.loanType === type ? 'border-blue-600 bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-200' : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-100 dark:hover:border-slate-500'}`}
                                         >
                                             {type === 'Fixed' ? 'Cuota Fija' : 'Interes Simple'}
                                         </button>
@@ -413,25 +437,25 @@ const NewLoan = () => {
                             </h3>
                             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                                 <div className="space-y-2">
-                                    <label className="text-sm font-bold text-slate-700">Dias de Gracia</label>
+                                    <label className={formLabelClass}>Dias de Gracia</label>
                                     <input
                                         type="number"
                                         name="graceDays"
                                         value={formData.graceDays}
                                         onChange={handleChange}
-                                        className="w-full rounded-2xl border border-slate-200 p-4 outline-none transition-all focus:ring-2 focus:ring-amber-500 dark:border-slate-600"
+                                        className={`${baseInputClass} focus:ring-amber-500`}
                                     />
                                     {errors.graceDays && <span className="ml-1 text-xs font-bold text-rose-500">{errors.graceDays}</span>}
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-sm font-bold text-slate-700">Tipo de Mora</label>
-                                    <div className="flex rounded-2xl border border-slate-200 bg-slate-50 p-1">
+                                    <label className={formLabelClass}>Tipo de Mora</label>
+                                    <div className="flex rounded-2xl border border-slate-200 bg-slate-50 p-1 dark:border-slate-600 dark:bg-slate-700">
                                         {['Fixed', 'Percent'].map((type) => (
                                             <button
                                                 key={type}
                                                 type="button"
                                                 onClick={() => setFormData((previous) => ({ ...previous, lateFeeType: type }))}
-                                                className={`flex-1 rounded-xl py-3 text-sm font-bold transition-all ${formData.lateFeeType === type ? 'bg-white text-slate-800 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+                                                className={`flex-1 rounded-xl py-3 text-sm font-bold transition-all ${formData.lateFeeType === type ? 'bg-white text-slate-900 shadow-sm dark:bg-slate-100 dark:text-slate-900' : 'text-slate-600 hover:text-slate-800 dark:text-slate-200 dark:hover:text-white'}`}
                                             >
                                                 {type === 'Fixed' ? 'Monto Fijo ($)' : 'Porcentaje (%)'}
                                             </button>
@@ -439,14 +463,14 @@ const NewLoan = () => {
                                     </div>
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-sm font-bold text-slate-700">Valor de Mora</label>
+                                    <label className={formLabelClass}>Valor de Mora</label>
                                     <input
                                         type="number"
                                         name="lateFeeValue"
                                         step={formData.lateFeeType === 'Percent' ? '0.01' : '1'}
                                         value={formData.lateFeeValue}
                                         onChange={handleChange}
-                                        className="w-full rounded-2xl border border-slate-200 p-4 outline-none transition-all focus:ring-2 focus:ring-amber-500 dark:border-slate-600"
+                                        className={`${baseInputClass} focus:ring-amber-500`}
                                     />
                                     {errors.lateFeeValue && <span className="ml-1 text-xs font-bold text-rose-500">{errors.lateFeeValue}</span>}
                                 </div>
@@ -454,7 +478,7 @@ const NewLoan = () => {
                         </div>
 
                         <div className="flex justify-between border-t border-slate-50 pt-4">
-                            <button onClick={handleBack} className="flex items-center gap-2 rounded-2xl px-6 py-4 font-bold text-slate-500 transition-all hover:bg-slate-50">
+                            <button onClick={handleBack} className="flex items-center gap-2 rounded-2xl px-6 py-4 font-bold text-slate-600 transition-all hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-700/60">
                                 <ArrowLeft size={20} />
                                 Atras
                             </button>
@@ -494,24 +518,24 @@ const NewLoan = () => {
                                     </div>
                                 </div>
 
-                                <div className="rounded-3xl border border-slate-100 bg-slate-50 p-6 dark:border-slate-700">
-                                    <h4 className="mb-4 text-xs font-bold uppercase tracking-widest text-slate-500">Detalles</h4>
+                                <div className="rounded-3xl border border-slate-100 bg-white p-6 text-slate-900 shadow-sm dark:border-slate-700 dark:bg-slate-100">
+                                    <h4 className="mb-4 text-xs font-bold uppercase tracking-widest text-slate-600">Detalles</h4>
                                     <ul className="space-y-3 text-sm">
                                         <li className="flex justify-between">
-                                            <span className="text-slate-500">Cliente</span>
-                                            <span className="font-bold">{selectedClient?.name}</span>
+                                            <span className="text-slate-600">Cliente</span>
+                                            <span className="font-bold text-slate-900">{selectedClient?.name}</span>
                                         </li>
                                         <li className="flex justify-between">
-                                            <span className="text-slate-500">Frecuencia</span>
-                                            <span className="font-bold">{formData.frequency}</span>
+                                            <span className="text-slate-600">Frecuencia</span>
+                                            <span className="font-bold text-slate-900">{formData.frequency}</span>
                                         </li>
                                         <li className="flex justify-between">
-                                            <span className="text-slate-500">Tipo</span>
-                                            <span className="font-bold">{formData.loanType}</span>
+                                            <span className="text-slate-600">Tipo</span>
+                                            <span className="font-bold text-slate-900">{formData.loanType}</span>
                                         </li>
                                         <li className="flex justify-between">
-                                            <span className="text-slate-500">Plazo</span>
-                                            <span className="font-bold">{formData.durationMonths} meses</span>
+                                            <span className="text-slate-600">Plazo</span>
+                                            <span className="font-bold text-slate-900">{formData.durationMonths} meses</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -524,23 +548,23 @@ const NewLoan = () => {
                                 </h4>
                                 <div className="max-h-[500px] overflow-y-auto rounded-3xl border border-slate-100 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-800">
                                     <table className="w-full text-left text-sm">
-                                        <thead className="sticky top-0 bg-slate-50">
+                                        <thead className="sticky top-0 bg-slate-50 dark:bg-slate-900">
                                             <tr>
-                                                <th className="p-4 font-bold text-slate-600">#</th>
-                                                <th className="p-4 font-bold text-slate-600">Fecha</th>
-                                                <th className="p-4 text-right font-bold text-slate-600">Cuota</th>
-                                                <th className="p-4 text-right font-bold text-slate-600">Capital</th>
-                                                <th className="p-4 text-right font-bold text-slate-600">Interes</th>
+                                                <th className="p-4 font-bold text-slate-600 dark:text-slate-200">#</th>
+                                                <th className="p-4 font-bold text-slate-600 dark:text-slate-200">Fecha</th>
+                                                <th className="p-4 text-right font-bold text-slate-600 dark:text-slate-200">Cuota</th>
+                                                <th className="p-4 text-right font-bold text-slate-600 dark:text-slate-200">Capital</th>
+                                                <th className="p-4 text-right font-bold text-slate-600 dark:text-slate-200">Interes</th>
                                             </tr>
                                         </thead>
-                                        <tbody className="divide-y divide-slate-50">
+                                        <tbody className="divide-y divide-slate-50 dark:divide-slate-700">
                                             {schedule.map((payment) => (
-                                                <tr key={payment.installment} className="transition-colors hover:bg-blue-50/50">
-                                                    <td className="p-4 font-medium text-slate-400">{payment.installment}</td>
-                                                    <td className="p-4 text-slate-700">{format(payment.dueDate, 'dd MMM yyyy')}</td>
+                                                <tr key={payment.installment} className="transition-colors hover:bg-blue-50/50 dark:hover:bg-slate-700/40">
+                                                    <td className="p-4 font-medium text-slate-500 dark:text-slate-300">{payment.installment}</td>
+                                                    <td className="p-4 text-slate-700 dark:text-slate-100">{format(payment.dueDate, 'dd MMM yyyy')}</td>
                                                     <td className="p-4 text-right font-bold text-slate-800 dark:text-white">${Number(payment.amount).toFixed(2)}</td>
-                                                    <td className="p-4 text-right text-slate-600">${Number(payment.principal).toFixed(2)}</td>
-                                                    <td className="p-4 text-right text-slate-600">${Number(payment.interest).toFixed(2)}</td>
+                                                    <td className="p-4 text-right text-slate-700 dark:text-slate-200">${Number(payment.principal).toFixed(2)}</td>
+                                                    <td className="p-4 text-right text-slate-700 dark:text-slate-200">${Number(payment.interest).toFixed(2)}</td>
                                                 </tr>
                                             ))}
                                         </tbody>
@@ -550,7 +574,7 @@ const NewLoan = () => {
                         </div>
 
                         <div className="flex justify-between border-t border-slate-50 pt-4">
-                            <button onClick={handleBack} className="flex items-center gap-2 rounded-2xl px-6 py-4 font-bold text-slate-500 transition-all hover:bg-slate-50">
+                            <button onClick={handleBack} className="flex items-center gap-2 rounded-2xl px-6 py-4 font-bold text-slate-600 transition-all hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-700/60">
                                 <ArrowLeft size={20} />
                                 Atras
                             </button>
@@ -574,7 +598,7 @@ const NewLoan = () => {
                                 <input
                                     required
                                     placeholder="Nombre Completo"
-                                    className="w-full rounded-xl border border-slate-200 bg-slate-50 p-3 outline-none dark:border-slate-600 dark:bg-slate-700 dark:text-white"
+                                    className="w-full rounded-xl border border-slate-200 bg-white p-3 text-slate-900 outline-none placeholder:text-slate-400 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:placeholder:text-slate-400"
                                     value={newClientData.name}
                                     onChange={(event) => {
                                         setNewClientData({ ...newClientData, name: event.target.value });
@@ -587,7 +611,7 @@ const NewLoan = () => {
                                 <input
                                     required
                                     placeholder="RUT"
-                                    className="w-full rounded-xl border border-slate-200 bg-slate-50 p-3 outline-none dark:border-slate-600 dark:bg-slate-700 dark:text-white"
+                                    className="w-full rounded-xl border border-slate-200 bg-white p-3 text-slate-900 outline-none placeholder:text-slate-400 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:placeholder:text-slate-400"
                                     value={newClientData.rut}
                                     onChange={(event) => {
                                         setNewClientData({ ...newClientData, rut: formatRutInput(event.target.value) });
@@ -600,7 +624,7 @@ const NewLoan = () => {
                                 <input
                                     type="email"
                                     placeholder="Email (opcional)"
-                                    className="w-full rounded-xl border border-slate-200 bg-slate-50 p-3 outline-none dark:border-slate-600 dark:bg-slate-700 dark:text-white"
+                                    className="w-full rounded-xl border border-slate-200 bg-white p-3 text-slate-900 outline-none placeholder:text-slate-400 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:placeholder:text-slate-400"
                                     value={newClientData.email}
                                     onChange={(event) => {
                                         setNewClientData({ ...newClientData, email: event.target.value });
@@ -611,18 +635,18 @@ const NewLoan = () => {
                             </div>
                             <input
                                     placeholder="Telefono"
-                                className="w-full rounded-xl border border-slate-200 bg-slate-50 p-3 outline-none dark:border-slate-600 dark:bg-slate-700 dark:text-white"
+                                className="w-full rounded-xl border border-slate-200 bg-white p-3 text-slate-900 outline-none placeholder:text-slate-400 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:placeholder:text-slate-400"
                                 value={newClientData.phone}
                                 onChange={(event) => setNewClientData({ ...newClientData, phone: event.target.value })}
                             />
                             <input
                                 placeholder="Direccion"
-                                className="w-full rounded-xl border border-slate-200 bg-slate-50 p-3 outline-none dark:border-slate-600 dark:bg-slate-700 dark:text-white"
+                                className="w-full rounded-xl border border-slate-200 bg-white p-3 text-slate-900 outline-none placeholder:text-slate-400 dark:border-slate-600 dark:bg-slate-700 dark:text-white dark:placeholder:text-slate-400"
                                 value={newClientData.address}
                                 onChange={(event) => setNewClientData({ ...newClientData, address: event.target.value })}
                             />
                             <div className="flex gap-3 pt-4">
-                                <button type="button" onClick={() => setIsAddingClient(false)} className="flex-1 py-3 font-bold text-slate-400">
+                                <button type="button" onClick={() => setIsAddingClient(false)} className="flex-1 py-3 font-bold text-slate-600 dark:text-slate-200">
                                     Cancelar
                                 </button>
                                 <button type="submit" className="flex-1 rounded-xl bg-blue-600 py-3 font-bold text-white">

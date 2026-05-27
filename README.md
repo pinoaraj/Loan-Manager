@@ -5,6 +5,7 @@ Loan Manager is a desktop-first loan management system built with React, Express
 ## Current desktop beta scope
 
 - Client management with `RUT`, phone, email and address
+- Loan creation can start from the client detail view with the client preselected
 - Loan creation with fixed or simple schedules
 - Payment registration with partial payments and transaction history
 - Collections dashboard with alerts and upcoming due dates

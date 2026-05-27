@@ -250,20 +250,20 @@ const Calculator = () => {
                             </div>
                         </div>
 
-                        <div className="flex flex-col justify-center rounded-3xl border border-slate-100 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-800 sm:p-6">
-                            <h4 className="mb-4 text-xs font-bold uppercase tracking-widest text-slate-400">Informacion del Plan</h4>
+                        <div className="flex flex-col justify-center rounded-3xl border border-slate-100 bg-white p-5 text-slate-900 shadow-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 sm:p-6">
+                            <h4 className="mb-4 text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">Informacion del Plan</h4>
                             <div className="space-y-3">
                                 <div className="flex items-center justify-between gap-3">
-                                    <span className="text-sm font-medium text-slate-500">N de Cuotas:</span>
+                                    <span className="text-sm font-medium text-slate-600 dark:text-slate-400">N de Cuotas:</span>
                                     <span className="rounded-lg bg-blue-100 px-3 py-1 font-bold text-blue-700">{schedule.length}</span>
                                 </div>
                                 <div className="flex items-center justify-between gap-3">
-                                    <span className="text-sm font-medium text-slate-500">Tasa Aplicada:</span>
-                                    <span className="text-right font-bold text-slate-800 dark:text-white">{(parseFloat(formData.interestRate) * 100).toFixed(1)}%</span>
+                                    <span className="text-sm font-medium text-slate-600 dark:text-slate-400">Tasa Aplicada:</span>
+                                    <span className="text-right font-bold text-slate-900 dark:text-slate-100">{(parseFloat(formData.interestRate) * 100).toFixed(1)}%</span>
                                 </div>
                                 <div className="flex items-center justify-between gap-3">
-                                    <span className="text-sm font-medium text-slate-500">Tipo:</span>
-                                    <span className="text-right font-bold text-slate-800 dark:text-white">{formData.loanType === 'Fixed' ? 'Frances (Cuota Fija)' : 'Interes Simple'}</span>
+                                    <span className="text-sm font-medium text-slate-600 dark:text-slate-400">Tipo:</span>
+                                    <span className="text-right font-bold text-slate-900 dark:text-slate-100">{formData.loanType === 'Fixed' ? 'Frances (Cuota Fija)' : 'Interes Simple'}</span>
                                 </div>
                             </div>
                         </div>
