@@ -8,6 +8,10 @@ import DashboardKPI from '../components/dashboard/DashboardKPI';
 import RecentActivity from '../components/dashboard/RecentActivity';
 import { Skeleton } from '../components/ui/Skeleton';
 
+const getPaymentDetailPath = (loanId, paymentId) => paymentId
+    ? `/loans/${loanId}?payment=${paymentId}`
+    : `/loans/${loanId}`;
+
 const RevenueChart = lazy(() => import('../components/dashboard/RevenueChart'));
 const PortfolioChart = lazy(() => import('../components/dashboard/PortfolioChart'));
 
@@ -122,12 +126,12 @@ const Dashboard = () => {
                                         className={`flex items-center gap-3 rounded-xl border p-3 transition-all hover:bg-opacity-50 ${alert.type === 'overdue' ? 'border-red-100 bg-red-50' : 'border-amber-100 bg-amber-50'}`}
                                     >
                                         <div
-                                            onClick={() => navigate(`/loans/${alert.loanId}`)}
+                                            onClick={() => navigate(getPaymentDetailPath(alert.loanId, alert.paymentId))}
                                             className={`shrink-0 cursor-pointer rounded-full p-1.5 ${alert.type === 'overdue' ? 'bg-red-100 text-red-600' : 'bg-amber-100 text-amber-600'}`}
                                         >
                                             <AlertCircle size={16} />
                                         </div>
-                                        <div className="min-w-0 flex-1 cursor-pointer" onClick={() => navigate(`/loans/${alert.loanId}`)}>
+                                        <div className="min-w-0 flex-1 cursor-pointer" onClick={() => navigate(getPaymentDetailPath(alert.loanId, alert.paymentId))}>
                                             <div className="flex items-center justify-between">
                                                 <h4 className="truncate pr-2 text-sm font-semibold text-slate-800 dark:text-slate-200">
                                                     {alert.clientName}

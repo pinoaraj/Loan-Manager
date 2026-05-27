@@ -18,6 +18,16 @@ const getDateLabel = (value, fallback = 'Sin fecha') => {
         ? format(date, 'dd MMM yyyy', { locale: es })
         : fallback;
 };
+const downloadBlob = (blob, filename) => {
+    const url = window.URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = filename;
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    window.URL.revokeObjectURL(url);
+};
 
 const getScheduleRows = (loan) => {
     const payments = Array.isArray(loan?.payments) ? [...loan.payments] : [];
@@ -82,7 +92,8 @@ export const generateLoanContract = (loan, client) => {
     doc.text('Firma del Cliente', 30, finalY + 10);
     doc.text('Firma del Prestamista', 140, finalY + 10);
 
-    doc.save(`Contrato_${clientName.replace(/\s+/g, '_')}_${loan?.id || 'sin-id'}.pdf`);
+    const blob = doc.output('blob');
+    downloadBlob(blob, `Contrato_${clientName.replace(/\s+/g, '_')}_${loan?.id || 'sin-id'}.pdf`);
 };
 
 export const generateReceipt = (payment, loan, client) => {
@@ -128,5 +139,6 @@ export const generateReceipt = (payment, loan, client) => {
     doc.text('Gracias por su pago puntual.', 105, 280, { align: 'center' });
     doc.text(COMPANY_NAME, 105, 285, { align: 'center' });
 
-    doc.save(`Recibo_${payment?.id || 'sin-id'}_${clientName.replace(/\s+/g, '_')}.pdf`);
+    const blob = doc.output('blob');
+    downloadBlob(blob, `Recibo_${payment?.id || 'sin-id'}_${clientName.replace(/\s+/g, '_')}.pdf`);
 };

@@ -20,10 +20,12 @@ The desktop app now fills legal documents from the client record.
 
 - Documents can be opened from loan detail and from client detail; when a client has multiple loans, the app lets you choose which loan to use.
 - Loan detail also exposes direct exports for `Contrato PDF`, `Word` and `Calendario`.
+- Alerts and upcoming-payment views now deep-link to the specific pending `paymentId` inside the loan detail flow.
 - `Pagare`: generated from `public/templates/pagare_template_sc.docx`
 - `Mutuo`: generated directly from the active loan data as a `.docx` document
 - Autofill fields: client name, `RUT`, address, loan amount and schedule-derived values
 - Desktop builds resolve the `Pagare` template from the packaged `dist/templates/` assets so the same flow works in development and in the installed app.
+- Desktop PDF exports use direct blob downloads for better Electron compatibility.
 
 Because of this flow, `RUT` is now a first-class field in client creation, editing, search and import.
 

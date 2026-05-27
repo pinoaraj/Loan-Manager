@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { format, parseISO } from 'date-fns';
 import { ChevronDown, ChevronUp, MessageCircle, FileText, Calendar, DollarSign, Clock } from 'lucide-react';
 import { downloadPaymentReminder } from '../utils/calendar';
@@ -6,8 +6,14 @@ import { generateWhatsAppLink, getReminderMessage } from '../utils/communication
 
 const toAmount = (value) => Number(value || 0);
 
-const PaymentScheduleTable = ({ loan, client, onRegisterPayment }) => {
+const PaymentScheduleTable = ({ loan, client, onRegisterPayment, focusedPaymentId }) => {
     const [expandedPaymentId, setExpandedPaymentId] = useState(null);
+
+    useEffect(() => {
+        if (focusedPaymentId) {
+            setExpandedPaymentId(focusedPaymentId);
+        }
+    }, [focusedPaymentId]);
 
     const sendWhatsAppReminder = (payment) => {
         if (!client?.phone) {
@@ -65,7 +71,12 @@ const PaymentScheduleTable = ({ loan, client, onRegisterPayment }) => {
 
                             return (
                             <Fragment key={payment.id}>
-                                <tr className={`transition-colors ${payment.status === 'Paid' ? 'bg-emerald-50/30 dark:bg-emerald-950/10' : 'hover:bg-slate-50/50 dark:hover:bg-slate-700/30'}`}>
+                                <tr className={`transition-colors ${payment.id === focusedPaymentId
+                                    ? 'bg-blue-50 ring-1 ring-inset ring-blue-200 dark:bg-blue-950/20 dark:ring-blue-800'
+                                    : payment.status === 'Paid'
+                                        ? 'bg-emerald-50/30 dark:bg-emerald-950/10'
+                                        : 'hover:bg-slate-50/50 dark:hover:bg-slate-700/30'
+                                    }`}>
                                     <td className="p-4 font-medium text-slate-500 dark:text-slate-300">
                                         <div className="flex items-center gap-2">
                                             {((payment.transactions && payment.transactions.length > 0) || payment.status === 'Partial' || payment.status === 'Paid') && (

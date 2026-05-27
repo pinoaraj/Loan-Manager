@@ -1,5 +1,5 @@
-import React, { Suspense, lazy, useMemo, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { Suspense, lazy, useEffect, useMemo, useState } from 'react';
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Calendar, User, AlertCircle, FileText, RefreshCw, PauseCircle, PlayCircle } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { format, parseISO } from 'date-fns';
@@ -47,6 +47,7 @@ const SectionLoader = () => (
 const LoanDetail = () => {
     const { id: loanId } = useParams();
     const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
     const { loans, clients, recalculateLoan, registerPayment, togglePause } = useLoans();
     const { token, fetchWithAuth } = useAuth();
     const { getLoanHealth } = useLoanHealth();
@@ -54,6 +55,7 @@ const LoanDetail = () => {
     const [isPagareModalOpen, setIsPagareModalOpen] = useState(false);
     const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
     const [selectedPayment, setSelectedPayment] = useState(null);
+    const focusedPaymentId = searchParams.get('payment');
 
     const { data: fetchedLoan, isLoading } = useQuery({
         queryKey: ['loan-detail', loanId],
@@ -115,6 +117,20 @@ const LoanDetail = () => {
         setSelectedPayment(payment);
         setIsPaymentModalOpen(true);
     };
+
+    useEffect(() => {
+        if (!loan || !focusedPaymentId || isPaymentModalOpen) {
+            return;
+        }
+
+        const matchingPayment = loan.payments?.find((payment) => payment.id === focusedPaymentId);
+        if (!matchingPayment) {
+            return;
+        }
+
+        setSelectedPayment(matchingPayment);
+        setIsPaymentModalOpen(true);
+    }, [focusedPaymentId, isPaymentModalOpen, loan]);
 
     const handleRegisterPayment = async (paymentId, data) => {
         const result = await registerPayment(paymentId, data);
@@ -358,9 +374,14 @@ const LoanDetail = () => {
                     </div>
 
                     <Suspense fallback={<SectionLoader />}>
-                        <PaymentScheduleTable loan={loan} client={client} onRegisterPayment={handlePaymentClick} />
-                    </Suspense>
-                </div>
+                        <PaymentScheduleTable
+                            loan={loan}
+                            client={client}
+                            onRegisterPayment={handlePaymentClick}
+                            focusedPaymentId={focusedPaymentId}
+                        />
+            </Suspense>
+        </div>
             </div>
 
             <Suspense fallback={null}>
@@ -372,7 +393,15 @@ const LoanDetail = () => {
                 />
                 <PaymentModal
                     isOpen={isPaymentModalOpen}
-                    onClose={() => setIsPaymentModalOpen(false)}
+                    onClose={() => {
+                        setIsPaymentModalOpen(false);
+                        setSelectedPayment(null);
+                        if (focusedPaymentId) {
+                            const nextParams = new URLSearchParams(searchParams);
+                            nextParams.delete('payment');
+                            setSearchParams(nextParams, { replace: true });
+                        }
+                    }}
                     payment={selectedPayment}
                     onRegisterPayment={handleRegisterPayment}
                 />
