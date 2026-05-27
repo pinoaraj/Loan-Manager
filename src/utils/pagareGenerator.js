@@ -1,39 +1,23 @@
-import { AlignmentType, Document, HeadingLevel, Packer, Paragraph } from 'docx';
+import { AlignmentType, Document, HeadingLevel, Packer, Paragraph, TextRun } from 'docx';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import PizZip from 'pizzip';
 import { formatRut } from './rut';
 
 const PAGARE_TEMPLATE_PATH = '/templates/pagare_template_sc.docx';
-const MUTUO_TEMPLATE_PATH = '/templates/mutuo_template_sc.doc';
 
 const CREDITOR_NAME = 'INVERSIONES SANTA CRUZ Y COMPANIA LIMITADA';
 const CREDITOR_RUT = '76.111.318-6';
 const CREDITOR_ADDRESS = 'Ave. Grecia 3080-Dpto 3A, comuna de Nunoa, ciudad de Santiago';
-
-const MUTUO_SOURCE_NAME = 'Nidia Ester Catalan Jara';
-const MUTUO_SOURCE_NAME_ACCENTED = 'Nidia Ester Catalán Jara';
-const MUTUO_SOURCE_RUT = '16.786.133-4';
-const MUTUO_SOURCE_ADDRESS = 'Veinte de Enero 5653,Quinta Normal';
-const MUTUO_SOURCE_AMOUNT = '$ 15.000.000.-';
-const MUTUO_SOURCE_AMOUNT_WORDS = 'Quince millones de pesos';
-const MUTUO_SOURCE_DURATION_WORDS = 'Diez meses';
-const MUTUO_SOURCE_DURATION = '10 meses';
-const MUTUO_SOURCE_INSTALLMENT_DAY = '10';
-const MUTUO_SOURCE_INSTALLMENT_AMOUNT = '$ 1.715.000-';
-const MUTUO_SOURCE_INSTALLMENT_WORDS = 'Un millón Setecientos quince mil pesos';
-const MUTUO_SOURCE_RATE = '30%';
-const MUTUO_SOURCE_FIRST_DUE_DATE = '10 de Octubre de 2024';
-const MUTUO_SOURCE_LAST_DUE_DATE = '10 de Julio 2025';
-
-let mutuoTemplateTextPromise;
 
 const downloadBlob = (blob, filename) => {
     const url = window.URL.createObjectURL(blob);
     const anchor = document.createElement('a');
     anchor.href = url;
     anchor.download = filename;
+    document.body.appendChild(anchor);
     anchor.click();
+    anchor.remove();
     window.URL.revokeObjectURL(url);
 };
 
@@ -45,30 +29,6 @@ const fetchBinaryTemplate = async (path) => {
     return response.arrayBuffer();
 };
 
-const decodeLatin1 = (buffer) => new TextDecoder('iso-8859-1').decode(buffer);
-
-const extractMutuoTemplateText = (rawText) => {
-    const normalized = rawText.split('\0').join('');
-    const bodyMatch = normalized.match(/CONTRATO DE MUTUO[\s\S]*?\(Deudor\)/);
-    const body = bodyMatch ? bodyMatch[0] : normalized;
-
-    return body
-        .replace(/\r/g, '\n')
-        .replace(/\n{3,}/g, '\n\n')
-        .replace(/[ \t]+\n/g, '\n')
-        .trim();
-};
-
-const getMutuoTemplateText = async () => {
-    if (!mutuoTemplateTextPromise) {
-        mutuoTemplateTextPromise = fetchBinaryTemplate(MUTUO_TEMPLATE_PATH)
-            .then(decodeLatin1)
-            .then(extractMutuoTemplateText);
-    }
-
-    return mutuoTemplateTextPromise;
-};
-
 const escapeXml = (value = '') => String(value)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -76,21 +36,17 @@ const escapeXml = (value = '') => String(value)
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&apos;');
 
-const legalText = (value) => {
-    const text = String(value || '').trim();
-    return text || '________________';
+const getText = (value, fallback = '________________') => {
+    const text = String(value ?? '').trim();
+    return text || fallback;
 };
 
-const normalizeLegacyText = (value) => String(value || '')
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '');
-
-const getLoanInterestRate = (loan) => Number(loan.interestRate ?? loan.rate ?? 0);
-const getLoanDurationMonths = (loan) => Number(loan.durationMonths ?? loan.term ?? 0);
-const getLoanAmount = (loan) => Number(loan.amount ?? 0);
-const getInstallmentAmount = (loan) => Number(loan.payments?.[0]?.amount ?? 0);
-const getFirstDueDate = (loan) => (loan.payments?.[0]?.dueDate ? new Date(loan.payments[0].dueDate) : null);
-const getLastDueDate = (loan) => (loan.payments?.length ? new Date(loan.payments[loan.payments.length - 1].dueDate) : null);
+const getLoanInterestRate = (loan) => Number(loan?.interestRate ?? loan?.rate ?? 0);
+const getLoanDurationMonths = (loan) => Number(loan?.durationMonths ?? loan?.term ?? 0);
+const getLoanAmount = (loan) => Number(loan?.amount ?? 0);
+const getInstallmentAmount = (loan) => Number(loan?.payments?.[0]?.amount ?? 0);
+const getFirstDueDate = (loan) => (loan?.payments?.[0]?.dueDate ? new Date(loan.payments[0].dueDate) : null);
+const getLastDueDate = (loan) => (loan?.payments?.length ? new Date(loan.payments[loan.payments.length - 1].dueDate) : null);
 
 const formatMoney = (value) => Number(value || 0).toLocaleString('es-CL', {
     minimumFractionDigits: 0,
@@ -101,7 +57,7 @@ const normalizeDocumentName = (value = 'cliente') => String(value).trim().replac
 
 const getAnnualRate = (loan) => {
     const perPeriodRate = getLoanInterestRate(loan);
-    const frequency = String(loan.frequency || '').toLowerCase();
+    const frequency = String(loan?.frequency || '').toLowerCase();
 
     if (frequency === 'weekly') return perPeriodRate * 52;
     if (frequency === 'biweekly' || frequency === 'bi-weekly') return perPeriodRate * 26;
@@ -148,7 +104,6 @@ const numberToWords = (value) => {
     const remainder = amount % 1000000;
     const millionsLabel = millions === 1 ? 'un millon' : `${numberToWords(millions)} millones`;
     if (!remainder) return millionsLabel;
-
     if (remainder < 1000) return `${millionsLabel} ${numberUnderThousandToWords(remainder)}`;
 
     const thousands = Math.floor(remainder / 1000);
@@ -198,9 +153,9 @@ const replaceParagraphById = (xml, paraId, newParagraphXml) => xml.replace(
 );
 
 const renderPagareFromTemplate = async (loan, client) => {
-    const debtorName = legalText(client?.name);
-    const debtorRut = legalText(formatRut(client?.rut || ''));
-    const debtorAddress = legalText(client?.address);
+    const debtorName = getText(client?.name);
+    const debtorRut = getText(formatRut(client?.rut || ''));
+    const debtorAddress = getText(client?.address);
     const amount = formatMoney(getLoanAmount(loan));
     const amountWords = `${numberToWords(getLoanAmount(loan))} pesos`;
     const zip = new PizZip(await fetchBinaryTemplate(PAGARE_TEMPLATE_PATH));
@@ -223,80 +178,134 @@ const renderPagareFromTemplate = async (loan, client) => {
         mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
     });
 
-    downloadBlob(blob, `Pagare_${normalizeDocumentName(debtorName)}_${loan.id}.docx`);
+    downloadBlob(blob, `Pagare_${normalizeDocumentName(debtorName)}_${loan?.id || 'sin-prestamo'}.docx`);
 };
 
-const replaceMutuoValues = (templateText, replacements) => {
-    let output = templateText;
-
-    replacements.forEach(({ from, to }) => {
-        output = output.split(from).join(to);
-    });
-
-    return output;
-};
-
-const buildMutuoText = async (loan, client) => {
-    const debtorName = legalText(client?.name);
-    const debtorRut = legalText(formatRut(client?.rut || ''));
-    const debtorAddress = legalText(client?.address);
-    const debtorNamePlain = normalizeLegacyText(debtorName);
-    const debtorAddressPlain = normalizeLegacyText(debtorAddress);
+const buildMutuoParagraphs = (loan, client) => {
+    const debtorName = getText(client?.name);
+    const debtorRut = getText(formatRut(client?.rut || ''));
+    const debtorAddress = getText(client?.address);
     const amount = getLoanAmount(loan);
     const installmentAmount = getInstallmentAmount(loan);
     const durationMonths = getLoanDurationMonths(loan);
     const firstDueDate = getFirstDueDate(loan);
     const lastDueDate = getLastDueDate(loan);
     const dueDay = firstDueDate ? format(firstDueDate, 'd') : '__';
-    const installmentMonthsLabel = `${durationMonths} meses`;
-    const amountLabel = `$ ${formatMoney(amount)}.-`;
-    const amountWordsLabel = `${numberToWords(amount)} pesos`;
-    const installmentAmountLabel = `$ ${formatMoney(installmentAmount)}-`;
-    const installmentWordsLabel = `${numberToWords(installmentAmount)} pesos`;
     const annualRate = `${(getAnnualRate(loan) * 100).toFixed(2)}%`;
     const firstDueDateLabel = firstDueDate ? format(firstDueDate, "d 'de' MMMM 'de' yyyy", { locale: es }) : '________________';
     const lastDueDateLabel = lastDueDate ? format(lastDueDate, "d 'de' MMMM 'de' yyyy", { locale: es }) : '________________';
-    const templateText = await getMutuoTemplateText();
 
-    return replaceMutuoValues(templateText, [
-        { from: MUTUO_SOURCE_NAME_ACCENTED, to: debtorName },
-        { from: MUTUO_SOURCE_NAME, to: debtorNamePlain },
-        { from: MUTUO_SOURCE_RUT, to: debtorRut },
-        { from: MUTUO_SOURCE_ADDRESS, to: debtorAddressPlain },
-        { from: MUTUO_SOURCE_AMOUNT, to: amountLabel },
-        { from: MUTUO_SOURCE_AMOUNT_WORDS, to: amountWordsLabel },
-        { from: MUTUO_SOURCE_DURATION_WORDS, to: installmentMonthsLabel },
-        { from: MUTUO_SOURCE_DURATION, to: installmentMonthsLabel },
-        { from: `días ${MUTUO_SOURCE_INSTALLMENT_DAY} de cada mes`, to: `días ${dueDay} de cada mes` },
-        { from: MUTUO_SOURCE_INSTALLMENT_AMOUNT, to: installmentAmountLabel },
-        { from: MUTUO_SOURCE_INSTALLMENT_WORDS, to: installmentWordsLabel },
-        { from: MUTUO_SOURCE_RATE, to: annualRate },
-        { from: MUTUO_SOURCE_FIRST_DUE_DATE, to: firstDueDateLabel },
-        { from: MUTUO_SOURCE_LAST_DUE_DATE, to: lastDueDateLabel }
-    ]);
+    return [
+        new Paragraph({
+            text: 'CONTRATO DE MUTUO',
+            heading: HeadingLevel.TITLE,
+            alignment: AlignmentType.CENTER,
+            spacing: { after: 240 }
+        }),
+        new Paragraph({
+            text: '(Mutuante - Acreedor)',
+            alignment: AlignmentType.CENTER,
+            spacing: { after: 120 }
+        }),
+        new Paragraph({
+            text: `${CREDITOR_NAME}, R.U.T. ${CREDITOR_RUT}, con domicilio en ${CREDITOR_ADDRESS}.`,
+            alignment: AlignmentType.CENTER,
+            spacing: { after: 280 }
+        }),
+        new Paragraph({
+            text: '(Mutuario - Deudor)',
+            alignment: AlignmentType.CENTER,
+            spacing: { after: 120 }
+        }),
+        new Paragraph({
+            text: `${debtorName}, R.U.T. ${debtorRut}, con domicilio en ${debtorAddress}.`,
+            alignment: AlignmentType.CENTER,
+            spacing: { after: 320 }
+        }),
+        new Paragraph({
+            children: [
+                new TextRun({ text: 'Primero: ', bold: true }),
+                new TextRun(`El mutuante entrega al mutuario, quien declara recibir a su entera conformidad, la suma de $${formatMoney(amount)} (${numberToWords(amount)} pesos).`)
+            ],
+            alignment: AlignmentType.JUSTIFIED,
+            spacing: { after: 220 }
+        }),
+        new Paragraph({
+            children: [
+                new TextRun({ text: 'Segundo: ', bold: true }),
+                new TextRun(`El mutuario se obliga a restituir el capital adeudado en ${durationMonths} cuotas mensuales, sucesivas y vencidas, por un valor referencial de $${formatMoney(installmentAmount)} (${numberToWords(installmentAmount)} pesos) cada una.`)
+            ],
+            alignment: AlignmentType.JUSTIFIED,
+            spacing: { after: 220 }
+        }),
+        new Paragraph({
+            children: [
+                new TextRun({ text: 'Tercero: ', bold: true }),
+                new TextRun(`Las cuotas venceran los dias ${dueDay} de cada mes, iniciando el ${firstDueDateLabel} y terminando el ${lastDueDateLabel}, salvo prepago o modificaciones posteriores pactadas por las partes.`)
+            ],
+            alignment: AlignmentType.JUSTIFIED,
+            spacing: { after: 220 }
+        }),
+        new Paragraph({
+            children: [
+                new TextRun({ text: 'Cuarto: ', bold: true }),
+                new TextRun(`La tasa de interes anual referencial del mutuo asciende a ${annualRate}. Los intereses, recargos por mora y cualquier reprogramacion se calcularan conforme al plan de pagos registrado en Loan Manager.`)
+            ],
+            alignment: AlignmentType.JUSTIFIED,
+            spacing: { after: 220 }
+        }),
+        new Paragraph({
+            children: [
+                new TextRun({ text: 'Quinto: ', bold: true }),
+                new TextRun('El incumplimiento de cualquiera de las cuotas facultara al mutuante para exigir el saldo insoluto, intereses, gastos de cobranza y demas accesorios permitidos por la ley.')
+            ],
+            alignment: AlignmentType.JUSTIFIED,
+            spacing: { after: 220 }
+        }),
+        new Paragraph({
+            children: [
+                new TextRun({ text: 'Sexto: ', bold: true }),
+                new TextRun('Las partes fijan domicilio en Santiago de Chile y se someten a la jurisdiccion de sus tribunales ordinarios de justicia para cualquier controversia derivada de este contrato.')
+            ],
+            alignment: AlignmentType.JUSTIFIED,
+            spacing: { after: 320 }
+        }),
+        new Paragraph({
+            text: `Firmado el ${format(new Date(), "d 'de' MMMM 'de' yyyy", { locale: es })}.`,
+            alignment: AlignmentType.LEFT,
+            spacing: { after: 500 }
+        }),
+        new Paragraph({
+            text: '______________________________',
+            alignment: AlignmentType.LEFT
+        }),
+        new Paragraph({
+            text: debtorName,
+            alignment: AlignmentType.LEFT,
+            spacing: { after: 240 }
+        }),
+        new Paragraph({
+            text: '______________________________',
+            alignment: AlignmentType.RIGHT
+        }),
+        new Paragraph({
+            text: CREDITOR_NAME,
+            alignment: AlignmentType.RIGHT
+        })
+    ];
 };
 
 const buildMutuoDocument = async (loan, client) => {
-    const debtorName = legalText(client?.name);
-    const mutuoText = await buildMutuoText(loan, client);
-    const paragraphs = mutuoText
-        .split(/\r?\n\r?\n/)
-        .map((block, index) => new Paragraph({
-            text: block.replace(/\r?\n/g, ' '),
-            heading: index === 0 ? HeadingLevel.TITLE : undefined,
-            alignment: index <= 3 ? AlignmentType.CENTER : AlignmentType.JUSTIFIED,
-            spacing: { after: 220 }
-        }));
-
+    const debtorName = getText(client?.name, 'cliente');
     const document = new Document({
         sections: [{
             properties: {},
-            children: paragraphs
+            children: buildMutuoParagraphs(loan, client)
         }]
     });
 
     const blob = await Packer.toBlob(document);
-    downloadBlob(blob, `Mutuo_${normalizeDocumentName(debtorName)}_${loan.id}.docx`);
+    downloadBlob(blob, `Mutuo_${normalizeDocumentName(debtorName)}_${loan?.id || 'sin-prestamo'}.docx`);
 };
 
 export const generatePagare = async (loan, client) => {

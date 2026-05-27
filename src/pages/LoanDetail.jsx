@@ -158,20 +158,35 @@ const LoanDetail = () => {
     };
 
     const handleGeneratePdfContract = async () => {
-        const { generateLoanContract } = await import('../utils/pdfGenerator');
-        generateLoanContract(loan, client);
+        try {
+            const { generateLoanContract } = await import('../utils/pdfGenerator');
+            generateLoanContract(loan, client);
+            toast.success('Contrato PDF generado correctamente.');
+        } catch (error) {
+            console.error(error);
+            toast.error('No se pudo generar el contrato PDF.');
+        }
     };
 
     const handleGenerateWordContract = async () => {
-        const { generateWordContract } = await import('../utils/wordGenerator');
-        await generateWordContract(loan, client);
+        try {
+            const { generateWordContract } = await import('../utils/wordGenerator');
+            await generateWordContract(loan, client);
+            toast.success('Contrato Word generado correctamente.');
+        } catch (error) {
+            console.error(error);
+            toast.error('No se pudo generar el contrato Word.');
+        }
     };
 
     const handleDownloadCalendar = () => {
         const downloaded = downloadLoanCalendar(loan, client);
         if (!downloaded) {
             toast.error('No hay cobros para generar en el calendario.');
+            return;
         }
+
+        toast.success('Calendario descargado correctamente.');
     };
 
     return (

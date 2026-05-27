@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { FileText, Landmark, MessageCircle, X } from 'lucide-react';
+import { toast } from 'sonner';
 import { formatRutInput, isValidRut } from '../utils/rut';
 
 const getPreferredLoanId = (loans = [], fallbackLoan) => {
@@ -66,9 +67,10 @@ const PagareModal = ({ isOpen, onClose, loan, loans = [], client }) => {
         try {
             const { generatePagare } = await import('../utils/pagareGenerator');
             await generatePagare(selectedLoan, getDocumentPayload());
+            toast.success('Pagare generado correctamente.');
         } catch (error) {
             console.error(error);
-            alert('Error generando el pagare');
+            toast.error('Error generando el pagare.');
         }
     };
 
@@ -76,9 +78,10 @@ const PagareModal = ({ isOpen, onClose, loan, loans = [], client }) => {
         try {
             const { generateMutuoDocument } = await import('../utils/pagareGenerator');
             await generateMutuoDocument(selectedLoan, getDocumentPayload());
+            toast.success('Mutuo generado correctamente.');
         } catch (error) {
             console.error(error);
-            alert('Error generando el mutuo');
+            toast.error('Error generando el mutuo.');
         }
     };
 

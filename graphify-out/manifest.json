@@ -280,8 +280,8 @@
     "hash": "43d9a98fb47498499253f43010c3bf00"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\components\\PagareModal.jsx": {
-    "mtime": 1779910850.8751345,
-    "hash": "4ce85b52f77e835c51fd9d8c4193db2b"
+    "mtime": 1779911986.1574736,
+    "hash": "a26377342592397499a22411f3976f67"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\components\\PaymentModal.jsx": {
     "mtime": 1768831390.8644805,
@@ -392,8 +392,8 @@
     "hash": "2972a8ea6b5fca599efb8dc3450120b9"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\LoanDetail.jsx": {
-    "mtime": 1779911216.5538793,
-    "hash": "19b52ab9d3e0011e98b74454454c8d3b"
+    "mtime": 1779911978.3335083,
+    "hash": "ced2701e6f2e3f4ae0bcdf8399718bcb"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\Loans.jsx": {
     "mtime": 1779907178.7792728,
@@ -432,20 +432,20 @@
     "hash": "2f836a445f097ec21991cc82808e1378"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\pagareGenerator.js": {
-    "mtime": 1779831558.296995,
-    "hash": "f66e5d8e6d844fb4e89e2e8b0f0083b0"
+    "mtime": 1779911969.016504,
+    "hash": "3320f3ee426f74e3fe6dd2412530376d"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\pdfGenerator.js": {
-    "mtime": 1779907178.785273,
-    "hash": "67b8a1aaada95b535ba085ff77d4765f"
+    "mtime": 1779911837.1078088,
+    "hash": "0628a11b8e29271ac46bcc9a0b28863d"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\rut.js": {
     "mtime": 1779829063.1879706,
     "hash": "b1987338fd6d00838c923ccbda80b316"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\wordGenerator.js": {
-    "mtime": 1779907178.7862754,
-    "hash": "10921c757815e237598f2af440977922"
+    "mtime": 1779911878.2165496,
+    "hash": "434289d2b7df2395f526adf010545a82"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\debug-log.txt": {
     "mtime": 1779907193.47325,
@@ -460,8 +460,8 @@
     "hash": "5429b353448b47d93fdd7771001badd3"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\README.md": {
-    "mtime": 1779910950.1112416,
-    "hash": "53bec89ea0db2aeb2a6c1be712d9a89c"
+    "mtime": 1779912015.790489,
+    "hash": "fb5fb75490a79418a83a18d34f1fa929"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\GRAPHIFY.md": {
     "mtime": 1779716266.6234615,
@@ -484,35 +484,35 @@
     "hash": "e163d2f11bba64059536698774e6bbf5"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\graphify-out\\converted\\pagare_template_e62ac02c.md": {
-    "mtime": 1779911317.3487403,
+    "mtime": 1779912024.224854,
     "hash": "3c57105453a9ba7f63d7459152a688e6"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\graphify-out\\converted\\pagare_template_sc_78d1f97f.md": {
-    "mtime": 1779911317.3782434,
+    "mtime": 1779912024.2568548,
     "hash": "9fedb158390f9703fc389a9e887bdcc3"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\builder-debug.yml": {
-    "mtime": 1779910592.5382874,
-    "hash": "313141fb192a921f179ae2d18418ee12"
+    "mtime": 1779911639.3148713,
+    "hash": "b1b0564d809ccb1f53575c77ea1d2fdf"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\builder-effective-config.yaml": {
     "mtime": 1770673186.1957,
     "hash": "bed16809b565bb3d711d95cd1ee438b8"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\latest.yml": {
-    "mtime": 1779910595.2341535,
-    "hash": "b4579c212c7a6b83479944336e35f0bb"
+    "mtime": 1779911640.905065,
+    "hash": "36b766adc969734b369a3362635c5b83"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\LICENSE.electron.txt": {
-    "mtime": 1779910295.4206905,
+    "mtime": 1779911339.2720218,
     "hash": "4d42118d35941e0f664dddbd83f633c5"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\LICENSES.chromium.html": {
-    "mtime": 1779910295.3276534,
+    "mtime": 1779911339.3771346,
     "hash": "6ff57c0aeccdf44c39c95dee9ecea805"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\app-update.yml": {
-    "mtime": 1779910365.3506405,
+    "mtime": 1779911411.1858416,
     "hash": "0d5cd47bc3fb7b87705332d1840fd3ab"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\public\\vite.svg": {
