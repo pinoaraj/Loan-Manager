@@ -188,16 +188,16 @@
     "hash": "57d974f6c5ce4cb14291d9d7dcdbcf69"
   },
   "C:\\tmp\\LoanManager-publish\\src\\components\\dashboard\\PortfolioChart.jsx": {
-    "mtime": 1779902681.9187975,
-    "hash": "76cc7e52e3fb3f862e1fdcb7b4e4c444"
+    "mtime": 1779903435.4169145,
+    "hash": "5d635bc12c80a42f3829f2b01c032ef3"
   },
   "C:\\tmp\\LoanManager-publish\\src\\components\\dashboard\\RecentActivity.jsx": {
     "mtime": 1779902681.9192963,
     "hash": "cbf85f7ba0646d66fe67ebd9f49a1d60"
   },
   "C:\\tmp\\LoanManager-publish\\src\\components\\dashboard\\RevenueChart.jsx": {
-    "mtime": 1779902681.9197958,
-    "hash": "e4fe3360707da309ca1c59e50428d67b"
+    "mtime": 1779903435.4164207,
+    "hash": "db87b90dd24ab70c95c68de9a73f0a10"
   },
   "C:\\tmp\\LoanManager-publish\\src\\components\\ui\\Skeleton.jsx": {
     "mtime": 1779902681.920797,
@@ -246,6 +246,10 @@
   "C:\\tmp\\LoanManager-publish\\src\\context\\__tests__\\LoanContext.test.jsx": {
     "mtime": 1779902681.9238007,
     "hash": "7f672abf0a1765b628e56448b5e8fab7"
+  },
+  "C:\\tmp\\LoanManager-publish\\src\\hooks\\useElementSize.js": {
+    "mtime": 1779902954.4258814,
+    "hash": "209afc9681b99bcd277c39870b43babf"
   },
   "C:\\tmp\\LoanManager-publish\\src\\hooks\\useLoanHealth.js": {
     "mtime": 1779902681.9273138,
@@ -368,11 +372,11 @@
     "hash": "8defaf21d0091f74c3e744049db76ca6"
   },
   "C:\\tmp\\LoanManager-publish\\graphify-out\\converted\\pagare_template_2dd28a24.md": {
-    "mtime": 1779902687.927473,
+    "mtime": 1779903937.2953174,
     "hash": "3c57105453a9ba7f63d7459152a688e6"
   },
   "C:\\tmp\\LoanManager-publish\\graphify-out\\converted\\pagare_template_sc_22258672.md": {
-    "mtime": 1779902687.982838,
+    "mtime": 1779903937.3168235,
     "hash": "9fedb158390f9703fc389a9e887bdcc3"
   },
   "C:\\tmp\\LoanManager-publish\\public\\vite.svg": {

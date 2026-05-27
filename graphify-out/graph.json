@@ -198,7 +198,7 @@
       "source_file": "test-client-creation.js",
       "source_location": "L1",
       "id": "test_client_creation_js",
-      "community": 8,
+      "community": 9,
       "norm_label": "test-client-creation.js"
     },
     {
@@ -207,7 +207,7 @@
       "source_file": "test-client-creation.js",
       "source_location": "L5",
       "id": "loanmanager_publish_test_client_creation_login",
-      "community": 8,
+      "community": 9,
       "norm_label": "login()"
     },
     {
@@ -216,7 +216,7 @@
       "source_file": "test-client-creation.js",
       "source_location": "L30",
       "id": "loanmanager_publish_test_client_creation_testcreateclient",
-      "community": 8,
+      "community": 9,
       "norm_label": "testcreateclient()"
     },
     {
@@ -225,7 +225,7 @@
       "source_file": "test-client-creation.js",
       "source_location": "L66",
       "id": "loanmanager_publish_test_client_creation_testcreateclientwithoutphone",
-      "community": 8,
+      "community": 9,
       "norm_label": "testcreateclientwithoutphone()"
     },
     {
@@ -234,7 +234,7 @@
       "source_file": "test-client-creation.js",
       "source_location": "L102",
       "id": "loanmanager_publish_test_client_creation_runtests",
-      "community": 8,
+      "community": 9,
       "norm_label": "runtests()"
     },
     {
@@ -585,7 +585,7 @@
       "source_file": "server/utils/amortization.js",
       "source_location": "L1",
       "id": "server_utils_amortization_js",
-      "community": 9,
+      "community": 7,
       "norm_label": "amortization.js"
     },
     {
@@ -594,7 +594,7 @@
       "source_file": "src/utils/amortization.js",
       "source_location": "L6",
       "id": "utils_amortization_normalizefrequency",
-      "community": 9,
+      "community": 7,
       "norm_label": "normalizefrequency()"
     },
     {
@@ -603,7 +603,7 @@
       "source_file": "src/utils/amortization.js",
       "source_location": "L11",
       "id": "utils_amortization_buildmonthlyschedule",
-      "community": 9,
+      "community": 7,
       "norm_label": "buildmonthlyschedule()"
     },
     {
@@ -612,7 +612,7 @@
       "source_file": "src/utils/amortization.js",
       "source_location": "L69",
       "id": "utils_amortization_splitmonthlyschedule",
-      "community": 9,
+      "community": 7,
       "norm_label": "splitmonthlyschedule()"
     },
     {
@@ -621,7 +621,7 @@
       "source_file": "src/utils/amortization.js",
       "source_location": "L94",
       "id": "utils_amortization_calculateamortization",
-      "community": 9,
+      "community": 7,
       "norm_label": "calculateamortization()"
     },
     {
@@ -657,7 +657,7 @@
       "source_file": "src/App.jsx",
       "source_location": "L1",
       "id": "src_app_jsx",
-      "community": 2,
+      "community": 0,
       "norm_label": "app.jsx"
     },
     {
@@ -666,7 +666,7 @@
       "source_file": "src/App.jsx",
       "source_location": "L21",
       "id": "src_app_pageloader",
-      "community": 2,
+      "community": 0,
       "norm_label": "pageloader()"
     },
     {
@@ -675,7 +675,7 @@
       "source_file": "src/App.jsx",
       "source_location": "L27",
       "id": "src_app_protectedroute",
-      "community": 2,
+      "community": 0,
       "norm_label": "protectedroute()"
     },
     {
@@ -684,7 +684,7 @@
       "source_file": "src/App.jsx",
       "source_location": "L33",
       "id": "src_app_useresponsivedesktopscale",
-      "community": 2,
+      "community": 0,
       "norm_label": "useresponsivedesktopscale()"
     },
     {
@@ -693,7 +693,7 @@
       "source_file": "src/App.jsx",
       "source_location": "L60",
       "id": "src_app_layout",
-      "community": 2,
+      "community": 0,
       "norm_label": "layout()"
     },
     {
@@ -702,7 +702,7 @@
       "source_file": "src/App.jsx",
       "source_location": "L111",
       "id": "src_app_app",
-      "community": 2,
+      "community": 0,
       "norm_label": "app()"
     },
     {
@@ -792,7 +792,7 @@
       "source_file": "src/components/PagareModal.jsx",
       "source_location": "L1",
       "id": "src_components_pagaremodal_jsx",
-      "community": 10,
+      "community": 5,
       "norm_label": "pagaremodal.jsx"
     },
     {
@@ -801,7 +801,7 @@
       "source_file": "src/components/PagareModal.jsx",
       "source_location": "L5",
       "id": "components_pagaremodal_pagaremodal",
-      "community": 10,
+      "community": 5,
       "norm_label": "pagaremodal()"
     },
     {
@@ -828,7 +828,7 @@
       "source_file": "src/components/PaymentScheduleTable.jsx",
       "source_location": "L1",
       "id": "src_components_paymentscheduletable_jsx",
-      "community": 4,
+      "community": 3,
       "norm_label": "paymentscheduletable.jsx"
     },
     {
@@ -837,7 +837,7 @@
       "source_file": "src/components/PaymentScheduleTable.jsx",
       "source_location": "L7",
       "id": "components_paymentscheduletable_toamount",
-      "community": 4,
+      "community": 3,
       "norm_label": "toamount()"
     },
     {
@@ -846,7 +846,7 @@
       "source_file": "src/components/PaymentScheduleTable.jsx",
       "source_location": "L9",
       "id": "components_paymentscheduletable_paymentscheduletable",
-      "community": 4,
+      "community": 3,
       "norm_label": "paymentscheduletable()"
     },
     {
@@ -855,7 +855,7 @@
       "source_file": "src/components/Sidebar.jsx",
       "source_location": "L1",
       "id": "src_components_sidebar_jsx",
-      "community": 2,
+      "community": 0,
       "norm_label": "sidebar.jsx"
     },
     {
@@ -864,7 +864,7 @@
       "source_file": "src/components/Sidebar.jsx",
       "source_location": "L13",
       "id": "components_sidebar_sidebar",
-      "community": 2,
+      "community": 0,
       "norm_label": "sidebar()"
     },
     {
@@ -873,7 +873,7 @@
       "source_file": "src/components/Sidebar.jsx",
       "source_location": "L93",
       "id": "components_sidebar_footer",
-      "community": 2,
+      "community": 0,
       "norm_label": "footer()"
     },
     {
@@ -909,16 +909,16 @@
       "source_file": "src/components/dashboard/PortfolioChart.jsx",
       "source_location": "L1",
       "id": "src_components_dashboard_portfoliochart_jsx",
-      "community": 0,
+      "community": 10,
       "norm_label": "portfoliochart.jsx"
     },
     {
       "label": "PortfolioChart()",
       "file_type": "code",
       "source_file": "src/components/dashboard/PortfolioChart.jsx",
-      "source_location": "L4",
+      "source_location": "L5",
       "id": "dashboard_portfoliochart_portfoliochart",
-      "community": 0,
+      "community": 10,
       "norm_label": "portfoliochart()"
     },
     {
@@ -927,7 +927,7 @@
       "source_file": "src/components/dashboard/RecentActivity.jsx",
       "source_location": "L1",
       "id": "src_components_dashboard_recentactivity_jsx",
-      "community": 1,
+      "community": 0,
       "norm_label": "recentactivity.jsx"
     },
     {
@@ -936,7 +936,7 @@
       "source_file": "src/components/dashboard/RecentActivity.jsx",
       "source_location": "L7",
       "id": "dashboard_recentactivity_recentactivity",
-      "community": 1,
+      "community": 0,
       "norm_label": "recentactivity()"
     },
     {
@@ -945,16 +945,16 @@
       "source_file": "src/components/dashboard/RevenueChart.jsx",
       "source_location": "L1",
       "id": "src_components_dashboard_revenuechart_jsx",
-      "community": 0,
+      "community": 10,
       "norm_label": "revenuechart.jsx"
     },
     {
       "label": "RevenueChart()",
       "file_type": "code",
       "source_file": "src/components/dashboard/RevenueChart.jsx",
-      "source_location": "L4",
+      "source_location": "L5",
       "id": "dashboard_revenuechart_revenuechart",
-      "community": 0,
+      "community": 10,
       "norm_label": "revenuechart()"
     },
     {
@@ -1008,7 +1008,7 @@
       "source_file": "src/context/AuthContext.jsx",
       "source_location": "L1",
       "id": "src_context_authcontext_jsx",
-      "community": 2,
+      "community": 0,
       "norm_label": "authcontext.jsx"
     },
     {
@@ -1017,7 +1017,7 @@
       "source_file": "src/context/AuthContext.jsx",
       "source_location": "L5",
       "id": "context_authcontext_authprovider",
-      "community": 2,
+      "community": 0,
       "norm_label": "authprovider()"
     },
     {
@@ -1035,7 +1035,7 @@
       "source_file": "src/context/LoanContext.jsx",
       "source_location": "L1",
       "id": "src_context_loancontext_jsx",
-      "community": 2,
+      "community": 0,
       "norm_label": "loancontext.jsx"
     },
     {
@@ -1044,7 +1044,7 @@
       "source_file": "src/context/LoanContext.jsx",
       "source_location": "L8",
       "id": "context_loancontext_loanprovider",
-      "community": 2,
+      "community": 0,
       "norm_label": "loanprovider()"
     },
     {
@@ -1062,7 +1062,7 @@
       "source_file": "src/context/ThemeContext.jsx",
       "source_location": "L1",
       "id": "src_context_themecontext_jsx",
-      "community": 2,
+      "community": 0,
       "norm_label": "themecontext.jsx"
     },
     {
@@ -1071,7 +1071,7 @@
       "source_file": "src/context/ThemeContext.jsx",
       "source_location": "L4",
       "id": "context_themecontext_themeprovider",
-      "community": 2,
+      "community": 0,
       "norm_label": "themeprovider()"
     },
     {
@@ -1080,7 +1080,7 @@
       "source_file": "src/context/useAuth.js",
       "source_location": "L1",
       "id": "src_context_useauth_js",
-      "community": 2,
+      "community": 0,
       "norm_label": "useauth.js"
     },
     {
@@ -1089,7 +1089,7 @@
       "source_file": "src/context/useAuth.js",
       "source_location": "L4",
       "id": "context_useauth_useauth",
-      "community": 2,
+      "community": 0,
       "norm_label": "useauth()"
     },
     {
@@ -1098,7 +1098,7 @@
       "source_file": "src/context/useLoans.js",
       "source_location": "L1",
       "id": "src_context_useloans_js",
-      "community": 1,
+      "community": 0,
       "norm_label": "useloans.js"
     },
     {
@@ -1107,7 +1107,7 @@
       "source_file": "src/context/useLoans.js",
       "source_location": "L4",
       "id": "context_useloans_useloans",
-      "community": 1,
+      "community": 0,
       "norm_label": "useloans()"
     },
     {
@@ -1116,7 +1116,7 @@
       "source_file": "src/context/useTheme.js",
       "source_location": "L1",
       "id": "src_context_usetheme_js",
-      "community": 2,
+      "community": 0,
       "norm_label": "usetheme.js"
     },
     {
@@ -1125,7 +1125,7 @@
       "source_file": "src/context/useTheme.js",
       "source_location": "L4",
       "id": "context_usetheme_usetheme",
-      "community": 2,
+      "community": 0,
       "norm_label": "usetheme()"
     },
     {
@@ -1134,7 +1134,7 @@
       "source_file": "src/context/__tests__/LoanContext.test.jsx",
       "source_location": "L1",
       "id": "src_context_tests_loancontext_test_jsx",
-      "community": 1,
+      "community": 0,
       "norm_label": "loancontext.test.jsx"
     },
     {
@@ -1143,8 +1143,26 @@
       "source_file": "src/context/__tests__/LoanContext.test.jsx",
       "source_location": "L24",
       "id": "tests_loancontext_test_createwrapper",
-      "community": 1,
+      "community": 0,
       "norm_label": "createwrapper()"
+    },
+    {
+      "label": "useElementSize.js",
+      "file_type": "code",
+      "source_file": "src/hooks/useElementSize.js",
+      "source_location": "L1",
+      "id": "src_hooks_useelementsize_js",
+      "community": 10,
+      "norm_label": "useelementsize.js"
+    },
+    {
+      "label": "useElementSize()",
+      "file_type": "code",
+      "source_file": "src/hooks/useElementSize.js",
+      "source_location": "L5",
+      "id": "hooks_useelementsize_useelementsize",
+      "community": 10,
+      "norm_label": "useelementsize()"
     },
     {
       "label": "useLoanHealth.js",
@@ -1152,7 +1170,7 @@
       "source_file": "src/hooks/useLoanHealth.js",
       "source_location": "L1",
       "id": "src_hooks_useloanhealth_js",
-      "community": 2,
+      "community": 0,
       "norm_label": "useloanhealth.js"
     },
     {
@@ -1161,7 +1179,7 @@
       "source_file": "src/hooks/useLoanHealth.js",
       "source_location": "L3",
       "id": "hooks_useloanhealth_useloanhealth",
-      "community": 2,
+      "community": 0,
       "norm_label": "useloanhealth()"
     },
     {
@@ -1170,7 +1188,7 @@
       "source_file": "src/pages/Calculator.jsx",
       "source_location": "L1",
       "id": "src_pages_calculator_jsx",
-      "community": 1,
+      "community": 7,
       "norm_label": "calculator.jsx"
     },
     {
@@ -1179,7 +1197,7 @@
       "source_file": "src/pages/Calculator.jsx",
       "source_location": "L13",
       "id": "pages_calculator_calculator",
-      "community": 1,
+      "community": 7,
       "norm_label": "calculator()"
     },
     {
@@ -1188,7 +1206,7 @@
       "source_file": "src/pages/ClientDetail.jsx",
       "source_location": "L1",
       "id": "src_pages_clientdetail_jsx",
-      "community": 1,
+      "community": 8,
       "norm_label": "clientdetail.jsx"
     },
     {
@@ -1197,7 +1215,7 @@
       "source_file": "src/pages/ClientDetail.jsx",
       "source_location": "L13",
       "id": "pages_clientdetail_isvalidemail",
-      "community": 1,
+      "community": 8,
       "norm_label": "isvalidemail()"
     },
     {
@@ -1206,7 +1224,7 @@
       "source_file": "src/pages/ClientDetail.jsx",
       "source_location": "L15",
       "id": "pages_clientdetail_clientdetail",
-      "community": 1,
+      "community": 8,
       "norm_label": "clientdetail()"
     },
     {
@@ -1215,7 +1233,7 @@
       "source_file": "src/pages/Clients.jsx",
       "source_location": "L1",
       "id": "src_pages_clients_jsx",
-      "community": 1,
+      "community": 0,
       "norm_label": "clients.jsx"
     },
     {
@@ -1224,7 +1242,7 @@
       "source_file": "src/pages/Clients.jsx",
       "source_location": "L11",
       "id": "pages_clients_isvalidemail",
-      "community": 1,
+      "community": 0,
       "norm_label": "isvalidemail()"
     },
     {
@@ -1233,7 +1251,7 @@
       "source_file": "src/pages/Clients.jsx",
       "source_location": "L13",
       "id": "pages_clients_clients",
-      "community": 1,
+      "community": 0,
       "norm_label": "clients()"
     },
     {
@@ -1242,7 +1260,7 @@
       "source_file": "src/pages/Collections.jsx",
       "source_location": "L1",
       "id": "src_pages_collections_jsx",
-      "community": 1,
+      "community": 0,
       "norm_label": "collections.jsx"
     },
     {
@@ -1251,7 +1269,7 @@
       "source_file": "src/pages/Collections.jsx",
       "source_location": "L10",
       "id": "pages_collections_tabbutton",
-      "community": 1,
+      "community": 0,
       "norm_label": "tabbutton()"
     },
     {
@@ -1260,7 +1278,7 @@
       "source_file": "src/pages/Collections.jsx",
       "source_location": "L29",
       "id": "pages_collections_collections",
-      "community": 1,
+      "community": 0,
       "norm_label": "collections()"
     },
     {
@@ -1269,7 +1287,7 @@
       "source_file": "src/pages/Dashboard.jsx",
       "source_location": "L1",
       "id": "src_pages_dashboard_jsx",
-      "community": 1,
+      "community": 0,
       "norm_label": "dashboard.jsx"
     },
     {
@@ -1278,7 +1296,7 @@
       "source_file": "src/pages/Dashboard.jsx",
       "source_location": "L14",
       "id": "pages_dashboard_chartskeleton",
-      "community": 1,
+      "community": 0,
       "norm_label": "chartskeleton()"
     },
     {
@@ -1287,7 +1305,7 @@
       "source_file": "src/pages/Dashboard.jsx",
       "source_location": "L16",
       "id": "pages_dashboard_dashboard",
-      "community": 1,
+      "community": 0,
       "norm_label": "dashboard()"
     },
     {
@@ -1296,7 +1314,7 @@
       "source_file": "src/pages/ImportData.jsx",
       "source_location": "L1",
       "id": "src_pages_importdata_jsx",
-      "community": 1,
+      "community": 0,
       "norm_label": "importdata.jsx"
     },
     {
@@ -1305,7 +1323,7 @@
       "source_file": "src/pages/ImportData.jsx",
       "source_location": "L11",
       "id": "pages_importdata_loadxlsx",
-      "community": 1,
+      "community": 0,
       "norm_label": "loadxlsx()"
     },
     {
@@ -1314,7 +1332,7 @@
       "source_file": "src/pages/ImportData.jsx",
       "source_location": "L19",
       "id": "pages_importdata_importdata",
-      "community": 1,
+      "community": 0,
       "norm_label": "importdata()"
     },
     {
@@ -1323,7 +1341,7 @@
       "source_file": "src/pages/LoanDetail.jsx",
       "source_location": "L1",
       "id": "src_pages_loandetail_jsx",
-      "community": 2,
+      "community": 0,
       "norm_label": "loandetail.jsx"
     },
     {
@@ -1332,7 +1350,7 @@
       "source_file": "src/pages/LoanDetail.jsx",
       "source_location": "L41",
       "id": "pages_loandetail_sectionloader",
-      "community": 2,
+      "community": 0,
       "norm_label": "sectionloader()"
     },
     {
@@ -1341,7 +1359,7 @@
       "source_file": "src/pages/LoanDetail.jsx",
       "source_location": "L47",
       "id": "pages_loandetail_loandetail",
-      "community": 2,
+      "community": 0,
       "norm_label": "loandetail()"
     },
     {
@@ -1350,7 +1368,7 @@
       "source_file": "src/pages/Loans.jsx",
       "source_location": "L1",
       "id": "src_pages_loans_jsx",
-      "community": 2,
+      "community": 0,
       "norm_label": "loans.jsx"
     },
     {
@@ -1359,7 +1377,7 @@
       "source_file": "src/pages/Loans.jsx",
       "source_location": "L19",
       "id": "pages_loans_loans",
-      "community": 2,
+      "community": 0,
       "norm_label": "loans()"
     },
     {
@@ -1368,7 +1386,7 @@
       "source_file": "src/pages/Login.jsx",
       "source_location": "L1",
       "id": "src_pages_login_jsx",
-      "community": 2,
+      "community": 0,
       "norm_label": "login.jsx"
     },
     {
@@ -1377,7 +1395,7 @@
       "source_file": "src/pages/Login.jsx",
       "source_location": "L6",
       "id": "pages_login_login",
-      "community": 2,
+      "community": 0,
       "norm_label": "login()"
     },
     {
@@ -1386,7 +1404,7 @@
       "source_file": "src/pages/NewLoan.jsx",
       "source_location": "L1",
       "id": "src_pages_newloan_jsx",
-      "community": 1,
+      "community": 0,
       "norm_label": "newloan.jsx"
     },
     {
@@ -1395,7 +1413,7 @@
       "source_file": "src/pages/NewLoan.jsx",
       "source_location": "L20",
       "id": "pages_newloan_isvalidemail",
-      "community": 1,
+      "community": 0,
       "norm_label": "isvalidemail()"
     },
     {
@@ -1404,7 +1422,7 @@
       "source_file": "src/pages/NewLoan.jsx",
       "source_location": "L22",
       "id": "pages_newloan_newloan",
-      "community": 1,
+      "community": 0,
       "norm_label": "newloan()"
     },
     {
@@ -1413,7 +1431,7 @@
       "source_file": "src/utils/amortization.js",
       "source_location": "L1",
       "id": "src_utils_amortization_js",
-      "community": 9,
+      "community": 7,
       "norm_label": "amortization.js"
     },
     {
@@ -1422,7 +1440,7 @@
       "source_file": "src/utils/amortization.test.js",
       "source_location": "L1",
       "id": "src_utils_amortization_test_js",
-      "community": 9,
+      "community": 7,
       "norm_label": "amortization.test.js"
     },
     {
@@ -1431,7 +1449,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L1",
       "id": "src_utils_calendar_js",
-      "community": 4,
+      "community": 3,
       "norm_label": "calendar.js"
     },
     {
@@ -1440,7 +1458,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L5",
       "id": "utils_calendar_pad",
-      "community": 4,
+      "community": 3,
       "norm_label": "pad()"
     },
     {
@@ -1449,7 +1467,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L7",
       "id": "utils_calendar_todateinstance",
-      "community": 4,
+      "community": 3,
       "norm_label": "todateinstance()"
     },
     {
@@ -1458,7 +1476,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L15",
       "id": "utils_calendar_formatgoogledate",
-      "community": 4,
+      "community": 3,
       "norm_label": "formatgoogledate()"
     },
     {
@@ -1467,7 +1485,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L27",
       "id": "utils_calendar_formatutcdatetime",
-      "community": 4,
+      "community": 3,
       "norm_label": "formatutcdatetime()"
     },
     {
@@ -1476,7 +1494,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L39",
       "id": "utils_calendar_formatcurrentutcstamp",
-      "community": 4,
+      "community": 3,
       "norm_label": "formatcurrentutcstamp()"
     },
     {
@@ -1485,7 +1503,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L48",
       "id": "utils_calendar_escapeicstext",
-      "community": 4,
+      "community": 3,
       "norm_label": "escapeicstext()"
     },
     {
@@ -1494,7 +1512,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L54",
       "id": "utils_calendar_slugifyfilepart",
-      "community": 4,
+      "community": 3,
       "norm_label": "slugifyfilepart()"
     },
     {
@@ -1503,7 +1521,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L60",
       "id": "utils_calendar_downloadcalendarblob",
-      "community": 4,
+      "community": 3,
       "norm_label": "downloadcalendarblob()"
     },
     {
@@ -1512,7 +1530,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L72",
       "id": "utils_calendar_createcalendarevent",
-      "community": 4,
+      "community": 3,
       "norm_label": "createcalendarevent()"
     },
     {
@@ -1521,7 +1539,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L102",
       "id": "utils_calendar_buildcalendarfile",
-      "community": 4,
+      "community": 3,
       "norm_label": "buildcalendarfile()"
     },
     {
@@ -1530,7 +1548,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L112",
       "id": "utils_calendar_generategooglecalendarlink",
-      "community": 4,
+      "community": 3,
       "norm_label": "generategooglecalendarlink()"
     },
     {
@@ -1539,7 +1557,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L124",
       "id": "utils_calendar_getpaymenteventdetails",
-      "community": 4,
+      "community": 3,
       "norm_label": "getpaymenteventdetails()"
     },
     {
@@ -1548,7 +1566,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L135",
       "id": "utils_calendar_downloadpaymentreminder",
-      "community": 4,
+      "community": 3,
       "norm_label": "downloadpaymentreminder()"
     },
     {
@@ -1557,7 +1575,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L159",
       "id": "utils_calendar_downloadloancalendar",
-      "community": 4,
+      "community": 3,
       "norm_label": "downloadloancalendar()"
     },
     {
@@ -1566,7 +1584,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L188",
       "id": "utils_calendar_downloadbulkloancalendars",
-      "community": 4,
+      "community": 3,
       "norm_label": "downloadbulkloancalendars()"
     },
     {
@@ -1575,7 +1593,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L219",
       "id": "utils_calendar_opengooglecalendar",
-      "community": 4,
+      "community": 3,
       "norm_label": "opengooglecalendar()"
     },
     {
@@ -1602,7 +1620,7 @@
       "source_file": "src/utils/communication.js",
       "source_location": "L1",
       "id": "src_utils_communication_js",
-      "community": 1,
+      "community": 8,
       "norm_label": "communication.js"
     },
     {
@@ -1611,7 +1629,7 @@
       "source_file": "src/utils/communication.js",
       "source_location": "L1",
       "id": "utils_communication_normalizephonenumber",
-      "community": 1,
+      "community": 8,
       "norm_label": "normalizephonenumber()"
     },
     {
@@ -1620,7 +1638,7 @@
       "source_file": "src/utils/communication.js",
       "source_location": "L3",
       "id": "utils_communication_formatcurrency",
-      "community": 1,
+      "community": 8,
       "norm_label": "formatcurrency()"
     },
     {
@@ -1629,7 +1647,7 @@
       "source_file": "src/utils/communication.js",
       "source_location": "L8",
       "id": "utils_communication_hasphonenumber",
-      "community": 1,
+      "community": 8,
       "norm_label": "hasphonenumber()"
     },
     {
@@ -1638,7 +1656,7 @@
       "source_file": "src/utils/communication.js",
       "source_location": "L10",
       "id": "utils_communication_generatewhatsapplink",
-      "community": 1,
+      "community": 8,
       "norm_label": "generatewhatsapplink()"
     },
     {
@@ -1647,7 +1665,7 @@
       "source_file": "src/utils/communication.js",
       "source_location": "L20",
       "id": "utils_communication_generateemaillink",
-      "community": 1,
+      "community": 8,
       "norm_label": "generateemaillink()"
     },
     {
@@ -1656,7 +1674,7 @@
       "source_file": "src/utils/communication.js",
       "source_location": "L26",
       "id": "utils_communication_getreceiptmessage",
-      "community": 1,
+      "community": 8,
       "norm_label": "getreceiptmessage()"
     },
     {
@@ -1665,7 +1683,7 @@
       "source_file": "src/utils/communication.js",
       "source_location": "L30",
       "id": "utils_communication_getremindermessage",
-      "community": 1,
+      "community": 0,
       "norm_label": "getremindermessage()"
     },
     {
@@ -1692,7 +1710,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L1",
       "id": "src_utils_pagaregenerator_js",
-      "community": 3,
+      "community": 2,
       "norm_label": "pagaregenerator.js"
     },
     {
@@ -1701,7 +1719,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L31",
       "id": "utils_pagaregenerator_downloadblob",
-      "community": 3,
+      "community": 2,
       "norm_label": "downloadblob()"
     },
     {
@@ -1710,7 +1728,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L40",
       "id": "utils_pagaregenerator_fetchbinarytemplate",
-      "community": 3,
+      "community": 2,
       "norm_label": "fetchbinarytemplate()"
     },
     {
@@ -1719,7 +1737,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L48",
       "id": "utils_pagaregenerator_decodelatin1",
-      "community": 3,
+      "community": 2,
       "norm_label": "decodelatin1()"
     },
     {
@@ -1728,7 +1746,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L50",
       "id": "utils_pagaregenerator_extractmutuotemplatetext",
-      "community": 3,
+      "community": 2,
       "norm_label": "extractmutuotemplatetext()"
     },
     {
@@ -1737,7 +1755,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L62",
       "id": "utils_pagaregenerator_getmutuotemplatetext",
-      "community": 3,
+      "community": 2,
       "norm_label": "getmutuotemplatetext()"
     },
     {
@@ -1746,7 +1764,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L72",
       "id": "utils_pagaregenerator_escapexml",
-      "community": 3,
+      "community": 2,
       "norm_label": "escapexml()"
     },
     {
@@ -1755,7 +1773,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L79",
       "id": "utils_pagaregenerator_legaltext",
-      "community": 3,
+      "community": 2,
       "norm_label": "legaltext()"
     },
     {
@@ -1764,7 +1782,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L84",
       "id": "utils_pagaregenerator_normalizelegacytext",
-      "community": 3,
+      "community": 2,
       "norm_label": "normalizelegacytext()"
     },
     {
@@ -1773,7 +1791,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L88",
       "id": "utils_pagaregenerator_getloaninterestrate",
-      "community": 3,
+      "community": 2,
       "norm_label": "getloaninterestrate()"
     },
     {
@@ -1782,7 +1800,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L89",
       "id": "utils_pagaregenerator_getloandurationmonths",
-      "community": 3,
+      "community": 2,
       "norm_label": "getloandurationmonths()"
     },
     {
@@ -1791,7 +1809,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L90",
       "id": "utils_pagaregenerator_getloanamount",
-      "community": 3,
+      "community": 2,
       "norm_label": "getloanamount()"
     },
     {
@@ -1800,7 +1818,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L91",
       "id": "utils_pagaregenerator_getinstallmentamount",
-      "community": 3,
+      "community": 2,
       "norm_label": "getinstallmentamount()"
     },
     {
@@ -1809,7 +1827,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L92",
       "id": "utils_pagaregenerator_getfirstduedate",
-      "community": 3,
+      "community": 2,
       "norm_label": "getfirstduedate()"
     },
     {
@@ -1818,7 +1836,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L93",
       "id": "utils_pagaregenerator_getlastduedate",
-      "community": 3,
+      "community": 2,
       "norm_label": "getlastduedate()"
     },
     {
@@ -1827,7 +1845,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L95",
       "id": "utils_pagaregenerator_formatmoney",
-      "community": 3,
+      "community": 2,
       "norm_label": "formatmoney()"
     },
     {
@@ -1836,7 +1854,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L100",
       "id": "utils_pagaregenerator_normalizedocumentname",
-      "community": 3,
+      "community": 2,
       "norm_label": "normalizedocumentname()"
     },
     {
@@ -1845,7 +1863,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L102",
       "id": "utils_pagaregenerator_getannualrate",
-      "community": 3,
+      "community": 2,
       "norm_label": "getannualrate()"
     },
     {
@@ -1854,7 +1872,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L116",
       "id": "utils_pagaregenerator_numberunderhundredtowords",
-      "community": 3,
+      "community": 2,
       "norm_label": "numberunderhundredtowords()"
     },
     {
@@ -1863,7 +1881,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L126",
       "id": "utils_pagaregenerator_numberunderthousandtowords",
-      "community": 3,
+      "community": 2,
       "norm_label": "numberunderthousandtowords()"
     },
     {
@@ -1872,7 +1890,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L136",
       "id": "utils_pagaregenerator_numbertowords",
-      "community": 3,
+      "community": 2,
       "norm_label": "numbertowords()"
     },
     {
@@ -1881,7 +1899,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L160",
       "id": "utils_pagaregenerator_buildpagareintroparagraphxml",
-      "community": 3,
+      "community": 2,
       "norm_label": "buildpagareintroparagraphxml()"
     },
     {
@@ -1890,7 +1908,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L181",
       "id": "utils_pagaregenerator_buildpagarevalueparagraphxml",
-      "community": 3,
+      "community": 2,
       "norm_label": "buildpagarevalueparagraphxml()"
     },
     {
@@ -1899,7 +1917,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L195",
       "id": "utils_pagaregenerator_replaceparagraphbyid",
-      "community": 3,
+      "community": 2,
       "norm_label": "replaceparagraphbyid()"
     },
     {
@@ -1908,7 +1926,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L200",
       "id": "utils_pagaregenerator_renderpagarefromtemplate",
-      "community": 3,
+      "community": 2,
       "norm_label": "renderpagarefromtemplate()"
     },
     {
@@ -1917,7 +1935,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L229",
       "id": "utils_pagaregenerator_replacemutuovalues",
-      "community": 3,
+      "community": 2,
       "norm_label": "replacemutuovalues()"
     },
     {
@@ -1926,7 +1944,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L239",
       "id": "utils_pagaregenerator_buildmutuotext",
-      "community": 3,
+      "community": 2,
       "norm_label": "buildmutuotext()"
     },
     {
@@ -1935,7 +1953,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L279",
       "id": "utils_pagaregenerator_buildmutuodocument",
-      "community": 3,
+      "community": 2,
       "norm_label": "buildmutuodocument()"
     },
     {
@@ -1944,7 +1962,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L302",
       "id": "utils_pagaregenerator_generatepagare",
-      "community": 3,
+      "community": 2,
       "norm_label": "generatepagare()"
     },
     {
@@ -1953,7 +1971,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L306",
       "id": "utils_pagaregenerator_generatepagarefromtemplate",
-      "community": 3,
+      "community": 2,
       "norm_label": "generatepagarefromtemplate()"
     },
     {
@@ -1962,7 +1980,7 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L313",
       "id": "utils_pagaregenerator_generatemutuodocument",
-      "community": 3,
+      "community": 2,
       "norm_label": "generatemutuodocument()"
     },
     {
@@ -2007,7 +2025,7 @@
       "source_file": "src/utils/pdfGenerator.js",
       "source_location": "L75",
       "id": "utils_pdfgenerator_generatereceipt",
-      "community": 4,
+      "community": 3,
       "norm_label": "generatereceipt()"
     },
     {
@@ -2016,7 +2034,7 @@
       "source_file": "src/utils/rut.js",
       "source_location": "L1",
       "id": "src_utils_rut_js",
-      "community": 10,
+      "community": 5,
       "norm_label": "rut.js"
     },
     {
@@ -2025,7 +2043,7 @@
       "source_file": "src/utils/rut.js",
       "source_location": "L1",
       "id": "utils_rut_cleanrut",
-      "community": 10,
+      "community": 5,
       "norm_label": "cleanrut()"
     },
     {
@@ -2034,7 +2052,7 @@
       "source_file": "src/utils/rut.js",
       "source_location": "L3",
       "id": "utils_rut_normalizerut",
-      "community": 10,
+      "community": 5,
       "norm_label": "normalizerut()"
     },
     {
@@ -2043,7 +2061,7 @@
       "source_file": "src/utils/rut.js",
       "source_location": "L5",
       "id": "utils_rut_formatrut",
-      "community": 10,
+      "community": 5,
       "norm_label": "formatrut()"
     },
     {
@@ -2052,7 +2070,7 @@
       "source_file": "src/utils/rut.js",
       "source_location": "L17",
       "id": "utils_rut_isvalidrut",
-      "community": 10,
+      "community": 5,
       "norm_label": "isvalidrut()"
     },
     {
@@ -2061,7 +2079,7 @@
       "source_file": "src/utils/rut.js",
       "source_location": "L39",
       "id": "utils_rut_formatrutinput",
-      "community": 10,
+      "community": 5,
       "norm_label": "formatrutinput()"
     },
     {
@@ -2070,7 +2088,7 @@
       "source_file": "src/utils/wordGenerator.js",
       "source_location": "L1",
       "id": "src_utils_wordgenerator_js",
-      "community": 7,
+      "community": 5,
       "norm_label": "wordgenerator.js"
     },
     {
@@ -2079,7 +2097,7 @@
       "source_file": "src/utils/wordGenerator.js",
       "source_location": "L5",
       "id": "utils_wordgenerator_getloaninterestrate",
-      "community": 7,
+      "community": 5,
       "norm_label": "getloaninterestrate()"
     },
     {
@@ -2088,7 +2106,7 @@
       "source_file": "src/utils/wordGenerator.js",
       "source_location": "L6",
       "id": "utils_wordgenerator_getloandurationmonths",
-      "community": 7,
+      "community": 5,
       "norm_label": "getloandurationmonths()"
     },
     {
@@ -2097,7 +2115,7 @@
       "source_file": "src/utils/wordGenerator.js",
       "source_location": "L8",
       "id": "utils_wordgenerator_downloadblob",
-      "community": 7,
+      "community": 5,
       "norm_label": "downloadblob()"
     },
     {
@@ -2106,7 +2124,7 @@
       "source_file": "src/utils/wordGenerator.js",
       "source_location": "L17",
       "id": "utils_wordgenerator_generatewordcontract",
-      "community": 7,
+      "community": 5,
       "norm_label": "generatewordcontract()"
     },
     {
@@ -2115,7 +2133,7 @@
       "source_file": "src/utils/wordGenerator.js",
       "source_location": "L113",
       "id": "utils_wordgenerator_generatewordreceipt",
-      "community": 7,
+      "community": 5,
       "norm_label": "generatewordreceipt()"
     },
     {
@@ -2132,7 +2150,7 @@
       "file_type": "code",
       "source_file": "test-client-creation.js",
       "source_location": "L5",
-      "community": 8,
+      "community": 9,
       "norm_label": "login()",
       "id": "loanmanager_test_client_creation_login"
     },
@@ -2141,7 +2159,7 @@
       "file_type": "code",
       "source_file": "test-client-creation.js",
       "source_location": "L30",
-      "community": 8,
+      "community": 9,
       "norm_label": "testcreateclient()",
       "id": "loanmanager_test_client_creation_testcreateclient"
     },
@@ -2150,7 +2168,7 @@
       "file_type": "code",
       "source_file": "test-client-creation.js",
       "source_location": "L66",
-      "community": 8,
+      "community": 9,
       "norm_label": "testcreateclientwithoutphone()",
       "id": "loanmanager_test_client_creation_testcreateclientwithoutphone"
     },
@@ -2159,7 +2177,7 @@
       "file_type": "code",
       "source_file": "test-client-creation.js",
       "source_location": "L102",
-      "community": 8,
+      "community": 9,
       "norm_label": "runtests()",
       "id": "loanmanager_test_client_creation_runtests"
     },
@@ -2276,7 +2294,7 @@
       "file_type": "code",
       "source_file": "server/utils/amortization.js",
       "source_location": "L1",
-      "community": 9,
+      "community": 7,
       "norm_label": "amortization.js",
       "id": "release_win_unpacked_resources_server_utils_amortization_js"
     },
@@ -2303,7 +2321,7 @@
       "file_type": "code",
       "source_file": "src/context/AuthContext.jsx",
       "source_location": "L6",
-      "community": 2,
+      "community": 0,
       "norm_label": "useauth()",
       "id": "context_authcontext_useauth"
     },
@@ -2312,7 +2330,7 @@
       "file_type": "code",
       "source_file": "src/context/LoanContext.jsx",
       "source_location": "L9",
-      "community": 1,
+      "community": 0,
       "norm_label": "useloans()",
       "id": "context_loancontext_useloans"
     },
@@ -2321,7 +2339,7 @@
       "file_type": "code",
       "source_file": "src/context/ThemeContext.jsx",
       "source_location": "L34",
-      "community": 2,
+      "community": 0,
       "norm_label": "usetheme()",
       "id": "context_themecontext_usetheme"
     },
@@ -2330,7 +2348,7 @@
       "file_type": "code",
       "source_file": "src/utils/dataExport.js",
       "source_location": "L1",
-      "community": 2,
+      "community": 0,
       "norm_label": "dataexport.js",
       "id": "src_utils_dataexport_js"
     },
@@ -2339,7 +2357,7 @@
       "file_type": "code",
       "source_file": "src/utils/dataExport.js",
       "source_location": "L1",
-      "community": 2,
+      "community": 0,
       "norm_label": "exportdata()",
       "id": "utils_dataexport_exportdata"
     },
@@ -2348,7 +2366,7 @@
       "file_type": "code",
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L8",
-      "community": 3,
+      "community": 2,
       "norm_label": "loadfile()",
       "id": "utils_pagaregenerator_loadfile"
     },
@@ -2357,7 +2375,7 @@
       "file_type": "code",
       "source_file": "src/utils/calendar.js",
       "source_location": "L66",
-      "community": 4,
+      "community": 3,
       "norm_label": "downloadcalendarreminder()",
       "id": "utils_calendar_downloadcalendarreminder"
     },
@@ -2366,7 +2384,7 @@
       "file_type": "code",
       "source_file": "src/utils/wordGenerator.js",
       "source_location": "L8",
-      "community": 7,
+      "community": 5,
       "norm_label": "loadfile()",
       "id": "utils_wordgenerator_loadfile"
     },
@@ -2375,7 +2393,7 @@
       "file_type": "code",
       "source_file": "src/utils/wordGenerator.js",
       "source_location": "L197",
-      "community": 7,
+      "community": 5,
       "norm_label": "generatepagare()",
       "id": "utils_wordgenerator_generatepagare"
     },
@@ -2384,7 +2402,7 @@
       "file_type": "code",
       "source_file": "src/utils/wordGenerator.js",
       "source_location": "L278",
-      "community": 7,
+      "community": 5,
       "norm_label": "generatepagarefromtemplate()",
       "id": "utils_wordgenerator_generatepagarefromtemplate"
     },
@@ -2469,7 +2487,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "loan manager",
       "id": "loan_manager"
     },
@@ -2482,7 +2500,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "frontend - react 19 + vite 7",
       "id": "frontend_react"
     },
@@ -2495,7 +2513,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 4,
       "norm_label": "backend - express 5 + prisma 5",
       "id": "backend_express"
     },
@@ -2508,7 +2526,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "desktop app - electron 33",
       "id": "desktop_electron"
     },
@@ -2534,7 +2552,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "dashboard",
       "id": "dashboard"
     },
@@ -2547,7 +2565,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "client management",
       "id": "client_management"
     },
@@ -2573,7 +2591,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "payment tracking",
       "id": "payment_tracking"
     },
@@ -2599,7 +2617,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "amortization calculator",
       "id": "calculator"
     },
@@ -2612,7 +2630,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "document generation",
       "id": "document_generation"
     },
@@ -2625,7 +2643,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "data import (csv/excel)",
       "id": "data_import"
     },
@@ -2638,7 +2656,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 4,
       "norm_label": "authentication",
       "id": "authentication"
     },
@@ -2651,7 +2669,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 4,
       "norm_label": "jwt authentication",
       "id": "jwt_auth"
     },
@@ -2664,7 +2682,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 4,
       "norm_label": "bcrypt password hashing",
       "id": "bcrypt_hashing"
     },
@@ -2677,7 +2695,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "dark/light theme system",
       "id": "theme_system"
     },
@@ -2690,7 +2708,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "tailwind css 4",
       "id": "tailwind_css"
     },
@@ -2703,7 +2721,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "react router 7",
       "id": "react_router"
     },
@@ -2716,7 +2734,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 10,
       "norm_label": "recharts",
       "id": "recharts"
     },
@@ -2729,7 +2747,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "lucide react icons",
       "id": "lucide_icons"
     },
@@ -2742,7 +2760,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "sonner toast notifications",
       "id": "sonner_toast"
     },
@@ -2755,7 +2773,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "jspdf",
       "id": "jspdf"
     },
@@ -2768,7 +2786,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "docx library",
       "id": "docx_lib"
     },
@@ -2781,7 +2799,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 4,
       "norm_label": "zod request validation",
       "id": "zod_validation"
     },
@@ -2794,7 +2812,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 4,
       "norm_label": "helmet security middleware",
       "id": "helmet_security"
     },
@@ -2807,7 +2825,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 4,
       "norm_label": "cors middleware",
       "id": "cors_middleware"
     },
@@ -2820,7 +2838,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 4,
       "norm_label": "rate limiting middleware",
       "id": "rate_limiter"
     },
@@ -2833,7 +2851,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 4,
       "norm_label": "winston structured logging",
       "id": "winston_logging"
     },
@@ -2846,7 +2864,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 4,
       "norm_label": "sqlite database",
       "id": "sqlite_db"
     },
@@ -2859,7 +2877,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 4,
       "norm_label": "prisma orm",
       "id": "prisma_orm"
     },
@@ -2872,7 +2890,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "vite build tool",
       "id": "vite_build"
     },
@@ -2885,7 +2903,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "electron builder",
       "id": "electron_builder"
     },
@@ -2898,7 +2916,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "authcontext",
       "id": "auth_context"
     },
@@ -2911,7 +2929,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "loancontext",
       "id": "loan_context"
     },
@@ -2924,7 +2942,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "themecontext",
       "id": "theme_context"
     },
@@ -2937,7 +2955,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "useloanhealth hook",
       "id": "use_loan_health_hook"
     },
@@ -2950,7 +2968,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "partial payments feature",
       "id": "partial_payments_plan"
     },
@@ -2963,7 +2981,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 4,
       "norm_label": "frontend-backend type validation",
       "id": "validation_sync_plan"
     },
@@ -2989,7 +3007,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "promissory note (pagara\u00a9) template",
       "id": "pagare_template"
     },
@@ -3067,7 +3085,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "vite logo",
       "id": "vite_logo"
     },
@@ -3080,7 +3098,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "react logo",
       "id": "react_logo"
     },
@@ -3093,7 +3111,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "error boundary component",
       "id": "error_boundary"
     },
@@ -3262,7 +3280,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "portfolio overview",
       "id": "portfolio_overview"
     },
@@ -3275,7 +3293,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "monthly cash-flow projections",
       "id": "cash_flow_projections"
     },
@@ -3288,7 +3306,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "loan health indicators",
       "id": "loan_health_indicators"
     },
@@ -3353,7 +3371,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "automatic overdue detection",
       "id": "overdue_detection"
     },
@@ -3366,7 +3384,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "transaction history",
       "id": "transaction_history"
     },
@@ -3405,7 +3423,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "search & filter functionality",
       "id": "search_filter"
     },
@@ -3418,7 +3436,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "detailed client profiles",
       "id": "client_profiles"
     },
@@ -3431,7 +3449,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "loan history",
       "id": "loan_history"
     },
@@ -3444,7 +3462,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "exportable payment schedules",
       "id": "exportable_schedules"
     },
@@ -3457,7 +3475,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "system-aware theme toggle",
       "id": "system_theme_awareness"
     },
@@ -3470,7 +3488,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "smooth theme transitions",
       "id": "smooth_transitions"
     },
@@ -3483,7 +3501,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "windows executable package",
       "id": "windows_exe"
     },
@@ -3522,7 +3540,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 4,
       "norm_label": "rate-limited login",
       "id": "rate_limited_login"
     },
@@ -3535,7 +3553,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 0,
+      "community": 1,
       "norm_label": "hashrouter for electron compatibility",
       "id": "hash_router"
     },
@@ -3561,7 +3579,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 4,
       "norm_label": "appdata portability strategy",
       "id": "app_data_portability"
     },
@@ -3574,7 +3592,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 4,
       "norm_label": "prisma database migration",
       "id": "prisma_migration"
     },
@@ -3626,7 +3644,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 4,
       "norm_label": "loan type enum validation",
       "id": "loan_type_enum"
     },
@@ -3639,7 +3657,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 4,
       "norm_label": "payment frequency enum",
       "id": "frequency_enum"
     },
@@ -3652,7 +3670,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 5,
+      "community": 4,
       "norm_label": "late fee type enum",
       "id": "late_fee_type_enum"
     }
@@ -3664,9 +3682,9 @@
       "source_file": "check_build.js",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "check_build_js",
-      "target": "loanmanager_publish_check_build_getnewestfiletime",
-      "confidence_score": 1.0
+      "target": "loanmanager_publish_check_build_getnewestfiletime"
     },
     {
       "relation": "contains",
@@ -3684,9 +3702,9 @@
       "source_file": "test-client-creation.js",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "test_client_creation_js",
-      "target": "loanmanager_publish_test_client_creation_login",
-      "confidence_score": 1.0
+      "target": "loanmanager_publish_test_client_creation_login"
     },
     {
       "relation": "contains",
@@ -3694,9 +3712,9 @@
       "source_file": "test-client-creation.js",
       "source_location": "L30",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "test_client_creation_js",
-      "target": "loanmanager_publish_test_client_creation_testcreateclient",
-      "confidence_score": 1.0
+      "target": "loanmanager_publish_test_client_creation_testcreateclient"
     },
     {
       "relation": "contains",
@@ -3704,9 +3722,9 @@
       "source_file": "test-client-creation.js",
       "source_location": "L66",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "test_client_creation_js",
-      "target": "loanmanager_publish_test_client_creation_testcreateclientwithoutphone",
-      "confidence_score": 1.0
+      "target": "loanmanager_publish_test_client_creation_testcreateclientwithoutphone"
     },
     {
       "relation": "contains",
@@ -3714,9 +3732,9 @@
       "source_file": "test-client-creation.js",
       "source_location": "L102",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "test_client_creation_js",
-      "target": "loanmanager_publish_test_client_creation_runtests",
-      "confidence_score": 1.0
+      "target": "loanmanager_publish_test_client_creation_runtests"
     },
     {
       "relation": "contains",
@@ -3765,9 +3783,9 @@
       "source_file": "test-client-creation.js",
       "source_location": "L107",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "loanmanager_publish_test_client_creation_runtests",
-      "target": "loanmanager_publish_test_client_creation_login",
-      "confidence_score": 1.0
+      "target": "loanmanager_publish_test_client_creation_login"
     },
     {
       "relation": "calls",
@@ -3776,9 +3794,9 @@
       "source_file": "test-client-creation.js",
       "source_location": "L110",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "loanmanager_publish_test_client_creation_runtests",
-      "target": "loanmanager_publish_test_client_creation_testcreateclient",
-      "confidence_score": 1.0
+      "target": "loanmanager_publish_test_client_creation_testcreateclient"
     },
     {
       "relation": "calls",
@@ -3787,9 +3805,9 @@
       "source_file": "test-client-creation.js",
       "source_location": "L113",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "loanmanager_publish_test_client_creation_runtests",
-      "target": "loanmanager_publish_test_client_creation_testcreateclientwithoutphone",
-      "confidence_score": 1.0
+      "target": "loanmanager_publish_test_client_creation_testcreateclientwithoutphone"
     },
     {
       "relation": "contains",
@@ -3797,9 +3815,9 @@
       "source_file": "server/app.js",
       "source_location": "L19",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_app_js",
-      "target": "server_app_createapp",
-      "confidence_score": 1.0
+      "target": "server_app_createapp"
     },
     {
       "relation": "contains",
@@ -3837,9 +3855,9 @@
       "source_file": "server/index.js",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_index_js",
-      "target": "server_index_shutdown",
-      "confidence_score": 1.0
+      "target": "server_index_shutdown"
     },
     {
       "relation": "contains",
@@ -3907,9 +3925,9 @@
       "source_file": "server/routes/dashboard.js",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_routes_dashboard_js",
-      "target": "routes_dashboard_getremainingamount",
-      "confidence_score": 1.0
+      "target": "routes_dashboard_getremainingamount"
     },
     {
       "relation": "contains",
@@ -3917,9 +3935,9 @@
       "source_file": "server/routes/dashboard.js",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_routes_dashboard_js",
-      "target": "routes_dashboard_getloanstatusfrompayments",
-      "confidence_score": 1.0
+      "target": "routes_dashboard_getloanstatusfrompayments"
     },
     {
       "relation": "contains",
@@ -3927,9 +3945,9 @@
       "source_file": "server/routes/dashboard.js",
       "source_location": "L28",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_routes_dashboard_js",
-      "target": "routes_dashboard_syncloansfordashboard",
-      "confidence_score": 1.0
+      "target": "routes_dashboard_syncloansfordashboard"
     },
     {
       "relation": "contains",
@@ -3967,9 +3985,9 @@
       "source_file": "server/routes/import.js",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_routes_import_js",
-      "target": "routes_import_normalizefrequency",
-      "confidence_score": 1.0
+      "target": "routes_import_normalizefrequency"
     },
     {
       "relation": "contains",
@@ -3977,9 +3995,9 @@
       "source_file": "server/routes/import.js",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_routes_import_js",
-      "target": "routes_import_buildclientdata",
-      "confidence_score": 1.0
+      "target": "routes_import_buildclientdata"
     },
     {
       "relation": "contains",
@@ -4027,9 +4045,9 @@
       "source_file": "server/routes/payments.js",
       "source_location": "L33",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_routes_payments_js",
-      "target": "routes_payments_getloanstatusfrompayments",
-      "confidence_score": 1.0
+      "target": "routes_payments_getloanstatusfrompayments"
     },
     {
       "relation": "contains",
@@ -4047,9 +4065,9 @@
       "source_file": "server/tests/api.integration.test.js",
       "source_location": "L52",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_tests_api_integration_test_js",
-      "target": "tests_api_integration_test_request",
-      "confidence_score": 1.0
+      "target": "tests_api_integration_test_request"
     },
     {
       "relation": "contains",
@@ -4057,9 +4075,9 @@
       "source_file": "server/tests/api.integration.test.js",
       "source_location": "L66",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_tests_api_integration_test_js",
-      "target": "tests_api_integration_test_createauthenticatedloanfixture",
-      "confidence_score": 1.0
+      "target": "tests_api_integration_test_createauthenticatedloanfixture"
     },
     {
       "relation": "calls",
@@ -4098,9 +4116,9 @@
       "source_file": "server/utils/amortization.js",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_utils_amortization_js",
-      "target": "utils_amortization_normalizefrequency",
-      "confidence_score": 1.0
+      "target": "utils_amortization_normalizefrequency"
     },
     {
       "relation": "contains",
@@ -4108,9 +4126,9 @@
       "source_file": "server/utils/amortization.js",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_utils_amortization_js",
-      "target": "utils_amortization_buildmonthlyschedule",
-      "confidence_score": 1.0
+      "target": "utils_amortization_buildmonthlyschedule"
     },
     {
       "relation": "contains",
@@ -4118,9 +4136,9 @@
       "source_file": "server/utils/amortization.js",
       "source_location": "L69",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_utils_amortization_js",
-      "target": "utils_amortization_splitmonthlyschedule",
-      "confidence_score": 1.0
+      "target": "utils_amortization_splitmonthlyschedule"
     },
     {
       "relation": "contains",
@@ -4841,6 +4859,17 @@
       "target": "recharts"
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/dashboard/PortfolioChart.jsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_dashboard_portfoliochart_jsx",
+      "target": "hooks_useelementsize_useelementsize"
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/dashboard/PortfolioChart.jsx",
@@ -4849,6 +4878,17 @@
       "confidence_score": 1.0,
       "source": "src_components_dashboard_portfoliochart_jsx",
       "target": "dashboard_portfoliochart_portfoliochart"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/components/dashboard/PortfolioChart.jsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "dashboard_portfoliochart_portfoliochart",
+      "target": "hooks_useelementsize_useelementsize"
     },
     {
       "relation": "imports",
@@ -4916,6 +4956,17 @@
       "target": "recharts"
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/dashboard/RevenueChart.jsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_components_dashboard_revenuechart_jsx",
+      "target": "hooks_useelementsize_useelementsize"
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/dashboard/RevenueChart.jsx",
@@ -4924,6 +4975,17 @@
       "confidence_score": 1.0,
       "source": "src_components_dashboard_revenuechart_jsx",
       "target": "dashboard_revenuechart_revenuechart"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/components/dashboard/RevenueChart.jsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "dashboard_revenuechart_revenuechart",
+      "target": "hooks_useelementsize_useelementsize"
     },
     {
       "relation": "imports",
@@ -5461,6 +5523,16 @@
       "confidence_score": 1.0,
       "source": "src_context_tests_loancontext_test_jsx",
       "target": "context_loancontext_useloans"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/useElementSize.js",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_hooks_useelementsize_js",
+      "target": "hooks_useelementsize_useelementsize"
     },
     {
       "relation": "contains",
@@ -8912,5 +8984,5 @@
       "source_file": "PLAN-validation-sync.md"
     }
   ],
-  "built_at_commit": "f61079b85c27d431a7bce5db4632dd0283cbf707"
+  "built_at_commit": "657c531b25cb475ddc105f26cfda5414c208f3a8"
 }
