@@ -1,7 +1,9 @@
 import React from 'react';
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
+import { PieChart, Pie, Cell, Legend, Tooltip } from 'recharts';
+import { useElementSize } from '../../hooks/useElementSize';
 
 const PortfolioChart = ({ data }) => {
+    const { elementRef, size, isReady } = useElementSize();
     // Custom Palette for Fluid Glass
     const COLORS = ['#2dd4bf', '#8b5cf6', '#fb7185', '#f472b6'];
 
@@ -19,9 +21,9 @@ const PortfolioChart = ({ data }) => {
                 <h3 className="text-sm font-bold text-slate-700 dark:text-white uppercase tracking-wider">Estado de Cartera</h3>
                 <p className="text-teal-600/70 text-[10px] font-bold">DISTRIBUCIÓN</p>
             </div>
-            <div className="relative h-[180px] w-full min-w-0 flex-1 min-h-[180px]">
-                <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
+            <div ref={elementRef} className="relative h-[180px] w-full min-w-0 flex-1 min-h-[180px]">
+                {isReady && (
+                    <PieChart width={size.width} height={size.height}>
                         <Pie
                             data={chartData}
                             cx="50%"
@@ -53,7 +55,7 @@ const PortfolioChart = ({ data }) => {
                             wrapperStyle={{ fontSize: '10px', fontWeight: 600, bottom: 0 }}
                         />
                     </PieChart>
-                </ResponsiveContainer>
+                )}
                 {/* Center Stats */}
                 <div className="absolute top-[50%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
                     <span className="text-2xl font-display font-bold text-slate-700 dark:text-white">

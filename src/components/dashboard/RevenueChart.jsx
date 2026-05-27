@@ -1,16 +1,19 @@
 import React from 'react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
+import { useElementSize } from '../../hooks/useElementSize';
 
 const RevenueChart = ({ data }) => {
+    const { elementRef, size, isReady } = useElementSize();
+
     return (
         <div className="glass-panel flex h-full min-h-[220px] min-w-0 flex-col rounded-3xl p-5">
             <div className="mb-4 shrink-0">
                 <h3 className="text-sm font-bold text-slate-700 dark:text-white uppercase tracking-wider">Tendencia de Ingresos</h3>
                 <p className="text-teal-600/70 text-[10px] font-bold">FLUJO DE CAJA 6 MESES</p>
             </div>
-            <div className="h-[180px] w-full min-w-0 flex-1 min-h-[180px]">
-                <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+            <div ref={elementRef} className="h-[180px] w-full min-w-0 flex-1 min-h-[180px]">
+                {isReady && (
+                    <AreaChart width={size.width} height={size.height} data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                         <defs>
                             <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
                                 <stop offset="5%" stopColor="#2dd4bf" stopOpacity={0.4} />
@@ -50,7 +53,7 @@ const RevenueChart = ({ data }) => {
                             fill="url(#colorRevenue)"
                         />
                     </AreaChart>
-                </ResponsiveContainer>
+                )}
             </div>
         </div>
     );
