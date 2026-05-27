@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" fill="none">
+  <defs>
+    <linearGradient id="gold" x1="244" y1="176" x2="760" y2="848" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F8E7A2"/>
+      <stop offset="0.34" stop-color="#E5C565"/>
+      <stop offset="0.68" stop-color="#C9972E"/>
+      <stop offset="1" stop-color="#8A6112"/>
+    </linearGradient>
+    <filter id="softGlow" x="128" y="128" width="768" height="768" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.84 0 0 0 0 0.68 0 0 0 0 0.25 0 0 0 0.28 0"/>
+      <feBlend in="SourceGraphic" in2="blur" mode="screen"/>
+    </filter>
+  </defs>
+  <rect width="1024" height="1024" fill="transparent"/>
+  <g filter="url(#softGlow)">
+    <text
+      x="512"
+      y="594"
+      text-anchor="middle"
+      font-family="Georgia, 'Times New Roman', serif"
+      font-size="470"
+      font-weight="700"
+      letter-spacing="-34"
+      fill="url(#gold)"
+    >
+      LM
+    </text>
+  </g>
+</svg>
