@@ -3,12 +3,12 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 
 const RevenueChart = ({ data }) => {
     return (
-        <div className="glass-panel p-5 rounded-3xl h-full flex flex-col">
+        <div className="glass-panel flex h-full min-h-[220px] min-w-0 flex-col rounded-3xl p-5">
             <div className="mb-4 shrink-0">
                 <h3 className="text-sm font-bold text-slate-700 dark:text-white uppercase tracking-wider">Tendencia de Ingresos</h3>
                 <p className="text-teal-600/70 text-[10px] font-bold">FLUJO DE CAJA 6 MESES</p>
             </div>
-            <div className="flex-1 min-h-0 w-full">
+            <div className="h-[180px] w-full min-w-0 flex-1 min-h-[180px]">
                 <ResponsiveContainer width="100%" height="100%">
                     <AreaChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                         <defs>

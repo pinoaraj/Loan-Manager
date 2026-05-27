@@ -76,12 +76,12 @@ const Dashboard = () => {
             <DashboardKPI stats={stats} />
 
             <div className="grid h-auto grid-cols-1 gap-3 xl:h-[250px] xl:grid-cols-3">
-                <div className="h-full xl:col-span-2">
+                <div className="min-h-[220px] min-w-0 xl:col-span-2">
                     <Suspense fallback={<ChartSkeleton />}>
                         <RevenueChart data={projections} />
                     </Suspense>
                 </div>
-                <div className="h-full xl:col-span-1">
+                <div className="min-h-[220px] min-w-0 xl:col-span-1">
                     <Suspense fallback={<ChartSkeleton />}>
                         <PortfolioChart data={statusData} />
                     </Suspense>

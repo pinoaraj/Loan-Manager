@@ -14,12 +14,12 @@ const PortfolioChart = ({ data }) => {
     ];
 
     return (
-        <div className="glass-panel p-5 rounded-3xl h-full flex flex-col overflow-hidden">
+        <div className="glass-panel flex h-full min-h-[220px] min-w-0 flex-col overflow-hidden rounded-3xl p-5">
             <div className="mb-2 shrink-0">
                 <h3 className="text-sm font-bold text-slate-700 dark:text-white uppercase tracking-wider">Estado de Cartera</h3>
                 <p className="text-teal-600/70 text-[10px] font-bold">DISTRIBUCIÓN</p>
             </div>
-            <div className="flex-1 min-h-0 w-full relative">
+            <div className="relative h-[180px] w-full min-w-0 flex-1 min-h-[180px]">
                 <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                         <Pie

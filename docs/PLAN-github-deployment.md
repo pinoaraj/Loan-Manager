@@ -56,6 +56,8 @@
 - `npm run build`: OK
 - `graphify update .`: OK
 - QA visual embebido: rutas principales cargando con backend real
+- QA final web: login, dashboard, clientes, detalle cliente, nuevo prestamo, detalle prestamo, pago parcial, cobranza, documentos legales, calculadora e importacion/exportacion validados
+- QA final desktop: `win-unpacked/Loan Manager.exe` inicia, crea/usa DB en `AppData`, ejecuta migraciones y levanta backend local en `3011`
 
 ## Graphify
 

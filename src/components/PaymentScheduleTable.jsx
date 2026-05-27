@@ -4,6 +4,8 @@ import { ChevronDown, ChevronUp, MessageCircle, FileText, Calendar, DollarSign, 
 import { downloadPaymentReminder } from '../utils/calendar';
 import { generateWhatsAppLink, getReminderMessage } from '../utils/communication';
 
+const toAmount = (value) => Number(value || 0);
+
 const PaymentScheduleTable = ({ loan, client, onRegisterPayment }) => {
     const [expandedPaymentId, setExpandedPaymentId] = useState(null);
 
@@ -52,7 +54,16 @@ const PaymentScheduleTable = ({ loan, client, onRegisterPayment }) => {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-50">
-                        {loan.payments.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate)).map((payment, idx) => (
+                        {loan.payments.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate)).map((payment, idx) => {
+                            const principal = toAmount(payment.principal);
+                            const interest = toAmount(payment.interest);
+                            const lateFee = toAmount(payment.lateFee);
+                            const amount = toAmount(payment.amount);
+                            const paidAmount = toAmount(payment.paidAmount);
+                            const totalDue = amount + lateFee;
+                            const paidPercent = totalDue > 0 ? (paidAmount / totalDue) * 100 : 0;
+
+                            return (
                             <Fragment key={payment.id}>
                                 <tr className={`transition-colors ${payment.status === 'Paid' ? 'bg-emerald-50/30' : 'hover:bg-slate-50/50'}`}>
                                     <td className="p-4 font-medium text-slate-400">
@@ -73,27 +84,27 @@ const PaymentScheduleTable = ({ loan, client, onRegisterPayment }) => {
                                             {format(parseISO(payment.dueDate), 'dd MMM yyyy')}
                                         </div>
                                         <p className="font-mono text-xs italic text-slate-400">
-                                            Cap: ${payment.principal.toFixed(2)} | Int: ${payment.interest.toFixed(2)}
-                                            {payment.lateFee > 0 && <span className="ml-1 font-bold text-rose-500">| Mora: ${payment.lateFee.toFixed(2)}</span>}
+                                            Cap: ${principal.toFixed(2)} | Int: ${interest.toFixed(2)}
+                                            {lateFee > 0 && <span className="ml-1 font-bold text-rose-500">| Mora: ${lateFee.toFixed(2)}</span>}
                                         </p>
                                     </td>
                                     <td className="p-4 text-right">
                                         <div className="flex flex-col items-end">
                                             <span className="font-bold text-slate-800 dark:text-white">
-                                                ${(payment.amount + (payment.lateFee || 0)).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                                                ${totalDue.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                                             </span>
-                                            {payment.lateFee > 0 && <span className="text-[10px] font-bold text-rose-500">Incl. Mora</span>}
+                                            {lateFee > 0 && <span className="text-[10px] font-bold text-rose-500">Incl. Mora</span>}
 
-                                            {payment.paidAmount > 0 && payment.status !== 'Paid' && (
+                                            {paidAmount > 0 && payment.status !== 'Paid' && (
                                                 <div className="mt-1 w-24">
                                                     <div className="mb-0.5 flex justify-between text-[10px] font-bold text-emerald-600">
-                                                        <span>${payment.paidAmount.toLocaleString()}</span>
-                                                        <span>{(payment.paidAmount / (payment.amount + (payment.lateFee || 0)) * 100).toFixed(0)}%</span>
+                                                        <span>${paidAmount.toLocaleString()}</span>
+                                                        <span>{paidPercent.toFixed(0)}%</span>
                                                     </div>
                                                     <div className="h-1.5 overflow-hidden rounded-full bg-slate-100">
                                                         <div
                                                             className="h-full rounded-full bg-emerald-500"
-                                                            style={{ width: `${(payment.paidAmount / (payment.amount + (payment.lateFee || 0)) * 100)}%` }}
+                                                            style={{ width: `${paidPercent}%` }}
                                                         />
                                                     </div>
                                                 </div>
@@ -108,7 +119,7 @@ const PaymentScheduleTable = ({ loan, client, onRegisterPayment }) => {
 
                                             {payment.status === 'Partial' && (
                                                 <div className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 w-max -translate-x-1/2 rounded bg-slate-800 px-2 py-1 text-[10px] text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100">
-                                                    Restan: ${((payment.amount + (payment.lateFee || 0)) - payment.paidAmount).toLocaleString()}
+                                                    Restan: ${(totalDue - paidAmount).toLocaleString()}
                                                     <div className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-slate-800"></div>
                                                 </div>
                                             )}
@@ -189,7 +200,7 @@ const PaymentScheduleTable = ({ loan, client, onRegisterPayment }) => {
                                                                     <td className="py-2.5 text-slate-400">{format(parseISO(transaction.createdAt), 'dd/MM/yyyy HH:mm')}</td>
                                                                     <td className="py-2.5 capitalize">{transaction.method}</td>
                                                                     <td className="max-w-[200px] truncate py-2.5 italic text-slate-500" title={transaction.note}>{transaction.note || '-'}</td>
-                                                                    <td className="py-2.5 text-right font-bold text-emerald-600">${transaction.amount.toLocaleString()}</td>
+                                                                    <td className="py-2.5 text-right font-bold text-emerald-600">${toAmount(transaction.amount).toLocaleString()}</td>
                                                                 </tr>
                                                             ))
                                                         ) : (
@@ -206,7 +217,8 @@ const PaymentScheduleTable = ({ loan, client, onRegisterPayment }) => {
                                     </tr>
                                 )}
                             </Fragment>
-                        ))}
+                            );
+                        })}
                     </tbody>
                 </table>
             </div>

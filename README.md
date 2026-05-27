@@ -67,7 +67,7 @@ Example:
 ```env
 JWT_SECRET=your-secret-key-minimum-32-characters-here
 DATABASE_URL="file:./dev.db"
-PORT=3001
+PORT=3011
 NODE_ENV=development
 CORS_ORIGINS=http://localhost:5173,http://127.0.0.1:5173,http://localhost:4173,http://127.0.0.1:4173,app://localhost
 ```
@@ -87,6 +87,7 @@ npm run start
 ```
 
 Frontend runs on `http://localhost:5173`.
+Backend runs on `http://127.0.0.1:3011`.
 
 ## Desktop build
 

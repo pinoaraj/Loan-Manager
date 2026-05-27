@@ -71,6 +71,7 @@ const Login = () => {
                                 <input
                                     type="text"
                                     required
+                                    autoComplete="username"
                                     className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-12 pr-4 outline-none transition-all focus:ring-2 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-700/50"
                                     placeholder="Ingresa tu usuario"
                                     value={username}
@@ -86,6 +87,7 @@ const Login = () => {
                                 <input
                                     type="password"
                                     required
+                                    autoComplete={isLogin ? 'current-password' : 'new-password'}
                                     className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-12 pr-4 outline-none transition-all focus:ring-2 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-700/50"
                                     placeholder="Escribe tu contrasena"
                                     value={password}
