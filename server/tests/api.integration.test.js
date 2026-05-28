@@ -7,12 +7,13 @@ const serverDir = path.resolve(__dirname, '..');
 const sourceDbPath = path.join(serverDir, 'prisma', 'dev.db');
 const dbPath = path.join(serverDir, 'prisma', 'test.integration.db');
 
-fs.copyFileSync(sourceDbPath, dbPath);
-
 process.env.NODE_ENV = 'test';
 process.env.JWT_SECRET = 'test-secret-with-at-least-32-characters';
 process.env.CORS_ORIGINS = 'http://localhost:4173,http://localhost:5173';
 process.env.DATABASE_URL = 'file:./test.integration.db';
+
+fs.rmSync(dbPath, { force: true });
+fs.copyFileSync(sourceDbPath, dbPath);
 
 const prisma = require('../lib/prisma');
 const { createApp } = require('../app');
@@ -21,6 +22,11 @@ let server;
 let baseUrl;
 
 test.before(async () => {
+    const clientColumns = await prisma.$queryRawUnsafe(`PRAGMA table_info('Client')`);
+    if (!clientColumns.some((column) => column.name === 'rut')) {
+        await prisma.$executeRawUnsafe('ALTER TABLE "Client" ADD COLUMN "rut" TEXT');
+    }
+
     await prisma.transaction.deleteMany();
     await prisma.payment.deleteMany();
     await prisma.loan.deleteMany();

@@ -47,8 +47,14 @@ const PaymentModal = ({ isOpen, onClose, payment, onRegisterPayment }) => {
     };
 
     return (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <div className="bg-white dark:bg-slate-900 rounded-3xl w-full max-w-md shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
+        <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm"
+            onClick={onClose}
+        >
+            <div
+                className="w-full max-w-md overflow-hidden rounded-3xl bg-white shadow-2xl animate-in fade-in zoom-in duration-200 dark:bg-slate-900"
+                onClick={(event) => event.stopPropagation()}
+            >
                 <div className="bg-slate-50 dark:bg-slate-800/50 p-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
                     <h3 className="text-xl font-bold text-slate-800 dark:text-white flex items-center gap-2">
                         <DollarSign className="text-emerald-500" />

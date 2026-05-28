@@ -27,7 +27,7 @@
       "source_file": "eslint.config.js",
       "source_location": "L1",
       "id": "eslint_config_js",
-      "community": 31,
+      "community": 32,
       "norm_label": "eslint.config.js"
     },
     {
@@ -36,7 +36,7 @@
       "source_file": "patch-desktop.ps1",
       "source_location": "L1",
       "id": "patch_desktop_ps1",
-      "community": 32,
+      "community": 33,
       "norm_label": "patch-desktop.ps1"
     },
     {
@@ -45,7 +45,7 @@
       "source_file": "postcss.config.js",
       "source_location": "L1",
       "id": "postcss_config_js",
-      "community": 33,
+      "community": 34,
       "norm_label": "postcss.config.js"
     },
     {
@@ -54,7 +54,7 @@
       "source_file": "rebuild-desktop-app.ps1",
       "source_location": "L1",
       "id": "rebuild_desktop_app_ps1",
-      "community": 34,
+      "community": 35,
       "norm_label": "rebuild-desktop-app.ps1"
     },
     {
@@ -63,7 +63,7 @@
       "source_file": "rebuild-desktop-final.ps1",
       "source_location": "L1",
       "id": "rebuild_desktop_final_ps1",
-      "community": 35,
+      "community": 36,
       "norm_label": "rebuild-desktop-final.ps1"
     },
     {
@@ -72,7 +72,7 @@
       "source_file": "tailwind.config.js",
       "source_location": "L1",
       "id": "tailwind_config_js",
-      "community": 36,
+      "community": 37,
       "norm_label": "tailwind.config.js"
     },
     {
@@ -126,7 +126,7 @@
       "source_file": "test-client-creation.ps1",
       "source_location": "L1",
       "id": "test_client_creation_ps1",
-      "community": 37,
+      "community": 38,
       "norm_label": "test-client-creation.ps1"
     },
     {
@@ -135,7 +135,7 @@
       "source_file": "vite.config.js",
       "source_location": "L1",
       "id": "vite_config_js",
-      "community": 38,
+      "community": 39,
       "norm_label": "vite.config.js"
     },
     {
@@ -144,7 +144,7 @@
       "source_file": "vitest.config.js",
       "source_location": "L1",
       "id": "vitest_config_js",
-      "community": 39,
+      "community": 40,
       "norm_label": "vitest.config.js"
     },
     {
@@ -207,7 +207,7 @@
       "source_file": "server/prisma.config.ts",
       "source_location": "L1",
       "id": "server_prisma_config_ts",
-      "community": 40,
+      "community": 41,
       "norm_label": "prisma.config.ts"
     },
     {
@@ -216,7 +216,7 @@
       "source_file": "server/test-zod-error.js",
       "source_location": "L1",
       "id": "server_test_zod_error_js",
-      "community": 41,
+      "community": 42,
       "norm_label": "test-zod-error.js"
     },
     {
@@ -225,7 +225,7 @@
       "source_file": "server/lib/prisma.js",
       "source_location": "L1",
       "id": "release_win_unpacked_resources_server_lib_prisma_js",
-      "community": 42,
+      "community": 43,
       "norm_label": "prisma.js"
     },
     {
@@ -252,7 +252,7 @@
       "source_file": "server/middleware/rateLimiter.js",
       "source_location": "L1",
       "id": "server_middleware_ratelimiter_js",
-      "community": 43,
+      "community": 44,
       "norm_label": "ratelimiter.js"
     },
     {
@@ -279,7 +279,7 @@
       "source_file": "server/middleware/validationSchemas.js",
       "source_location": "L1",
       "id": "server_middleware_validationschemas_js",
-      "community": 44,
+      "community": 45,
       "norm_label": "validationschemas.js"
     },
     {
@@ -306,7 +306,7 @@
       "source_file": "server/routes/auth.js",
       "source_location": "L1",
       "id": "server_routes_auth_js",
-      "community": 45,
+      "community": 46,
       "norm_label": "auth.js"
     },
     {
@@ -315,7 +315,7 @@
       "source_file": "server/routes/backup.js",
       "source_location": "L1",
       "id": "server_routes_backup_js",
-      "community": 46,
+      "community": 47,
       "norm_label": "backup.js"
     },
     {
@@ -324,7 +324,7 @@
       "source_file": "server/routes/clients.js",
       "source_location": "L1",
       "id": "server_routes_clients_js",
-      "community": 47,
+      "community": 48,
       "norm_label": "clients.js"
     },
     {
@@ -369,7 +369,7 @@
       "source_file": "server/routes/import.js",
       "source_location": "L1",
       "id": "release_win_unpacked_resources_server_routes_import_js",
-      "community": 14,
+      "community": 15,
       "norm_label": "import.js"
     },
     {
@@ -378,7 +378,7 @@
       "source_file": "server/routes/import.js",
       "source_location": "L9",
       "id": "routes_import_normalizefrequency",
-      "community": 14,
+      "community": 15,
       "norm_label": "normalizefrequency()"
     },
     {
@@ -387,7 +387,7 @@
       "source_file": "server/routes/import.js",
       "source_location": "L14",
       "id": "routes_import_buildclientdata",
-      "community": 14,
+      "community": 15,
       "norm_label": "buildclientdata()"
     },
     {
@@ -396,7 +396,7 @@
       "source_file": "server/routes/loans.js",
       "source_location": "L1",
       "id": "server_routes_loans_js",
-      "community": 15,
+      "community": 16,
       "norm_label": "loans.js"
     },
     {
@@ -405,7 +405,7 @@
       "source_file": "server/routes/loans.js",
       "source_location": "L9",
       "id": "routes_loans_normalizefrequency",
-      "community": 15,
+      "community": 16,
       "norm_label": "normalizefrequency()"
     },
     {
@@ -414,7 +414,7 @@
       "source_file": "server/routes/payments.js",
       "source_location": "L1",
       "id": "server_routes_payments_js",
-      "community": 16,
+      "community": 17,
       "norm_label": "payments.js"
     },
     {
@@ -423,7 +423,7 @@
       "source_file": "server/routes/payments.js",
       "source_location": "L33",
       "id": "routes_payments_getloanstatusfrompayments",
-      "community": 16,
+      "community": 17,
       "norm_label": "getloanstatusfrompayments()"
     },
     {
@@ -432,34 +432,34 @@
       "source_file": "server/routes/reports.js",
       "source_location": "L1",
       "id": "release_win_unpacked_resources_server_routes_reports_js",
-      "community": 48,
+      "community": 49,
       "norm_label": "reports.js"
     },
     {
       "label": "api.integration.test.js",
       "file_type": "code",
-      "source_file": "server/tests/api.integration.test.js",
+      "source_file": "release/win-unpacked/resources/server/tests/api.integration.test.js",
       "source_location": "L1",
       "id": "release_win_unpacked_resources_server_tests_api_integration_test_js",
-      "community": 17,
+      "community": 14,
       "norm_label": "api.integration.test.js"
     },
     {
       "label": "request()",
       "file_type": "code",
       "source_file": "server/tests/api.integration.test.js",
-      "source_location": "L52",
+      "source_location": "L58",
       "id": "tests_api_integration_test_request",
-      "community": 17,
+      "community": 14,
       "norm_label": "request()"
     },
     {
       "label": "createAuthenticatedLoanFixture()",
       "file_type": "code",
       "source_file": "server/tests/api.integration.test.js",
-      "source_location": "L66",
+      "source_location": "L72",
       "id": "tests_api_integration_test_createauthenticatedloanfixture",
-      "community": 17,
+      "community": 14,
       "norm_label": "createauthenticatedloanfixture()"
     },
     {
@@ -531,7 +531,7 @@
       "source_file": "server/utils/logger.js",
       "source_location": "L1",
       "id": "server_utils_logger_js",
-      "community": 49,
+      "community": 50,
       "norm_label": "logger.js"
     },
     {
@@ -540,89 +540,98 @@
       "source_file": "scripts/generate_app_icon.py",
       "source_location": "L1",
       "id": "scripts_generate_app_icon_py",
-      "community": 5,
+      "community": 3,
       "norm_label": "generate_app_icon.py"
     },
     {
-      "label": "make_gradient()",
+      "label": "draw_lm_mark()",
       "file_type": "code",
       "source_file": "scripts/generate_app_icon.py",
-      "source_location": "L24",
-      "id": "scripts_generate_app_icon_make_gradient",
-      "community": 5,
-      "norm_label": "make_gradient()"
+      "source_location": "L23",
+      "id": "scripts_generate_app_icon_draw_lm_mark",
+      "community": 3,
+      "norm_label": "draw_lm_mark()"
     },
     {
-      "label": "build_symbol_mask()",
+      "label": "draw_coin()",
       "file_type": "code",
       "source_file": "scripts/generate_app_icon.py",
-      "source_location": "L48",
-      "id": "scripts_generate_app_icon_build_symbol_mask",
-      "community": 5,
-      "norm_label": "build_symbol_mask()"
+      "source_location": "L32",
+      "id": "scripts_generate_app_icon_draw_coin",
+      "community": 3,
+      "norm_label": "draw_coin()"
     },
     {
-      "label": "build_cutout_mask()",
+      "label": "draw_document()",
       "file_type": "code",
       "source_file": "scripts/generate_app_icon.py",
-      "source_location": "L81",
-      "id": "scripts_generate_app_icon_build_cutout_mask",
-      "community": 5,
-      "norm_label": "build_cutout_mask()"
+      "source_location": "L40",
+      "id": "scripts_generate_app_icon_draw_document",
+      "community": 3,
+      "norm_label": "draw_document()"
     },
     {
-      "label": "build_shadow()",
+      "label": "draw_growth()",
       "file_type": "code",
       "source_file": "scripts/generate_app_icon.py",
-      "source_location": "L117",
-      "id": "scripts_generate_app_icon_build_shadow",
-      "community": 5,
-      "norm_label": "build_shadow()"
+      "source_location": "L52",
+      "id": "scripts_generate_app_icon_draw_growth",
+      "community": 3,
+      "norm_label": "draw_growth()"
     },
     {
       "label": "build_icon()",
       "file_type": "code",
       "source_file": "scripts/generate_app_icon.py",
-      "source_location": "L124",
+      "source_location": "L61",
       "id": "scripts_generate_app_icon_build_icon",
-      "community": 5,
+      "community": 3,
       "norm_label": "build_icon()"
     },
     {
       "label": "build_preview()",
       "file_type": "code",
       "source_file": "scripts/generate_app_icon.py",
-      "source_location": "L148",
+      "source_location": "L73",
       "id": "scripts_generate_app_icon_build_preview",
-      "community": 5,
+      "community": 3,
       "norm_label": "build_preview()"
     },
     {
       "label": "build_svg()",
       "file_type": "code",
       "source_file": "scripts/generate_app_icon.py",
-      "source_location": "L154",
+      "source_location": "L79",
       "id": "scripts_generate_app_icon_build_svg",
-      "community": 5,
+      "community": 3,
       "norm_label": "build_svg()"
     },
     {
       "label": "save_outputs()",
       "file_type": "code",
       "source_file": "scripts/generate_app_icon.py",
-      "source_location": "L177",
+      "source_location": "L108",
       "id": "scripts_generate_app_icon_save_outputs",
-      "community": 5,
+      "community": 3,
       "norm_label": "save_outputs()"
     },
     {
       "label": "main()",
       "file_type": "code",
       "source_file": "scripts/generate_app_icon.py",
-      "source_location": "L189",
+      "source_location": "L120",
       "id": "scripts_generate_app_icon_main",
-      "community": 5,
+      "community": 3,
       "norm_label": "main()"
+    },
+    {
+      "label": "api.integration.test.js",
+      "file_type": "code",
+      "source_file": "server/tests/api.integration.test.js",
+      "source_location": "L1",
+      "id": "server_tests_api_integration_test_js",
+      "community": 14,
+      "norm_label": "api.integration.test.js"
     },
     {
       "label": "App.jsx",
@@ -684,7 +693,7 @@
       "source_file": "src/main.jsx",
       "source_location": "L1",
       "id": "src_main_jsx",
-      "community": 50,
+      "community": 51,
       "norm_label": "main.jsx"
     },
     {
@@ -765,7 +774,7 @@
       "source_file": "src/components/PagareModal.jsx",
       "source_location": "L1",
       "id": "src_components_pagaremodal_jsx",
-      "community": 4,
+      "community": 5,
       "norm_label": "pagaremodal.jsx"
     },
     {
@@ -774,7 +783,7 @@
       "source_file": "src/components/PagareModal.jsx",
       "source_location": "L6",
       "id": "components_pagaremodal_getpreferredloanid",
-      "community": 4,
+      "community": 5,
       "norm_label": "getpreferredloanid()"
     },
     {
@@ -783,7 +792,7 @@
       "source_file": "src/components/PagareModal.jsx",
       "source_location": "L20",
       "id": "components_pagaremodal_pagaremodal",
-      "community": 4,
+      "community": 5,
       "norm_label": "pagaremodal()"
     },
     {
@@ -810,7 +819,7 @@
       "source_file": "src/components/PaymentScheduleTable.jsx",
       "source_location": "L1",
       "id": "src_components_paymentscheduletable_jsx",
-      "community": 2,
+      "community": 4,
       "norm_label": "paymentscheduletable.jsx"
     },
     {
@@ -819,7 +828,7 @@
       "source_file": "src/components/PaymentScheduleTable.jsx",
       "source_location": "L7",
       "id": "components_paymentscheduletable_toamount",
-      "community": 2,
+      "community": 4,
       "norm_label": "toamount()"
     },
     {
@@ -828,7 +837,7 @@
       "source_file": "src/components/PaymentScheduleTable.jsx",
       "source_location": "L9",
       "id": "components_paymentscheduletable_paymentscheduletable",
-      "community": 2,
+      "community": 4,
       "norm_label": "paymentscheduletable()"
     },
     {
@@ -981,7 +990,7 @@
       "source_file": "src/context/auth-context.js",
       "source_location": "L1",
       "id": "src_context_auth_context_js",
-      "community": 51,
+      "community": 52,
       "norm_label": "auth-context.js"
     },
     {
@@ -1008,7 +1017,7 @@
       "source_file": "src/context/loan-context.js",
       "source_location": "L1",
       "id": "src_context_loan_context_js",
-      "community": 52,
+      "community": 53,
       "norm_label": "loan-context.js"
     },
     {
@@ -1035,7 +1044,7 @@
       "source_file": "src/context/theme-context.js",
       "source_location": "L1",
       "id": "src_context_theme_context_js",
-      "community": 53,
+      "community": 54,
       "norm_label": "theme-context.js"
     },
     {
@@ -1188,7 +1197,7 @@
       "source_file": "src/pages/ClientDetail.jsx",
       "source_location": "L1",
       "id": "src_pages_clientdetail_jsx",
-      "community": 2,
+      "community": 4,
       "norm_label": "clientdetail.jsx"
     },
     {
@@ -1197,7 +1206,7 @@
       "source_file": "src/pages/ClientDetail.jsx",
       "source_location": "L13",
       "id": "pages_clientdetail_isvalidemail",
-      "community": 2,
+      "community": 4,
       "norm_label": "isvalidemail()"
     },
     {
@@ -1206,7 +1215,7 @@
       "source_file": "src/pages/ClientDetail.jsx",
       "source_location": "L16",
       "id": "pages_clientdetail_clientdetail",
-      "community": 2,
+      "community": 4,
       "norm_label": "clientdetail()"
     },
     {
@@ -1215,7 +1224,7 @@
       "source_file": "src/pages/Clients.jsx",
       "source_location": "L1",
       "id": "src_pages_clients_jsx",
-      "community": 4,
+      "community": 0,
       "norm_label": "clients.jsx"
     },
     {
@@ -1224,7 +1233,7 @@
       "source_file": "src/pages/Clients.jsx",
       "source_location": "L11",
       "id": "pages_clients_isvalidemail",
-      "community": 4,
+      "community": 0,
       "norm_label": "isvalidemail()"
     },
     {
@@ -1233,7 +1242,7 @@
       "source_file": "src/pages/Clients.jsx",
       "source_location": "L13",
       "id": "pages_clients_clients",
-      "community": 4,
+      "community": 0,
       "norm_label": "clients()"
     },
     {
@@ -1242,7 +1251,7 @@
       "source_file": "src/pages/Collections.jsx",
       "source_location": "L1",
       "id": "src_pages_collections_jsx",
-      "community": 2,
+      "community": 0,
       "norm_label": "collections.jsx"
     },
     {
@@ -1251,7 +1260,7 @@
       "source_file": "src/pages/Collections.jsx",
       "source_location": "L10",
       "id": "pages_collections_getpaymentdetailpath",
-      "community": 2,
+      "community": 0,
       "norm_label": "getpaymentdetailpath()"
     },
     {
@@ -1260,7 +1269,7 @@
       "source_file": "src/pages/Collections.jsx",
       "source_location": "L14",
       "id": "pages_collections_tabbutton",
-      "community": 2,
+      "community": 0,
       "norm_label": "tabbutton()"
     },
     {
@@ -1269,7 +1278,7 @@
       "source_file": "src/pages/Collections.jsx",
       "source_location": "L33",
       "id": "pages_collections_collections",
-      "community": 2,
+      "community": 0,
       "norm_label": "collections()"
     },
     {
@@ -1363,6 +1372,24 @@
       "norm_label": "loandetail()"
     },
     {
+      "label": "LoanDetail.test.jsx",
+      "file_type": "code",
+      "source_file": "src/pages/LoanDetail.test.jsx",
+      "source_location": "L1",
+      "id": "src_pages_loandetail_test_jsx",
+      "community": 30,
+      "norm_label": "loandetail.test.jsx"
+    },
+    {
+      "label": "LocationProbe()",
+      "file_type": "code",
+      "source_file": "src/pages/LoanDetail.test.jsx",
+      "source_location": "L91",
+      "id": "pages_loandetail_test_locationprobe",
+      "community": 30,
+      "norm_label": "locationprobe()"
+    },
+    {
       "label": "Loans.jsx",
       "file_type": "code",
       "source_file": "src/pages/Loans.jsx",
@@ -1422,7 +1449,7 @@
       "source_file": "src/pages/NewLoan.jsx",
       "source_location": "L1",
       "id": "src_pages_newloan_jsx",
-      "community": 4,
+      "community": 5,
       "norm_label": "newloan.jsx"
     },
     {
@@ -1431,7 +1458,7 @@
       "source_file": "src/pages/NewLoan.jsx",
       "source_location": "L20",
       "id": "pages_newloan_isvalidemail",
-      "community": 4,
+      "community": 5,
       "norm_label": "isvalidemail()"
     },
     {
@@ -1440,7 +1467,7 @@
       "source_file": "src/pages/NewLoan.jsx",
       "source_location": "L26",
       "id": "pages_newloan_newloan",
-      "community": 4,
+      "community": 5,
       "norm_label": "newloan()"
     },
     {
@@ -1467,7 +1494,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L1",
       "id": "src_utils_calendar_js",
-      "community": 3,
+      "community": 2,
       "norm_label": "calendar.js"
     },
     {
@@ -1476,7 +1503,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L5",
       "id": "utils_calendar_pad",
-      "community": 3,
+      "community": 2,
       "norm_label": "pad()"
     },
     {
@@ -1485,7 +1512,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L7",
       "id": "utils_calendar_todateinstance",
-      "community": 3,
+      "community": 2,
       "norm_label": "todateinstance()"
     },
     {
@@ -1494,7 +1521,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L15",
       "id": "utils_calendar_formatgoogledate",
-      "community": 3,
+      "community": 2,
       "norm_label": "formatgoogledate()"
     },
     {
@@ -1503,7 +1530,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L27",
       "id": "utils_calendar_formatutcdatetime",
-      "community": 3,
+      "community": 2,
       "norm_label": "formatutcdatetime()"
     },
     {
@@ -1512,7 +1539,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L39",
       "id": "utils_calendar_formatcurrentutcstamp",
-      "community": 3,
+      "community": 2,
       "norm_label": "formatcurrentutcstamp()"
     },
     {
@@ -1521,7 +1548,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L48",
       "id": "utils_calendar_escapeicstext",
-      "community": 3,
+      "community": 2,
       "norm_label": "escapeicstext()"
     },
     {
@@ -1530,7 +1557,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L54",
       "id": "utils_calendar_slugifyfilepart",
-      "community": 3,
+      "community": 2,
       "norm_label": "slugifyfilepart()"
     },
     {
@@ -1539,7 +1566,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L60",
       "id": "utils_calendar_downloadcalendarblob",
-      "community": 3,
+      "community": 2,
       "norm_label": "downloadcalendarblob()"
     },
     {
@@ -1548,7 +1575,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L72",
       "id": "utils_calendar_createcalendarevent",
-      "community": 3,
+      "community": 2,
       "norm_label": "createcalendarevent()"
     },
     {
@@ -1557,7 +1584,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L102",
       "id": "utils_calendar_buildcalendarfile",
-      "community": 3,
+      "community": 2,
       "norm_label": "buildcalendarfile()"
     },
     {
@@ -1566,7 +1593,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L112",
       "id": "utils_calendar_generategooglecalendarlink",
-      "community": 3,
+      "community": 2,
       "norm_label": "generategooglecalendarlink()"
     },
     {
@@ -1575,7 +1602,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L124",
       "id": "utils_calendar_getpaymenteventdetails",
-      "community": 3,
+      "community": 2,
       "norm_label": "getpaymenteventdetails()"
     },
     {
@@ -1584,7 +1611,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L135",
       "id": "utils_calendar_downloadpaymentreminder",
-      "community": 3,
+      "community": 2,
       "norm_label": "downloadpaymentreminder()"
     },
     {
@@ -1593,7 +1620,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L159",
       "id": "utils_calendar_downloadloancalendar",
-      "community": 3,
+      "community": 2,
       "norm_label": "downloadloancalendar()"
     },
     {
@@ -1602,7 +1629,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L188",
       "id": "utils_calendar_downloadbulkloancalendars",
-      "community": 3,
+      "community": 2,
       "norm_label": "downloadbulkloancalendars()"
     },
     {
@@ -1611,7 +1638,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L219",
       "id": "utils_calendar_opengooglecalendar",
-      "community": 3,
+      "community": 2,
       "norm_label": "opengooglecalendar()"
     },
     {
@@ -1638,7 +1665,7 @@
       "source_file": "src/utils/communication.js",
       "source_location": "L1",
       "id": "src_utils_communication_js",
-      "community": 2,
+      "community": 4,
       "norm_label": "communication.js"
     },
     {
@@ -1647,7 +1674,7 @@
       "source_file": "src/utils/communication.js",
       "source_location": "L1",
       "id": "utils_communication_normalizephonenumber",
-      "community": 2,
+      "community": 4,
       "norm_label": "normalizephonenumber()"
     },
     {
@@ -1656,7 +1683,7 @@
       "source_file": "src/utils/communication.js",
       "source_location": "L3",
       "id": "utils_communication_formatcurrency",
-      "community": 2,
+      "community": 4,
       "norm_label": "formatcurrency()"
     },
     {
@@ -1665,7 +1692,7 @@
       "source_file": "src/utils/communication.js",
       "source_location": "L8",
       "id": "utils_communication_hasphonenumber",
-      "community": 2,
+      "community": 4,
       "norm_label": "hasphonenumber()"
     },
     {
@@ -1674,7 +1701,7 @@
       "source_file": "src/utils/communication.js",
       "source_location": "L10",
       "id": "utils_communication_generatewhatsapplink",
-      "community": 2,
+      "community": 4,
       "norm_label": "generatewhatsapplink()"
     },
     {
@@ -1683,7 +1710,7 @@
       "source_file": "src/utils/communication.js",
       "source_location": "L20",
       "id": "utils_communication_generateemaillink",
-      "community": 2,
+      "community": 4,
       "norm_label": "generateemaillink()"
     },
     {
@@ -1692,7 +1719,7 @@
       "source_file": "src/utils/communication.js",
       "source_location": "L26",
       "id": "utils_communication_getreceiptmessage",
-      "community": 2,
+      "community": 4,
       "norm_label": "getreceiptmessage()"
     },
     {
@@ -1701,7 +1728,7 @@
       "source_file": "src/utils/communication.js",
       "source_location": "L30",
       "id": "utils_communication_getremindermessage",
-      "community": 2,
+      "community": 4,
       "norm_label": "getremindermessage()"
     },
     {
@@ -1710,7 +1737,7 @@
       "source_file": "src/utils/mockData.js",
       "source_location": "L1",
       "id": "src_utils_mockdata_js",
-      "community": 30,
+      "community": 31,
       "norm_label": "mockdata.js"
     },
     {
@@ -1719,7 +1746,7 @@
       "source_file": "src/utils/mockData.js",
       "source_location": "L3",
       "id": "utils_mockdata_generatemockdata",
-      "community": 30,
+      "community": 31,
       "norm_label": "generatemockdata()"
     },
     {
@@ -2061,7 +2088,7 @@
       "source_file": "src/utils/rut.js",
       "source_location": "L1",
       "id": "src_utils_rut_js",
-      "community": 4,
+      "community": 5,
       "norm_label": "rut.js"
     },
     {
@@ -2070,7 +2097,7 @@
       "source_file": "src/utils/rut.js",
       "source_location": "L1",
       "id": "utils_rut_cleanrut",
-      "community": 4,
+      "community": 5,
       "norm_label": "cleanrut()"
     },
     {
@@ -2079,7 +2106,7 @@
       "source_file": "src/utils/rut.js",
       "source_location": "L3",
       "id": "utils_rut_normalizerut",
-      "community": 4,
+      "community": 5,
       "norm_label": "normalizerut()"
     },
     {
@@ -2088,7 +2115,7 @@
       "source_file": "src/utils/rut.js",
       "source_location": "L5",
       "id": "utils_rut_formatrut",
-      "community": 1,
+      "community": 5,
       "norm_label": "formatrut()"
     },
     {
@@ -2097,7 +2124,7 @@
       "source_file": "src/utils/rut.js",
       "source_location": "L17",
       "id": "utils_rut_isvalidrut",
-      "community": 4,
+      "community": 5,
       "norm_label": "isvalidrut()"
     },
     {
@@ -2106,7 +2133,7 @@
       "source_file": "src/utils/rut.js",
       "source_location": "L39",
       "id": "utils_rut_formatrutinput",
-      "community": 4,
+      "community": 5,
       "norm_label": "formatrutinput()"
     },
     {
@@ -2200,6 +2227,42 @@
       "norm_label": "generatewordreceipt()"
     },
     {
+      "label": "make_gradient()",
+      "file_type": "code",
+      "source_file": "scripts/generate_app_icon.py",
+      "source_location": "L24",
+      "community": 3,
+      "norm_label": "make_gradient()",
+      "id": "scripts_generate_app_icon_make_gradient"
+    },
+    {
+      "label": "build_symbol_mask()",
+      "file_type": "code",
+      "source_file": "scripts/generate_app_icon.py",
+      "source_location": "L48",
+      "community": 3,
+      "norm_label": "build_symbol_mask()",
+      "id": "scripts_generate_app_icon_build_symbol_mask"
+    },
+    {
+      "label": "build_cutout_mask()",
+      "file_type": "code",
+      "source_file": "scripts/generate_app_icon.py",
+      "source_location": "L81",
+      "community": 3,
+      "norm_label": "build_cutout_mask()",
+      "id": "scripts_generate_app_icon_build_cutout_mask"
+    },
+    {
+      "label": "build_shadow()",
+      "file_type": "code",
+      "source_file": "scripts/generate_app_icon.py",
+      "source_location": "L117",
+      "community": 3,
+      "norm_label": "build_shadow()",
+      "id": "scripts_generate_app_icon_build_shadow"
+    },
+    {
       "label": "decodeLatin1()",
       "file_type": "code",
       "source_file": "src/utils/pagareGenerator.js",
@@ -2267,7 +2330,7 @@
       "file_type": "code",
       "source_file": "scripts/generate_app_icon.py",
       "source_location": "L19",
-      "community": 5,
+      "community": 3,
       "norm_label": "load_font()",
       "id": "scripts_generate_app_icon_load_font"
     },
@@ -2276,7 +2339,7 @@
       "file_type": "code",
       "source_file": "release/win-unpacked/resources/server/routes/auth.js",
       "source_location": "L1",
-      "community": 54,
+      "community": 55,
       "norm_label": "auth.js",
       "id": "release_win_unpacked_resources_server_routes_auth_js"
     },
@@ -2285,7 +2348,7 @@
       "file_type": "code",
       "source_file": "release/win-unpacked/resources/server/routes/clients.js",
       "source_location": "L1",
-      "community": 55,
+      "community": 56,
       "norm_label": "clients.js",
       "id": "release_win_unpacked_resources_server_routes_clients_js"
     },
@@ -2294,7 +2357,7 @@
       "file_type": "code",
       "source_file": "release/win-unpacked/resources/server/routes/loans.js",
       "source_location": "L1",
-      "community": 15,
+      "community": 16,
       "norm_label": "loans.js",
       "id": "release_win_unpacked_resources_server_routes_loans_js"
     },
@@ -2303,7 +2366,7 @@
       "file_type": "code",
       "source_file": "release/win-unpacked/resources/server/routes/payments.js",
       "source_location": "L1",
-      "community": 16,
+      "community": 17,
       "norm_label": "payments.js",
       "id": "release_win_unpacked_resources_server_routes_payments_js"
     }
@@ -2576,6 +2639,26 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "server/tests/api.integration.test.js",
+      "source_location": "L58",
+      "weight": 1.0,
+      "source": "server_tests_api_integration_test_js",
+      "target": "tests_api_integration_test_request",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/tests/api.integration.test.js",
+      "source_location": "L72",
+      "weight": 1.0,
+      "source": "server_tests_api_integration_test_js",
+      "target": "tests_api_integration_test_createauthenticatedloanfixture",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "server/utils/amortization.js",
       "source_location": "L6",
       "weight": 1.0,
@@ -2722,41 +2805,41 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/generate_app_icon.py",
-      "source_location": "L26",
+      "source_location": "L23",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_generate_app_icon_py",
-      "target": "scripts_generate_app_icon_make_gradient"
+      "target": "scripts_generate_app_icon_draw_lm_mark",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/generate_app_icon.py",
-      "source_location": "L48",
+      "source_location": "L32",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_generate_app_icon_py",
-      "target": "scripts_generate_app_icon_build_symbol_mask"
+      "target": "scripts_generate_app_icon_draw_coin",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/generate_app_icon.py",
-      "source_location": "L81",
+      "source_location": "L40",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_generate_app_icon_py",
-      "target": "scripts_generate_app_icon_build_cutout_mask"
+      "target": "scripts_generate_app_icon_draw_document",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/generate_app_icon.py",
-      "source_location": "L117",
+      "source_location": "L52",
       "weight": 1.0,
-      "confidence_score": 1.0,
       "source": "scripts_generate_app_icon_py",
-      "target": "scripts_generate_app_icon_build_shadow"
+      "target": "scripts_generate_app_icon_draw_growth",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -2812,11 +2895,106 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/generate_app_icon.py",
+      "source_location": "L26",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_generate_app_icon_py",
+      "target": "scripts_generate_app_icon_make_gradient"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/generate_app_icon.py",
+      "source_location": "L48",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_generate_app_icon_py",
+      "target": "scripts_generate_app_icon_build_symbol_mask"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/generate_app_icon.py",
+      "source_location": "L81",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_generate_app_icon_py",
+      "target": "scripts_generate_app_icon_build_cutout_mask"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/generate_app_icon.py",
+      "source_location": "L117",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_generate_app_icon_py",
+      "target": "scripts_generate_app_icon_build_shadow"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/generate_app_icon.py",
       "source_location": "L19",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "scripts_generate_app_icon_py",
       "target": "scripts_generate_app_icon_load_font"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/generate_app_icon.py",
+      "source_location": "L65",
+      "weight": 1.0,
+      "source": "scripts_generate_app_icon_build_icon",
+      "target": "scripts_generate_app_icon_draw_lm_mark",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/generate_app_icon.py",
+      "source_location": "L66",
+      "weight": 1.0,
+      "source": "scripts_generate_app_icon_build_icon",
+      "target": "scripts_generate_app_icon_draw_coin",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/generate_app_icon.py",
+      "source_location": "L67",
+      "weight": 1.0,
+      "source": "scripts_generate_app_icon_build_icon",
+      "target": "scripts_generate_app_icon_draw_document",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/generate_app_icon.py",
+      "source_location": "L68",
+      "weight": 1.0,
+      "source": "scripts_generate_app_icon_build_icon",
+      "target": "scripts_generate_app_icon_draw_growth",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/generate_app_icon.py",
+      "source_location": "L96",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_generate_app_icon_main",
+      "target": "scripts_generate_app_icon_build_icon"
     },
     {
       "relation": "calls",
@@ -2861,17 +3039,6 @@
       "confidence_score": 1.0,
       "source": "scripts_generate_app_icon_build_icon",
       "target": "scripts_generate_app_icon_build_shadow"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/generate_app_icon.py",
-      "source_location": "L96",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "scripts_generate_app_icon_main",
-      "target": "scripts_generate_app_icon_build_icon"
     },
     {
       "relation": "calls",
@@ -4297,6 +4464,16 @@
       "confidence_score": 1.0,
       "source": "src_pages_loandetail_jsx",
       "target": "pages_loandetail_loandetail"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/LoanDetail.test.jsx",
+      "source_location": "L91",
+      "weight": 1.0,
+      "source": "src_pages_loandetail_test_jsx",
+      "target": "pages_loandetail_test_locationprobe",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -6336,5 +6513,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "3f96c0f7e428d3be3a47465e03ff4ea56276ef62"
+  "built_at_commit": "d99f0730c58156d671b2ea91b06308b51c5e5a32"
 }

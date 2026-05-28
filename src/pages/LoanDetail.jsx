@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useEffect, useMemo, useState } from 'react';
+import React, { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { ArrowLeft, Calendar, User, AlertCircle, FileText, RefreshCw, PauseCircle, PlayCircle } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
@@ -56,6 +56,7 @@ const LoanDetail = () => {
     const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
     const [selectedPayment, setSelectedPayment] = useState(null);
     const focusedPaymentId = searchParams.get('payment');
+    const suppressedPaymentIdRef = useRef(null);
 
     const { data: fetchedLoan, isLoading } = useQuery({
         queryKey: ['loan-detail', loanId],
@@ -79,6 +80,29 @@ const LoanDetail = () => {
         }
         return clients.find((item) => item.id === loan?.clientId);
     }, [clients, fetchedLoan, loan]);
+
+    useEffect(() => {
+        if (!focusedPaymentId) {
+            suppressedPaymentIdRef.current = null;
+            return;
+        }
+
+        if (!loan || !focusedPaymentId || isPaymentModalOpen) {
+            return;
+        }
+
+        if (suppressedPaymentIdRef.current === focusedPaymentId) {
+            return;
+        }
+
+        const matchingPayment = loan.payments?.find((payment) => payment.id === focusedPaymentId);
+        if (!matchingPayment) {
+            return;
+        }
+
+        setSelectedPayment(matchingPayment);
+        setIsPaymentModalOpen(true);
+    }, [focusedPaymentId, isPaymentModalOpen, loan]);
 
     if (isLoading && !loan) {
         return (
@@ -114,23 +138,22 @@ const LoanDetail = () => {
     const progress = totalScheduled > 0 ? (totalPaid / totalScheduled) * 100 : 0;
 
     const handlePaymentClick = (payment) => {
+        suppressedPaymentIdRef.current = null;
         setSelectedPayment(payment);
         setIsPaymentModalOpen(true);
     };
 
-    useEffect(() => {
-        if (!loan || !focusedPaymentId || isPaymentModalOpen) {
-            return;
-        }
+    const handleClosePaymentModal = () => {
+        suppressedPaymentIdRef.current = focusedPaymentId || selectedPayment?.id || null;
+        setIsPaymentModalOpen(false);
+        setSelectedPayment(null);
 
-        const matchingPayment = loan.payments?.find((payment) => payment.id === focusedPaymentId);
-        if (!matchingPayment) {
-            return;
+        if (focusedPaymentId) {
+            const nextParams = new URLSearchParams(searchParams);
+            nextParams.delete('payment');
+            setSearchParams(nextParams, { replace: true });
         }
-
-        setSelectedPayment(matchingPayment);
-        setIsPaymentModalOpen(true);
-    }, [focusedPaymentId, isPaymentModalOpen, loan]);
+    };
 
     const handleRegisterPayment = async (paymentId, data) => {
         const result = await registerPayment(paymentId, data);
@@ -393,15 +416,7 @@ const LoanDetail = () => {
                 />
                 <PaymentModal
                     isOpen={isPaymentModalOpen}
-                    onClose={() => {
-                        setIsPaymentModalOpen(false);
-                        setSelectedPayment(null);
-                        if (focusedPaymentId) {
-                            const nextParams = new URLSearchParams(searchParams);
-                            nextParams.delete('payment');
-                            setSearchParams(nextParams, { replace: true });
-                        }
-                    }}
+                    onClose={handleClosePaymentModal}
                     payment={selectedPayment}
                     onRegisterPayment={handleRegisterPayment}
                 />

@@ -25,6 +25,11 @@
    - `Pagare` usa la plantilla `pagare_template_sc.docx`.
    - `Mutuo` usa la plantilla `mutuo_template_sc.doc`.
    - El llenado usa nombre, `RUT` y direccion del cliente.
+7. UX operativa
+   - Las alertas y vistas de cobranza abren la cuota exacta por `paymentId`.
+   - El modal de pago profundo ya cierra al primer click sin reabrirse por la URL.
+8. Branding
+   - Los assets `PNG`, `ICO` y `SVG` del icono de la app ya quedaron alineados con la identidad actual de Loan Manager.
 
 ## Mejoras cerradas para beta desktop
 
@@ -37,7 +42,10 @@
 - [x] Plantillas legales conectadas al flujo desktop.
 - [x] Migraciones Prisma bloqueantes en app empaquetada.
 - [x] `lint`, `vitest`, pruebas backend y `build` pasando.
+- [x] `electron:build` generando instalador y `win-unpacked`.
 - [x] Warnings de Fast Refresh eliminados.
+- [x] Modal de pago profundo cerrando al primer click.
+- [x] Icono desktop actualizado y consistente en assets principales.
 
 ## Riesgos aun vigilados
 
@@ -47,6 +55,8 @@
    - El build sigue siendo valido, pero hay chunks pesados por PDF/XLSX/charting.
 3. Datos historicos
    - Cualquier instalacion desktop antigua sin CLI o con entorno tocado podria exponer problemas locales propios de esa maquina; el arranque ahora falla de forma segura en vez de seguir silenciosamente.
+4. QA en multiples equipos
+   - El build local y el ejecutable empaquetado funcionan, pero la beta todavia conviene validarla al menos en una segunda maquina Windows antes de llamarla "lista para publico amplio".
 
 ## Validacion actual
 
@@ -54,10 +64,21 @@
 - `npx vitest run`: OK
 - `server/npm test`: OK
 - `npm run build`: OK
+- `npm run electron:build`: OK
 - `graphify update .`: OK
 - QA visual embebido: rutas principales cargando con backend real
 - QA final web: login, dashboard, clientes, detalle cliente, nuevo prestamo, detalle prestamo, pago parcial, cobranza, documentos legales, calculadora e importacion/exportacion validados
 - QA final desktop: `win-unpacked/Loan Manager.exe` inicia, crea/usa DB en `AppData`, ejecuta migraciones y levanta backend local en `3011`
+
+## Go / No-Go beta
+
+Veredicto actual: **Go para beta controlada en Windows**.
+
+Esto significa:
+
+1. el producto ya puede probarse con usuarios reales en un grupo pequeno,
+2. no hay bloqueadores tecnicos abiertos en el flujo principal,
+3. aun no conviene venderlo como release estable hasta ampliar QA de escritorio en mas de una maquina y terminar la revision legal/visual de documentos.
 
 ## Graphify
 
