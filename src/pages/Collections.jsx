@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { useLoans } from '../context/useLoans';
 import { useNavigate } from 'react-router-dom';
 import { AlertCircle, Calendar, MessageCircle, ChevronRight, CheckCircle, Search } from 'lucide-react';
 import { format, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { useLoans } from '../context/useLoans';
 import { generateWhatsAppLink, getReminderMessage } from '../utils/communication';
 import { downloadPaymentReminder } from '../utils/calendar';
+import { formatCurrency } from '../utils/formatters';
 
 const getPaymentDetailPath = (loanId, paymentId) => paymentId
     ? `/loans/${loanId}?payment=${paymentId}`
@@ -61,7 +62,7 @@ const Collections = () => {
                     <div>
                         <p className="mb-1 font-medium text-red-600 dark:text-red-400">Total Vencido</p>
                         <h3 className="text-3xl font-bold text-red-700 dark:text-red-300">
-                            ${getTotalAmount(overduePayments).toLocaleString()}
+                            ${formatCurrency(getTotalAmount(overduePayments))}
                         </h3>
                         <p className="mt-2 text-sm text-red-500">{overduePayments.length} pagos pendientes</p>
                     </div>
@@ -74,7 +75,7 @@ const Collections = () => {
                     <div>
                         <p className="mb-1 font-medium text-blue-600 dark:text-blue-400">Proximos Cobros (30 dias)</p>
                         <h3 className="text-3xl font-bold text-blue-700 dark:text-blue-300">
-                            ${getTotalAmount(upcomingPayments).toLocaleString()}
+                            ${formatCurrency(getTotalAmount(upcomingPayments))}
                         </h3>
                         <p className="mt-2 text-sm text-blue-500">{upcomingPayments.length} pagos programados</p>
                     </div>
@@ -150,7 +151,7 @@ const Collections = () => {
                                             {activeTab === 'overdue'
                                                 ? `Vencio hace ${item.daysOverdue} dias`
                                                 : `Vence en ${item.daysUntil} dias`}
-                                            <span className="mx-2 text-slate-400 dark:text-slate-500">•</span>
+                                            <span className="mx-2 text-slate-400 dark:text-slate-500">-</span>
                                             <span className="text-slate-700 dark:text-slate-200">
                                                 {format(parseISO(item.dueDate), 'd MMMM yyyy', { locale: es })}
                                             </span>
@@ -159,7 +160,7 @@ const Collections = () => {
 
                                     <div className="text-right">
                                         <div className="text-lg font-bold text-slate-900 dark:text-white">
-                                            ${Number(item.amount || 0).toLocaleString()}
+                                            ${formatCurrency(item.amount)}
                                         </div>
                                         <div className="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-300">Monto a pagar</div>
                                     </div>

@@ -9,6 +9,7 @@ import { es } from 'date-fns/locale';
 import { useAuth } from '../context/useAuth';
 import { API_URL } from '../config/api';
 import { formatRutInput, isValidRut } from '../utils/rut';
+import { formatCurrency } from '../utils/formatters';
 
 const isValidEmail = (value) => /^[^\s@,]+@[^\s@,]+\.[^\s@,]+$/.test(value);
 const PagareModal = lazy(() => import('../components/PagareModal'));
@@ -137,7 +138,7 @@ const ClientDetail = () => {
             return;
         }
 
-        if (window.confirm('¿Estas seguro de que deseas eliminar este cliente? Esta accion no se puede deshacer.')) {
+        if (window.confirm('Estas seguro de que deseas eliminar este cliente? Esta accion no se puede deshacer.')) {
             const result = await deleteClient(client.id);
             if (result.success) {
                 navigate('/clients');
@@ -265,7 +266,7 @@ const ClientDetail = () => {
                 <div className="text-right hidden md:block border-l border-slate-100 dark:border-slate-700 pl-8">
                     <p className="text-sm text-slate-500 mb-1">Total Prestado</p>
                     <p className="text-3xl font-bold text-slate-800 dark:text-white">
-                        ${clientLoans.reduce((acc, current) => acc + current.amount, 0).toLocaleString()}
+                        ${formatCurrency(clientLoans.reduce((acc, current) => acc + Number(current.amount || 0), 0))}
                     </p>
                     <p className="text-xs text-slate-400 mt-2">
                         {clientLoans.filter((loan) => loan.status === 'Active').length} Prestamos Activos
@@ -297,7 +298,7 @@ const ClientDetail = () => {
                                             <DollarSign size={24} />
                                         </div>
                                         <div>
-                                            <p className="text-lg font-bold text-slate-800 dark:text-white">${loan.amount.toLocaleString()}</p>
+                                            <p className="text-lg font-bold text-slate-800 dark:text-white">${formatCurrency(loan.amount)}</p>
                                             <p className="text-sm text-slate-500">
                                                 {format(parseISO(loan.startDate), 'd MMM, yyyy', { locale: es })}
                                             </p>
@@ -429,3 +430,4 @@ const ClientDetail = () => {
 };
 
 export default ClientDetail;
+

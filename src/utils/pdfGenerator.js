@@ -18,6 +18,10 @@ const getDateLabel = (value, fallback = 'Sin fecha') => {
         ? format(date, 'dd MMM yyyy', { locale: es })
         : fallback;
 };
+const getFileSafeLabel = (value, fallback = 'documento') => String(value ?? fallback)
+    .trim()
+    .replace(/\s+/g, '_')
+    .replace(/[^a-zA-Z0-9_-]/g, '') || fallback;
 const downloadBlob = (blob, filename) => {
     const url = window.URL.createObjectURL(blob);
     const anchor = document.createElement('a');
@@ -58,7 +62,7 @@ export const generateLoanContract = (loan, client) => {
     doc.text('Informacion del Cliente', 14, 45);
     doc.setFontSize(10);
     doc.text(`Nombre: ${clientName}`, 14, 55);
-    doc.text(`ID: ${getText(client?.id, 'Sin ID')}`, 14, 60);
+    doc.text(`RUT: ${getText(client?.rut, 'No registrado')}`, 14, 60);
     doc.text(`Email: ${getText(client?.email)}`, 14, 65);
     doc.text(`Telefono: ${getText(client?.phone)}`, 14, 70);
 
@@ -93,7 +97,7 @@ export const generateLoanContract = (loan, client) => {
     doc.text('Firma del Prestamista', 140, finalY + 10);
 
     const blob = doc.output('blob');
-    downloadBlob(blob, `Contrato_${clientName.replace(/\s+/g, '_')}_${loan?.id || 'sin-id'}.pdf`);
+    downloadBlob(blob, `Contrato_${getFileSafeLabel(clientName, 'Cliente')}_${format(new Date(), 'yyyyMMdd')}.pdf`);
 };
 
 export const generateReceipt = (payment, loan, client) => {
@@ -109,7 +113,7 @@ export const generateReceipt = (payment, loan, client) => {
 
     doc.setTextColor(0, 0, 0);
     doc.setFontSize(14);
-    doc.text(`Recibo #: ${String(payment?.id || '').substring(0, 8)}`, 14, 60);
+    doc.text('Recibo de Pago', 14, 60);
     doc.text(`Fecha: ${format(new Date(), 'dd MMM yyyy pp', { locale: es })}`, 14, 70);
 
     doc.setDrawColor(200, 200, 200);
@@ -131,7 +135,7 @@ export const generateReceipt = (payment, loan, client) => {
 
     doc.setFontSize(12);
     doc.text('Concepto:', 14, 150);
-    doc.text(`Pago de cuota del prestamo #${loan?.id || 'sin-id'}`, 14, 160);
+    doc.text('Pago correspondiente a cuota programada', 14, 160);
     doc.text(`Vencimiento Original: ${getDateLabel(payment?.dueDate)}`, 14, 170);
 
     doc.setFontSize(10);
@@ -140,5 +144,5 @@ export const generateReceipt = (payment, loan, client) => {
     doc.text(COMPANY_NAME, 105, 285, { align: 'center' });
 
     const blob = doc.output('blob');
-    downloadBlob(blob, `Recibo_${payment?.id || 'sin-id'}_${clientName.replace(/\s+/g, '_')}.pdf`);
+    downloadBlob(blob, `Recibo_${getFileSafeLabel(clientName, 'Cliente')}_${format(new Date(), 'yyyyMMdd-HHmm')}.pdf`);
 };

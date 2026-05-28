@@ -9,6 +9,7 @@ import { useLoanHealth } from '../hooks/useLoanHealth';
 import { downloadLoanCalendar } from '../utils/calendar';
 import { useAuth } from '../context/useAuth';
 import { API_URL } from '../config/api';
+import { formatCurrency } from '../utils/formatters';
 
 const PagareModal = lazy(() => import('../components/PagareModal'));
 const PaymentModal = lazy(() => import('../components/PaymentModal'));
@@ -43,6 +44,14 @@ const SectionLoader = () => (
         Cargando seccion...
     </div>
 );
+
+const getLoanTypeLabel = (value) => value === 'Simple' ? 'Interes simple' : 'Cuota fija';
+const getFrequencyLabel = (value) => {
+    const normalized = String(value || '').toLowerCase();
+    if (normalized === 'weekly') return 'Semanal';
+    if (normalized === 'bi-weekly' || normalized === 'biweekly') return 'Quincenal';
+    return 'Mensual';
+};
 
 const LoanDetail = () => {
     const { id: loanId } = useParams();
@@ -230,8 +239,8 @@ const LoanDetail = () => {
 
     return (
         <div className="mx-auto max-w-6xl space-y-8 p-8">
-            <header className="flex items-start justify-between">
-                <div className="space-y-4">
+            <header className="flex flex-col gap-6 xl:flex-row xl:items-start xl:justify-between">
+                <div className="min-w-0 space-y-4">
                     <button
                         onClick={() => navigate('/loans')}
                         className="group flex items-center gap-2 text-slate-500 transition-colors hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-300"
@@ -240,22 +249,25 @@ const LoanDetail = () => {
                         <span className="text-xs font-bold uppercase tracking-widest">Volver a Prestamos</span>
                     </button>
                     <div>
-                        <h2 className="flex items-center gap-3 text-3xl font-bold text-slate-800 dark:text-white">
-                            Prestamo <span className="font-mono text-xl text-slate-400">#{loan.id.slice(-6)}</span>
+                        <h2 className="flex flex-wrap items-center gap-3 text-3xl font-bold text-slate-800 dark:text-white">
+                            Prestamo
                             <span className={`rounded-full px-3 py-1 text-sm font-bold uppercase tracking-wider ${badgeClasses}`}>
                                 {health.label}
                             </span>
                         </h2>
-                        <div className="mt-2 flex items-center gap-2 text-slate-500 dark:text-slate-300">
-                            <User size={16} />
-                            <span className="font-medium">{client?.name}</span>
-                            <span className="mx-2">-</span>
-                            <Calendar size={16} />
-                            <span>Iniciado el {format(parseISO(loan.startDate), 'dd MMM yyyy')}</span>
+                        <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-slate-500 dark:text-slate-300">
+                            <span className="flex min-w-0 items-center gap-2">
+                                <User size={16} />
+                                <span className="font-medium text-slate-700 dark:text-slate-100">{client?.name}</span>
+                            </span>
+                            <span className="flex items-center gap-2">
+                                <Calendar size={16} />
+                                <span>Iniciado el {format(parseISO(loan.startDate), 'dd MMM yyyy')}</span>
+                            </span>
                         </div>
                     </div>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex flex-wrap items-center gap-3">
                     <button
                         onClick={handleTogglePause}
                         className={`flex items-center gap-2 rounded-xl border px-4 py-2 text-sm font-bold transition-all ${loan.isPaused
@@ -314,17 +326,17 @@ const LoanDetail = () => {
             </header>
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
-                <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+                    <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800">
                     <p className="mb-1 text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-300">Monto Original</p>
-                    <h3 className="text-2xl font-bold text-slate-800 dark:text-white">${loan.amount.toLocaleString()}</h3>
+                    <h3 className="text-2xl font-bold text-slate-800 dark:text-white">${formatCurrency(loan.amount)}</h3>
                 </div>
                 <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800">
                     <p className="mb-1 text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-300">Pagado</p>
-                    <h3 className="text-2xl font-bold text-emerald-600">${totalPaid.toLocaleString()}</h3>
+                    <h3 className="text-2xl font-bold text-emerald-600">${formatCurrency(totalPaid)}</h3>
                 </div>
                 <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800">
                     <p className="mb-1 text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-300">Pendiente</p>
-                    <h3 className="text-2xl font-bold text-blue-600">${totalRemaining.toLocaleString()}</h3>
+                    <h3 className="text-2xl font-bold text-blue-600">${formatCurrency(totalRemaining)}</h3>
                 </div>
                 <div className="rounded-3xl border border-slate-100 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800">
                     <p className="mb-1 text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-300">Progreso</p>
@@ -340,15 +352,15 @@ const LoanDetail = () => {
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
                 <div className="space-y-6 lg:col-span-1">
                     <div className="rounded-3xl bg-slate-900 p-8 text-white shadow-xl">
-                        <h4 className="mb-6 text-xs font-bold uppercase tracking-widest text-blue-400">Detalles Tecnicos</h4>
+                        <h4 className="mb-6 text-xs font-bold uppercase tracking-widest text-blue-400">Detalles del Prestamo</h4>
                         <div className="space-y-4">
                             <div className="flex items-center justify-between border-b border-slate-800 pb-4 text-sm">
                                 <span className="text-slate-300">Tipo de Prestamo</span>
-                                <span className="font-bold">{loan.loanType}</span>
+                                <span className="font-bold">{getLoanTypeLabel(loan.loanType)}</span>
                             </div>
                             <div className="flex items-center justify-between border-b border-slate-800 pb-4 text-sm">
                                 <span className="text-slate-300">Frecuencia de Pago</span>
-                                <span className="font-bold capitalize">{loan.frequency}</span>
+                                <span className="font-bold">{getFrequencyLabel(loan.frequency)}</span>
                             </div>
                             <div className="flex items-center justify-between border-b border-slate-800 pb-4 text-sm">
                                 <span className="text-slate-300">Tasa de Interes</span>

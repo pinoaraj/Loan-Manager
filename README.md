@@ -10,6 +10,7 @@ Loan Manager is a desktop-first loan management system built with React, Express
 - Payment registration with partial payments and transaction history
 - Payment alerts can deep-link into a specific installment and the payment modal closes cleanly on first click
 - Collections dashboard with alerts and upcoming due dates
+- User-facing views now hide internal loan codes and use consistent currency formatting across dashboard, collections, clients, loan detail and calculator flows
 - Excel export and import flows
 - Legal document generation for `Pagare` and `Mutuo`
 - Local packaged backend with SQLite in `AppData`

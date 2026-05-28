@@ -22,7 +22,6 @@ router.get('/loans', authenticateToken, async (req, res) => {
             );
 
             return {
-                'ID Prestamo': loan.id,
                 Cliente: loan.client.name,
                 Telefono: loan.client.phone,
                 'Monto Original': Number(loan.amount),
@@ -71,8 +70,7 @@ router.get('/transactions', authenticateToken, async (req, res) => {
             Cliente: transaction.payment.loan.client.name,
             Monto: Number(transaction.amount),
             Metodo: transaction.method,
-            Nota: transaction.note || '',
-            'ID Prestamo': transaction.payment.loanId
+            Nota: transaction.note || ''
         }));
 
         const workbook = excel.utils.book_new();
@@ -109,7 +107,6 @@ router.get('/export-all', authenticateToken, async (req, res) => {
         ]);
 
         const clientRows = clients.map((client) => ({
-            ID: client.id,
             Nombre: client.name,
             RUT: client.rut || '',
             Email: client.email || '',
@@ -126,9 +123,7 @@ router.get('/export-all', authenticateToken, async (req, res) => {
             );
 
             return {
-                ID: loan.id,
                 Cliente: loan.client?.name || '',
-                ClienteID: loan.clientId,
                 MontoOriginal: Number(loan.amount),
                 TasaInteres: Number(loan.interestRate),
                 Frecuencia: loan.frequency,

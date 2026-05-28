@@ -15,6 +15,10 @@ const getDateLabel = (value, fallback = 'Sin fecha') => {
         ? format(date, 'dd MMM yyyy', { locale: es })
         : fallback;
 };
+const getFileSafeLabel = (value, fallback = 'documento') => String(value ?? fallback)
+    .trim()
+    .replace(/\s+/g, '_')
+    .replace(/[^a-zA-Z0-9_-]/g, '') || fallback;
 
 const downloadBlob = (blob, filename) => {
     const url = window.URL.createObjectURL(blob);
@@ -65,7 +69,7 @@ export const generateWordContract = async (loan, client) => {
                 }),
                 new Paragraph({ text: 'Informacion del Cliente', heading: HeadingLevel.HEADING_2 }),
                 new Paragraph({ text: `Nombre: ${clientName}`, bullet: { level: 0 } }),
-                new Paragraph({ text: `ID: ${getText(client?.id, 'Sin ID')}`, bullet: { level: 0 } }),
+                new Paragraph({ text: `RUT: ${getText(client?.rut, 'No registrado')}`, bullet: { level: 0 } }),
                 new Paragraph({ text: `Email: ${getText(client?.email)}`, bullet: { level: 0 } }),
                 new Paragraph({ text: `Telefono: ${getText(client?.phone)}`, bullet: { level: 0 }, spacing: { after: 300 } }),
                 new Paragraph({ text: 'Detalles del Prestamo', heading: HeadingLevel.HEADING_2 }),
@@ -126,7 +130,7 @@ export const generateWordContract = async (loan, client) => {
     });
 
     const blob = await Packer.toBlob(doc);
-    downloadBlob(blob, `Contrato_${clientName.replace(/\s+/g, '_')}_${loan?.id || 'sin-id'}.docx`);
+    downloadBlob(blob, `Contrato_${getFileSafeLabel(clientName, 'Cliente')}_${format(new Date(), 'yyyyMMdd')}.docx`);
 };
 
 export const generateWordReceipt = async (payment, loan, client) => {
@@ -143,7 +147,7 @@ export const generateWordReceipt = async (payment, loan, client) => {
                     spacing: { after: 400 }
                 }),
                 new Paragraph({
-                    text: `Recibo #: ${String(payment?.id || '').substring(0, 8)}`,
+                    text: 'Recibo de Pago',
                     alignment: AlignmentType.RIGHT
                 }),
                 new Paragraph({
@@ -168,7 +172,7 @@ export const generateWordReceipt = async (payment, loan, client) => {
                 new Paragraph({
                     children: [
                         new TextRun({ text: 'Concepto: ', bold: true }),
-                        new TextRun(`Pago de cuota del prestamo #${loan?.id || 'sin-id'}`)
+                        new TextRun('Pago correspondiente a cuota programada')
                     ],
                     spacing: { after: 100 }
                 }),
@@ -190,5 +194,5 @@ export const generateWordReceipt = async (payment, loan, client) => {
     });
 
     const blob = await Packer.toBlob(doc);
-    downloadBlob(blob, `Recibo_${payment?.id || 'sin-id'}_${clientName.replace(/\s+/g, '_')}.docx`);
+    downloadBlob(blob, `Recibo_${getFileSafeLabel(clientName, 'Cliente')}_${format(new Date(), 'yyyyMMdd-HHmm')}.docx`);
 };

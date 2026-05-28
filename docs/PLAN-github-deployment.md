@@ -28,6 +28,7 @@
 7. UX operativa
    - Las alertas y vistas de cobranza abren la cuota exacta por `paymentId`.
    - El modal de pago profundo ya cierra al primer click sin reabrirse por la URL.
+   - Se eliminaron codigos internos visibles en listados y cabeceras, y se unifico el formateo monetario en vistas clave.
 8. Branding
    - Los assets `PNG`, `ICO` y `SVG` del icono de la app ya quedaron alineados con la identidad actual de Loan Manager.
 
@@ -46,6 +47,7 @@
 - [x] Warnings de Fast Refresh eliminados.
 - [x] Modal de pago profundo cerrando al primer click.
 - [x] Icono desktop actualizado y consistente en assets principales.
+- [x] Revisiones visuales de pestanas principales, iconos y legibilidad en escritorio y vista movil.
 
 ## Riesgos aun vigilados
 
