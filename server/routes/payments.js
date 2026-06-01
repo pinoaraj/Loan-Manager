@@ -42,6 +42,8 @@ const getLoanStatusFromPayments = (payments) => {
     return 'Active';
 };
 
+const toAmount = (value) => Number(value || 0);
+
 // Register transaction
 router.post('/:id/transactions', authenticateToken, validate(paymentSchema), async (req, res) => {
     try {
@@ -55,9 +57,10 @@ router.post('/:id/transactions', authenticateToken, validate(paymentSchema), asy
                 throw new Error('PAYMENT_NOT_FOUND');
             }
 
-            const newPaidAmount = (payment.paidAmount || 0) + transactionAmount;
-            const totalDue = payment.amount + (payment.lateFee || 0);
-            const remainingAmount = totalDue - (payment.paidAmount || 0);
+            const currentPaidAmount = toAmount(payment.paidAmount);
+            const totalDue = toAmount(payment.amount) + toAmount(payment.lateFee);
+            const newPaidAmount = currentPaidAmount + transactionAmount;
+            const remainingAmount = totalDue - currentPaidAmount;
 
             if (transactionAmount <= 0) {
                 throw new Error('INVALID_TRANSACTION_AMOUNT');

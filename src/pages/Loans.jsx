@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '../context/useAuth';
 import { useLoanHealth } from '../hooks/useLoanHealth';
 import { API_URL } from '../config/api';
+import { compareStoredDates, toStoredLocaleDate } from '../utils/dates';
 import { formatCurrency } from '../utils/formatters';
 
 const HEALTH_BADGE_CLASSES = {
@@ -47,7 +48,7 @@ const Loans = () => {
     const getClientName = (loan) => loan.client?.name || 'Desconocido';
     const toggleLoan = (loanId) => setExpandedLoanId(expandedLoanId === loanId ? null : loanId);
     const getUpcomingPayments = (loan) => [...(loan.payments || [])]
-        .sort((first, second) => new Date(first.dueDate) - new Date(second.dueDate))
+        .sort((first, second) => compareStoredDates(first.dueDate, second.dueDate))
         .filter((payment) => payment.status !== 'Paid');
 
     return (
@@ -147,7 +148,7 @@ const Loans = () => {
                                                     {(Number(loan.interestRate || 0) * 100).toFixed(0)}%
                                                 </td>
                                                 <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-200">
-                                                    {new Date(loan.startDate).toLocaleDateString()}
+                                                    {toStoredLocaleDate(loan.startDate)}
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     <span className={`rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider ${badgeClasses}`}>
@@ -192,7 +193,7 @@ const Loans = () => {
                                                                                     onClick={() => navigate(getPaymentDetailPath(loan.id, payment.id))}
                                                                                 >
                                                                                     <td className="px-4 py-2 font-medium text-slate-800 dark:text-slate-100">
-                                                                                        {new Date(payment.dueDate).toLocaleDateString()}
+                                                                                        {toStoredLocaleDate(payment.dueDate)}
                                                                                     </td>
                                                                                     <td className="px-4 py-2 text-right font-semibold text-slate-900 dark:text-white">
                                                                                         ${formatCurrency(payment.amount)}

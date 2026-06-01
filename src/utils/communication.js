@@ -1,3 +1,5 @@
+import { toStoredLocaleDate } from './dates';
+
 export const normalizePhoneNumber = (phone = '') => String(phone).replace(/\D/g, '');
 
 const formatCurrency = (amount) => Number(amount || 0).toLocaleString('es-CL', {
@@ -28,7 +30,7 @@ export const getReceiptMessage = (clientName, amount, date) => {
 };
 
 export const getReminderMessage = (clientName, amount, dueDate, type = 'upcoming', context = {}) => {
-    const formattedDate = new Date(dueDate).toLocaleDateString('es-ES', { day: 'numeric', month: 'long' });
+    const formattedDate = toStoredLocaleDate(dueDate, 'es-ES', { day: 'numeric', month: 'long' }, 'sin fecha');
     const paymentContext = context.paymentNumber && context.totalPayments
         ? `\nCuota: *${context.paymentNumber} de ${context.totalPayments}*`
         : '';

@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { FileText, Landmark, MessageCircle, X } from 'lucide-react';
 import { toast } from 'sonner';
+import { compareStoredDates, toStoredLocaleDate } from '../utils/dates';
 import { formatRutInput, isValidRut } from '../utils/rut';
 
 const getPreferredLoanId = (loans = [], fallbackLoan) => {
@@ -13,7 +14,7 @@ const getPreferredLoanId = (loans = [], fallbackLoan) => {
         return activeLoan.id;
     }
 
-    const sortedLoans = [...loans].sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
+    const sortedLoans = [...loans].sort((a, b) => compareStoredDates(b.startDate, a.startDate));
     return sortedLoans[0]?.id || '';
 };
 
@@ -147,7 +148,7 @@ const PagareModal = ({ isOpen, onClose, loan, loans = [], client }) => {
                                 >
                                     {availableLoans.map((item) => (
                                         <option key={item.id} value={item.id}>
-                                            {`${new Date(item.startDate).toLocaleDateString('es-CL')} - $${Number(item.amount || 0).toLocaleString('es-CL')} - ${item.status || 'Prestamo'}`}
+                                            {`${toStoredLocaleDate(item.startDate, 'es-CL')} - $${Number(item.amount || 0).toLocaleString('es-CL')} - ${item.status || 'Prestamo'}`}
                                         </option>
                                     ))}
                                 </select>

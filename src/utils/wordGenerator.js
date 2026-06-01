@@ -1,6 +1,7 @@
 import { AlignmentType, BorderStyle, Document, HeadingLevel, Packer, Paragraph, Table, TableCell, TableRow, TextRun, WidthType } from 'docx';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { compareStoredDates, formatStoredDate } from './dates';
 
 const getLoanInterestRate = (loan) => Number(loan?.interestRate ?? loan?.rate ?? 0);
 const getLoanDurationMonths = (loan) => Number(loan?.durationMonths ?? loan?.term ?? 0);
@@ -9,12 +10,7 @@ const getText = (value, fallback = 'No registrado') => {
     const text = String(value ?? '').trim();
     return text || fallback;
 };
-const getDateLabel = (value, fallback = 'Sin fecha') => {
-    const date = value ? new Date(value) : null;
-    return date && !Number.isNaN(date.getTime())
-        ? format(date, 'dd MMM yyyy', { locale: es })
-        : fallback;
-};
+const getDateLabel = (value, fallback = 'Sin fecha') => formatStoredDate(value, 'dd MMM yyyy', fallback);
 const getFileSafeLabel = (value, fallback = 'documento') => String(value ?? fallback)
     .trim()
     .replace(/\s+/g, '_')
@@ -34,7 +30,7 @@ const downloadBlob = (blob, filename) => {
 const buildScheduleTableRows = (loan) => {
     const payments = Array.isArray(loan?.payments) ? [...loan.payments] : [];
     return payments
-        .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))
+        .sort((a, b) => compareStoredDates(a.dueDate, b.dueDate))
         .map((payment, index) => new TableRow({
             children: [
                 new TableCell({ children: [new Paragraph(String(index + 1))] }),

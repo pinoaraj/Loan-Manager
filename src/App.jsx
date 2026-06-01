@@ -1,5 +1,5 @@
 import React, { Suspense, lazy, useEffect, useState } from 'react';
-import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import { LoanProvider } from './context/LoanContext';
 import { ThemeProvider } from './context/ThemeContext';
@@ -57,7 +57,7 @@ const useResponsiveDesktopScale = () => {
   }, []);
 };
 
-const Layout = ({ children }) => {
+const Layout = () => {
   const [isMobileViewport, setIsMobileViewport] = useState(() => window.innerWidth < 768);
 
   useEffect(() => {
@@ -102,7 +102,7 @@ const Layout = ({ children }) => {
           paddingBottom: isMobileViewport ? 'calc(var(--content-padding) + 5rem)' : 'var(--content-padding)'
         }}
       >
-        {children}
+        <Outlet />
       </main>
     </div>
   );
@@ -121,23 +121,26 @@ const App = () => {
               <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route
-                  path="/*"
                   element={
                     <ProtectedRoute>
-                      <Layout>
-                        <Routes>
-                          <Route path="/" element={<Dashboard />} />
-                          <Route path="/clients" element={<Clients />} />
-                          <Route path="/clients/:id" element={<ClientDetail />} />
-                          <Route path="/loans" element={<Loans />} />
-                          <Route path="/loans/new" element={<NewLoan />} />
-                          <Route path="/loans/:id" element={<LoanDetail />} />
-                          <Route path="/collections" element={<Collections />} />
-                          <Route path="/calculator" element={<Calculator />} />
-                          <Route path="/import" element={<ImportData />} />
-                        </Routes>
-                      </Layout>
+                      <Layout />
                     </ProtectedRoute>
+                  }
+                >
+                  <Route index element={<Dashboard />} />
+                  <Route path="/clients" element={<Clients />} />
+                  <Route path="/clients/:id" element={<ClientDetail />} />
+                  <Route path="/loans" element={<Loans />} />
+                  <Route path="/loans/new" element={<NewLoan />} />
+                  <Route path="/loans/:id" element={<LoanDetail />} />
+                  <Route path="/collections" element={<Collections />} />
+                  <Route path="/calculator" element={<Calculator />} />
+                  <Route path="/import" element={<ImportData />} />
+                </Route>
+                <Route
+                  path="*"
+                  element={
+                    <Navigate to="/" replace />
                   }
                 />
               </Routes>

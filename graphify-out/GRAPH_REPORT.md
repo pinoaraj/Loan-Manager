@@ -1,16 +1,16 @@
-# Graph Report - LoanManager  (2026-05-28)
+# Graph Report - LoanManager  (2026-06-01)
 
 ## Corpus Check
-- 114 files · ~1,450,335 words
+- 142 files · ~2,752,488 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 270 nodes · 415 edges · 15 communities detected
-- Extraction: 93% EXTRACTED · 7% INFERRED · 0% AMBIGUOUS · INFERRED: 31 edges (avg confidence: 0.8)
+- 278 nodes · 461 edges · 16 communities detected
+- Extraction: 91% EXTRACTED · 9% INFERRED · 0% AMBIGUOUS · INFERRED: 40 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `f712c6d5`
+- Built from commit: `1a7b6d51`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -27,21 +27,22 @@
 - [[_COMMUNITY_Community 9|Community 9]]
 - [[_COMMUNITY_Community 10|Community 10]]
 - [[_COMMUNITY_Community 11|Community 11]]
-- [[_COMMUNITY_Community 13|Community 13]]
+- [[_COMMUNITY_Community 12|Community 12]]
+- [[_COMMUNITY_Community 14|Community 14]]
 - [[_COMMUNITY_Community 15|Community 15]]
-- [[_COMMUNITY_Community 16|Community 16]]
+- [[_COMMUNITY_Community 17|Community 17]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `useLoans()` - 22 edges
 2. `useAuth()` - 17 edges
 3. `renderPagareFromTemplate()` - 15 edges
 4. `buildMutuoText()` - 15 edges
-5. `formatCurrency()` - 12 edges
-6. `buildMutuoParagraphs()` - 12 edges
-7. `build_icon()` - 11 edges
-8. `downloadPaymentReminder()` - 9 edges
-9. `generateLoanContract()` - 9 edges
-10. `generateWordContract()` - 9 edges
+5. `buildMutuoParagraphs()` - 14 edges
+6. `formatStoredDate()` - 13 edges
+7. `formatCurrency()` - 12 edges
+8. `build_icon()` - 11 edges
+9. `parseStoredDate()` - 11 edges
+10. `compareStoredDates()` - 10 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `Sidebar()` --calls--> `useLoans()`  [INFERRED]
@@ -55,49 +56,53 @@
 - `PortfolioChart()` --calls--> `useElementSize()`  [INFERRED]
   src/components/dashboard/PortfolioChart.jsx → src/hooks/useElementSize.js
 
-## Communities (55 total, 4 thin omitted)
+## Communities (56 total, 4 thin omitted)
 
 ### Community 0 - "Community 0"
-Cohesion: 0.08
-Nodes (17): useLoans(), RecentActivity(), ClientDetail(), Clients(), Collections(), Dashboard(), ImportData(), Skeleton() (+9 more)
+Cohesion: 0.14
+Nodes (32): buildMutuoDocument(), buildMutuoParagraphs(), buildMutuoText(), buildPagareIntroParagraphXml(), buildPagareValueParagraphXml(), downloadBlob(), escapeXml(), fetchBinaryTemplate() (+24 more)
 
 ### Community 1 - "Community 1"
-Cohesion: 0.08
-Nodes (16): Footer(), Sidebar(), AuthProvider(), LoanProvider(), ThemeProvider(), useAuth(), useTheme(), useLoanHealth() (+8 more)
+Cohesion: 0.1
+Nodes (16): useLoans(), RecentActivity(), ClientDetail(), Collections(), Dashboard(), ImportData(), Skeleton(), cn() (+8 more)
 
 ### Community 2 - "Community 2"
-Cohesion: 0.14
-Nodes (31): buildMutuoDocument(), buildMutuoParagraphs(), buildMutuoText(), buildPagareIntroParagraphXml(), buildPagareValueParagraphXml(), downloadBlob(), escapeXml(), fetchBinaryTemplate() (+23 more)
+Cohesion: 0.1
+Nodes (12): Footer(), Sidebar(), AuthProvider(), LoanProvider(), ThemeProvider(), useAuth(), useTheme(), Clients() (+4 more)
 
 ### Community 3 - "Community 3"
 Cohesion: 0.27
 Nodes (16): buildCalendarFile(), createCalendarEvent(), downloadBulkLoanCalendars(), downloadCalendarBlob(), downloadLoanCalendar(), downloadPaymentReminder(), escapeIcsText(), formatCurrentUtcStamp() (+8 more)
 
 ### Community 4 - "Community 4"
+Cohesion: 0.21
+Nodes (9): useLoanHealth(), getFrequencyLabel(), getLoanTypeLabel(), LoanDetail(), Loans(), compareStoredDates(), formatStoredDate(), getStoredDateDayLabel() (+1 more)
+
+### Community 5 - "Community 5"
+Cohesion: 0.17
+Nodes (5): buildMonthlySchedule(), calculateAmortization(), normalizeFrequency(), splitMonthlySchedule(), formatCurrency()
+
+### Community 6 - "Community 6"
 Cohesion: 0.26
 Nodes (14): build_cutout_mask(), build_icon(), build_preview(), build_shadow(), build_svg(), build_symbol_mask(), draw_coin(), draw_document() (+6 more)
 
-### Community 5 - "Community 5"
+### Community 7 - "Community 7"
 Cohesion: 0.27
 Nodes (7): PagareModal(), NewLoan(), cleanRut(), formatRut(), formatRutInput(), isValidRut(), normalizeRut()
 
-### Community 6 - "Community 6"
+### Community 8 - "Community 8"
 Cohesion: 0.42
 Nodes (10): downloadBlob(), generateLoanContract(), generateReceipt(), getAmount(), getDateLabel(), getFileSafeLabel(), getLoanDurationMonths(), getLoanInterestRate() (+2 more)
 
-### Community 7 - "Community 7"
+### Community 9 - "Community 9"
 Cohesion: 0.42
 Nodes (10): buildScheduleTableRows(), downloadBlob(), generateWordContract(), generateWordReceipt(), getAmount(), getDateLabel(), getFileSafeLabel(), getLoanDurationMonths() (+2 more)
 
-### Community 8 - "Community 8"
-Cohesion: 0.39
-Nodes (4): buildMonthlySchedule(), calculateAmortization(), normalizeFrequency(), splitMonthlySchedule()
-
-### Community 10 - "Community 10"
+### Community 11 - "Community 11"
 Cohesion: 0.47
 Nodes (3): PortfolioChart(), RevenueChart(), useElementSize()
 
-### Community 11 - "Community 11"
+### Community 12 - "Community 12"
 Cohesion: 0.7
 Nodes (4): login(), runTests(), testCreateClient(), testCreateClientWithoutPhone()
 
@@ -107,17 +112,17 @@ Nodes (4): login(), runTests(), testCreateClient(), testCreateClientWithoutPhone
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `formatRutInput()` connect `Community 5` to `Community 0`?**
-  _High betweenness centrality (0.111) - this node is a cross-community bridge._
-- **Why does `formatRut()` connect `Community 5` to `Community 2`?**
+- **Why does `formatStoredDate()` connect `Community 4` to `Community 0`, `Community 1`, `Community 8`, `Community 9`?**
   _High betweenness centrality (0.108) - this node is a cross-community bridge._
-- **Why does `formatCurrency()` connect `Community 0` to `Community 8`, `Community 1`?**
-  _High betweenness centrality (0.076) - this node is a cross-community bridge._
+- **Why does `compareStoredDates()` connect `Community 4` to `Community 0`, `Community 1`, `Community 3`, `Community 7`, `Community 8`, `Community 9`?**
+  _High betweenness centrality (0.089) - this node is a cross-community bridge._
+- **Why does `formatCurrency()` connect `Community 5` to `Community 1`, `Community 2`, `Community 4`?**
+  _High betweenness centrality (0.077) - this node is a cross-community bridge._
 - **Are the 10 inferred relationships involving `useLoans()` (e.g. with `Sidebar()` and `RecentActivity()`) actually correct?**
   _`useLoans()` has 10 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 8 inferred relationships involving `useAuth()` (e.g. with `ProtectedRoute()` and `Footer()`) actually correct?**
   _`useAuth()` has 8 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 3 inferred relationships involving `buildMutuoParagraphs()` (e.g. with `formatRut()` and `getStoredDateDayLabel()`) actually correct?**
+  _`buildMutuoParagraphs()` has 3 INFERRED edges - model-reasoned connections that need verification._
 - **Should `Community 0` be split into smaller, more focused modules?**
-  _Cohesion score 0.08 - nodes in this community are weakly interconnected._
-- **Should `Community 1` be split into smaller, more focused modules?**
-  _Cohesion score 0.08 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.14 - nodes in this community are weakly interconnected._

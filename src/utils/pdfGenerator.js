@@ -2,6 +2,7 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { compareStoredDates, formatStoredDate } from './dates';
 
 const COMPANY_NAME = 'Loan Manager';
 
@@ -12,12 +13,7 @@ const getText = (value, fallback = 'No registrado') => {
     const text = String(value ?? '').trim();
     return text || fallback;
 };
-const getDateLabel = (value, fallback = 'Sin fecha') => {
-    const date = value ? new Date(value) : null;
-    return date && !Number.isNaN(date.getTime())
-        ? format(date, 'dd MMM yyyy', { locale: es })
-        : fallback;
-};
+const getDateLabel = (value, fallback = 'Sin fecha') => formatStoredDate(value, 'dd MMM yyyy', fallback);
 const getFileSafeLabel = (value, fallback = 'documento') => String(value ?? fallback)
     .trim()
     .replace(/\s+/g, '_')
@@ -36,7 +32,7 @@ const downloadBlob = (blob, filename) => {
 const getScheduleRows = (loan) => {
     const payments = Array.isArray(loan?.payments) ? [...loan.payments] : [];
     return payments
-        .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))
+        .sort((a, b) => compareStoredDates(a.dueDate, b.dueDate))
         .map((payment, index) => ([
             index + 1,
             getDateLabel(payment?.dueDate, 'Sin fecha'),

@@ -1,3 +1,5 @@
+import { compareStoredDates, parseStoredDate } from './dates';
+
 const DEFAULT_START_TIME = '09:00';
 const DEFAULT_END_TIME = '09:30';
 const DEFAULT_ALARM_MINUTES = 24 * 60;
@@ -5,16 +7,15 @@ const DEFAULT_ALARM_MINUTES = 24 * 60;
 const pad = (value) => String(value).padStart(2, '0');
 
 const toDateInstance = (value) => {
-    if (value instanceof Date) {
-        return new Date(value.getTime());
-    }
-
-    return new Date(value);
+    return parseStoredDate(value);
 };
 
 const formatGoogleDate = (value, time) => {
     const [hours, minutes] = time.split(':').map(Number);
     const date = toDateInstance(value);
+    if (!date) {
+        return '';
+    }
     const eventDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), hours, minutes, 0);
 
     return [
@@ -27,6 +28,9 @@ const formatGoogleDate = (value, time) => {
 const formatUtcDateTime = (value, time) => {
     const [hours, minutes] = time.split(':').map(Number);
     const date = toDateInstance(value);
+    if (!date) {
+        return '';
+    }
     const eventDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), hours, minutes, 0);
 
     return [
@@ -155,7 +159,7 @@ export const downloadPaymentReminder = (payment, clientName, options = {}) => {
 };
 
 export const downloadLoanCalendar = (loan, client, options = {}) => {
-    const sortedPayments = [...(loan?.payments || [])].sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+    const sortedPayments = [...(loan?.payments || [])].sort((a, b) => compareStoredDates(a.dueDate, b.dueDate));
     if (sortedPayments.length === 0) {
         return false;
     }
@@ -184,7 +188,7 @@ export const downloadLoanCalendar = (loan, client, options = {}) => {
 
 export const downloadBulkLoanCalendars = (entries, fileName = 'loan-manager-cobros.ics') => {
     const events = entries.flatMap(({ loan, client }) => {
-        const sortedPayments = [...(loan?.payments || [])].sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+        const sortedPayments = [...(loan?.payments || [])].sort((a, b) => compareStoredDates(a.dueDate, b.dueDate));
 
         return sortedPayments.map((payment, index) => {
             const paymentAmount = payment.amount + (payment.lateFee || 0);

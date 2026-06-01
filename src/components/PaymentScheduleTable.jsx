@@ -3,6 +3,7 @@ import { format, parseISO } from 'date-fns';
 import { ChevronDown, ChevronUp, MessageCircle, FileText, Calendar, DollarSign, Clock } from 'lucide-react';
 import { downloadPaymentReminder } from '../utils/calendar';
 import { generateWhatsAppLink, getReminderMessage } from '../utils/communication';
+import { compareStoredDates, formatStoredDate } from '../utils/dates';
 import { formatCurrency } from '../utils/formatters';
 
 const toAmount = (value) => Number(value || 0);
@@ -23,7 +24,7 @@ const PaymentScheduleTable = ({ loan, client, onRegisterPayment, focusedPaymentI
         }
 
         const paymentIndex = [...loan.payments]
-            .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))
+            .sort((a, b) => compareStoredDates(a.dueDate, b.dueDate))
             .findIndex((item) => item.id === payment.id);
         const message = getReminderMessage(client.name, payment.amount + (payment.lateFee || 0), payment.dueDate, 'upcoming', {
             loanId: loan.id,
@@ -61,7 +62,7 @@ const PaymentScheduleTable = ({ loan, client, onRegisterPayment, focusedPaymentI
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-50 dark:divide-slate-700">
-                        {loan.payments.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate)).map((payment, idx) => {
+                        {[...loan.payments].sort((a, b) => compareStoredDates(a.dueDate, b.dueDate)).map((payment, idx) => {
                             const principal = toAmount(payment.principal);
                             const interest = toAmount(payment.interest);
                             const lateFee = toAmount(payment.lateFee);
@@ -93,7 +94,7 @@ const PaymentScheduleTable = ({ loan, client, onRegisterPayment, focusedPaymentI
                                     </td>
                                     <td className="p-4">
                                         <div className="font-semibold text-slate-700 dark:text-slate-100">
-                                            {format(parseISO(payment.dueDate), 'dd MMM yyyy')}
+                                            {formatStoredDate(payment.dueDate)}
                                         </div>
                                         <p className="font-mono text-xs italic text-slate-500 dark:text-slate-300">
                                             Cap: ${principal.toFixed(2)} | Int: ${interest.toFixed(2)}

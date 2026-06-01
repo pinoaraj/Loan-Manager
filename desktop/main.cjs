@@ -10,12 +10,22 @@ try {
 
     const SERVER_PORT = 3011;
     const SERVER_HEALTH_URL = `http://127.0.0.1:${SERVER_PORT}/api/health`;
-    const logPath = path.join(__dirname, '../debug-log.txt');
+    const SERVER_READY_TIMEOUT_MS = 45000;
+
+    function resolveLogPath() {
+        try {
+            const userDataPath = app.getPath('userData');
+            return path.join(userDataPath, 'debug-log.txt');
+        } catch (error) {
+            console.error('Failed to resolve userData log path:', error);
+            return path.join(process.cwd(), 'debug-log.txt');
+        }
+    }
 
     function log(message) {
         try {
             console.log(message);
-            fs.appendFileSync(logPath, `[${new Date().toISOString()}] ${message}\n`);
+            fs.appendFileSync(resolveLogPath(), `[${new Date().toISOString()}] ${message}\n`);
         } catch (error) {
             console.error('Failed to write to log:', error);
         }
@@ -74,7 +84,7 @@ try {
         }
     }
 
-    async function waitForServerReady(timeoutMs = 20000) {
+    async function waitForServerReady(timeoutMs = SERVER_READY_TIMEOUT_MS) {
         const startedAt = Date.now();
 
         while (Date.now() - startedAt < timeoutMs) {

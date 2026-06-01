@@ -4,10 +4,9 @@ import { generateWhatsAppLink, generateEmailLink, hasPhoneNumber } from '../util
 import { useLoans } from '../context/useLoans';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { format, parseISO } from 'date-fns';
-import { es } from 'date-fns/locale';
 import { useAuth } from '../context/useAuth';
 import { API_URL } from '../config/api';
+import { compareStoredDates, formatStoredDate } from '../utils/dates';
 import { formatRutInput, isValidRut } from '../utils/rut';
 import { formatCurrency } from '../utils/formatters';
 
@@ -77,7 +76,7 @@ const ClientDetail = () => {
     const sortedLoans = [...clientLoans].sort((a, b) => {
         if (a.status === 'Active' && b.status !== 'Active') return -1;
         if (a.status !== 'Active' && b.status === 'Active') return 1;
-        return new Date(b.startDate) - new Date(a.startDate);
+        return compareStoredDates(b.startDate, a.startDate);
     });
 
     const getStatusColor = (status) => {
@@ -300,7 +299,7 @@ const ClientDetail = () => {
                                         <div>
                                             <p className="text-lg font-bold text-slate-800 dark:text-white">${formatCurrency(loan.amount)}</p>
                                             <p className="text-sm text-slate-500">
-                                                {format(parseISO(loan.startDate), 'd MMM, yyyy', { locale: es })}
+                                                {formatStoredDate(loan.startDate, 'd MMM, yyyy')}
                                             </p>
                                         </div>
                                     </div>

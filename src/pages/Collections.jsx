@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AlertCircle, Calendar, MessageCircle, ChevronRight, CheckCircle, Search } from 'lucide-react';
-import { format, parseISO } from 'date-fns';
-import { es } from 'date-fns/locale';
 import { useLoans } from '../context/useLoans';
 import { generateWhatsAppLink, getReminderMessage } from '../utils/communication';
 import { downloadPaymentReminder } from '../utils/calendar';
+import { formatStoredDate } from '../utils/dates';
 import { formatCurrency } from '../utils/formatters';
 
 const getPaymentDetailPath = (loanId, paymentId) => paymentId
@@ -153,7 +152,7 @@ const Collections = () => {
                                                 : `Vence en ${item.daysUntil} dias`}
                                             <span className="mx-2 text-slate-400 dark:text-slate-500">-</span>
                                             <span className="text-slate-700 dark:text-slate-200">
-                                                {format(parseISO(item.dueDate), 'd MMMM yyyy', { locale: es })}
+                                                {formatStoredDate(item.dueDate, 'd MMMM yyyy')}
                                             </span>
                                         </p>
                                     </div>

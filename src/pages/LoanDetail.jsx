@@ -9,6 +9,7 @@ import { useLoanHealth } from '../hooks/useLoanHealth';
 import { downloadLoanCalendar } from '../utils/calendar';
 import { useAuth } from '../context/useAuth';
 import { API_URL } from '../config/api';
+import { formatStoredDate } from '../utils/dates';
 import { formatCurrency } from '../utils/formatters';
 
 const PagareModal = lazy(() => import('../components/PagareModal'));
@@ -262,7 +263,7 @@ const LoanDetail = () => {
                             </span>
                             <span className="flex items-center gap-2">
                                 <Calendar size={16} />
-                                <span>Iniciado el {format(parseISO(loan.startDate), 'dd MMM yyyy')}</span>
+                                <span>Iniciado el {formatStoredDate(loan.startDate)}</span>
                             </span>
                         </div>
                     </div>
