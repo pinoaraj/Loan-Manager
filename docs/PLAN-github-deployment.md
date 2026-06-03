@@ -86,6 +86,7 @@
 - QA final desktop adicional `2026-06-02`: el arranque repetido de `win-unpacked/Loan Manager.exe` reutiliza cache de migracion y reduce la disponibilidad del backend local a cerca de `1s` a `2s`
 - QA final desktop adicional `2026-06-02`: los accesos directos corregidos y el build actualizado abren WhatsApp en el navegador externo, sin mostrar el falso error de version de Chrome dentro de Electron
 - QA final desktop adicional `2026-06-03`: smoke test manual de `release/win-unpacked/Loan Manager.exe` reconfirmado; el proceso empaquetado levanta backend local y deja evidencia en `%AppData%\\loan-manager\\debug-log.txt`
+- QA final desktop adicional `2026-06-03`: el instalador `release/LoanManager-Setup-1.0.0.exe` fue probado en instalacion silenciosa temporal y la app instalada tambien alcanzo `Server healthcheck passed`
 - QA backend desktop: pago parcial seguido de pago final deja `paidAmount` exacto, `status = Paid` y `transactions = 2`
 
 ## Go / No-Go beta

@@ -53,6 +53,7 @@ Latest local verification on `2026-06-03`:
 - `npm run build`: OK
 - `npm run rebuild-desktop`: OK
 - Manual smoke test: `release/win-unpacked/Loan Manager.exe` exposed `GET http://127.0.0.1:3011/api/health` successfully and Electron logged `Server healthcheck passed` at `2026-06-03T13:52:03Z`
+- Installer smoke test: `release/LoanManager-Setup-1.0.0.exe` installed successfully in silent mode to a temporary folder and the installed `Loan Manager.exe` logged `Server healthcheck passed` at `2026-06-03T14:44:55Z`
 
 ## Suggested GitHub release notes
 
@@ -79,6 +80,7 @@ This release is the current controlled beta for Loan Manager on Windows.
 - `npm run build`: OK
 - `npm run rebuild-desktop`: OK
 - `release/win-unpacked/Loan Manager.exe` smoke test on June 3, 2026: OK
+- `release/LoanManager-Setup-1.0.0.exe` installer smoke test on June 3, 2026: OK
 
 ### Known watch items
 
