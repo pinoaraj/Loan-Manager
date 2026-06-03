@@ -16,8 +16,6 @@ class ErrorBoundary extends React.Component {
     }
 
     render() {
-        const showDetails = import.meta.env.DEV && this.state.error;
-
         if (this.state.hasError) {
             return (
                 <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
@@ -33,17 +31,6 @@ class ErrorBoundary extends React.Component {
                         <p className="mt-2 text-center text-sm text-gray-500">
                             La aplicacion encontro un error inesperado. Por favor, recarga la pagina.
                         </p>
-                        {showDetails && (
-                            <details className="mt-4 rounded bg-gray-50 p-3 text-xs">
-                                <summary className="cursor-pointer font-medium text-gray-700">
-                                    Detalles del error
-                                </summary>
-                                <pre className="mt-2 whitespace-pre-wrap break-words text-red-600">
-                                    {this.state.error.toString()}
-                                    {this.state.errorInfo?.componentStack}
-                                </pre>
-                            </details>
-                        )}
                         <button
                             onClick={() => window.location.reload()}
                             className="mt-6 w-full rounded-md bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700"

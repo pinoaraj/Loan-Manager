@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DollarSign, Users, TrendingUp, Activity } from 'lucide-react';
+import { formatCurrency } from '../../utils/formatters';
 
 // eslint-disable-next-line no-unused-vars
 const KPICard = ({ title, value, subtext, icon: Icon, color, trend, onClick }) => (
@@ -59,18 +60,18 @@ const DashboardKPI = ({ stats }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <KPICard
                 title="Total Prestado"
-                value={`$${safeStats.totalLent.toLocaleString()}`}
+                value={`$${formatCurrency(safeStats.totalLent)}`}
                 icon={DollarSign}
                 color="bg-gradient-to-br from-blue-500 to-indigo-600"
-                subtext={`PAR: $${safeStats.parAmount.toLocaleString()} en riesgo`}
+                subtext={`$${formatCurrency(safeStats.parAmount)} en cuotas con riesgo`}
                 onClick={() => navigate('/loans')}
             />
             <KPICard
                 title="Cobranza Mensual"
-                value={`$${safeStats.monthlyCollection.toLocaleString()}`}
+                value={`$${formatCurrency(safeStats.monthlyCollection)}`}
                 icon={TrendingUp}
                 color="bg-gradient-to-br from-teal-400 to-emerald-600"
-                subtext={`${collectionProgress}% de la meta ($${safeStats.expectedCollection.toLocaleString()})`}
+                subtext={`${collectionProgress}% de la meta ($${formatCurrency(safeStats.expectedCollection)})`}
                 onClick={() => navigate('/collections')}
             />
             <KPICard

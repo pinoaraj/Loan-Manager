@@ -1,3 +1,5 @@
+import { compareStoredDates, parseStoredDate } from './dates';
+
 const DEFAULT_START_TIME = '09:00';
 const DEFAULT_END_TIME = '09:30';
 const DEFAULT_ALARM_MINUTES = 24 * 60;
@@ -5,16 +7,15 @@ const DEFAULT_ALARM_MINUTES = 24 * 60;
 const pad = (value) => String(value).padStart(2, '0');
 
 const toDateInstance = (value) => {
-    if (value instanceof Date) {
-        return new Date(value.getTime());
-    }
-
-    return new Date(value);
+    return parseStoredDate(value);
 };
 
 const formatGoogleDate = (value, time) => {
     const [hours, minutes] = time.split(':').map(Number);
     const date = toDateInstance(value);
+    if (!date) {
+        return '';
+    }
     const eventDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), hours, minutes, 0);
 
     return [
@@ -27,6 +28,9 @@ const formatGoogleDate = (value, time) => {
 const formatUtcDateTime = (value, time) => {
     const [hours, minutes] = time.split(':').map(Number);
     const date = toDateInstance(value);
+    if (!date) {
+        return '';
+    }
     const eventDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), hours, minutes, 0);
 
     return [
@@ -121,14 +125,13 @@ export const generateGoogleCalendarLink = ({ title, details, date, startTime = D
     return `${baseUrl}?${params.toString()}`;
 };
 
-export const getPaymentEventDetails = (clientName, amount, paymentNumber, totalPayments, loanId) => ({
+export const getPaymentEventDetails = (clientName, amount, paymentNumber, totalPayments) => ({
     title: `Cobro ${paymentNumber}/${totalPayments} - ${clientName}`,
     details: [
         'Recordatorio de cobro de prestamo.',
         `Cliente: ${clientName}`,
         `Monto: $${Number(amount).toFixed(2)}`,
-        `Cuota: ${paymentNumber} de ${totalPayments}`,
-        loanId ? `Prestamo: #${String(loanId).slice(-6)}` : null
+        `Cuota: ${paymentNumber} de ${totalPayments}`
     ].filter(Boolean).join('\n')
 });
 
@@ -140,8 +143,7 @@ export const downloadPaymentReminder = (payment, clientName, options = {}) => {
         clientName,
         paymentAmount,
         paymentNumber,
-        totalPayments,
-        options.loanId
+        totalPayments
     );
 
     const content = buildCalendarFile([
@@ -157,7 +159,7 @@ export const downloadPaymentReminder = (payment, clientName, options = {}) => {
 };
 
 export const downloadLoanCalendar = (loan, client, options = {}) => {
-    const sortedPayments = [...(loan?.payments || [])].sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+    const sortedPayments = [...(loan?.payments || [])].sort((a, b) => compareStoredDates(a.dueDate, b.dueDate));
     if (sortedPayments.length === 0) {
         return false;
     }
@@ -168,8 +170,7 @@ export const downloadLoanCalendar = (loan, client, options = {}) => {
             client?.name || 'Cliente',
             paymentAmount,
             index + 1,
-            sortedPayments.length,
-            loan.id
+            sortedPayments.length
         );
 
         return createCalendarEvent({
@@ -180,14 +181,14 @@ export const downloadLoanCalendar = (loan, client, options = {}) => {
         });
     });
 
-    const label = options.fileName || `loan-manager-cobros-${slugifyFilePart(client?.name || loan.id)}.ics`;
+    const label = options.fileName || `loan-manager-cobros-${slugifyFilePart(client?.name || 'prestamo')}.ics`;
     downloadCalendarBlob(buildCalendarFile(events), label);
     return true;
 };
 
 export const downloadBulkLoanCalendars = (entries, fileName = 'loan-manager-cobros.ics') => {
     const events = entries.flatMap(({ loan, client }) => {
-        const sortedPayments = [...(loan?.payments || [])].sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+        const sortedPayments = [...(loan?.payments || [])].sort((a, b) => compareStoredDates(a.dueDate, b.dueDate));
 
         return sortedPayments.map((payment, index) => {
             const paymentAmount = payment.amount + (payment.lateFee || 0);
@@ -195,8 +196,7 @@ export const downloadBulkLoanCalendars = (entries, fileName = 'loan-manager-cobr
                 client?.name || 'Cliente',
                 paymentAmount,
                 index + 1,
-                sortedPayments.length,
-                loan.id
+                sortedPayments.length
             );
 
             return createCalendarEvent({
@@ -224,8 +224,7 @@ export const openGoogleCalendar = (payment, clientName, options = {}) => {
         clientName,
         paymentAmount,
         paymentNumber,
-        totalPayments,
-        options.loanId
+        totalPayments
     );
 
     const link = generateGoogleCalendarLink({

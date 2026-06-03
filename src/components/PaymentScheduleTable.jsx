@@ -3,6 +3,8 @@ import { format, parseISO } from 'date-fns';
 import { ChevronDown, ChevronUp, MessageCircle, FileText, Calendar, DollarSign, Clock } from 'lucide-react';
 import { downloadPaymentReminder } from '../utils/calendar';
 import { generateWhatsAppLink, getReminderMessage } from '../utils/communication';
+import { compareStoredDates, formatStoredDate } from '../utils/dates';
+import { formatCurrency } from '../utils/formatters';
 
 const toAmount = (value) => Number(value || 0);
 
@@ -22,7 +24,7 @@ const PaymentScheduleTable = ({ loan, client, onRegisterPayment, focusedPaymentI
         }
 
         const paymentIndex = [...loan.payments]
-            .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))
+            .sort((a, b) => compareStoredDates(a.dueDate, b.dueDate))
             .findIndex((item) => item.id === payment.id);
         const message = getReminderMessage(client.name, payment.amount + (payment.lateFee || 0), payment.dueDate, 'upcoming', {
             loanId: loan.id,
@@ -60,7 +62,7 @@ const PaymentScheduleTable = ({ loan, client, onRegisterPayment, focusedPaymentI
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-50 dark:divide-slate-700">
-                        {loan.payments.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate)).map((payment, idx) => {
+                        {[...loan.payments].sort((a, b) => compareStoredDates(a.dueDate, b.dueDate)).map((payment, idx) => {
                             const principal = toAmount(payment.principal);
                             const interest = toAmount(payment.interest);
                             const lateFee = toAmount(payment.lateFee);
@@ -92,7 +94,7 @@ const PaymentScheduleTable = ({ loan, client, onRegisterPayment, focusedPaymentI
                                     </td>
                                     <td className="p-4">
                                         <div className="font-semibold text-slate-700 dark:text-slate-100">
-                                            {format(parseISO(payment.dueDate), 'dd MMM yyyy')}
+                                            {formatStoredDate(payment.dueDate)}
                                         </div>
                                         <p className="font-mono text-xs italic text-slate-500 dark:text-slate-300">
                                             Cap: ${principal.toFixed(2)} | Int: ${interest.toFixed(2)}
@@ -102,14 +104,14 @@ const PaymentScheduleTable = ({ loan, client, onRegisterPayment, focusedPaymentI
                                     <td className="p-4 text-right">
                                         <div className="flex flex-col items-end">
                                             <span className="font-bold text-slate-800 dark:text-white">
-                                                ${totalDue.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                                                ${formatCurrency(totalDue, { minimumFractionDigits: 2 })}
                                             </span>
                                             {lateFee > 0 && <span className="text-[10px] font-bold text-rose-500">Incl. Mora</span>}
 
                                             {paidAmount > 0 && payment.status !== 'Paid' && (
                                                 <div className="mt-1 w-24">
                                                     <div className="mb-0.5 flex justify-between text-[10px] font-bold text-emerald-600">
-                                                        <span>${paidAmount.toLocaleString()}</span>
+                                                        <span>${formatCurrency(paidAmount, { minimumFractionDigits: 2 })}</span>
                                                         <span>{paidPercent.toFixed(0)}%</span>
                                                     </div>
                                                     <div className="h-1.5 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-600">
@@ -130,7 +132,7 @@ const PaymentScheduleTable = ({ loan, client, onRegisterPayment, focusedPaymentI
 
                                             {payment.status === 'Partial' && (
                                                 <div className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 w-max -translate-x-1/2 rounded bg-slate-800 px-2 py-1 text-[10px] text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100">
-                                                    Restan: ${(totalDue - paidAmount).toLocaleString()}
+                                                    Restan: ${formatCurrency(totalDue - paidAmount, { minimumFractionDigits: 2 })}
                                                     <div className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-slate-800"></div>
                                                 </div>
                                             )}
@@ -197,7 +199,7 @@ const PaymentScheduleTable = ({ loan, client, onRegisterPayment, focusedPaymentI
                                                     <thead>
                                                         <tr className="border-b border-slate-100 text-slate-500 dark:border-slate-700 dark:text-slate-300">
                                                             <th className="pb-2 text-left">Fecha Realizada</th>
-                                                            <th className="pb-2 text-left">Registrado El (Sistema)</th>
+                                                            <th className="pb-2 text-left">Registrado El</th>
                                                             <th className="pb-2 text-left">Metodo</th>
                                                             <th className="pb-2 text-left">Nota</th>
                                                             <th className="pb-2 text-right">Monto</th>
@@ -211,7 +213,7 @@ const PaymentScheduleTable = ({ loan, client, onRegisterPayment, focusedPaymentI
                                                                     <td className="py-2.5 text-slate-500 dark:text-slate-300">{format(parseISO(transaction.createdAt), 'dd/MM/yyyy HH:mm')}</td>
                                                                     <td className="py-2.5 capitalize">{transaction.method}</td>
                                                                     <td className="max-w-[200px] truncate py-2.5 italic text-slate-500 dark:text-slate-300" title={transaction.note}>{transaction.note || '-'}</td>
-                                                                    <td className="py-2.5 text-right font-bold text-emerald-600">${toAmount(transaction.amount).toLocaleString()}</td>
+                                                                    <td className="py-2.5 text-right font-bold text-emerald-600">${formatCurrency(transaction.amount, { minimumFractionDigits: 2 })}</td>
                                                                 </tr>
                                                             ))
                                                         ) : (

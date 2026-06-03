@@ -43,9 +43,117 @@
     "mtime": 1779907178.7882729,
     "hash": "750e9e693989ee83e416493d940f4c3e"
   },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\app.js": {
-    "mtime": 1779810288.3215885,
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\resources\\server\\app.js": {
+    "mtime": 1780326186.0,
     "hash": "e228f941041d6a766b24255dd5f5d36e"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\resources\\server\\create-user.js": {
+    "mtime": 1780326186.0,
+    "hash": "738820d7de1011ea1d763ad88387332d"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\resources\\server\\index.js": {
+    "mtime": 1780326186.0,
+    "hash": "f97aecbe51601c95503395530ed26386"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\resources\\server\\prisma.config.ts": {
+    "mtime": 1780326186.0,
+    "hash": "f6143a6083213d512c0beaa8d98daf63"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\resources\\server\\test-zod-error.js": {
+    "mtime": 1780326186.0,
+    "hash": "7368b84d57000a338936b40425fd46b5"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\resources\\server\\lib\\prisma.js": {
+    "mtime": 1780326186.0,
+    "hash": "29df9ae76a1a368af0782b204e6b24b3"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\resources\\server\\middleware\\auth.js": {
+    "mtime": 1780326186.0,
+    "hash": "c93076f24ee8a7c855d0685f2cfc710b"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\resources\\server\\middleware\\rateLimiter.js": {
+    "mtime": 1780326186.0,
+    "hash": "2ab4a306964b922186ebb87f658ca054"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\resources\\server\\middleware\\validation.js": {
+    "mtime": 1780326186.0,
+    "hash": "f781add5b6f0c353da21acf838b30e79"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\resources\\server\\middleware\\validationSchemas.js": {
+    "mtime": 1780326186.0,
+    "hash": "bee30ae60d45904d58e7ccdc8836058b"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\resources\\server\\prisma\\migrations\\20260114194812_init\\migration.sql": {
+    "mtime": 1780326186.0,
+    "hash": "56138e73c92859bd1035d6d4dc4da98b"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\resources\\server\\prisma\\migrations\\20260114194914_add_frequency\\migration.sql": {
+    "mtime": 1780326186.0,
+    "hash": "2f536c87030af886295aa47b72f7bdfc"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\resources\\server\\prisma\\migrations\\20260501171840_use_decimal_precision\\migration.sql": {
+    "mtime": 1780326186.0,
+    "hash": "b81f7e62dbccd337405a492b8df5893e"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\resources\\server\\prisma\\migrations\\20260526173000_add_client_rut\\migration.sql": {
+    "mtime": 1780326186.0,
+    "hash": "da2b688863255b0316c57e62bea84ee5"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\resources\\server\\routes\\ai.js": {
+    "mtime": 1780326186.0,
+    "hash": "3f79954e5bafae7a6640b8ca245b7339"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\resources\\server\\routes\\auth.js": {
+    "mtime": 1780326186.0,
+    "hash": "308b922833f73f5b936b278fb3a67da6"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\resources\\server\\routes\\backup.js": {
+    "mtime": 1780326186.0,
+    "hash": "e7c0170f618a19d0b39b67b3017e9019"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\resources\\server\\routes\\clients.js": {
+    "mtime": 1780326186.0,
+    "hash": "54ac3dafd180cbbb7da6e1b7657f5962"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\resources\\server\\routes\\dashboard.js": {
+    "mtime": 1780326186.0,
+    "hash": "460bfd5238b89427ef8da646db51745d"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\resources\\server\\routes\\import.js": {
+    "mtime": 1780326186.0,
+    "hash": "308cb5bd528b22df2b0d6c84b3a634aa"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\resources\\server\\routes\\loans.js": {
+    "mtime": 1780326186.0,
+    "hash": "61787238ec7710dfe55721d5440647cf"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\resources\\server\\routes\\payments.js": {
+    "mtime": 1780326186.0,
+    "hash": "1322993b361351e904243aac7bdc45fe"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\resources\\server\\routes\\reports.js": {
+    "mtime": 1780326186.0,
+    "hash": "eba10144bd05bfd1af9888b5581bb624"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\resources\\server\\tests\\api.integration.test.js": {
+    "mtime": 1780326186.0,
+    "hash": "cb9cb0a09fc913041c0ab33aad70d8d8"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\resources\\server\\utils\\amortization.js": {
+    "mtime": 1780326186.0,
+    "hash": "700dc099dae23bac8d09c1e574cc79e2"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\resources\\server\\utils\\fees.js": {
+    "mtime": 1780326186.0,
+    "hash": "8d4e325a8e70732fdac8a1f0ca34dec7"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\resources\\server\\utils\\logger.js": {
+    "mtime": 1780326186.0,
+    "hash": "f67e395af8e6dae1e56bd5b127f0c7de"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\app.js": {
+    "mtime": 1780418254.8407724,
+    "hash": "f7c4cfe8e7e3d04be7f78a24e38a734c"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\create-user.js": {
     "mtime": 1777660831.4173565,
@@ -104,8 +212,8 @@
     "hash": "3f79954e5bafae7a6640b8ca245b7339"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\routes\\auth.js": {
-    "mtime": 1779907178.7627735,
-    "hash": "fff21a83fec7d05bdbb82d3984500137"
+    "mtime": 1779978847.6189857,
+    "hash": "308b922833f73f5b936b278fb3a67da6"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\routes\\backup.js": {
     "mtime": 1768944795.3128812,
@@ -128,16 +236,16 @@
     "hash": "61787238ec7710dfe55721d5440647cf"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\routes\\payments.js": {
-    "mtime": 1779907178.7647736,
-    "hash": "4b8d827d3d01cafe2fa6749b8e52277b"
+    "mtime": 1780324828.1595714,
+    "hash": "1322993b361351e904243aac7bdc45fe"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\routes\\reports.js": {
-    "mtime": 1779829039.057485,
-    "hash": "6ffaa37ef99939906f70431f35303aab"
+    "mtime": 1779978456.7796023,
+    "hash": "eba10144bd05bfd1af9888b5581bb624"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\tests\\api.integration.test.js": {
-    "mtime": 1779829039.4249823,
-    "hash": "5cca36b98b403ba6e6f761fa66b150c6"
+    "mtime": 1779974916.1228006,
+    "hash": "cb9cb0a09fc913041c0ab33aad70d8d8"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\utils\\amortization.js": {
     "mtime": 1779907178.765274,
@@ -152,12 +260,12 @@
     "hash": "f67e395af8e6dae1e56bd5b127f0c7de"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\scripts\\generate_app_icon.py": {
-    "mtime": 1779911284.0480995,
-    "hash": "2930414cbc34876f487e02a1f35bb38c"
+    "mtime": 1779977645.7990575,
+    "hash": "305b95d123a42b21b8a7d151865c3199"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\app.js": {
-    "mtime": 1779810288.3215885,
-    "hash": "e228f941041d6a766b24255dd5f5d36e"
+    "mtime": 1780418254.8407724,
+    "hash": "f7c4cfe8e7e3d04be7f78a24e38a734c"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\create-user.js": {
     "mtime": 1777660831.4173565,
@@ -216,8 +324,8 @@
     "hash": "3f79954e5bafae7a6640b8ca245b7339"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\routes\\auth.js": {
-    "mtime": 1779907178.7627735,
-    "hash": "fff21a83fec7d05bdbb82d3984500137"
+    "mtime": 1779978847.6189857,
+    "hash": "308b922833f73f5b936b278fb3a67da6"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\routes\\backup.js": {
     "mtime": 1768944795.3128812,
@@ -240,16 +348,16 @@
     "hash": "61787238ec7710dfe55721d5440647cf"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\routes\\payments.js": {
-    "mtime": 1779907178.7647736,
-    "hash": "4b8d827d3d01cafe2fa6749b8e52277b"
+    "mtime": 1780324828.1595714,
+    "hash": "1322993b361351e904243aac7bdc45fe"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\routes\\reports.js": {
-    "mtime": 1779829039.057485,
-    "hash": "6ffaa37ef99939906f70431f35303aab"
+    "mtime": 1779978456.7796023,
+    "hash": "eba10144bd05bfd1af9888b5581bb624"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\tests\\api.integration.test.js": {
-    "mtime": 1779829039.4249823,
-    "hash": "5cca36b98b403ba6e6f761fa66b150c6"
+    "mtime": 1779974916.1228006,
+    "hash": "cb9cb0a09fc913041c0ab33aad70d8d8"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\utils\\amortization.js": {
     "mtime": 1779907178.765274,
@@ -264,8 +372,8 @@
     "hash": "f67e395af8e6dae1e56bd5b127f0c7de"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\App.jsx": {
-    "mtime": 1779907178.7667737,
-    "hash": "5ef2883b1f6659b11007527b1cb95568"
+    "mtime": 1780324137.313738,
+    "hash": "e89bb5ac100622aac75a0d6a5246bbbd"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\main.jsx": {
     "mtime": 1779907178.7722828,
@@ -276,28 +384,28 @@
     "hash": "92aedd609751d7021c571506290a593a"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\components\\ErrorBoundary.jsx": {
-    "mtime": 1779907178.767273,
-    "hash": "43d9a98fb47498499253f43010c3bf00"
+    "mtime": 1779978456.7821028,
+    "hash": "f844e825f70d0cd05d2f7de59dd53234"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\components\\PagareModal.jsx": {
-    "mtime": 1779911986.1574736,
-    "hash": "a26377342592397499a22411f3976f67"
+    "mtime": 1780324360.3870463,
+    "hash": "f55e4803a573e2692fa8b914146d4698"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\components\\PaymentModal.jsx": {
-    "mtime": 1768831390.8644805,
-    "hash": "b8f41bbdcef995b8ec89f4271062c4a3"
+    "mtime": 1779979224.2301595,
+    "hash": "315638d3176defd20d69565bc5e46656"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\components\\PaymentScheduleTable.jsx": {
-    "mtime": 1779918604.8689685,
-    "hash": "9d3a988641b262d3cbca5edc4a5b652b"
+    "mtime": 1780324350.914493,
+    "hash": "b200e1ad83fe99319b0b9264ccb54c28"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\components\\Sidebar.jsx": {
-    "mtime": 1779907178.7687764,
-    "hash": "207a386537aa9af7a3ef2dbc04e891df"
+    "mtime": 1779978925.5369213,
+    "hash": "339d553ba8eb755141482bcc58da2b93"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\components\\dashboard\\DashboardKPI.jsx": {
-    "mtime": 1777653422.2135172,
-    "hash": "57d974f6c5ce4cb14291d9d7dcdbcf69"
+    "mtime": 1779978915.3584597,
+    "hash": "b57799f803fa8d03a12543added86470"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\components\\dashboard\\PortfolioChart.jsx": {
     "mtime": 1779903435.4169145,
@@ -364,48 +472,52 @@
     "hash": "209afc9681b99bcd277c39870b43babf"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\hooks\\useLoanHealth.js": {
-    "mtime": 1768933165.8055217,
-    "hash": "7fafc2d7580d98d0614b91449279a219"
+    "mtime": 1780324411.1409347,
+    "hash": "3cee78db885fb88879126534ac565664"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\Calculator.jsx": {
-    "mtime": 1779909023.0174527,
-    "hash": "d4c9588dd9fee9a1a794f3e9d4f7e372"
+    "mtime": 1779979625.0291533,
+    "hash": "6121899c28b8bdddec37a3f0405edcfe"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\ClientDetail.jsx": {
-    "mtime": 1779910850.876635,
-    "hash": "7298e7f7dd76620b72b49493a7424d22"
+    "mtime": 1780324432.071139,
+    "hash": "bc0068caf98b026d39fcf2fcdea6fff0"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\Clients.jsx": {
-    "mtime": 1779909023.0154512,
-    "hash": "15e4832590d88b56937c4763f4f430e3"
+    "mtime": 1779978981.0220537,
+    "hash": "e0f0491e4fcbe2b7889c7522c2e4a938"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\Collections.jsx": {
-    "mtime": 1779918479.3505926,
-    "hash": "69ba98c229e3ada2dc4780054b48b4fb"
+    "mtime": 1780324423.3937366,
+    "hash": "7ab12e5d8edfc880c5b3e840715ef82a"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\Dashboard.jsx": {
-    "mtime": 1779918493.0427854,
-    "hash": "a455a50260cdee55e71d4860983402fb"
+    "mtime": 1779978915.3604603,
+    "hash": "795b574303224915c36a965a7415e940"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\ImportData.jsx": {
-    "mtime": 1779907178.7777724,
-    "hash": "2972a8ea6b5fca599efb8dc3450120b9"
+    "mtime": 1779979782.898282,
+    "hash": "a0412b2e2968fd6d627849702c7e8e19"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\LoanDetail.jsx": {
-    "mtime": 1779918595.8391044,
-    "hash": "cf03f69d8ec8eeab14cf4ab020c7e40b"
+    "mtime": 1780417320.6118047,
+    "hash": "5bf37981394142330b3bb097d2696647"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\LoanDetail.test.jsx": {
+    "mtime": 1779977722.9604702,
+    "hash": "c1b5e29639a01d80fa6a80eaef8419a8"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\Loans.jsx": {
-    "mtime": 1779919940.0448282,
-    "hash": "73367e9496d3a8fdef1e5d53e747bcf5"
+    "mtime": 1780324335.5107627,
+    "hash": "5d229ed30bca32598076497168ef0f8d"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\Login.jsx": {
     "mtime": 1779907178.7802727,
     "hash": "e2ae01035c471b07d042e8b2e5e7b98e"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\NewLoan.jsx": {
-    "mtime": 1779910209.5715413,
-    "hash": "a1063f1f5c81b2fb28fb92813bdbeddb"
+    "mtime": 1779974870.3716986,
+    "hash": "4d5edabbfa351922e37acda8c2ea0f05"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\amortization.js": {
     "mtime": 1779907178.7822788,
@@ -416,36 +528,44 @@
     "hash": "7324e2fdffe0111b88f9753d2570565e"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\calendar.js": {
-    "mtime": 1779907178.7837732,
-    "hash": "ee8548d87ab0262ce7146142aa6b1919"
+    "mtime": 1780324405.6159997,
+    "hash": "63e02f9304b5d9d631b2c0faab4aa105"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\cn.js": {
     "mtime": 1779831592.219566,
     "hash": "7dde284c4d01f64341ef51e7b8e56dea"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\communication.js": {
-    "mtime": 1779907178.7847729,
-    "hash": "a8dd886f95a1d2008fc84bd4b5de9d48"
+    "mtime": 1780324416.0860095,
+    "hash": "04fac3c8a6a42e01a9b3327133ba3ca6"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\dates.js": {
+    "mtime": 1780324327.0796738,
+    "hash": "c3c2ce98bf1b722aab2f0d8c220a2428"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\formatters.js": {
+    "mtime": 1779978915.3549583,
+    "hash": "4d717f48076d599bbca135829cc155b6"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\mockData.js": {
     "mtime": 1765818707.9849682,
     "hash": "2f836a445f097ec21991cc82808e1378"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\pagareGenerator.js": {
-    "mtime": 1779916982.6233337,
-    "hash": "ece1c5923bf1361f6c17554a9fb9fdb6"
+    "mtime": 1780324389.0484135,
+    "hash": "7534dc0b41e30dd429f075e29f8bd86b"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\pdfGenerator.js": {
-    "mtime": 1779921522.0280204,
-    "hash": "5b5ecbca97c5894118c90b4b9fad4921"
+    "mtime": 1780324368.1763864,
+    "hash": "26fb7326164fae441782bf1d1d33c649"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\rut.js": {
     "mtime": 1779829063.1879706,
     "hash": "b1987338fd6d00838c923ccbda80b316"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\wordGenerator.js": {
-    "mtime": 1779911878.2165496,
-    "hash": "434289d2b7df2395f526adf010545a82"
+    "mtime": 1780324376.4131768,
+    "hash": "13162d1ff9adb60f19ecead8b8f2298d"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\debug-log.txt": {
     "mtime": 1779907193.47325,
@@ -460,20 +580,28 @@
     "hash": "5429b353448b47d93fdd7771001badd3"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\README.md": {
-    "mtime": 1779918636.1381586,
-    "hash": "0127f73e023131a214452a5bbe29bc31"
+    "mtime": 1780438235.1285658,
+    "hash": "bdbe185c36e42384549ae037aeadd03d"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\BETA-TESTER.md": {
+    "mtime": 1780416847.474903,
+    "hash": "688d77401f7d459e8a16bbdf61f39a84"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\GITHUB-RELEASE-CHECKLIST.md": {
+    "mtime": 1780416847.4754019,
+    "hash": "9bb6b494e163991e3a4883ab156179ca"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\GRAPHIFY.md": {
-    "mtime": 1779716266.6234615,
-    "hash": "412f208ee5230dab29c26fc1a63b5acc"
+    "mtime": 1780438235.1300657,
+    "hash": "c4f66e449d59cecb25d880b412ff332e"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\PLAN-android-app.md": {
     "mtime": 1779832192.333675,
     "hash": "f2b67bc5298ff8a1f16f80e97af985ab"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\PLAN-github-deployment.md": {
-    "mtime": 1779889453.510437,
-    "hash": "4a8533000665abf0d03ee4225b649769"
+    "mtime": 1780438235.1290655,
+    "hash": "e60b580c4b4b1b1f12df6ab1acfce515"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\PLAN-partial-payments.md": {
     "mtime": 1768929357.3426273,
@@ -484,40 +612,56 @@
     "hash": "e163d2f11bba64059536698774e6bbf5"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\graphify-out\\converted\\pagare_template_e62ac02c.md": {
-    "mtime": 1779921554.4477544,
+    "mtime": 1780438246.9020965,
     "hash": "3c57105453a9ba7f63d7459152a688e6"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\graphify-out\\converted\\pagare_template_sc_78d1f97f.md": {
-    "mtime": 1779921554.478263,
+    "mtime": 1780438246.9380965,
     "hash": "9fedb158390f9703fc389a9e887bdcc3"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\builder-debug.yml": {
-    "mtime": 1779921281.7144134,
-    "hash": "f852cd632b05c041e5c3e1e18f100f0c"
+    "mtime": 1780429181.0867112,
+    "hash": "52f84b056bd32da8050efca67945bcee"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\builder-effective-config.yaml": {
     "mtime": 1770673186.1957,
     "hash": "bed16809b565bb3d711d95cd1ee438b8"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\latest.yml": {
-    "mtime": 1779921283.3477845,
-    "hash": "9d0883974cb4d1f26af8373f4d4620ac"
+    "mtime": 1780326208.1626723,
+    "hash": "5ed9b1a68c3722d43310d1a120864d9d"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\LICENSE.electron.txt": {
+    "mtime": 1780326186.0,
+    "hash": "4d42118d35941e0f664dddbd83f633c5"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\LICENSES.chromium.html": {
+    "mtime": 1780326186.0,
+    "hash": "6ff57c0aeccdf44c39c95dee9ecea805"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\test-install-2\\resources\\app-update.yml": {
+    "mtime": 1780326186.0,
+    "hash": "0d5cd47bc3fb7b87705332d1840fd3ab"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\LICENSE.electron.txt": {
-    "mtime": 1779920977.5349555,
+    "mtime": 1780436018.463395,
     "hash": "4d42118d35941e0f664dddbd83f633c5"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\LICENSES.chromium.html": {
-    "mtime": 1779920977.1433094,
+    "mtime": 1780436017.8892534,
     "hash": "6ff57c0aeccdf44c39c95dee9ecea805"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\app-update.yml": {
-    "mtime": 1779921052.2913003,
+    "mtime": 1780436085.9031456,
     "hash": "0d5cd47bc3fb7b87705332d1840fd3ab"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\public\\vite.svg": {
     "mtime": 1765467959.1390288,
     "hash": "8e3a10e157f75ada21ab742c022d5430"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\assets\\loan-manager-mark.svg": {
+    "mtime": 1779978374.8599513,
+    "hash": "7f9fa936e162bf8bd2c4b728c65fcf51"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\assets\\react.svg": {
     "mtime": 1765467959.1159563,

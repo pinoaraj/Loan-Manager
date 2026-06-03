@@ -1,6 +1,7 @@
 import { AlignmentType, BorderStyle, Document, HeadingLevel, Packer, Paragraph, Table, TableCell, TableRow, TextRun, WidthType } from 'docx';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { compareStoredDates, formatStoredDate } from './dates';
 
 const getLoanInterestRate = (loan) => Number(loan?.interestRate ?? loan?.rate ?? 0);
 const getLoanDurationMonths = (loan) => Number(loan?.durationMonths ?? loan?.term ?? 0);
@@ -9,12 +10,11 @@ const getText = (value, fallback = 'No registrado') => {
     const text = String(value ?? '').trim();
     return text || fallback;
 };
-const getDateLabel = (value, fallback = 'Sin fecha') => {
-    const date = value ? new Date(value) : null;
-    return date && !Number.isNaN(date.getTime())
-        ? format(date, 'dd MMM yyyy', { locale: es })
-        : fallback;
-};
+const getDateLabel = (value, fallback = 'Sin fecha') => formatStoredDate(value, 'dd MMM yyyy', fallback);
+const getFileSafeLabel = (value, fallback = 'documento') => String(value ?? fallback)
+    .trim()
+    .replace(/\s+/g, '_')
+    .replace(/[^a-zA-Z0-9_-]/g, '') || fallback;
 
 const downloadBlob = (blob, filename) => {
     const url = window.URL.createObjectURL(blob);
@@ -30,7 +30,7 @@ const downloadBlob = (blob, filename) => {
 const buildScheduleTableRows = (loan) => {
     const payments = Array.isArray(loan?.payments) ? [...loan.payments] : [];
     return payments
-        .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))
+        .sort((a, b) => compareStoredDates(a.dueDate, b.dueDate))
         .map((payment, index) => new TableRow({
             children: [
                 new TableCell({ children: [new Paragraph(String(index + 1))] }),
@@ -65,7 +65,7 @@ export const generateWordContract = async (loan, client) => {
                 }),
                 new Paragraph({ text: 'Informacion del Cliente', heading: HeadingLevel.HEADING_2 }),
                 new Paragraph({ text: `Nombre: ${clientName}`, bullet: { level: 0 } }),
-                new Paragraph({ text: `ID: ${getText(client?.id, 'Sin ID')}`, bullet: { level: 0 } }),
+                new Paragraph({ text: `RUT: ${getText(client?.rut, 'No registrado')}`, bullet: { level: 0 } }),
                 new Paragraph({ text: `Email: ${getText(client?.email)}`, bullet: { level: 0 } }),
                 new Paragraph({ text: `Telefono: ${getText(client?.phone)}`, bullet: { level: 0 }, spacing: { after: 300 } }),
                 new Paragraph({ text: 'Detalles del Prestamo', heading: HeadingLevel.HEADING_2 }),
@@ -126,7 +126,7 @@ export const generateWordContract = async (loan, client) => {
     });
 
     const blob = await Packer.toBlob(doc);
-    downloadBlob(blob, `Contrato_${clientName.replace(/\s+/g, '_')}_${loan?.id || 'sin-id'}.docx`);
+    downloadBlob(blob, `Contrato_${getFileSafeLabel(clientName, 'Cliente')}_${format(new Date(), 'yyyyMMdd')}.docx`);
 };
 
 export const generateWordReceipt = async (payment, loan, client) => {
@@ -143,7 +143,7 @@ export const generateWordReceipt = async (payment, loan, client) => {
                     spacing: { after: 400 }
                 }),
                 new Paragraph({
-                    text: `Recibo #: ${String(payment?.id || '').substring(0, 8)}`,
+                    text: 'Recibo de Pago',
                     alignment: AlignmentType.RIGHT
                 }),
                 new Paragraph({
@@ -168,7 +168,7 @@ export const generateWordReceipt = async (payment, loan, client) => {
                 new Paragraph({
                     children: [
                         new TextRun({ text: 'Concepto: ', bold: true }),
-                        new TextRun(`Pago de cuota del prestamo #${loan?.id || 'sin-id'}`)
+                        new TextRun('Pago correspondiente a cuota programada')
                     ],
                     spacing: { after: 100 }
                 }),
@@ -190,5 +190,5 @@ export const generateWordReceipt = async (payment, loan, client) => {
     });
 
     const blob = await Packer.toBlob(doc);
-    downloadBlob(blob, `Recibo_${payment?.id || 'sin-id'}_${clientName.replace(/\s+/g, '_')}.docx`);
+    downloadBlob(blob, `Recibo_${getFileSafeLabel(clientName, 'Cliente')}_${format(new Date(), 'yyyyMMdd-HHmm')}.docx`);
 };

@@ -8,7 +8,9 @@ Loan Manager is a desktop-first loan management system built with React, Express
 - Loan creation can start from the client detail view with the client preselected
 - Loan creation with fixed or simple schedules
 - Payment registration with partial payments and transaction history
+- Payment alerts can deep-link into a specific installment and the payment modal closes cleanly on first click
 - Collections dashboard with alerts and upcoming due dates
+- User-facing views now hide internal loan codes and use consistent currency formatting across dashboard, collections, clients, loan detail and calculator flows
 - Excel export and import flows
 - Legal document generation for `Pagare` and `Mutuo`
 - Local packaged backend with SQLite in `AppData`
@@ -109,8 +111,11 @@ Useful desktop notes:
 
 - The packaged backend runs from `resources/server/`
 - SQLite is copied to the Windows user data folder
-- Desktop startup runs `prisma migrate deploy`
+- Desktop startup runs `prisma migrate deploy` on first packaged launch or when migrations change
+- Repeated packaged launches now reuse a cached successful migration state to avoid paying the migration cost every time
 - If packaged migrations fail, the app now stops instead of launching against an outdated schema
+- WhatsApp and other external links now open in the system browser instead of Electron's embedded Chromium, avoiding compatibility issues with sites like WhatsApp Web
+- App icon assets live in `build/icons/`; `app-icon.png` and `app-icon.ico` are the packaged sources and `app-icon.svg` is kept aligned for repo/documentation use
 
 ## API highlights
 
@@ -144,6 +149,7 @@ npm run lint
 npx vitest run
 cd server && npm test
 npm run build
+npm run electron:build
 graphify update .
 ```
 
@@ -165,5 +171,16 @@ graphify explain useLoans
 ## Planning docs
 
 - Desktop deployment status: `docs/PLAN-github-deployment.md`
+- GitHub release checklist: `docs/GITHUB-RELEASE-CHECKLIST.md`
+- Beta tester guide: `docs/BETA-TESTER.md`
 - Android planning track: `docs/PLAN-android-app.md`
 - Graphify workflow: `docs/GRAPHIFY.md`
+
+## Beta readiness
+
+Current recommendation: ready for a controlled Windows beta.
+
+- Green checks: lint, frontend tests, backend integration tests, web build, desktop installer build
+- Validated areas: login, dashboard, clients, loan detail, partial payments, collections deep-links, document generation, import/export, packaged startup
+- Desktop startup note: repeated packaged launches were revalidated on June 3, 2026 and the local backend again reached healthcheck in about 1 to 2 seconds after the migration-state cache was introduced
+- Residual risks to keep watching: legal document formatting with real customer data, packaged-app smoke testing on more than one Windows machine, and bundle size/performance around PDF/XLSX tooling

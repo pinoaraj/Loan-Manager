@@ -5,6 +5,7 @@ import { toast } from 'sonner';
 import { useLoans } from '../context/useLoans';
 import ConfirmModal from '../components/ConfirmModal';
 import { downloadBulkLoanCalendars } from '../utils/calendar';
+import { formatCurrency } from '../utils/formatters';
 
 let xlsxModulePromise;
 
@@ -338,7 +339,7 @@ const ImportData = () => {
                                     {previewData.loans.slice(0, 10).map((loan, i) => (
                                         <tr key={i}>
                                             <td className="px-4 py-3 font-medium text-slate-700">{loan.clientName}</td>
-                                            <td className="px-4 py-3 font-mono text-slate-600">${loan.amount.toLocaleString()}</td>
+                                            <td className="px-4 py-3 font-mono text-slate-600">${formatCurrency(loan.amount)}</td>
                                             <td className="px-4 py-3 text-slate-500">{loan.startDate}</td>
                                         </tr>
                                     ))}

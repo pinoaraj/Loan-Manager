@@ -39,6 +39,29 @@ graphify path "Desktop App - Electron 33" "Backend - Express 5 + Prisma 5"
 3. Review `graphify-out/GRAPH_REPORT.md` if the change touched architecture.
 4. Commit updated graph files together with the code change when they add value.
 
+## Beta QA Notes
+- After desktop/startup changes, verify both `desktop/main.cjs` and `server/routes/payments.js` still map correctly in `graphify-out/GRAPH_REPORT.md`.
+- If routing changes touch `src/App.jsx`, confirm the graph still shows the protected layout flow to:
+  - `src/pages/Loans.jsx`
+  - `src/pages/NewLoan.jsx`
+  - `src/pages/LoanDetail.jsx`
+- If date handling changes touch `src/utils/dates.js`, spot-check downstream edges into:
+  - `src/components/PaymentScheduleTable.jsx`
+  - `src/components/PagareModal.jsx`
+  - `src/utils/calendar.js`
+  - `src/utils/pagareGenerator.js`
+
+## Latest Verified Changes
+- Direct navigation to `#/loans/new` was stabilized by replacing nested route rendering with proper `Outlet`-based protected routing.
+- Stored loan/payment dates were normalized through `src/utils/dates.js` so the UI, reminders and legal documents stop drifting by one day.
+- Desktop startup was hardened in `desktop/main.cjs` with a longer backend readiness timeout and persistent logs in `%AppData%\\loan-manager\\debug-log.txt`.
+- Desktop startup now also defers heavy backend route loads in `server/app.js` and caches successful packaged Prisma migrations in `desktop/main.cjs`, cutting repeated packaged startup to about one second for backend readiness in local validation on `2026-06-02`.
+- Desktop external navigation is now intercepted in `desktop/main.cjs` so WhatsApp and other external links open in the system browser instead of Electron's embedded window.
+- Payment registration in `server/routes/payments.js` now coerces Prisma `Decimal` values to numbers before summing, preventing corrupted totals after partial + final payments.
+
+## Last Graph Refresh
+- `graphify update .` run successfully on `2026-06-02`.
+
 ## Files Worth Keeping
 - `graphify-out/GRAPH_REPORT.md`
 - `graphify-out/graph.json`

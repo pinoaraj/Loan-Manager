@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from PIL import Image, ImageChops, ImageDraw, ImageFilter
+from PIL import Image, ImageDraw
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -11,136 +11,61 @@ PREVIEW_PATH = ICON_DIR / "app-icon-preview.png"
 SVG_PATH = ICON_DIR / "app-icon.svg"
 
 SIZE = 1024
-GOLD_STOPS = [
-    (0.00, (248, 231, 162, 255)),
-    (0.34, (229, 197, 101, 255)),
-    (0.68, (201, 151, 46, 255)),
-    (1.00, (138, 97, 18, 255)),
-]
-BRONZE = (82, 51, 10, 255)
 PREVIEW_BG = (18, 27, 50, 255)
+CHARCOAL = (34, 49, 66, 255)
+CHARCOAL_DARK = (24, 36, 49, 255)
+EMERALD = (20, 163, 111, 255)
+EMERALD_DARK = (15, 143, 101, 255)
+ACCENT = (46, 123, 255, 255)
+WHITE = (247, 250, 252, 255)
 
 
-def make_gradient(width: int, height: int) -> Image.Image:
-    gradient = Image.new("RGBA", (width, height))
-    px = gradient.load()
-
-    for y in range(height):
-        for x in range(width):
-            t = ((x / max(width - 1, 1)) * 0.58) + ((y / max(height - 1, 1)) * 0.42)
-            t = max(0.0, min(1.0, t))
-            for index in range(len(GOLD_STOPS) - 1):
-                start, start_color = GOLD_STOPS[index]
-                end, end_color = GOLD_STOPS[index + 1]
-                if t <= end:
-                    local_t = 0 if end == start else (t - start) / (end - start)
-                    px[x, y] = tuple(
-                        round(start_color[channel] + (end_color[channel] - start_color[channel]) * local_t)
-                        for channel in range(4)
-                    )
-                    break
-            else:
-                px[x, y] = GOLD_STOPS[-1][1]
-
-    return gradient
-
-
-def build_symbol_mask() -> Image.Image:
-    mask = Image.new("L", (SIZE, SIZE), 0)
-    draw = ImageDraw.Draw(mask)
-
-    tablet_left, tablet_top, tablet_right, tablet_bottom = 276, 186, 646, 760
-    tablet_radius = 76
-
-    draw.rounded_rectangle(
-        (tablet_left, tablet_top + 60, tablet_right, tablet_bottom),
-        radius=tablet_radius,
-        fill=255,
-    )
+def draw_lm_mark(draw: ImageDraw.ImageDraw) -> None:
+    draw.polygon([(196, 178), (310, 264), (310, 670), (196, 710)], fill=CHARCOAL)
+    draw.polygon([(196, 690), (554, 690), (620, 742), (620, 830), (444, 830), (444, 782), (196, 782)], fill=CHARCOAL_DARK)
     draw.polygon(
-        [(tablet_left + 44, tablet_top + 118), (tablet_right - 44, tablet_top + 118), (512, tablet_top)],
-        fill=255,
-    )
-    draw.rounded_rectangle((tablet_left + 96, tablet_bottom - 38, tablet_right - 96, tablet_bottom + 42), radius=24, fill=255)
-
-    coin_center = (692, 622)
-    coin_radius = 170
-    draw.ellipse(
-        (
-            coin_center[0] - coin_radius,
-            coin_center[1] - coin_radius,
-            coin_center[0] + coin_radius,
-            coin_center[1] + coin_radius,
-        ),
-        fill=255,
+        [(360, 294), (560, 452), (824, 220), (824, 530), (706, 530), (706, 426), (554, 548), (470, 480), (470, 690), (360, 690)],
+        fill=EMERALD,
     )
 
-    return mask
+
+def draw_coin(draw: ImageDraw.ImageDraw) -> None:
+    draw.ellipse((174, 696, 406, 928), fill=EMERALD)
+    draw.rectangle((272, 730, 308, 892), fill=WHITE)
+    draw.arc((230, 724, 350, 816), 90, 270, fill=WHITE, width=26)
+    draw.arc((230, 808, 350, 890), 270, 90, fill=WHITE, width=26)
+    draw.rectangle((230, 792, 320, 820), fill=EMERALD)
 
 
-def build_cutout_mask() -> Image.Image:
-    cutout = Image.new("L", (SIZE, SIZE), 0)
-    draw = ImageDraw.Draw(cutout)
-
-    line_x0, line_x1 = 350, 566
-    for y in (340, 430, 520):
-        draw.rounded_rectangle((line_x0, y, line_x1, y + 22), radius=11, fill=255)
-
-    for x in (384, 462, 540):
-        draw.rounded_rectangle((x, 268, x + 24, 618), radius=12, fill=255)
-
-    draw.rounded_rectangle((356, 654, 566, 678), radius=12, fill=255)
-
-    coin_center = (692, 622)
-    draw.ellipse((coin_center[0] - 120, coin_center[1] - 120, coin_center[0] + 120, coin_center[1] + 120), fill=255)
-    draw.ellipse((coin_center[0] - 92, coin_center[1] - 92, coin_center[0] + 92, coin_center[1] + 92), fill=0)
-
-    draw.polygon(
-        [
-            (coin_center[0], coin_center[1] - 56),
-            (coin_center[0] + 32, coin_center[1] - 4),
-            (coin_center[0] + 88, coin_center[1] + 10),
-            (coin_center[0] + 40, coin_center[1] + 44),
-            (coin_center[0] + 52, coin_center[1] + 102),
-            (coin_center[0], coin_center[1] + 72),
-            (coin_center[0] - 52, coin_center[1] + 102),
-            (coin_center[0] - 40, coin_center[1] + 44),
-            (coin_center[0] - 88, coin_center[1] + 10),
-            (coin_center[0] - 32, coin_center[1] - 4),
-        ],
-        fill=255,
-    )
-
-    return cutout
+def draw_document(draw: ImageDraw.ImageDraw) -> None:
+    draw.rounded_rectangle((670, 486, 906, 790), radius=26, outline=CHARCOAL, width=28)
+    draw.polygon([(808, 486), (906, 486), (906, 586)], fill=(0, 0, 0, 0))
+    draw.line((808, 486, 906, 586), fill=CHARCOAL, width=28)
+    draw.line((808, 556, 906, 556), fill=CHARCOAL, width=28)
+    draw.line((730, 588, 824, 588), fill=ACCENT, width=24)
+    draw.ellipse((718, 626, 746, 654), fill=CHARCOAL)
+    draw.ellipse((718, 674, 746, 702), fill=CHARCOAL)
+    draw.line((772, 640, 894, 640), fill=CHARCOAL, width=24)
+    draw.line((772, 688, 874, 688), fill=CHARCOAL, width=24)
 
 
-def build_shadow(mask: Image.Image) -> Image.Image:
-    shadow = mask.filter(ImageFilter.GaussianBlur(28))
-    rgba = Image.new("RGBA", (SIZE, SIZE), (214, 173, 73, 0))
-    rgba.putalpha(shadow.point(lambda value: min(255, int(value * 0.34))))
-    return rgba
+def draw_growth(draw: ImageDraw.ImageDraw) -> None:
+    draw.rectangle((760, 810, 810, 900), fill=EMERALD)
+    draw.rectangle((836, 780, 892, 900), fill=EMERALD_DARK)
+    draw.rectangle((918, 706, 976, 900), fill=EMERALD_DARK)
+    draw.arc((560, 676, 936, 932), 24, 82, fill=ACCENT, width=28)
+    draw.line((898, 730, 930, 716), fill=ACCENT, width=28)
+    draw.line((930, 716, 922, 748), fill=ACCENT, width=28)
 
 
 def build_icon() -> Image.Image:
     canvas = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
-    base_mask = build_symbol_mask()
-    cutout_mask = build_cutout_mask()
-    solid_mask = ImageChops.subtract(base_mask, cutout_mask)
+    draw = ImageDraw.Draw(canvas)
 
-    canvas.alpha_composite(build_shadow(base_mask))
-
-    gradient = make_gradient(SIZE, SIZE)
-    symbol = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
-    symbol.paste(gradient, (0, 0), solid_mask)
-    canvas.alpha_composite(symbol)
-
-    accent = Image.new("RGBA", (SIZE, SIZE), BRONZE)
-    accent.putalpha(base_mask.filter(ImageFilter.GaussianBlur(1)).point(lambda value: min(255, int(value * 0.18))))
-    canvas.alpha_composite(accent)
-
-    outline = Image.new("RGBA", (SIZE, SIZE), (255, 255, 255, 0))
-    outline.putalpha(base_mask.filter(ImageFilter.GaussianBlur(2)).point(lambda value: min(255, int(value * 0.08))))
-    canvas.alpha_composite(outline)
+    draw_lm_mark(draw)
+    draw_coin(draw)
+    draw_document(draw)
+    draw_growth(draw)
 
     return canvas
 
@@ -154,22 +79,28 @@ def build_preview(icon: Image.Image) -> Image.Image:
 def build_svg() -> str:
     return """<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" fill="none">
   <defs>
-    <linearGradient id="gold" x1="260" y1="150" x2="790" y2="830" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#F8E7A2"/>
-      <stop offset="0.34" stop-color="#E5C565"/>
-      <stop offset="0.68" stop-color="#C9972E"/>
-      <stop offset="1" stop-color="#8A6112"/>
+    <linearGradient id="emerald" x1="380" y1="230" x2="858" y2="738" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#16B978"/>
+      <stop offset="1" stop-color="#0F8F65"/>
     </linearGradient>
-    <filter id="softGlow" x="120" y="120" width="784" height="784" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-      <feGaussianBlur stdDeviation="16" result="blur"/>
-      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.84 0 0 0 0 0.68 0 0 0 0 0.25 0 0 0 0.30 0"/>
-      <feBlend in="SourceGraphic" in2="blur" mode="screen"/>
-    </filter>
   </defs>
-  <g filter="url(#softGlow)">
-    <path fill="url(#gold)" fill-rule="evenodd" clip-rule="evenodd" d="M320 246L512 186L602 304H646C688 304 722 338 722 380V760H636L596 804H326V760H276V380C276 338 310 304 352 304H422L512 186L320 246ZM352 340C333.222 340 318 355.222 318 374V718H604V374C604 355.222 588.778 340 570 340H352ZM636 760C636 724.654 664.654 696 700 696C735.346 696 764 724.654 764 760C764 795.346 735.346 824 700 824C664.654 824 636 795.346 636 760ZM368 408C368 398.059 376.059 390 386 390H540C549.941 390 558 398.059 558 408C558 417.941 549.941 426 540 426H386C376.059 426 368 417.941 368 408ZM368 496C368 486.059 376.059 478 386 478H540C549.941 478 558 486.059 558 496C558 505.941 549.941 514 540 514H386C376.059 514 368 505.941 368 496ZM368 584C368 574.059 376.059 566 386 566H540C549.941 566 558 574.059 558 584C558 593.941 549.941 602 540 602H386C376.059 602 368 593.941 368 584Z"/>
-    <path fill="#52330A" fill-rule="evenodd" clip-rule="evenodd" d="M700 680C744.183 680 780 715.817 780 760C780 804.183 744.183 840 700 840C655.817 840 620 804.183 620 760C620 715.817 655.817 680 700 680ZM700 706C729.823 706 754 730.177 754 760C754 789.823 729.823 814 700 814C670.177 814 646 789.823 646 760C646 730.177 670.177 706 700 706Z"/>
-  </g>
+  <path d="M196 178L310 264V670C268 670 228 684 196 710V178Z" fill="#223142"/>
+  <path d="M196 690H554L620 742V830H444V782H196V690Z" fill="#182431"/>
+  <path d="M360 294L560 452L824 220V530H706V426L554 548L470 480V690H360V294Z" fill="url(#emerald)"/>
+  <circle cx="290" cy="812" r="116" fill="#14A36F"/>
+  <path d="M308 742V770C338 776 360 797 360 826C360 861 330 881 292 881C271 881 248 873 232 857L256 828C268 839 282 845 295 845C307 845 315 839 315 830C315 820 307 814 287 808C252 799 224 783 224 745C224 714 246 690 282 683V654H320V682C342 686 362 698 376 715L350 742C338 730 324 722 308 719C292 716 270 722 270 741C270 751 278 758 299 764C337 775 360 792 360 826" fill="#F7FAFC"/>
+  <path d="M686 486H860L910 538V706" stroke="#223142" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M806 486V556H910" stroke="#223142" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M730 588H824" stroke="#2E7BFF" stroke-width="24" stroke-linecap="round"/>
+  <circle cx="732" cy="640" r="14" fill="#223142"/>
+  <circle cx="732" cy="688" r="14" fill="#223142"/>
+  <path d="M772 640H894" stroke="#223142" stroke-width="24" stroke-linecap="round"/>
+  <path d="M772 688H874" stroke="#223142" stroke-width="24" stroke-linecap="round"/>
+  <path d="M584 912C716 894 818 844 916 720" stroke="#2E7BFF" stroke-width="28" stroke-linecap="round"/>
+  <path d="M898 730L930 716L922 748" stroke="#2E7BFF" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M760 900H810V810H760V900Z" fill="#14A36F"/>
+  <path d="M836 900H892V780H836V900Z" fill="#119665"/>
+  <path d="M918 900H976V706H918V900Z" fill="#0F8F65"/>
 </svg>
 """
 
