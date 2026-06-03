@@ -1,16 +1,16 @@
-# Graph Report - LoanManager  (2026-06-01)
+# Graph Report - LoanManager  (2026-06-02)
 
 ## Corpus Check
-- 142 files · ~2,752,488 words
+- 142 files · ~2,649,525 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 278 nodes · 461 edges · 16 communities detected
+- 280 nodes · 465 edges · 17 communities detected
 - Extraction: 91% EXTRACTED · 9% INFERRED · 0% AMBIGUOUS · INFERRED: 40 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `1a7b6d51`
+- Built from commit: `6d9be524`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -28,9 +28,10 @@
 - [[_COMMUNITY_Community 10|Community 10]]
 - [[_COMMUNITY_Community 11|Community 11]]
 - [[_COMMUNITY_Community 12|Community 12]]
-- [[_COMMUNITY_Community 14|Community 14]]
+- [[_COMMUNITY_Community 13|Community 13]]
 - [[_COMMUNITY_Community 15|Community 15]]
-- [[_COMMUNITY_Community 17|Community 17]]
+- [[_COMMUNITY_Community 16|Community 16]]
+- [[_COMMUNITY_Community 18|Community 18]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `useLoans()` - 22 edges
@@ -56,7 +57,7 @@
 - `PortfolioChart()` --calls--> `useElementSize()`  [INFERRED]
   src/components/dashboard/PortfolioChart.jsx → src/hooks/useElementSize.js
 
-## Communities (56 total, 4 thin omitted)
+## Communities (56 total, 5 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.14
@@ -107,17 +108,17 @@ Cohesion: 0.7
 Nodes (4): login(), runTests(), testCreateClient(), testCreateClientWithoutPhone()
 
 ## Knowledge Gaps
-- **4 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **5 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `formatStoredDate()` connect `Community 4` to `Community 0`, `Community 1`, `Community 8`, `Community 9`?**
-  _High betweenness centrality (0.108) - this node is a cross-community bridge._
+  _High betweenness centrality (0.106) - this node is a cross-community bridge._
 - **Why does `compareStoredDates()` connect `Community 4` to `Community 0`, `Community 1`, `Community 3`, `Community 7`, `Community 8`, `Community 9`?**
-  _High betweenness centrality (0.089) - this node is a cross-community bridge._
+  _High betweenness centrality (0.087) - this node is a cross-community bridge._
 - **Why does `formatCurrency()` connect `Community 5` to `Community 1`, `Community 2`, `Community 4`?**
-  _High betweenness centrality (0.077) - this node is a cross-community bridge._
+  _High betweenness centrality (0.076) - this node is a cross-community bridge._
 - **Are the 10 inferred relationships involving `useLoans()` (e.g. with `Sidebar()` and `RecentActivity()`) actually correct?**
   _`useLoans()` has 10 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 8 inferred relationships involving `useAuth()` (e.g. with `ProtectedRoute()` and `Footer()`) actually correct?**

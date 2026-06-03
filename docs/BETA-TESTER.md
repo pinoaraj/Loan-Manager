@@ -55,7 +55,7 @@ Opciones:
 - clientes
 - prestamos
 - pagos parciales
-- pagaré y mutuo
+- pagare y mutuo
 - exportacion
 - respaldo
 

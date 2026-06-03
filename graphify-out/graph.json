@@ -9,7 +9,7 @@
       "source_file": "check_build.js",
       "source_location": "L1",
       "id": "check_build_js",
-      "community": 18,
+      "community": 19,
       "norm_label": "check_build.js"
     },
     {
@@ -18,7 +18,7 @@
       "source_file": "check_build.js",
       "source_location": "L8",
       "id": "loanmanager_check_build_getnewestfiletime",
-      "community": 18,
+      "community": 19,
       "norm_label": "getnewestfiletime()"
     },
     {
@@ -150,19 +150,19 @@
     {
       "label": "app.js",
       "file_type": "code",
-      "source_file": "server/app.js",
+      "source_file": "release/test-install-2/resources/server/app.js",
       "source_location": "L1",
       "id": "release_win_unpacked_resources_server_app_js",
-      "community": 19,
+      "community": 13,
       "norm_label": "app.js"
     },
     {
       "label": "createApp()",
       "file_type": "code",
       "source_file": "server/app.js",
-      "source_location": "L19",
+      "source_location": "L22",
       "id": "server_app_createapp",
-      "community": 19,
+      "community": 13,
       "norm_label": "createapp()"
     },
     {
@@ -333,7 +333,7 @@
       "source_file": "server/routes/dashboard.js",
       "source_location": "L1",
       "id": "release_win_unpacked_resources_server_routes_dashboard_js",
-      "community": 13,
+      "community": 14,
       "norm_label": "dashboard.js"
     },
     {
@@ -342,7 +342,7 @@
       "source_file": "server/routes/dashboard.js",
       "source_location": "L10",
       "id": "routes_dashboard_getremainingamount",
-      "community": 13,
+      "community": 14,
       "norm_label": "getremainingamount()"
     },
     {
@@ -351,7 +351,7 @@
       "source_file": "server/routes/dashboard.js",
       "source_location": "L16",
       "id": "routes_dashboard_getloanstatusfrompayments",
-      "community": 13,
+      "community": 14,
       "norm_label": "getloanstatusfrompayments()"
     },
     {
@@ -360,7 +360,7 @@
       "source_file": "server/routes/dashboard.js",
       "source_location": "L28",
       "id": "routes_dashboard_syncloansfordashboard",
-      "community": 13,
+      "community": 14,
       "norm_label": "syncloansfordashboard()"
     },
     {
@@ -369,7 +369,7 @@
       "source_file": "server/routes/import.js",
       "source_location": "L1",
       "id": "release_win_unpacked_resources_server_routes_import_js",
-      "community": 16,
+      "community": 17,
       "norm_label": "import.js"
     },
     {
@@ -378,7 +378,7 @@
       "source_file": "server/routes/import.js",
       "source_location": "L9",
       "id": "routes_import_normalizefrequency",
-      "community": 16,
+      "community": 17,
       "norm_label": "normalizefrequency()"
     },
     {
@@ -387,7 +387,7 @@
       "source_file": "server/routes/import.js",
       "source_location": "L14",
       "id": "routes_import_buildclientdata",
-      "community": 16,
+      "community": 17,
       "norm_label": "buildclientdata()"
     },
     {
@@ -396,7 +396,7 @@
       "source_file": "server/routes/loans.js",
       "source_location": "L1",
       "id": "server_routes_loans_js",
-      "community": 17,
+      "community": 18,
       "norm_label": "loans.js"
     },
     {
@@ -405,7 +405,7 @@
       "source_file": "server/routes/loans.js",
       "source_location": "L9",
       "id": "routes_loans_normalizefrequency",
-      "community": 17,
+      "community": 18,
       "norm_label": "normalizefrequency()"
     },
     {
@@ -413,7 +413,7 @@
       "file_type": "code",
       "source_file": "server/routes/payments.js",
       "source_location": "L1",
-      "id": "server_routes_payments_js",
+      "id": "release_win_unpacked_resources_server_routes_payments_js",
       "community": 15,
       "norm_label": "payments.js"
     },
@@ -425,6 +425,15 @@
       "id": "routes_payments_getloanstatusfrompayments",
       "community": 15,
       "norm_label": "getloanstatusfrompayments()"
+    },
+    {
+      "label": "toAmount()",
+      "file_type": "code",
+      "source_file": "server/routes/payments.js",
+      "source_location": "L45",
+      "id": "routes_payments_toamount",
+      "community": 15,
+      "norm_label": "toamount()"
     },
     {
       "label": "reports.js",
@@ -441,7 +450,7 @@
       "source_file": "server/tests/api.integration.test.js",
       "source_location": "L1",
       "id": "server_tests_api_integration_test_js",
-      "community": 14,
+      "community": 16,
       "norm_label": "api.integration.test.js"
     },
     {
@@ -450,7 +459,7 @@
       "source_file": "server/tests/api.integration.test.js",
       "source_location": "L58",
       "id": "tests_api_integration_test_request",
-      "community": 14,
+      "community": 16,
       "norm_label": "request()"
     },
     {
@@ -459,7 +468,7 @@
       "source_file": "server/tests/api.integration.test.js",
       "source_location": "L72",
       "id": "tests_api_integration_test_createauthenticatedloanfixture",
-      "community": 14,
+      "community": 16,
       "norm_label": "createauthenticatedloanfixture()"
     },
     {
@@ -535,22 +544,22 @@
       "norm_label": "logger.js"
     },
     {
-      "label": "payments.js",
+      "label": "app.js",
       "file_type": "code",
-      "source_file": "release/win-unpacked/resources/server/routes/payments.js",
+      "source_file": "server/app.js",
       "source_location": "L1",
-      "id": "release_win_unpacked_resources_server_routes_payments_js",
-      "community": 15,
-      "norm_label": "payments.js"
+      "id": "server_app_js",
+      "community": 13,
+      "norm_label": "app.js"
     },
     {
-      "label": "toAmount()",
+      "label": "lazyRoute()",
       "file_type": "code",
-      "source_file": "server/routes/payments.js",
-      "source_location": "L45",
-      "id": "routes_payments_toamount",
-      "community": 15,
-      "norm_label": "toamount()"
+      "source_file": "server/app.js",
+      "source_location": "L9",
+      "id": "server_app_lazyroute",
+      "community": 13,
+      "norm_label": "lazyroute()"
     },
     {
       "label": "generate_app_icon.py",
@@ -1366,7 +1375,7 @@
       "label": "SectionLoader()",
       "file_type": "code",
       "source_file": "src/pages/LoanDetail.jsx",
-      "source_location": "L43",
+      "source_location": "L42",
       "id": "pages_loandetail_sectionloader",
       "community": 4,
       "norm_label": "sectionloader()"
@@ -1375,7 +1384,7 @@
       "label": "getLoanTypeLabel()",
       "file_type": "code",
       "source_file": "src/pages/LoanDetail.jsx",
-      "source_location": "L49",
+      "source_location": "L48",
       "id": "pages_loandetail_getloantypelabel",
       "community": 4,
       "norm_label": "getloantypelabel()"
@@ -1384,7 +1393,7 @@
       "label": "getFrequencyLabel()",
       "file_type": "code",
       "source_file": "src/pages/LoanDetail.jsx",
-      "source_location": "L50",
+      "source_location": "L49",
       "id": "pages_loandetail_getfrequencylabel",
       "community": 4,
       "norm_label": "getfrequencylabel()"
@@ -1393,7 +1402,7 @@
       "label": "LoanDetail()",
       "file_type": "code",
       "source_file": "src/pages/LoanDetail.jsx",
-      "source_location": "L57",
+      "source_location": "L56",
       "id": "pages_loandetail_loandetail",
       "community": 4,
       "norm_label": "loandetail()"
@@ -2344,6 +2353,15 @@
       "norm_label": "generatewordreceipt()"
     },
     {
+      "label": "payments.js",
+      "file_type": "code",
+      "source_file": "server/routes/payments.js",
+      "source_location": "L1",
+      "community": 15,
+      "norm_label": "payments.js",
+      "id": "server_routes_payments_js"
+    },
+    {
       "label": "auth.js",
       "file_type": "code",
       "source_file": "release/win-unpacked/resources/server/routes/auth.js",
@@ -2366,7 +2384,7 @@
       "file_type": "code",
       "source_file": "release/win-unpacked/resources/server/tests/api.integration.test.js",
       "source_location": "L1",
-      "community": 14,
+      "community": 16,
       "norm_label": "api.integration.test.js",
       "id": "release_win_unpacked_resources_server_tests_api_integration_test_js"
     },
@@ -2501,7 +2519,7 @@
       "file_type": "code",
       "source_file": "release/win-unpacked/resources/server/routes/loans.js",
       "source_location": "L1",
-      "community": 17,
+      "community": 18,
       "norm_label": "loans.js",
       "id": "release_win_unpacked_resources_server_routes_loans_js"
     }
@@ -2599,6 +2617,37 @@
       "confidence_score": 1.0,
       "source": "release_win_unpacked_resources_server_app_js",
       "target": "server_app_createapp"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "release/win-unpacked/resources/server/app.js",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "release_win_unpacked_resources_server_app_js",
+      "target": "server_app_lazyroute"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/app.js",
+      "source_location": "L22",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "server_app_js",
+      "target": "server_app_createapp"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "server/app.js",
+      "source_location": "L78",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "server_app_createapp",
+      "target": "server_app_lazyroute"
     },
     {
       "relation": "contains",
@@ -2723,6 +2772,26 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "release/win-unpacked/resources/server/routes/payments.js",
+      "source_location": "L33",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "release_win_unpacked_resources_server_routes_payments_js",
+      "target": "routes_payments_getloanstatusfrompayments"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "release/win-unpacked/resources/server/routes/payments.js",
+      "source_location": "L45",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "release_win_unpacked_resources_server_routes_payments_js",
+      "target": "routes_payments_toamount"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "server/routes/payments.js",
       "source_location": "L33",
       "weight": 1.0,
@@ -2736,19 +2805,9 @@
       "source_file": "server/routes/payments.js",
       "source_location": "L45",
       "weight": 1.0,
-      "source": "server_routes_payments_js",
-      "target": "routes_payments_toamount",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "release/win-unpacked/resources/server/routes/payments.js",
-      "source_location": "L33",
-      "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "release_win_unpacked_resources_server_routes_payments_js",
-      "target": "routes_payments_getloanstatusfrompayments"
+      "source": "server_routes_payments_js",
+      "target": "routes_payments_toamount"
     },
     {
       "relation": "contains",
@@ -2949,12 +3008,12 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "release/win-unpacked/resources/server/routes/payments.js",
-      "source_location": "L45",
+      "source_file": "server/app.js",
+      "source_location": "L9",
       "weight": 1.0,
-      "source": "release_win_unpacked_resources_server_routes_payments_js",
-      "target": "routes_payments_toamount",
-      "confidence_score": 1.0
+      "confidence_score": 1.0,
+      "source": "server_app_js",
+      "target": "server_app_lazyroute"
     },
     {
       "relation": "contains",
@@ -3422,9 +3481,9 @@
       "source_file": "src/components/PagareModal.jsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_components_pagaremodal_jsx",
-      "target": "utils_dates_comparestoreddates",
-      "confidence_score": 1.0
+      "target": "utils_dates_comparestoreddates"
     },
     {
       "relation": "imports",
@@ -3433,9 +3492,9 @@
       "source_file": "src/components/PagareModal.jsx",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_components_pagaremodal_jsx",
-      "target": "utils_dates_tostoredlocaledate",
-      "confidence_score": 1.0
+      "target": "utils_dates_tostoredlocaledate"
     },
     {
       "relation": "imports",
@@ -3551,9 +3610,9 @@
       "source_file": "src/components/PaymentScheduleTable.jsx",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_components_paymentscheduletable_jsx",
-      "target": "utils_dates_comparestoreddates",
-      "confidence_score": 1.0
+      "target": "utils_dates_comparestoreddates"
     },
     {
       "relation": "imports",
@@ -3562,9 +3621,9 @@
       "source_file": "src/components/PaymentScheduleTable.jsx",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_components_paymentscheduletable_jsx",
-      "target": "utils_dates_formatstoreddate",
-      "confidence_score": 1.0
+      "target": "utils_dates_formatstoreddate"
     },
     {
       "relation": "imports",
@@ -4280,9 +4339,9 @@
       "source_file": "src/hooks/useLoanHealth.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_hooks_useloanhealth_js",
-      "target": "utils_dates_parsestoreddate",
-      "confidence_score": 1.0
+      "target": "utils_dates_parsestoreddate"
     },
     {
       "relation": "contains",
@@ -4399,9 +4458,9 @@
       "source_file": "src/pages/ClientDetail.jsx",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_pages_clientdetail_jsx",
-      "target": "utils_dates_comparestoreddates",
-      "confidence_score": 1.0
+      "target": "utils_dates_comparestoreddates"
     },
     {
       "relation": "imports",
@@ -4410,9 +4469,9 @@
       "source_file": "src/pages/ClientDetail.jsx",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_pages_clientdetail_jsx",
-      "target": "utils_dates_formatstoreddate",
-      "confidence_score": 1.0
+      "target": "utils_dates_formatstoreddate"
     },
     {
       "relation": "imports",
@@ -4615,9 +4674,9 @@
       "source_file": "src/pages/Collections.jsx",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_pages_collections_jsx",
-      "target": "utils_dates_formatstoreddate",
-      "confidence_score": 1.0
+      "target": "utils_dates_formatstoreddate"
     },
     {
       "relation": "imports",
@@ -4794,9 +4853,9 @@
       "source_file": "src/pages/LoanDetail.jsx",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_pages_loandetail_jsx",
-      "target": "utils_dates_formatstoreddate",
-      "confidence_score": 1.0
+      "target": "utils_dates_formatstoreddate"
     },
     {
       "relation": "imports",
@@ -4899,9 +4958,9 @@
       "source_file": "src/pages/Loans.jsx",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_pages_loans_jsx",
-      "target": "utils_dates_comparestoreddates",
-      "confidence_score": 1.0
+      "target": "utils_dates_comparestoreddates"
     },
     {
       "relation": "imports",
@@ -4910,9 +4969,9 @@
       "source_file": "src/pages/Loans.jsx",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_pages_loans_jsx",
-      "target": "utils_dates_tostoredlocaledate",
-      "confidence_score": 1.0
+      "target": "utils_dates_tostoredlocaledate"
     },
     {
       "relation": "imports",
@@ -5025,9 +5084,9 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_utils_calendar_js",
-      "target": "utils_dates_comparestoreddates",
-      "confidence_score": 1.0
+      "target": "utils_dates_comparestoreddates"
     },
     {
       "relation": "imports",
@@ -5036,9 +5095,9 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_utils_calendar_js",
-      "target": "utils_dates_parsestoreddate",
-      "confidence_score": 1.0
+      "target": "utils_dates_parsestoreddate"
     },
     {
       "relation": "contains",
@@ -5459,9 +5518,9 @@
       "source_file": "src/utils/communication.js",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_utils_communication_js",
-      "target": "utils_dates_tostoredlocaledate",
-      "confidence_score": 1.0
+      "target": "utils_dates_tostoredlocaledate"
     },
     {
       "relation": "contains",
@@ -5594,9 +5653,9 @@
       "source_file": "src/utils/dates.js",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_utils_dates_js",
-      "target": "utils_dates_parsestoreddate",
-      "confidence_score": 1.0
+      "target": "utils_dates_parsestoreddate"
     },
     {
       "relation": "contains",
@@ -5604,9 +5663,9 @@
       "source_file": "src/utils/dates.js",
       "source_location": "L24",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_utils_dates_js",
-      "target": "utils_dates_comparestoreddates",
-      "confidence_score": 1.0
+      "target": "utils_dates_comparestoreddates"
     },
     {
       "relation": "contains",
@@ -5614,9 +5673,9 @@
       "source_file": "src/utils/dates.js",
       "source_location": "L35",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_utils_dates_js",
-      "target": "utils_dates_formatstoreddate",
-      "confidence_score": 1.0
+      "target": "utils_dates_formatstoreddate"
     },
     {
       "relation": "contains",
@@ -5624,9 +5683,9 @@
       "source_file": "src/utils/dates.js",
       "source_location": "L40",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_utils_dates_js",
-      "target": "utils_dates_tostoredlocaledate",
-      "confidence_score": 1.0
+      "target": "utils_dates_tostoredlocaledate"
     },
     {
       "relation": "contains",
@@ -5634,9 +5693,9 @@
       "source_file": "src/utils/dates.js",
       "source_location": "L45",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_utils_dates_js",
-      "target": "utils_dates_getstoreddatedaylabel",
-      "confidence_score": 1.0
+      "target": "utils_dates_getstoreddatedaylabel"
     },
     {
       "relation": "calls",
@@ -5645,9 +5704,9 @@
       "source_file": "src/utils/dates.js",
       "source_location": "L25",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "utils_dates_comparestoreddates",
-      "target": "utils_dates_parsestoreddate",
-      "confidence_score": 1.0
+      "target": "utils_dates_parsestoreddate"
     },
     {
       "relation": "calls",
@@ -5656,9 +5715,9 @@
       "source_file": "src/utils/dates.js",
       "source_location": "L36",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "utils_dates_formatstoreddate",
-      "target": "utils_dates_parsestoreddate",
-      "confidence_score": 1.0
+      "target": "utils_dates_parsestoreddate"
     },
     {
       "relation": "calls",
@@ -5667,9 +5726,9 @@
       "source_file": "src/utils/dates.js",
       "source_location": "L41",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "utils_dates_tostoredlocaledate",
-      "target": "utils_dates_parsestoreddate",
-      "confidence_score": 1.0
+      "target": "utils_dates_parsestoreddate"
     },
     {
       "relation": "calls",
@@ -5678,9 +5737,9 @@
       "source_file": "src/utils/dates.js",
       "source_location": "L46",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "utils_dates_getstoreddatedaylabel",
-      "target": "utils_dates_parsestoreddate",
-      "confidence_score": 1.0
+      "target": "utils_dates_parsestoreddate"
     },
     {
       "relation": "imports",
@@ -5689,9 +5748,9 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_utils_pagaregenerator_js",
-      "target": "utils_dates_parsestoreddate",
-      "confidence_score": 1.0
+      "target": "utils_dates_parsestoreddate"
     },
     {
       "relation": "calls",
@@ -5722,9 +5781,9 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_utils_pagaregenerator_js",
-      "target": "utils_dates_comparestoreddates",
-      "confidence_score": 1.0
+      "target": "utils_dates_comparestoreddates"
     },
     {
       "relation": "imports",
@@ -5733,9 +5792,9 @@
       "source_file": "src/utils/pdfGenerator.js",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_utils_pdfgenerator_js",
-      "target": "utils_dates_comparestoreddates",
-      "confidence_score": 1.0
+      "target": "utils_dates_comparestoreddates"
     },
     {
       "relation": "imports",
@@ -5744,9 +5803,9 @@
       "source_file": "src/utils/wordGenerator.js",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_utils_wordgenerator_js",
-      "target": "utils_dates_comparestoreddates",
-      "confidence_score": 1.0
+      "target": "utils_dates_comparestoreddates"
     },
     {
       "relation": "imports",
@@ -5755,9 +5814,9 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_utils_pagaregenerator_js",
-      "target": "utils_dates_formatstoreddate",
-      "confidence_score": 1.0
+      "target": "utils_dates_formatstoreddate"
     },
     {
       "relation": "imports",
@@ -5766,9 +5825,9 @@
       "source_file": "src/utils/pdfGenerator.js",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_utils_pdfgenerator_js",
-      "target": "utils_dates_formatstoreddate",
-      "confidence_score": 1.0
+      "target": "utils_dates_formatstoreddate"
     },
     {
       "relation": "imports",
@@ -5777,9 +5836,9 @@
       "source_file": "src/utils/wordGenerator.js",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_utils_wordgenerator_js",
-      "target": "utils_dates_formatstoreddate",
-      "confidence_score": 1.0
+      "target": "utils_dates_formatstoreddate"
     },
     {
       "relation": "calls",
@@ -5821,9 +5880,9 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_utils_pagaregenerator_js",
-      "target": "utils_dates_getstoreddatedaylabel",
-      "confidence_score": 1.0
+      "target": "utils_dates_getstoreddatedaylabel"
     },
     {
       "relation": "calls",
@@ -5953,9 +6012,9 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L78",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_utils_pagaregenerator_js",
-      "target": "utils_pagaregenerator_getsortedpayments",
-      "confidence_score": 1.0
+      "target": "utils_pagaregenerator_getsortedpayments"
     },
     {
       "relation": "contains",
@@ -6390,9 +6449,9 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L79",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "utils_pagaregenerator_getinstallmentamount",
-      "target": "utils_pagaregenerator_getsortedpayments",
-      "confidence_score": 1.0
+      "target": "utils_pagaregenerator_getsortedpayments"
     },
     {
       "relation": "calls",
@@ -6401,9 +6460,9 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L80",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "utils_pagaregenerator_getfirstduedate",
-      "target": "utils_pagaregenerator_getsortedpayments",
-      "confidence_score": 1.0
+      "target": "utils_pagaregenerator_getsortedpayments"
     },
     {
       "relation": "calls",
@@ -6412,9 +6471,9 @@
       "source_file": "src/utils/pagareGenerator.js",
       "source_location": "L81",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "utils_pagaregenerator_getlastduedate",
-      "target": "utils_pagaregenerator_getsortedpayments",
-      "confidence_score": 1.0
+      "target": "utils_pagaregenerator_getsortedpayments"
     },
     {
       "relation": "calls",
@@ -7383,5 +7442,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "1a7b6d51adf51ec221d101165c173442c16d91d2"
+  "built_at_commit": "6d9be524c3d1a4b0a1c4f7840d72ff92d3759650"
 }

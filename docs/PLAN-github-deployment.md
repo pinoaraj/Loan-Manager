@@ -14,9 +14,12 @@
    - La API opera con validaciones, autenticacion y pruebas automatizadas.
    - `npm test` en `server/` ya cubre el flujo principal real.
 3. Desktop
-   - `electron-builder` genera version `win-unpacked` validada de nuevo el `2026-06-01`.
+   - `electron-builder` genera version `win-unpacked` validada de nuevo el `2026-06-03`.
    - `desktop/main.cjs` levanta el backend local en `3011`.
    - El healthcheck del backend empaquetado ahora espera hasta `45s`.
+   - El backend empaquetado ya difiere rutas pesadas y reutiliza un estado de migracion exitosa para acelerar aperturas repetidas.
+   - Validacion local del `2026-06-02`: primer arranque empaquetado con migracion en ~`5.7s` desde `startServer` hasta `healthcheck passed`; arranque repetido posterior en ~`1.2s`.
+   - Validacion local del `2026-06-03`: `release/win-unpacked/Loan Manager.exe` volvio a iniciar correctamente y el backend local paso `/api/health` a las `13:52:03Z`.
    - El log operativo del desktop queda en `%AppData%\\loan-manager\\debug-log.txt`.
 4. Base de datos portable
    - En produccion, Electron mueve la DB a `AppData`.
@@ -29,6 +32,7 @@
    - El llenado usa nombre, `RUT` y direccion del cliente.
 7. UX operativa
    - Las alertas y vistas de cobranza abren la cuota exacta por `paymentId`.
+   - Los enlaces de WhatsApp ya salen al navegador externo del sistema en desktop, en vez de abrirse dentro del Chromium embebido de Electron.
    - El modal de pago profundo ya cierra al primer click sin reabrirse por la URL.
    - Se eliminaron codigos internos visibles en listados y cabeceras, y se unifico el formateo monetario en vistas clave.
    - La ruta directa `#/loans/new` ya no cae en dashboard ni en estados inestables.
@@ -79,6 +83,9 @@
 - QA final web: login, dashboard, clientes, detalle cliente, nuevo prestamo, detalle prestamo, pago parcial, cobranza, documentos legales, calculadora e importacion/exportacion validados
 - QA final web adicional: `#/loans/new` por URL directa validado despues del refactor de rutas
 - QA final desktop: `win-unpacked/Loan Manager.exe` inicia, ejecuta backend local en `3011` y responde `200` en `/api/health`
+- QA final desktop adicional `2026-06-02`: el arranque repetido de `win-unpacked/Loan Manager.exe` reutiliza cache de migracion y reduce la disponibilidad del backend local a cerca de `1s` a `2s`
+- QA final desktop adicional `2026-06-02`: los accesos directos corregidos y el build actualizado abren WhatsApp en el navegador externo, sin mostrar el falso error de version de Chrome dentro de Electron
+- QA final desktop adicional `2026-06-03`: smoke test manual de `release/win-unpacked/Loan Manager.exe` reconfirmado; el proceso empaquetado levanta backend local y deja evidencia en `%AppData%\\loan-manager\\debug-log.txt`
 - QA backend desktop: pago parcial seguido de pago final deja `paidAmount` exacto, `status = Paid` y `transactions = 2`
 
 ## Go / No-Go beta

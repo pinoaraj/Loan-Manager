@@ -55,10 +55,12 @@ graphify path "Desktop App - Electron 33" "Backend - Express 5 + Prisma 5"
 - Direct navigation to `#/loans/new` was stabilized by replacing nested route rendering with proper `Outlet`-based protected routing.
 - Stored loan/payment dates were normalized through `src/utils/dates.js` so the UI, reminders and legal documents stop drifting by one day.
 - Desktop startup was hardened in `desktop/main.cjs` with a longer backend readiness timeout and persistent logs in `%AppData%\\loan-manager\\debug-log.txt`.
+- Desktop startup now also defers heavy backend route loads in `server/app.js` and caches successful packaged Prisma migrations in `desktop/main.cjs`, cutting repeated packaged startup to about one second for backend readiness in local validation on `2026-06-02`.
+- Desktop external navigation is now intercepted in `desktop/main.cjs` so WhatsApp and other external links open in the system browser instead of Electron's embedded window.
 - Payment registration in `server/routes/payments.js` now coerces Prisma `Decimal` values to numbers before summing, preventing corrupted totals after partial + final payments.
 
 ## Last Graph Refresh
-- `graphify update .` run successfully on `2026-06-01`.
+- `graphify update .` run successfully on `2026-06-02`.
 
 ## Files Worth Keeping
 - `graphify-out/GRAPH_REPORT.md`

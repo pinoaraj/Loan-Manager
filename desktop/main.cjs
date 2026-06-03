@@ -4,7 +4,7 @@ try {
     const fs = require('fs');
     const path = require('path');
     const { fork, spawnSync } = require('child_process');
-    const { app, BrowserWindow, dialog } = electron;
+    const { app, BrowserWindow, dialog, shell } = electron;
 
     console.log('REQUIRED ELECTRON:', electron);
 
@@ -38,6 +38,51 @@ try {
         ];
 
         return candidates.find((candidate) => fs.existsSync(candidate)) || null;
+    }
+
+    function resolveMigrationStatePath() {
+        return path.join(app.getPath('userData'), 'migration-state.json');
+    }
+
+    function getLatestMigrationName(baseDir) {
+        const migrationsDir = path.join(baseDir, 'prisma', 'migrations');
+
+        try {
+            const migrationNames = fs.readdirSync(migrationsDir, { withFileTypes: true })
+                .filter((entry) => entry.isDirectory())
+                .map((entry) => entry.name)
+                .sort();
+
+            return migrationNames.at(-1) || 'no-migrations';
+        } catch (error) {
+            log(`Unable to inspect migrations directory at ${migrationsDir}: ${error.message}`);
+            return 'unknown-migration';
+        }
+    }
+
+    function loadMigrationState() {
+        const migrationStatePath = resolveMigrationStatePath();
+
+        try {
+            if (!fs.existsSync(migrationStatePath)) {
+                return null;
+            }
+
+            return JSON.parse(fs.readFileSync(migrationStatePath, 'utf8'));
+        } catch (error) {
+            log(`Failed to read migration state: ${error.message}`);
+            return null;
+        }
+    }
+
+    function persistMigrationState(state) {
+        const migrationStatePath = resolveMigrationStatePath();
+
+        try {
+            fs.writeFileSync(migrationStatePath, JSON.stringify(state, null, 2), 'utf8');
+        } catch (error) {
+            log(`Failed to persist migration state: ${error.message}`);
+        }
     }
 
     function resolveAppIcon() {
@@ -268,6 +313,15 @@ try {
             },
         });
 
+        mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+            if (/^(https?:|mailto:)/i.test(url)) {
+                shell.openExternal(url);
+                return { action: 'deny' };
+            }
+
+            return { action: 'allow' };
+        });
+
         if (isDev) {
             mainWindow.loadURL('http://localhost:5173');
             mainWindow.webContents.openDevTools();
@@ -284,10 +338,48 @@ try {
         mainWindow.loadFile(indexPath);
     }
 
+    function shouldSkipPackagedMigrations(cwd, dbPath) {
+        if (!app.isPackaged || !fs.existsSync(dbPath)) {
+            return false;
+        }
+
+        const latestMigration = getLatestMigrationName(cwd);
+        const currentKey = `${app.getVersion()}::${latestMigration}`;
+        const state = loadMigrationState();
+
+        if (!state || state.key !== currentKey) {
+            return false;
+        }
+
+        try {
+            const dbStats = fs.statSync(dbPath);
+            const dbMtimeMs = dbStats.mtimeMs;
+
+            if (typeof state.dbMtimeMsAtSuccess !== 'number') {
+                return false;
+            }
+
+            if (dbMtimeMs < state.dbMtimeMsAtSuccess) {
+                log('Database timestamp predates the last successful migration state. Prisma migrate deploy will run again.');
+                return false;
+            }
+
+            log(`Skipping Prisma migrations for packaged startup (cached state ${currentKey}).`);
+            return true;
+        } catch (error) {
+            log(`Failed to inspect database before skipping migrations: ${error.message}`);
+            return false;
+        }
+    }
+
     function runPrismaMigrations(cwd, dbPath, isPackagedBuild) {
         const prismaBinary = process.platform === 'win32'
             ? path.join(cwd, 'node_modules', '.bin', 'prisma.cmd')
             : path.join(cwd, 'node_modules', '.bin', 'prisma');
+
+        if (shouldSkipPackagedMigrations(cwd, dbPath)) {
+            return true;
+        }
 
         if (!fs.existsSync(prismaBinary)) {
             log(`Prisma CLI not found at ${prismaBinary}.`);
@@ -295,6 +387,7 @@ try {
         }
 
         log(`Running Prisma migrations against ${dbPath} (${isPackagedBuild ? 'packaged' : 'development'})...`);
+        const migrationStartedAt = Date.now();
 
         const command = process.platform === 'win32' ? 'cmd.exe' : prismaBinary;
         const args = process.platform === 'win32'
@@ -330,7 +423,24 @@ try {
             return false;
         }
 
-        log('Prisma migrations completed successfully.');
+        const latestMigration = getLatestMigrationName(cwd);
+        const migrationDurationMs = Date.now() - migrationStartedAt;
+
+        try {
+            const dbStats = fs.statSync(dbPath);
+            persistMigrationState({
+                key: `${app.getVersion()}::${latestMigration}`,
+                appVersion: app.getVersion(),
+                latestMigration,
+                dbPath,
+                dbMtimeMsAtSuccess: dbStats.mtimeMs,
+                migratedAt: new Date().toISOString()
+            });
+        } catch (error) {
+            log(`Migration state persistence skipped: ${error.message}`);
+        }
+
+        log(`Prisma migrations completed successfully in ${migrationDurationMs}ms.`);
         return true;
     }
 
