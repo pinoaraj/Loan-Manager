@@ -19,10 +19,47 @@ export const generateWhatsAppLink = (phone, message) => {
     return `https://wa.me/${cleanPhone}?text=${encodedMessage}`;
 };
 
-export const generateEmailLink = (email, subject, body) => {
+export const generateMailtoLink = (email, subject, body) => {
     const encodedSubject = encodeURIComponent(subject);
     const encodedBody = encodeURIComponent(body);
     return `mailto:${email}?subject=${encodedSubject}&body=${encodedBody}`;
+};
+
+export const generateEmailLink = (email, subject, body) => {
+    const mailtoUrl = generateMailtoLink(email, subject, body);
+    const gmailComposeUrl = `https://mail.google.com/mail/?extsrc=mailto&url=${encodeURIComponent(mailtoUrl)}`;
+    return `https://accounts.google.com/AccountChooser?service=mail&continue=${encodeURIComponent(gmailComposeUrl)}`;
+};
+
+export const openExternalLink = async (url) => {
+    if (!url) {
+        return false;
+    }
+
+    const isBrowserUrl = /^https?:/i.test(url);
+
+    try {
+        if (typeof window !== 'undefined' && typeof window.require === 'function') {
+            const electron = window.require('electron');
+            if (electron?.shell?.openExternal) {
+                await electron.shell.openExternal(url);
+                return true;
+            }
+        }
+    } catch (error) {
+        console.error('Falling back to browser-based external navigation:', error);
+    }
+
+    if (typeof window !== 'undefined') {
+        if (isBrowserUrl) {
+            window.open(url, '_blank', 'noopener,noreferrer');
+        } else {
+            window.location.href = url;
+        }
+        return true;
+    }
+
+    return false;
 };
 
 export const getReceiptMessage = (clientName, amount, date) => {

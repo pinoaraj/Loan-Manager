@@ -1,6 +1,6 @@
 import React, { Suspense, lazy, useMemo, useState } from 'react';
 import { ArrowLeft, Mail, Phone, MapPin, DollarSign, Clock, CheckCircle, AlertTriangle, Edit, Trash2, MessageCircle, Send, CreditCard } from 'lucide-react';
-import { generateWhatsAppLink, generateEmailLink, hasPhoneNumber } from '../utils/communication';
+import { generateWhatsAppLink, generateEmailLink, hasPhoneNumber, openExternalLink } from '../utils/communication';
 import { useLoans } from '../context/useLoans';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -169,6 +169,10 @@ const ClientDetail = () => {
                             href={generateWhatsAppLink(client.phone, `Hola ${client.name}, le escribimos desde Loan Manager.`)}
                             target="_blank"
                             rel="noreferrer"
+                            onClick={async (event) => {
+                                event.preventDefault();
+                                await openExternalLink(generateWhatsAppLink(client.phone, `Hola ${client.name}, le escribimos desde Loan Manager.`));
+                            }}
                             className="flex items-center gap-2 px-4 py-2 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 rounded-xl hover:bg-green-100 hover:text-green-800 transition-colors font-semibold shadow-sm"
                         >
                             <MessageCircle size={16} />
@@ -178,6 +182,12 @@ const ClientDetail = () => {
                     {client.email && (
                         <a
                             href={generateEmailLink(client.email, 'Consulta Loan Manager', `Hola ${client.name},`)}
+                            target="_blank"
+                            rel="noreferrer"
+                            onClick={async (event) => {
+                                event.preventDefault();
+                                await openExternalLink(generateEmailLink(client.email, 'Consulta Loan Manager', `Hola ${client.name},`));
+                            }}
                             className="flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-400 rounded-xl hover:bg-blue-100 hover:text-blue-800 transition-colors font-semibold shadow-sm"
                         >
                             <Send size={16} />

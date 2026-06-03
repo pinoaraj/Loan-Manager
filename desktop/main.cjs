@@ -313,6 +313,13 @@ try {
             },
         });
 
+        mainWindow.webContents.on('will-navigate', (event, url) => {
+            if (/^(https?:|mailto:)/i.test(url)) {
+                event.preventDefault();
+                shell.openExternal(url);
+            }
+        });
+
         mainWindow.webContents.setWindowOpenHandler(({ url }) => {
             if (/^(https?:|mailto:)/i.test(url)) {
                 shell.openExternal(url);
