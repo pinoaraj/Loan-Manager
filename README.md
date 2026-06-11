@@ -2,6 +2,8 @@
 
 Loan Manager is a desktop-first loan management system built with React, Express, Prisma and SQLite. The main product today is the local Windows desktop app packaged with Electron. Web mode remains useful for development and local QA.
 
+The repo now also includes an early `Mobiloan/` Expo workspace focused on offline-first field collections backed by local SQLite and the `/api/sync/*` contract.
+
 ## Current desktop beta scope
 
 - Client management with `RUT`, phone, email and address
@@ -51,6 +53,12 @@ Because of this flow, `RUT` is now a first-class field in client creation, editi
 ### Desktop
 - Electron 33
 - electron-builder
+
+### Mobile
+- Expo 56
+- Expo Router
+- Expo SQLite
+- Expo Secure Store
 
 ## Local development
 
@@ -133,12 +141,19 @@ Notable endpoints used by the desktop app:
 - `POST /api/loans`
 - `GET /api/loans/:id`
 - `POST /api/payments/:id/transactions`
+- `GET /api/sync/bootstrap`
+- `GET /api/sync/changes`
+- `POST /api/sync/push`
 - `GET /api/dashboard/stats`
 - `GET /api/dashboard/alerts`
 - `GET /api/dashboard/projections`
 - `GET /api/reports/export-all`
 - `POST /api/import`
 - `GET /api/health`
+
+Sync note:
+
+- `GET /api/sync/changes` now returns both incremental upserts and `deletedIds`, so `Mobiloan` can remove clients or replaced payment schedules from local SQLite during reconciliation.
 
 ## Quality checks
 
@@ -174,6 +189,7 @@ graphify explain useLoans
 - GitHub release checklist: `docs/GITHUB-RELEASE-CHECKLIST.md`
 - Beta tester guide: `docs/BETA-TESTER.md`
 - Android planning track: `docs/PLAN-android-app.md`
+- Mobile workspace notes: `Mobiloan/README.md`
 - Graphify workflow: `docs/GRAPHIFY.md`
 
 ## Beta readiness

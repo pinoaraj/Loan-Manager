@@ -1,0 +1,330 @@
+{
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\gradlew": {
+    "mtime": 1780585946.073759,
+    "hash": "780b1d3e23a3b82154795f73df943a14"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\java\\com\\mobiloan\\app\\MainActivity.kt": {
+    "mtime": 1780585947.352187,
+    "hash": "a05ca19bd53ebe1987615ae003eab077"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\java\\com\\mobiloan\\app\\MainApplication.kt": {
+    "mtime": 1780585947.3516762,
+    "hash": "21d8361b13d982c69910c7fd978af6aa"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\index.tsx": {
+    "mtime": 1780584809.6308925,
+    "hash": "e22276291e9abf9d453e67b7c92e3b28"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\login.tsx": {
+    "mtime": 1781199349.5472605,
+    "hash": "3e463a2395e56c56e71563e967403043"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\_layout.tsx": {
+    "mtime": 1780584801.4856124,
+    "hash": "6cb042679a44df63822a3e0b6a9ffd8b"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\index.tsx": {
+    "mtime": 1781202012.2041323,
+    "hash": "2e1a64e3db8981c90dc79d52bcdcd41a"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\_layout.tsx": {
+    "mtime": 1780935351.7799127,
+    "hash": "e3727135246c6442892ed740d3ade2e4"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\clients\\[id].tsx": {
+    "mtime": 1781199950.4919798,
+    "hash": "f3d3af355cb4919283f174ae8a81fda8"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\loans\\[id].tsx": {
+    "mtime": 1781199964.219377,
+    "hash": "8df35a2bf2f5ad1edb7d2c9c86cabc9c"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\scripts\\build-android-debug.ps1": {
+    "mtime": 1780593028.2531323,
+    "hash": "e5e697fc187f9cd32c18d58fa5c092fe"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\data\\database.ts": {
+    "mtime": 1781199606.8183198,
+    "hash": "7b9a7c4aac3d47982a17a3a5e40c0b86"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\hooks\\useOfflineData.ts": {
+    "mtime": 1781199614.4076464,
+    "hash": "a64785c2dce4973f5a36d7217b5a0d5b"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\hooks\\useSyncActions.ts": {
+    "mtime": 1781199622.6777983,
+    "hash": "708a84a6701e1602c4123fc82da29119"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\config.ts": {
+    "mtime": 1780932118.2295456,
+    "hash": "41c1aba279015600187c72fdb9ad3032"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\contact.ts": {
+    "mtime": 1781199928.0771952,
+    "hash": "a9c1ef34d57f971ef5a811fb5289a2ac"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\format.ts": {
+    "mtime": 1781201969.5232441,
+    "hash": "e0717d5b7ca55ffaa040125dd033de74"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\mutationId.ts": {
+    "mtime": 1780584572.6317313,
+    "hash": "3cbd6a2dc20c570b16860451d1878b1e"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\secureSession.ts": {
+    "mtime": 1780584563.8019915,
+    "hash": "e0fb3cab5d1121129119e55867852106"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\providers\\AppProviders.tsx": {
+    "mtime": 1781199780.6851459,
+    "hash": "2a7a798eb425070326a4baef2b1d0910"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\services\\api.ts": {
+    "mtime": 1781199832.5147245,
+    "hash": "38e0fb0384b1de63ea820b926f9dbdc2"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\services\\sync.ts": {
+    "mtime": 1781198826.5399864,
+    "hash": "3884f61fe15f8c95e7fce47329036ccb"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\types\\sync.ts": {
+    "mtime": 1781199582.7613785,
+    "hash": "297a791714b42faae3e8c0ca6dd8f695"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\ui\\styles.ts": {
+    "mtime": 1781201979.3821282,
+    "hash": "baed5c66c2af76b4d2e0a13b8d2723c9"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\AGENTS.md": {
+    "mtime": 1780584360.968588,
+    "hash": "0168b78417bf60f34fd1233c69591023"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\CLAUDE.md": {
+    "mtime": 1780584360.969088,
+    "hash": "5c27369b226fcf2be8a6cfe52224e767"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\README.md": {
+    "mtime": 1780932127.1037574,
+    "hash": "9df5406d4d495fa36155ab8fbae6a6eb"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\ANDROID_SETUP.md": {
+    "mtime": 1780934632.9080346,
+    "hash": "37f7c3dc935dc3ed3ac2551aa7b4d887"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\GRAPHIFY.md": {
+    "mtime": 1781200014.9090402,
+    "hash": "cff5231e3e5dd65a1f1cb172ba5a745b"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\MAP.md": {
+    "mtime": 1781199996.2879379,
+    "hash": "6d5fa1dc054d004ef1d468d3e0d096a1"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\SYNC_SMOKE.md": {
+    "mtime": 1781035178.6971138,
+    "hash": "4b620fec8b85978c6e20a1817dab30ee"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\UPDATE_LOG.md": {
+    "mtime": 1781199987.5906713,
+    "hash": "d2011ca6b3680b813e88c39d372e4673"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\github\\ANDROID_QA.md": {
+    "mtime": 1781035178.7011127,
+    "hash": "b47a7dcfcb5397397972cc68962e7ba9"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\github\\CHECKLIST.md": {
+    "mtime": 1781035178.7001123,
+    "hash": "6d6202b641107f091e1d977827e95083"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\github\\RELEASE_NOTES.md": {
+    "mtime": 1781200003.540263,
+    "hash": "8f3a57a54072bf72cc4b823dfe13ddc6"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\install-qr-direct-apk.png": {
+    "mtime": 1780609413.9531567,
+    "hash": "c6222d55eb0ed98d9f7d824b66a52abf"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\install-qr-lan-apk.png": {
+    "mtime": 1780935807.9376197,
+    "hash": "b0baebfc1451fe299341eb2603c06d9d"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\install-qr-public.png": {
+    "mtime": 1780608792.349773,
+    "hash": "ad73b5163565914fd1339004b2852b9a"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\install-qr.png": {
+    "mtime": 1780596472.575077,
+    "hash": "c96e9968fae25c7aca0e1dfeba4b7238"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\mobiloan-after-fix.png": {
+    "mtime": 1780935504.643931,
+    "hash": "309e13b83a5d83974751657dc33cc540"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\mobiloan-launch.png": {
+    "mtime": 1780934541.6564474,
+    "hash": "c5119b2961bdc8aebcaee95d6c384ba6"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\mobiloan-post-login-2.png": {
+    "mtime": 1780935624.0531526,
+    "hash": "d9fa71226345839f45b17c720ec67a5c"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\mobiloan-post-login-3.png": {
+    "mtime": 1780935686.0380151,
+    "hash": "d2102050510f6481bf8f26850da16432"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\mobiloan-post-login.png": {
+    "mtime": 1780935561.5185578,
+    "hash": "fc0b4203876f84649cd659f2ab8acae8"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\mobiloan-postfix.png": {
+    "mtime": 1780934821.5425086,
+    "hash": "7790ab55979f678b4be20afcc506094b"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\mobiloan-release.png": {
+    "mtime": 1780935218.736884,
+    "hash": "fc622bb2c202f3a214918acadb932548"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\drawable-hdpi\\splashscreen_logo.png": {
+    "mtime": 1780585946.1102962,
+    "hash": "ade4f271d920c553479f8359126fe71c"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\drawable-mdpi\\splashscreen_logo.png": {
+    "mtime": 1780585946.1127973,
+    "hash": "456a586f33d48e02adee03680b872073"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\drawable-xhdpi\\splashscreen_logo.png": {
+    "mtime": 1780585946.1157963,
+    "hash": "b151f30998a8eb180038294d96108ad3"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\drawable-xxhdpi\\splashscreen_logo.png": {
+    "mtime": 1780585946.1207955,
+    "hash": "456fa27f2c9de9a9bf0d8951a9609ea4"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\drawable-xxxhdpi\\splashscreen_logo.png": {
+    "mtime": 1780585946.1243005,
+    "hash": "8724a45c38b0f973ac9713ff270a40cb"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.webp": {
+    "mtime": 1780932143.50331,
+    "hash": "2dda665a3dffd96d5c22a63d1fbd2f50"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_background.webp": {
+    "mtime": 1780932143.55431,
+    "hash": "8b804c2e3ffcb414d81159cdbe8e1338"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_foreground.webp": {
+    "mtime": 1780932143.557312,
+    "hash": "23d6c4c853d373ebc8a6b78e01a565f5"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_monochrome.webp": {
+    "mtime": 1780932143.5243104,
+    "hash": "ddc9ce93ec17a515f270e1334f4d096d"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_round.webp": {
+    "mtime": 1780932143.5173097,
+    "hash": "79cacede8a6deac09c5eb46abbd48446"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.webp": {
+    "mtime": 1780932143.50331,
+    "hash": "96dac275c08e40cdeec672e986d56d97"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_background.webp": {
+    "mtime": 1780932143.552808,
+    "hash": "5fc5ff595a9708fb1186f29d4cba0165"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_foreground.webp": {
+    "mtime": 1780932143.5568132,
+    "hash": "21c6ff184e62fe81d5d99486c994b4a1"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_monochrome.webp": {
+    "mtime": 1780932143.52481,
+    "hash": "3d7d2cdcf1efff070cd99b3a24b2af0a"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_round.webp": {
+    "mtime": 1780932143.5173097,
+    "hash": "8afd2a3c8f80ca2554a791cdaea89421"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.webp": {
+    "mtime": 1780932143.5048103,
+    "hash": "c63f369b209bb766684cd006c050f408"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_background.webp": {
+    "mtime": 1780932143.55431,
+    "hash": "1e8461bcda400d6f2e6ba0a789e9df32"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_foreground.webp": {
+    "mtime": 1780932143.557312,
+    "hash": "94e64d4a7a895c46bee57dd117eaaa4e"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_monochrome.webp": {
+    "mtime": 1780932143.52481,
+    "hash": "25ce7486d6cf2a88b12191bdc327889c"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_round.webp": {
+    "mtime": 1780932143.5173097,
+    "hash": "4016f7a08a47e6e56995cabd0fe654d8"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.webp": {
+    "mtime": 1780932143.5048103,
+    "hash": "49dec5c0e262a71a1ca684eb3d8c2640"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_background.webp": {
+    "mtime": 1780932143.5538113,
+    "hash": "3a76914a81170ce0bafc194cf299e0b8"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_foreground.webp": {
+    "mtime": 1780932143.557312,
+    "hash": "54904135a542a76951f4c4aa7618d942"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_monochrome.webp": {
+    "mtime": 1780932143.52481,
+    "hash": "c74b95ed269648784a5341dc7fc8c5d2"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_round.webp": {
+    "mtime": 1780932143.5173097,
+    "hash": "c8162b30ad76f0f8a2742dfdc184c518"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.webp": {
+    "mtime": 1780932143.5048103,
+    "hash": "c089a1bee6d9ee0b7f6b0944ac7f14e1"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_background.webp": {
+    "mtime": 1780932143.55431,
+    "hash": "11c5ebf85672a8b1a823b29ffcc023a6"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_foreground.webp": {
+    "mtime": 1780932143.557312,
+    "hash": "56f4339ea33cd98feee64cf1b83ecd24"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_monochrome.webp": {
+    "mtime": 1780932143.52481,
+    "hash": "d294024561d781537913c8be15eed1e1"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_round.webp": {
+    "mtime": 1780932143.5173097,
+    "hash": "a9062eb0baf2f2de2ef49812796ea29b"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\assets\\android-icon-background.png": {
+    "mtime": 1780584249.7454877,
+    "hash": "2d65569cc0e2afdcea0af9f9902d4173"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\assets\\android-icon-foreground.png": {
+    "mtime": 1780584249.7479868,
+    "hash": "72e71a9c846c6aa4ae32476641a00e18"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\assets\\android-icon-monochrome.png": {
+    "mtime": 1780584249.749496,
+    "hash": "1e097dab989759fc0b69440092ca22cd"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\assets\\favicon.png": {
+    "mtime": 1780584249.7504919,
+    "hash": "d9f444efbdfbe7931aa93beada07318a"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\assets\\icon.png": {
+    "mtime": 1780584249.7560058,
+    "hash": "cb975bba2216ce10a60e6c0ffe9941a2"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\assets\\splash-icon.png": {
+    "mtime": 1780584249.7574935,
+    "hash": "97dae5a0e62ad8551d8a31897b425e63"
+  }
+}

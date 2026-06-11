@@ -81,6 +81,7 @@ function createApp() {
     app.use('/api/clients', lazyRoute(() => require('./routes/clients')));
     app.use('/api/loans', lazyRoute(() => require('./routes/loans')));
     app.use('/api/payments', lazyRoute(() => require('./routes/payments')));
+    app.use('/api/sync', lazyRoute(() => require('./routes/sync')));
     app.use('/api/dashboard', lazyRoute(() => require('./routes/dashboard')));
     app.use('/api/backup', lazyRoute(() => require('./routes/backup')));
     app.use('/api/reports', lazyRoute(() => require('./routes/reports')));

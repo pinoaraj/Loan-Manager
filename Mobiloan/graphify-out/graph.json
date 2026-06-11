@@ -1,0 +1,1930 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "MainActivity.kt",
+      "file_type": "code",
+      "source_file": "android/app/src/main/java/com/mobiloan/app/MainActivity.kt",
+      "source_location": "L1",
+      "id": "android_app_src_main_java_com_mobiloan_app_mainactivity_kt",
+      "community": 5,
+      "norm_label": "mainactivity.kt"
+    },
+    {
+      "label": "MainActivity",
+      "file_type": "code",
+      "source_file": "android/app/src/main/java/com/mobiloan/app/MainActivity.kt",
+      "source_location": "L13",
+      "id": "app_mainactivity_mainactivity",
+      "community": 5,
+      "norm_label": "mainactivity"
+    },
+    {
+      "label": ".onCreate()",
+      "file_type": "code",
+      "source_file": "android/app/src/main/java/com/mobiloan/app/MainActivity.kt",
+      "source_location": "L14",
+      "id": "app_mainactivity_mainactivity_oncreate",
+      "community": 5,
+      "norm_label": ".oncreate()"
+    },
+    {
+      "label": ".getMainComponentName()",
+      "file_type": "code",
+      "source_file": "android/app/src/main/java/com/mobiloan/app/MainActivity.kt",
+      "source_location": "L26",
+      "id": "app_mainactivity_mainactivity_getmaincomponentname",
+      "community": 5,
+      "norm_label": ".getmaincomponentname()"
+    },
+    {
+      "label": ".createReactActivityDelegate()",
+      "file_type": "code",
+      "source_file": "android/app/src/main/java/com/mobiloan/app/MainActivity.kt",
+      "source_location": "L32",
+      "id": "app_mainactivity_mainactivity_createreactactivitydelegate",
+      "community": 5,
+      "norm_label": ".createreactactivitydelegate()"
+    },
+    {
+      "label": ".invokeDefaultOnBackPressed()",
+      "file_type": "code",
+      "source_file": "android/app/src/main/java/com/mobiloan/app/MainActivity.kt",
+      "source_location": "L48",
+      "id": "app_mainactivity_mainactivity_invokedefaultonbackpressed",
+      "community": 5,
+      "norm_label": ".invokedefaultonbackpressed()"
+    },
+    {
+      "label": "MainApplication.kt",
+      "file_type": "code",
+      "source_file": "android/app/src/main/java/com/mobiloan/app/MainApplication.kt",
+      "source_location": "L1",
+      "id": "android_app_src_main_java_com_mobiloan_app_mainapplication_kt",
+      "community": 8,
+      "norm_label": "mainapplication.kt"
+    },
+    {
+      "label": "MainApplication",
+      "file_type": "code",
+      "source_file": "android/app/src/main/java/com/mobiloan/app/MainApplication.kt",
+      "source_location": "L17",
+      "id": "app_mainapplication_mainapplication",
+      "community": 8,
+      "norm_label": "mainapplication"
+    },
+    {
+      "label": ".onCreate()",
+      "file_type": "code",
+      "source_file": "android/app/src/main/java/com/mobiloan/app/MainApplication.kt",
+      "source_location": "L30",
+      "id": "app_mainapplication_mainapplication_oncreate",
+      "community": 8,
+      "norm_label": ".oncreate()"
+    },
+    {
+      "label": ".onConfigurationChanged()",
+      "file_type": "code",
+      "source_file": "android/app/src/main/java/com/mobiloan/app/MainApplication.kt",
+      "source_location": "L41",
+      "id": "app_mainapplication_mainapplication_onconfigurationchanged",
+      "community": 8,
+      "norm_label": ".onconfigurationchanged()"
+    },
+    {
+      "label": "index.tsx",
+      "file_type": "code",
+      "source_file": "app/index.tsx",
+      "source_location": "L1",
+      "id": "app_index_tsx",
+      "community": 2,
+      "norm_label": "index.tsx"
+    },
+    {
+      "label": "IndexScreen()",
+      "file_type": "code",
+      "source_file": "app/index.tsx",
+      "source_location": "L5",
+      "id": "app_index_indexscreen",
+      "community": 2,
+      "norm_label": "indexscreen()"
+    },
+    {
+      "label": "login.tsx",
+      "file_type": "code",
+      "source_file": "app/login.tsx",
+      "source_location": "L1",
+      "id": "app_login_tsx",
+      "community": 0,
+      "norm_label": "login.tsx"
+    },
+    {
+      "label": "_layout.tsx",
+      "file_type": "code",
+      "source_file": "app/_layout.tsx",
+      "source_location": "L1",
+      "id": "app_layout_tsx",
+      "community": 2,
+      "norm_label": "_layout.tsx"
+    },
+    {
+      "label": "RootNavigator()",
+      "file_type": "code",
+      "source_file": "app/_layout.tsx",
+      "source_location": "L7",
+      "id": "app_layout_rootnavigator",
+      "community": 2,
+      "norm_label": "rootnavigator()"
+    },
+    {
+      "label": "RootLayout()",
+      "file_type": "code",
+      "source_file": "app/_layout.tsx",
+      "source_location": "L37",
+      "id": "app_layout_rootlayout",
+      "community": 2,
+      "norm_label": "rootlayout()"
+    },
+    {
+      "label": "index.tsx",
+      "file_type": "code",
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L1",
+      "id": "app_app_index_tsx",
+      "community": 0,
+      "norm_label": "index.tsx"
+    },
+    {
+      "label": "handleSync()",
+      "file_type": "code",
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L53",
+      "id": "app_index_handlesync",
+      "community": 0,
+      "norm_label": "handlesync()"
+    },
+    {
+      "label": "async()",
+      "file_type": "code",
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L229",
+      "id": "app_index_async",
+      "community": 4,
+      "norm_label": "async()"
+    },
+    {
+      "label": "formatCurrency()",
+      "file_type": "code",
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L312",
+      "id": "app_index_formatcurrency",
+      "community": 0,
+      "norm_label": "formatcurrency()"
+    },
+    {
+      "label": "_layout.tsx",
+      "file_type": "code",
+      "source_file": "app/(app)/_layout.tsx",
+      "source_location": "L1",
+      "id": "app_app_layout_tsx",
+      "community": 2,
+      "norm_label": "_layout.tsx"
+    },
+    {
+      "label": "AppLayout()",
+      "file_type": "code",
+      "source_file": "app/(app)/_layout.tsx",
+      "source_location": "L5",
+      "id": "app_layout_applayout",
+      "community": 2,
+      "norm_label": "applayout()"
+    },
+    {
+      "label": "[id].tsx",
+      "file_type": "code",
+      "source_file": "app/(app)/clients/[id].tsx",
+      "source_location": "L1",
+      "id": "app_app_clients_id_tsx",
+      "community": 4,
+      "norm_label": "[id].tsx"
+    },
+    {
+      "label": "async()",
+      "file_type": "code",
+      "source_file": "app/(app)/clients/[id].tsx",
+      "source_location": "L45",
+      "id": "clients_id_async",
+      "community": 4,
+      "norm_label": "async()"
+    },
+    {
+      "label": "[id].tsx",
+      "file_type": "code",
+      "source_file": "app/(app)/loans/[id].tsx",
+      "source_location": "L1",
+      "id": "app_app_loans_id_tsx",
+      "community": 1,
+      "norm_label": "[id].tsx"
+    },
+    {
+      "label": "handleQueuePayment()",
+      "file_type": "code",
+      "source_file": "app/(app)/loans/[id].tsx",
+      "source_location": "L66",
+      "id": "loans_id_handlequeuepayment",
+      "community": 1,
+      "norm_label": "handlequeuepayment()"
+    },
+    {
+      "label": "async()",
+      "file_type": "code",
+      "source_file": "app/(app)/loans/[id].tsx",
+      "source_location": "L173",
+      "id": "loans_id_async",
+      "community": 1,
+      "norm_label": "async()"
+    },
+    {
+      "label": "build-android-debug.ps1",
+      "file_type": "code",
+      "source_file": "scripts/build-android-debug.ps1",
+      "source_location": "L1",
+      "id": "scripts_build_android_debug_ps1",
+      "community": 10,
+      "norm_label": "build-android-debug.ps1"
+    },
+    {
+      "label": "database.ts",
+      "file_type": "code",
+      "source_file": "src/data/database.ts",
+      "source_location": "L1",
+      "id": "src_data_database_ts",
+      "community": 3,
+      "norm_label": "database.ts"
+    },
+    {
+      "label": "getDatabase()",
+      "file_type": "code",
+      "source_file": "src/data/database.ts",
+      "source_location": "L19",
+      "id": "data_database_getdatabase",
+      "community": 3,
+      "norm_label": "getdatabase()"
+    },
+    {
+      "label": "serialize()",
+      "file_type": "code",
+      "source_file": "src/data/database.ts",
+      "source_location": "L24",
+      "id": "data_database_serialize",
+      "community": 3,
+      "norm_label": "serialize()"
+    },
+    {
+      "label": "parseJson()",
+      "file_type": "code",
+      "source_file": "src/data/database.ts",
+      "source_location": "L26",
+      "id": "data_database_parsejson",
+      "community": 3,
+      "norm_label": "parsejson()"
+    },
+    {
+      "label": "toNumber()",
+      "file_type": "code",
+      "source_file": "src/data/database.ts",
+      "source_location": "L38",
+      "id": "data_database_tonumber",
+      "community": 3,
+      "norm_label": "tonumber()"
+    },
+    {
+      "label": "isPastDue()",
+      "file_type": "code",
+      "source_file": "src/data/database.ts",
+      "source_location": "L41",
+      "id": "data_database_ispastdue",
+      "community": 3,
+      "norm_label": "ispastdue()"
+    },
+    {
+      "label": "derivePaymentStatus()",
+      "file_type": "code",
+      "source_file": "src/data/database.ts",
+      "source_location": "L47",
+      "id": "data_database_derivepaymentstatus",
+      "community": 3,
+      "norm_label": "derivepaymentstatus()"
+    },
+    {
+      "label": "deriveLoanStatus()",
+      "file_type": "code",
+      "source_file": "src/data/database.ts",
+      "source_location": "L66",
+      "id": "data_database_deriveloanstatus",
+      "community": 3,
+      "norm_label": "deriveloanstatus()"
+    },
+    {
+      "label": "hydrateOutboxRows()",
+      "file_type": "code",
+      "source_file": "src/data/database.ts",
+      "source_location": "L78",
+      "id": "data_database_hydrateoutboxrows",
+      "community": 3,
+      "norm_label": "hydrateoutboxrows()"
+    },
+    {
+      "label": "useOfflineData.ts",
+      "file_type": "code",
+      "source_file": "src/hooks/useOfflineData.ts",
+      "source_location": "L1",
+      "id": "src_hooks_useofflinedata_ts",
+      "community": 0,
+      "norm_label": "useofflinedata.ts"
+    },
+    {
+      "label": "useSyncSnapshot()",
+      "file_type": "code",
+      "source_file": "src/hooks/useOfflineData.ts",
+      "source_location": "L6",
+      "id": "hooks_useofflinedata_usesyncsnapshot",
+      "community": 0,
+      "norm_label": "usesyncsnapshot()"
+    },
+    {
+      "label": "useClients()",
+      "file_type": "code",
+      "source_file": "src/hooks/useOfflineData.ts",
+      "source_location": "L12",
+      "id": "hooks_useofflinedata_useclients",
+      "community": 0,
+      "norm_label": "useclients()"
+    },
+    {
+      "label": "useClientDetail()",
+      "file_type": "code",
+      "source_file": "src/hooks/useOfflineData.ts",
+      "source_location": "L18",
+      "id": "hooks_useofflinedata_useclientdetail",
+      "community": 4,
+      "norm_label": "useclientdetail()"
+    },
+    {
+      "label": "useLoanDetail()",
+      "file_type": "code",
+      "source_file": "src/hooks/useOfflineData.ts",
+      "source_location": "L25",
+      "id": "hooks_useofflinedata_useloandetail",
+      "community": 1,
+      "norm_label": "useloandetail()"
+    },
+    {
+      "label": "useRejectedOutbox()",
+      "file_type": "code",
+      "source_file": "src/hooks/useOfflineData.ts",
+      "source_location": "L32",
+      "id": "hooks_useofflinedata_userejectedoutbox",
+      "community": 0,
+      "norm_label": "userejectedoutbox()"
+    },
+    {
+      "label": "usePendingOutbox()",
+      "file_type": "code",
+      "source_file": "src/hooks/useOfflineData.ts",
+      "source_location": "L38",
+      "id": "hooks_useofflinedata_usependingoutbox",
+      "community": 0,
+      "norm_label": "usependingoutbox()"
+    },
+    {
+      "label": "useCollectionQueue()",
+      "file_type": "code",
+      "source_file": "src/hooks/useOfflineData.ts",
+      "source_location": "L44",
+      "id": "hooks_useofflinedata_usecollectionqueue",
+      "community": 0,
+      "norm_label": "usecollectionqueue()"
+    },
+    {
+      "label": "useSyncActions.ts",
+      "file_type": "code",
+      "source_file": "src/hooks/useSyncActions.ts",
+      "source_location": "L1",
+      "id": "src_hooks_usesyncactions_ts",
+      "community": 1,
+      "norm_label": "usesyncactions.ts"
+    },
+    {
+      "label": "invalidateAll()",
+      "file_type": "code",
+      "source_file": "src/hooks/useSyncActions.ts",
+      "source_location": "L7",
+      "id": "hooks_usesyncactions_invalidateall",
+      "community": 1,
+      "norm_label": "invalidateall()"
+    },
+    {
+      "label": "useManualSync()",
+      "file_type": "code",
+      "source_file": "src/hooks/useSyncActions.ts",
+      "source_location": "L19",
+      "id": "hooks_usesyncactions_usemanualsync",
+      "community": 1,
+      "norm_label": "usemanualsync()"
+    },
+    {
+      "label": "useQueuePayment()",
+      "file_type": "code",
+      "source_file": "src/hooks/useSyncActions.ts",
+      "source_location": "L37",
+      "id": "hooks_usesyncactions_usequeuepayment",
+      "community": 1,
+      "norm_label": "usequeuepayment()"
+    },
+    {
+      "label": "useRetryRejectedMutation()",
+      "file_type": "code",
+      "source_file": "src/hooks/useSyncActions.ts",
+      "source_location": "L50",
+      "id": "hooks_usesyncactions_useretryrejectedmutation",
+      "community": 1,
+      "norm_label": "useretryrejectedmutation()"
+    },
+    {
+      "label": "useDiscardRejectedMutation()",
+      "file_type": "code",
+      "source_file": "src/hooks/useSyncActions.ts",
+      "source_location": "L64",
+      "id": "hooks_usesyncactions_usediscardrejectedmutation",
+      "community": 1,
+      "norm_label": "usediscardrejectedmutation()"
+    },
+    {
+      "label": "config.ts",
+      "file_type": "code",
+      "source_file": "src/lib/config.ts",
+      "source_location": "L1",
+      "id": "src_lib_config_ts",
+      "community": 9,
+      "norm_label": "config.ts"
+    },
+    {
+      "label": "normalizeApiUrl()",
+      "file_type": "code",
+      "source_file": "src/lib/config.ts",
+      "source_location": "L9",
+      "id": "lib_config_normalizeapiurl",
+      "community": 9,
+      "norm_label": "normalizeapiurl()"
+    },
+    {
+      "label": "resolveExpoHost()",
+      "file_type": "code",
+      "source_file": "src/lib/config.ts",
+      "source_location": "L11",
+      "id": "lib_config_resolveexpohost",
+      "community": 9,
+      "norm_label": "resolveexpohost()"
+    },
+    {
+      "label": "resolveDefaultApiUrl()",
+      "file_type": "code",
+      "source_file": "src/lib/config.ts",
+      "source_location": "L24",
+      "id": "lib_config_resolvedefaultapiurl",
+      "community": 9,
+      "norm_label": "resolvedefaultapiurl()"
+    },
+    {
+      "label": "contact.ts",
+      "file_type": "code",
+      "source_file": "src/lib/contact.ts",
+      "source_location": "L1",
+      "id": "src_lib_contact_ts",
+      "community": 4,
+      "norm_label": "contact.ts"
+    },
+    {
+      "label": "normalizePhone()",
+      "file_type": "code",
+      "source_file": "src/lib/contact.ts",
+      "source_location": "L3",
+      "id": "lib_contact_normalizephone",
+      "community": 4,
+      "norm_label": "normalizephone()"
+    },
+    {
+      "label": "openExternalUrl()",
+      "file_type": "code",
+      "source_file": "src/lib/contact.ts",
+      "source_location": "L5",
+      "id": "lib_contact_openexternalurl",
+      "community": 4,
+      "norm_label": "openexternalurl()"
+    },
+    {
+      "label": "openPhoneCall()",
+      "file_type": "code",
+      "source_file": "src/lib/contact.ts",
+      "source_location": "L14",
+      "id": "lib_contact_openphonecall",
+      "community": 4,
+      "norm_label": "openphonecall()"
+    },
+    {
+      "label": "openWhatsApp()",
+      "file_type": "code",
+      "source_file": "src/lib/contact.ts",
+      "source_location": "L27",
+      "id": "lib_contact_openwhatsapp",
+      "community": 4,
+      "norm_label": "openwhatsapp()"
+    },
+    {
+      "label": "format.ts",
+      "file_type": "code",
+      "source_file": "src/lib/format.ts",
+      "source_location": "L1",
+      "id": "src_lib_format_ts",
+      "community": 0,
+      "norm_label": "format.ts"
+    },
+    {
+      "label": "formatCurrency()",
+      "file_type": "code",
+      "source_file": "src/lib/format.ts",
+      "source_location": "L1",
+      "id": "lib_format_formatcurrency",
+      "community": 1,
+      "norm_label": "formatcurrency()"
+    },
+    {
+      "label": "formatDate()",
+      "file_type": "code",
+      "source_file": "src/lib/format.ts",
+      "source_location": "L8",
+      "id": "lib_format_formatdate",
+      "community": 0,
+      "norm_label": "formatdate()"
+    },
+    {
+      "label": "formatDateTime()",
+      "file_type": "code",
+      "source_file": "src/lib/format.ts",
+      "source_location": "L25",
+      "id": "lib_format_formatdatetime",
+      "community": 0,
+      "norm_label": "formatdatetime()"
+    },
+    {
+      "label": "getRelativeDueLabel()",
+      "file_type": "code",
+      "source_file": "src/lib/format.ts",
+      "source_location": "L44",
+      "id": "lib_format_getrelativeduelabel",
+      "community": 0,
+      "norm_label": "getrelativeduelabel()"
+    },
+    {
+      "label": "mutationId.ts",
+      "file_type": "code",
+      "source_file": "src/lib/mutationId.ts",
+      "source_location": "L1",
+      "id": "src_lib_mutationid_ts",
+      "community": 7,
+      "norm_label": "mutationid.ts"
+    },
+    {
+      "label": "createClientMutationId()",
+      "file_type": "code",
+      "source_file": "src/lib/mutationId.ts",
+      "source_location": "L1",
+      "id": "lib_mutationid_createclientmutationid",
+      "community": 7,
+      "norm_label": "createclientmutationid()"
+    },
+    {
+      "label": "secureSession.ts",
+      "file_type": "code",
+      "source_file": "src/lib/secureSession.ts",
+      "source_location": "L1",
+      "id": "src_lib_securesession_ts",
+      "community": 11,
+      "norm_label": "securesession.ts"
+    },
+    {
+      "label": "AppProviders.tsx",
+      "file_type": "code",
+      "source_file": "src/providers/AppProviders.tsx",
+      "source_location": "L1",
+      "id": "src_providers_appproviders_tsx",
+      "community": 2,
+      "norm_label": "appproviders.tsx"
+    },
+    {
+      "label": "invalidateOfflineQueries()",
+      "file_type": "code",
+      "source_file": "src/providers/AppProviders.tsx",
+      "source_location": "L13",
+      "id": "providers_appproviders_invalidateofflinequeries",
+      "community": 2,
+      "norm_label": "invalidateofflinequeries()"
+    },
+    {
+      "label": "AppProviders()",
+      "file_type": "code",
+      "source_file": "src/providers/AppProviders.tsx",
+      "source_location": "L39",
+      "id": "providers_appproviders_appproviders",
+      "community": 2,
+      "norm_label": "appproviders()"
+    },
+    {
+      "label": "useSession()",
+      "file_type": "code",
+      "source_file": "src/providers/AppProviders.tsx",
+      "source_location": "L156",
+      "id": "providers_appproviders_usesession",
+      "community": 2,
+      "norm_label": "usesession()"
+    },
+    {
+      "label": "api.ts",
+      "file_type": "code",
+      "source_file": "src/services/api.ts",
+      "source_location": "L1",
+      "id": "src_services_api_ts",
+      "community": 6,
+      "norm_label": "api.ts"
+    },
+    {
+      "label": "MobileApiError",
+      "file_type": "code",
+      "source_file": "src/services/api.ts",
+      "source_location": "L14",
+      "id": "services_api_mobileapierror",
+      "community": 6,
+      "norm_label": "mobileapierror"
+    },
+    {
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "src/services/api.ts",
+      "source_location": "L18",
+      "id": "services_api_mobileapierror_constructor",
+      "community": 6,
+      "norm_label": ".constructor()"
+    },
+    {
+      "label": "isAuthApiError()",
+      "file_type": "code",
+      "source_file": "src/services/api.ts",
+      "source_location": "L26",
+      "id": "services_api_isauthapierror",
+      "community": 6,
+      "norm_label": "isauthapierror()"
+    },
+    {
+      "label": "parseResponse()",
+      "file_type": "code",
+      "source_file": "src/services/api.ts",
+      "source_location": "L29",
+      "id": "services_api_parseresponse",
+      "community": 6,
+      "norm_label": "parseresponse()"
+    },
+    {
+      "label": "sync.ts",
+      "file_type": "code",
+      "source_file": "src/services/sync.ts",
+      "source_location": "L1",
+      "id": "src_services_sync_ts",
+      "community": 7,
+      "norm_label": "sync.ts"
+    },
+    {
+      "label": "normalizeTransaction()",
+      "file_type": "code",
+      "source_file": "src/services/sync.ts",
+      "source_location": "L14",
+      "id": "services_sync_normalizetransaction",
+      "community": 7,
+      "norm_label": "normalizetransaction()"
+    },
+    {
+      "label": "applyPushResults()",
+      "file_type": "code",
+      "source_file": "src/services/sync.ts",
+      "source_location": "L34",
+      "id": "services_sync_applypushresults",
+      "community": 7,
+      "norm_label": "applypushresults()"
+    },
+    {
+      "label": "sync.ts",
+      "file_type": "code",
+      "source_file": "src/types/sync.ts",
+      "source_location": "L1",
+      "id": "src_types_sync_ts",
+      "community": 12,
+      "norm_label": "sync.ts"
+    },
+    {
+      "label": "styles.ts",
+      "file_type": "code",
+      "source_file": "src/ui/styles.ts",
+      "source_location": "L1",
+      "id": "src_ui_styles_ts",
+      "community": 13,
+      "norm_label": "styles.ts"
+    },
+    {
+      "label": "formatDate()",
+      "file_type": "code",
+      "source_file": "app/(app)/loans/[id].tsx",
+      "source_location": "L196",
+      "community": 1,
+      "norm_label": "formatdate()",
+      "id": "loans_id_formatdate"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "android/app/src/main/java/com/mobiloan/app/MainActivity.kt",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "android_app_src_main_java_com_mobiloan_app_mainactivity_kt",
+      "target": "app_mainactivity_mainactivity"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "android/app/src/main/java/com/mobiloan/app/MainActivity.kt",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_mainactivity_mainactivity",
+      "target": "app_mainactivity_mainactivity_oncreate"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "android/app/src/main/java/com/mobiloan/app/MainActivity.kt",
+      "source_location": "L26",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_mainactivity_mainactivity",
+      "target": "app_mainactivity_mainactivity_getmaincomponentname"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "android/app/src/main/java/com/mobiloan/app/MainActivity.kt",
+      "source_location": "L32",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_mainactivity_mainactivity",
+      "target": "app_mainactivity_mainactivity_createreactactivitydelegate"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "android/app/src/main/java/com/mobiloan/app/MainActivity.kt",
+      "source_location": "L48",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_mainactivity_mainactivity",
+      "target": "app_mainactivity_mainactivity_invokedefaultonbackpressed"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "android/app/src/main/java/com/mobiloan/app/MainApplication.kt",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "android_app_src_main_java_com_mobiloan_app_mainapplication_kt",
+      "target": "app_mainapplication_mainapplication"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "android/app/src/main/java/com/mobiloan/app/MainApplication.kt",
+      "source_location": "L30",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_mainapplication_mainapplication",
+      "target": "app_mainapplication_mainapplication_oncreate"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "android/app/src/main/java/com/mobiloan/app/MainApplication.kt",
+      "source_location": "L41",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_mainapplication_mainapplication",
+      "target": "app_mainapplication_mainapplication_onconfigurationchanged"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/index.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_index_tsx",
+      "target": "providers_appproviders_usesession"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/index.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_index_tsx",
+      "target": "app_index_indexscreen"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/index.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "app_index_indexscreen",
+      "target": "providers_appproviders_usesession"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/login.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_login_tsx",
+      "target": "lib_format_formatdatetime"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/login.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_login_tsx",
+      "target": "providers_appproviders_usesession"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/_layout.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_layout_tsx",
+      "target": "providers_appproviders_appproviders"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/_layout.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_layout_tsx",
+      "target": "providers_appproviders_usesession"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/_layout.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_layout_tsx",
+      "target": "app_layout_rootnavigator"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/_layout.tsx",
+      "source_location": "L37",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_layout_tsx",
+      "target": "app_layout_rootlayout"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/_layout.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "app_layout_rootnavigator",
+      "target": "providers_appproviders_usesession"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "app_app_index_tsx",
+      "target": "lib_contact_openphonecall",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "app_app_index_tsx",
+      "target": "lib_contact_openwhatsapp",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_index_tsx",
+      "target": "lib_format_formatcurrency"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_index_tsx",
+      "target": "lib_format_formatdate"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_index_tsx",
+      "target": "lib_format_formatdatetime"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "app_app_index_tsx",
+      "target": "lib_format_getrelativeduelabel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_index_tsx",
+      "target": "hooks_useofflinedata_useclients"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_index_tsx",
+      "target": "hooks_useofflinedata_usecollectionqueue"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_index_tsx",
+      "target": "hooks_useofflinedata_usependingoutbox"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_index_tsx",
+      "target": "hooks_useofflinedata_userejectedoutbox"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_index_tsx",
+      "target": "hooks_useofflinedata_usesyncsnapshot"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L16",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_index_tsx",
+      "target": "hooks_usesyncactions_usediscardrejectedmutation"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_index_tsx",
+      "target": "hooks_usesyncactions_usemanualsync"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L16",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_index_tsx",
+      "target": "hooks_usesyncactions_useretryrejectedmutation"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L16",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_index_tsx",
+      "target": "providers_appproviders_usesession"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L41",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_index_tsx",
+      "target": "app_index_handlesync"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L124",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_index_tsx",
+      "target": "app_index_async"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L177",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_index_tsx",
+      "target": "app_index_formatcurrency"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L231",
+      "weight": 1.0,
+      "source": "app_index_async",
+      "target": "lib_contact_openwhatsapp"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/_layout.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_layout_tsx",
+      "target": "providers_appproviders_usesession"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/_layout.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_layout_tsx",
+      "target": "app_layout_applayout"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/(app)/_layout.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "app_layout_applayout",
+      "target": "providers_appproviders_usesession"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/clients/[id].tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_clients_id_tsx",
+      "target": "lib_contact_openphonecall"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/clients/[id].tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_clients_id_tsx",
+      "target": "lib_contact_openwhatsapp"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/clients/[id].tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_clients_id_tsx",
+      "target": "lib_format_formatcurrency"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/clients/[id].tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_clients_id_tsx",
+      "target": "lib_format_formatdate"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/clients/[id].tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_clients_id_tsx",
+      "target": "hooks_useofflinedata_useclientdetail"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/clients/[id].tsx",
+      "source_location": "L45",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_clients_id_tsx",
+      "target": "clients_id_async"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/(app)/clients/[id].tsx",
+      "source_location": "L47",
+      "weight": 1.0,
+      "source": "clients_id_async",
+      "target": "lib_contact_openwhatsapp"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/loans/[id].tsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_loans_id_tsx",
+      "target": "lib_contact_openphonecall"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/loans/[id].tsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_loans_id_tsx",
+      "target": "lib_contact_openwhatsapp"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/loans/[id].tsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_loans_id_tsx",
+      "target": "lib_format_formatcurrency"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/loans/[id].tsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_loans_id_tsx",
+      "target": "lib_format_formatdate"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/loans/[id].tsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_loans_id_tsx",
+      "target": "lib_format_formatdatetime"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/loans/[id].tsx",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_loans_id_tsx",
+      "target": "hooks_useofflinedata_useloandetail"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/loans/[id].tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_loans_id_tsx",
+      "target": "hooks_usesyncactions_usemanualsync"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/loans/[id].tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_loans_id_tsx",
+      "target": "hooks_usesyncactions_usequeuepayment"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/loans/[id].tsx",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_loans_id_tsx",
+      "target": "providers_appproviders_usesession"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/loans/[id].tsx",
+      "source_location": "L47",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_loans_id_tsx",
+      "target": "loans_id_handlequeuepayment"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/loans/[id].tsx",
+      "source_location": "L173",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_loans_id_tsx",
+      "target": "loans_id_async"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/loans/[id].tsx",
+      "source_location": "L153",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_loans_id_tsx",
+      "target": "loans_id_formatdate"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/(app)/loans/[id].tsx",
+      "source_location": "L85",
+      "weight": 1.0,
+      "source": "loans_id_handlequeuepayment",
+      "target": "lib_format_formatcurrency"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/(app)/loans/[id].tsx",
+      "source_location": "L175",
+      "weight": 1.0,
+      "source": "loans_id_async",
+      "target": "lib_contact_openwhatsapp"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.ts",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_data_database_ts",
+      "target": "data_database_getdatabase"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.ts",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_data_database_ts",
+      "target": "data_database_serialize"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.ts",
+      "source_location": "L21",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_data_database_ts",
+      "target": "data_database_parsejson"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.ts",
+      "source_location": "L33",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_data_database_ts",
+      "target": "data_database_tonumber"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.ts",
+      "source_location": "L40",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_data_database_ts",
+      "target": "data_database_ispastdue"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.ts",
+      "source_location": "L46",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_data_database_ts",
+      "target": "data_database_derivepaymentstatus"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.ts",
+      "source_location": "L65",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_data_database_ts",
+      "target": "data_database_deriveloanstatus"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.ts",
+      "source_location": "L78",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_data_database_ts",
+      "target": "data_database_hydrateoutboxrows"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.ts",
+      "source_location": "L59",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "data_database_derivepaymentstatus",
+      "target": "data_database_ispastdue"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/useOfflineData.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_hooks_useofflinedata_ts",
+      "target": "hooks_useofflinedata_usesyncsnapshot"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/useOfflineData.ts",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_hooks_useofflinedata_ts",
+      "target": "hooks_useofflinedata_useclients"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/useOfflineData.ts",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_hooks_useofflinedata_ts",
+      "target": "hooks_useofflinedata_useclientdetail"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/useOfflineData.ts",
+      "source_location": "L24",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_hooks_useofflinedata_ts",
+      "target": "hooks_useofflinedata_useloandetail"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/useOfflineData.ts",
+      "source_location": "L31",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_hooks_useofflinedata_ts",
+      "target": "hooks_useofflinedata_userejectedoutbox"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/useOfflineData.ts",
+      "source_location": "L38",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_hooks_useofflinedata_ts",
+      "target": "hooks_useofflinedata_usependingoutbox"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/useOfflineData.ts",
+      "source_location": "L38",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_hooks_useofflinedata_ts",
+      "target": "hooks_useofflinedata_usecollectionqueue"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/useSyncActions.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_hooks_usesyncactions_ts",
+      "target": "providers_appproviders_usesession"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/useSyncActions.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_hooks_usesyncactions_ts",
+      "target": "hooks_usesyncactions_invalidateall"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/useSyncActions.ts",
+      "source_location": "L16",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_hooks_usesyncactions_ts",
+      "target": "hooks_usesyncactions_usemanualsync"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/useSyncActions.ts",
+      "source_location": "L34",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_hooks_usesyncactions_ts",
+      "target": "hooks_usesyncactions_usequeuepayment"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/useSyncActions.ts",
+      "source_location": "L47",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_hooks_usesyncactions_ts",
+      "target": "hooks_usesyncactions_useretryrejectedmutation"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/useSyncActions.ts",
+      "source_location": "L61",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_hooks_usesyncactions_ts",
+      "target": "hooks_usesyncactions_usediscardrejectedmutation"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/hooks/useSyncActions.ts",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "hooks_usesyncactions_usemanualsync",
+      "target": "providers_appproviders_usesession"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/config.ts",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_lib_config_ts",
+      "target": "lib_config_normalizeapiurl"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/config.ts",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_lib_config_ts",
+      "target": "lib_config_resolveexpohost"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/config.ts",
+      "source_location": "L24",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_lib_config_ts",
+      "target": "lib_config_resolvedefaultapiurl"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/config.ts",
+      "source_location": "L25",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_config_resolvedefaultapiurl",
+      "target": "lib_config_resolveexpohost"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/contact.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_lib_contact_ts",
+      "target": "lib_contact_normalizephone"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/contact.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_lib_contact_ts",
+      "target": "lib_contact_openexternalurl"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/contact.ts",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_lib_contact_ts",
+      "target": "lib_contact_openphonecall"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/contact.ts",
+      "source_location": "L27",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_lib_contact_ts",
+      "target": "lib_contact_openwhatsapp"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/contact.ts",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_contact_openphonecall",
+      "target": "lib_contact_normalizephone"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/contact.ts",
+      "source_location": "L32",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_contact_openwhatsapp",
+      "target": "lib_contact_normalizephone"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/contact.ts",
+      "source_location": "L24",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_contact_openphonecall",
+      "target": "lib_contact_openexternalurl"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/contact.ts",
+      "source_location": "L37",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_contact_openwhatsapp",
+      "target": "lib_contact_openexternalurl"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/format.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_lib_format_ts",
+      "target": "lib_format_formatcurrency"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/format.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_lib_format_ts",
+      "target": "lib_format_formatdate"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/format.ts",
+      "source_location": "L25",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_lib_format_ts",
+      "target": "lib_format_formatdatetime"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/format.ts",
+      "source_location": "L44",
+      "weight": 1.0,
+      "source": "src_lib_format_ts",
+      "target": "lib_format_getrelativeduelabel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/mutationId.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_lib_mutationid_ts",
+      "target": "lib_mutationid_createclientmutationid"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/sync.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_services_sync_ts",
+      "target": "lib_mutationid_createclientmutationid"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/providers/AppProviders.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_providers_appproviders_tsx",
+      "target": "services_api_isauthapierror"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/providers/AppProviders.tsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_providers_appproviders_tsx",
+      "target": "providers_appproviders_invalidateofflinequeries"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/providers/AppProviders.tsx",
+      "source_location": "L18",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_providers_appproviders_tsx",
+      "target": "providers_appproviders_appproviders"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/providers/AppProviders.tsx",
+      "source_location": "L61",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_providers_appproviders_tsx",
+      "target": "providers_appproviders_usesession"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/api.ts",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_services_api_ts",
+      "target": "services_api_mobileapierror"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/api.ts",
+      "source_location": "L26",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_services_api_ts",
+      "target": "services_api_isauthapierror"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/api.ts",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_services_api_ts",
+      "target": "services_api_parseresponse"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/api.ts",
+      "source_location": "L18",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "services_api_mobileapierror",
+      "target": "services_api_mobileapierror_constructor"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/sync.ts",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_services_sync_ts",
+      "target": "services_sync_normalizetransaction"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/sync.ts",
+      "source_location": "L32",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_services_sync_ts",
+      "target": "services_sync_applypushresults"
+    }
+  ],
+  "hyperedges": [],
+  "built_at_commit": "54a9ad472dd807df2116ab5455c3a0211b6b5120"
+}

@@ -58,9 +58,15 @@ graphify path "Desktop App - Electron 33" "Backend - Express 5 + Prisma 5"
 - Desktop startup now also defers heavy backend route loads in `server/app.js` and caches successful packaged Prisma migrations in `desktop/main.cjs`, cutting repeated packaged startup to about one second for backend readiness in local validation on `2026-06-02`.
 - Desktop external navigation is now intercepted in `desktop/main.cjs` so WhatsApp and other external links open in the system browser instead of Electron's embedded window.
 - Payment registration in `server/routes/payments.js` now coerces Prisma `Decimal` values to numbers before summing, preventing corrupted totals after partial + final payments.
+- Offline sync backend work is now visible in the graph through `server/routes/sync.js`, `server/utils/paymentTransactions.js`, `server/utils/syncDeletedRecords.js` and the startup compatibility helpers in `server/utils/ensureDatabaseCompatibility.js`.
+- The shared root graph now also surfaces `Mobiloan/src/providers/AppProviders.tsx` as the bridge between restored session, offline readiness and automatic sync refreshes.
+- The latest root refresh also exposes the new `pending-outbox` path from local SQLite through `usePendingOutbox()` into the mobile portfolio screen.
+- The newest refresh also shows `MobileApiError` and `needsReauth` feeding back from the mobile API layer into `AppProviders` and the operational screens.
+- The graph now also captures `Mobiloan/src/lib/contact.ts` and the new call/WhatsApp shortcuts wired into client and loan detail flows.
+- The latest mobile-facing edges now include urgency labeling through `getRelativeDueLabel()` and the direct contact actions embedded in the collection queue.
 
 ## Last Graph Refresh
-- `graphify update .` run successfully on `2026-06-02`.
+- `graphify update .` run successfully on `2026-06-11`.
 
 ## Files Worth Keeping
 - `graphify-out/GRAPH_REPORT.md`
