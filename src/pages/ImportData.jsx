@@ -26,6 +26,7 @@ const ImportData = () => {
     const [columns, setColumns] = useState([]);
     const [fileName, setFileName] = useState('');
     const [isImporting, setIsImporting] = useState(false);
+    const [importMode, setImportMode] = useState('spreadsheet');
     const [mapping, setMapping] = useState({
         clientName: '',
         rut: '',
@@ -34,7 +35,63 @@ const ImportData = () => {
         duration: '',
         interest: ''
     });
-    const [previewData, setPreviewData] = useState({ clients: [], loans: [], skippedCount: 0 });
+    const [previewData, setPreviewData] = useState({
+        source: 'spreadsheet',
+        clients: [],
+        loans: [],
+        payments: [],
+        paymentTransactions: [],
+        pendingOutbox: [],
+        skippedCount: 0,
+        exportedAt: null
+    });
+
+    const resetImportState = () => {
+        setRawRows([]);
+        setColumns([]);
+        setFileName('');
+        setImportMode('spreadsheet');
+        setPreviewData({
+            source: 'spreadsheet',
+            clients: [],
+            loans: [],
+            payments: [],
+            paymentTransactions: [],
+            pendingOutbox: [],
+            skippedCount: 0,
+            exportedAt: null
+        });
+    };
+
+    const handlePortablePackageUpload = (file) => {
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+            try {
+                const parsed = JSON.parse(evt.target.result);
+                if (parsed?.source !== 'mobiloan-android' || !Array.isArray(parsed.clients) || !Array.isArray(parsed.loans)) {
+                    toast.error('El JSON no corresponde a un paquete portable valido de Mobiloan');
+                    return;
+                }
+
+                setImportMode('mobiloan-portable');
+                setPreviewData({
+                    source: 'mobiloan-portable',
+                    clients: parsed.clients,
+                    loans: parsed.loans,
+                    payments: Array.isArray(parsed.payments) ? parsed.payments : [],
+                    paymentTransactions: Array.isArray(parsed.paymentTransactions) ? parsed.paymentTransactions : [],
+                    pendingOutbox: Array.isArray(parsed.pendingOutbox) ? parsed.pendingOutbox : [],
+                    skippedCount: 0,
+                    exportedAt: parsed.exportedAt || null
+                });
+                setStep(3);
+            } catch (error) {
+                console.error(error);
+                toast.error('No se pudo leer el paquete JSON de Mobiloan');
+            }
+        };
+        reader.readAsText(file);
+    };
 
     const handleFileUpload = async (e) => {
         const file = e.target.files[0];
@@ -42,7 +99,17 @@ const ImportData = () => {
             return;
         }
 
+        resetImportState();
         setFileName(file.name);
+        const isJsonFile =
+            file.type === 'application/json' ||
+            file.name.toLowerCase().endsWith('.json');
+
+        if (isJsonFile) {
+            handlePortablePackageUpload(file);
+            return;
+        }
+
         const reader = new FileReader();
         reader.onload = async (evt) => {
             try {
@@ -60,6 +127,7 @@ const ImportData = () => {
 
                 const header = data[0];
                 const rows = data.slice(1).filter((row) => row.length > 0);
+                setImportMode('spreadsheet');
                 setColumns(header);
                 setRawRows(rows);
                 setStep(2);
@@ -171,13 +239,30 @@ const ImportData = () => {
             });
         }
 
-        setPreviewData({ clients: newClients, loans: newLoans, skippedCount });
+        setPreviewData({
+            source: 'spreadsheet',
+            clients: newClients,
+            loans: newLoans,
+            payments: [],
+            paymentTransactions: [],
+            pendingOutbox: [],
+            skippedCount,
+            exportedAt: null
+        });
         setStep(3);
     };
 
     const handleFinalConfirmAction = async () => {
         setIsImporting(true);
-        const result = await importData(previewData.clients, previewData.loans);
+        const result = await importData({
+            source: previewData.source,
+            exportedAt: previewData.exportedAt,
+            clients: previewData.clients,
+            loans: previewData.loans,
+            payments: previewData.payments,
+            paymentTransactions: previewData.paymentTransactions,
+            pendingOutbox: previewData.pendingOutbox
+        });
         setIsImporting(false);
 
         if (!result.success) {
@@ -201,7 +286,12 @@ const ImportData = () => {
         }));
 
         downloadBulkLoanCalendars(calendarEntries, `loan-manager-importacion-${new Date().toISOString().slice(0, 10)}.ics`);
-        toast.success('Importacion completada correctamente');
+        const mobileImportMeta = result.data?.mobileImportMeta;
+        if (mobileImportMeta) {
+            toast.success(`Importacion Mobiloan completada. ${mobileImportMeta.importedTransactions} pagos importados.`);
+        } else {
+            toast.success('Importacion completada correctamente');
+        }
         setIsConfirmOpen(false);
         navigate('/loans');
     };
@@ -218,7 +308,7 @@ const ImportData = () => {
                     <div className="rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 py-12 text-center transition-colors hover:border-blue-500 dark:bg-slate-900">
                         <input
                             type="file"
-                            accept=".xlsx, .xls, .csv"
+                            accept=".xlsx, .xls, .csv, .json"
                             onChange={handleFileUpload}
                             className="hidden"
                             id="file-upload"
@@ -227,8 +317,8 @@ const ImportData = () => {
                             <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-100 text-blue-600">
                                 <FileSpreadsheet size={32} />
                             </div>
-                            <span className="text-lg font-medium text-slate-700">Selecciona tu archivo Excel</span>
-                            <span className="mt-2 text-sm text-slate-400">Soporta .xlsx, .xls, .csv</span>
+                            <span className="text-lg font-medium text-slate-700">Selecciona un archivo de importacion</span>
+                            <span className="mt-2 text-sm text-slate-400">Soporta .xlsx, .xls, .csv y el JSON portable de Mobiloan</span>
                         </label>
                     </div>
                 )}
@@ -308,7 +398,9 @@ const ImportData = () => {
                         <div className="grid grid-cols-2 gap-4">
                             <div className="rounded-xl border border-blue-100 bg-blue-50 p-4">
                                 <span className="text-2xl font-bold text-blue-600">{previewData.clients.length}</span>
-                                <p className="text-sm font-medium text-blue-800">Nuevos Clientes</p>
+                                <p className="text-sm font-medium text-blue-800">
+                                    {importMode === 'mobiloan-portable' ? 'Clientes en paquete Mobiloan' : 'Nuevos Clientes'}
+                                </p>
                             </div>
                             <div className="rounded-xl border border-indigo-100 bg-indigo-50 p-4">
                                 <span className="text-2xl font-bold text-indigo-600">{previewData.loans.length}</span>
@@ -316,12 +408,41 @@ const ImportData = () => {
                             </div>
                         </div>
 
-                        {previewData.skippedCount > 0 && (
+                        {importMode === 'mobiloan-portable' && (
+                            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                                <div className="rounded-xl border border-emerald-100 bg-emerald-50 p-4">
+                                    <span className="text-2xl font-bold text-emerald-600">{previewData.paymentTransactions.length}</span>
+                                    <p className="text-sm font-medium text-emerald-800">Pagos registrados</p>
+                                </div>
+                                <div className="rounded-xl border border-amber-100 bg-amber-50 p-4">
+                                    <span className="text-2xl font-bold text-amber-600">{previewData.pendingOutbox.length}</span>
+                                    <p className="text-sm font-medium text-amber-800">Pendientes no importados</p>
+                                </div>
+                                <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                                    <span className="text-sm font-bold text-slate-700">
+                                        {previewData.exportedAt ? new Date(previewData.exportedAt).toLocaleString() : 'Sin fecha'}
+                                    </span>
+                                    <p className="text-sm font-medium text-slate-600">Exportado desde Mobiloan</p>
+                                </div>
+                            </div>
+                        )}
+
+                        {previewData.skippedCount > 0 && importMode !== 'mobiloan-portable' && (
                             <div className="flex items-center gap-3 rounded-xl border border-rose-100 bg-rose-50 p-4 text-rose-700">
                                 <AlertCircle size={24} />
                                 <div>
                                     <p className="font-bold">Se omitieron {previewData.skippedCount} filas invalidas.</p>
                                     <p className="text-sm">Asegurate de que "Nombre", "Monto" y el "RUT" de clientes nuevos tengan valores validos.</p>
+                                </div>
+                            </div>
+                        )}
+
+                        {importMode === 'mobiloan-portable' && previewData.pendingOutbox.length > 0 && (
+                            <div className="flex items-center gap-3 rounded-xl border border-amber-100 bg-amber-50 p-4 text-amber-800">
+                                <AlertCircle size={24} />
+                                <div>
+                                    <p className="font-bold">El paquete trae {previewData.pendingOutbox.length} mutaciones pendientes.</p>
+                                    <p className="text-sm">Esta primera integracion importa cartera y pagos ya registrados, pero deja fuera la outbox pendiente para evitar duplicados.</p>
                                 </div>
                             </div>
                         )}
@@ -351,7 +472,12 @@ const ImportData = () => {
                         </div>
 
                         <div className="flex justify-end gap-3 border-t border-slate-50 pt-6">
-                            <button onClick={() => setStep(2)} className="px-4 py-2 text-slate-500 hover:text-slate-700">Atras</button>
+                            <button
+                                onClick={() => setStep(importMode === 'mobiloan-portable' ? 1 : 2)}
+                                className="px-4 py-2 text-slate-500 hover:text-slate-700"
+                            >
+                                {importMode === 'mobiloan-portable' ? 'Elegir otro archivo' : 'Atras'}
+                            </button>
                             <button
                                 onClick={() => setIsConfirmOpen(true)}
                                 disabled={isImporting || previewData.loans.length === 0}
@@ -370,7 +496,11 @@ const ImportData = () => {
                 onClose={() => setIsConfirmOpen(false)}
                 onConfirm={handleFinalConfirmAction}
                 title="Confirmar Importacion"
-                message={`Estas a punto de importar ${previewData.clients.length} clientes nuevos y ${previewData.loans.length} prestamos. Deseas continuar?`}
+                message={
+                    importMode === 'mobiloan-portable'
+                        ? `Estas a punto de ingresar ${previewData.clients.length} clientes, ${previewData.loans.length} prestamos y ${previewData.paymentTransactions.length} pagos desde Mobiloan. Deseas continuar?`
+                        : `Estas a punto de importar ${previewData.clients.length} clientes nuevos y ${previewData.loans.length} prestamos. Deseas continuar?`
+                }
                 confirmText="SI, IMPORTAR AHORA"
                 type="success"
             />

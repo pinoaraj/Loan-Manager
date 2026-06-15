@@ -1,7 +1,7 @@
 # Graphify Workflow
 
 ## Purpose
-Use Graphify in this repo to keep the architecture map current and to answer dependency questions quickly while working on the desktop app.
+Use Graphify in this repo to keep the architecture map current and to answer dependency questions quickly while working on the desktop app and the `Mobiloan` mobile workspace.
 
 ## Recommended Commands
 
@@ -39,6 +39,8 @@ graphify path "Desktop App - Electron 33" "Backend - Express 5 + Prisma 5"
 3. Review `graphify-out/GRAPH_REPORT.md` if the change touched architecture.
 4. Commit updated graph files together with the code change when they add value.
 
+If the change is mobile-only inside `Mobiloan/`, also review `Mobiloan/graphify-out/README.md` and any mobile graph artifacts you decide to keep with that workspace.
+
 ## Beta QA Notes
 - After desktop/startup changes, verify both `desktop/main.cjs` and `server/routes/payments.js` still map correctly in `graphify-out/GRAPH_REPORT.md`.
 - If routing changes touch `src/App.jsx`, confirm the graph still shows the protected layout flow to:
@@ -64,9 +66,23 @@ graphify path "Desktop App - Electron 33" "Backend - Express 5 + Prisma 5"
 - The newest refresh also shows `MobileApiError` and `needsReauth` feeding back from the mobile API layer into `AppProviders` and the operational screens.
 - The graph now also captures `Mobiloan/src/lib/contact.ts` and the new call/WhatsApp shortcuts wired into client and loan detail flows.
 - The latest mobile-facing edges now include urgency labeling through `getRelativeDueLabel()` and the direct contact actions embedded in the collection queue.
+- Since `2026-06-15`, the root graph has been refreshed after the latest desktop and mobile beta work.
+- The refreshed graph now includes the autonomous-local Mobiloan flows around:
+  - `Mobiloan/app/login.tsx`
+  - `Mobiloan/app/(app)/new-client.tsx`
+  - `Mobiloan/app/(app)/new-loan.tsx`
+  - `Mobiloan/app/(app)/calculator.tsx`
+  - `Mobiloan/src/lib/amortization.ts`
+  - `Mobiloan/src/lib/calendar.ts`
+  - `Mobiloan/src/lib/calendar.web.ts`
+  - `Mobiloan/src/lib/syncPackage.ts`
+- The desktop importer now accepts Mobiloan portable JSON packages through `server/routes/import.js`, `server/middleware/validationSchemas.js`, `src/context/LoanContext.jsx` and `src/pages/ImportData.jsx`.
+- Loopback-origin sync QA between Mobiloan web preview and the local desktop backend was stabilized in `server/app.js`, allowing `http://127.0.0.1:19007` and related local QA origins to authenticate and sync cleanly.
+- Native collection reminders now bridge calendar plus local notifications through `Mobiloan/src/lib/calendar.ts`, while browser QA intentionally uses `Mobiloan/src/lib/calendar.web.ts` as a platform guard.
+- The desktop build artifacts were rebuilt from the current workspace and staged separately for portable and installer testing.
 
 ## Last Graph Refresh
-- `graphify update .` run successfully on `2026-06-11`.
+- `graphify update .` run successfully on `2026-06-15`.
 
 ## Files Worth Keeping
 - `graphify-out/GRAPH_REPORT.md`

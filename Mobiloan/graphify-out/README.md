@@ -23,3 +23,19 @@ Esta carpeta queda reservada para la salida de Graphify del track mobile.
 - 2026-06-11: la app marca cuando la sesion remota requiere reautenticacion sin bloquear la cartera local
 - 2026-06-11: se agregaron atajos de llamada y WhatsApp desde cliente y prestamo
 - 2026-06-11: la cola principal ya combina urgencia, contacto y acceso directo a la cuota
+- 2026-06-15: el workspace quedo alineado con Expo SDK 56 y `expo-doctor` paso sin observaciones
+- 2026-06-15: se agregaron adaptadores web para sesion y base local, habilitando export web de QA sin depender de `expo-sqlite` wasm
+- 2026-06-15: se agrego entrada autonoma en modo local sin backend
+- 2026-06-15: se agregaron altas locales de clientes y prestamos
+- 2026-06-15: se agrego calculadora local con amortizacion
+- 2026-06-15: se agregaron recordatorios de cobranza en calendario nativo
+- 2026-06-15: los recordatorios pasaron a crear tambien notificaciones locales nativas en Android/iOS
+- 2026-06-15: se agrego exportacion portable local para posterior intake o sync con desktop
+- 2026-06-15: el desktop quedo capaz de importar el paquete portable JSON de Mobiloan
+- 2026-06-15: se corrigio el login con sync desde QA web local al permitir origenes loopback en el backend desktop
+- 2026-06-15: se completo una pasada comparativa sobre las pestanas funcionales clave de Mobiloan
+
+## Nota de frescura
+
+- El reporte Graphify raiz del repo fue refrescado el `2026-06-15`.
+- Los cambios de hoy ya quedaron reflejados tambien en `graphify-out/GRAPH_REPORT.md`.

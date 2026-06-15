@@ -5,7 +5,7 @@ const logger = require('./utils/logger');
 const { createApp } = require('./app');
 const { ensureDatabaseCompatibility } = require('./utils/ensureDatabaseCompatibility');
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3011;
 const { app, allowedOrigins } = createApp();
 
 const startServer = async () => {

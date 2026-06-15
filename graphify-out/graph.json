@@ -27,7 +27,7 @@
       "source_file": "eslint.config.js",
       "source_location": "L1",
       "id": "eslint_config_js",
-      "community": 39,
+      "community": 40,
       "norm_label": "eslint.config.js"
     },
     {
@@ -36,7 +36,7 @@
       "source_file": "patch-desktop.ps1",
       "source_location": "L1",
       "id": "patch_desktop_ps1",
-      "community": 40,
+      "community": 41,
       "norm_label": "patch-desktop.ps1"
     },
     {
@@ -45,7 +45,7 @@
       "source_file": "postcss.config.js",
       "source_location": "L1",
       "id": "postcss_config_js",
-      "community": 41,
+      "community": 42,
       "norm_label": "postcss.config.js"
     },
     {
@@ -54,7 +54,7 @@
       "source_file": "rebuild-desktop-app.ps1",
       "source_location": "L1",
       "id": "rebuild_desktop_app_ps1",
-      "community": 42,
+      "community": 43,
       "norm_label": "rebuild-desktop-app.ps1"
     },
     {
@@ -63,7 +63,7 @@
       "source_file": "rebuild-desktop-final.ps1",
       "source_location": "L1",
       "id": "rebuild_desktop_final_ps1",
-      "community": 43,
+      "community": 44,
       "norm_label": "rebuild-desktop-final.ps1"
     },
     {
@@ -72,7 +72,7 @@
       "source_file": "tailwind.config.js",
       "source_location": "L1",
       "id": "tailwind_config_js",
-      "community": 44,
+      "community": 45,
       "norm_label": "tailwind.config.js"
     },
     {
@@ -81,7 +81,7 @@
       "source_file": "test-client-creation.js",
       "source_location": "L1",
       "id": "test_client_creation_js",
-      "community": 17,
+      "community": 20,
       "norm_label": "test-client-creation.js"
     },
     {
@@ -90,7 +90,7 @@
       "source_file": "test-client-creation.js",
       "source_location": "L5",
       "id": "loanmanager_test_client_creation_login",
-      "community": 17,
+      "community": 20,
       "norm_label": "login()"
     },
     {
@@ -99,7 +99,7 @@
       "source_file": "test-client-creation.js",
       "source_location": "L30",
       "id": "loanmanager_test_client_creation_testcreateclient",
-      "community": 17,
+      "community": 20,
       "norm_label": "testcreateclient()"
     },
     {
@@ -108,7 +108,7 @@
       "source_file": "test-client-creation.js",
       "source_location": "L66",
       "id": "loanmanager_test_client_creation_testcreateclientwithoutphone",
-      "community": 17,
+      "community": 20,
       "norm_label": "testcreateclientwithoutphone()"
     },
     {
@@ -117,7 +117,7 @@
       "source_file": "test-client-creation.js",
       "source_location": "L102",
       "id": "loanmanager_test_client_creation_runtests",
-      "community": 17,
+      "community": 20,
       "norm_label": "runtests()"
     },
     {
@@ -126,7 +126,7 @@
       "source_file": "test-client-creation.ps1",
       "source_location": "L1",
       "id": "test_client_creation_ps1",
-      "community": 45,
+      "community": 46,
       "norm_label": "test-client-creation.ps1"
     },
     {
@@ -135,7 +135,7 @@
       "source_file": "vite.config.js",
       "source_location": "L1",
       "id": "vite_config_js",
-      "community": 46,
+      "community": 47,
       "norm_label": "vite.config.js"
     },
     {
@@ -144,8 +144,17 @@
       "source_file": "vitest.config.js",
       "source_location": "L1",
       "id": "vitest_config_js",
-      "community": 47,
+      "community": 48,
       "norm_label": "vitest.config.js"
+    },
+    {
+      "label": "expo-env.d.ts",
+      "file_type": "code",
+      "source_file": "Mobiloan/expo-env.d.ts",
+      "source_location": "L1",
+      "id": "mobiloan_expo_env_d_ts",
+      "community": 49,
+      "norm_label": "expo-env.d.ts"
     },
     {
       "label": "MainActivity.kt",
@@ -153,7 +162,7 @@
       "source_file": "Mobiloan/android/app/src/main/java/com/mobiloan/app/MainActivity.kt",
       "source_location": "L1",
       "id": "mobiloan_android_app_src_main_java_com_mobiloan_app_mainactivity_kt",
-      "community": 13,
+      "community": 16,
       "norm_label": "mainactivity.kt"
     },
     {
@@ -162,7 +171,7 @@
       "source_file": "Mobiloan/android/app/src/main/java/com/mobiloan/app/MainActivity.kt",
       "source_location": "L13",
       "id": "app_mainactivity_mainactivity",
-      "community": 13,
+      "community": 16,
       "norm_label": "mainactivity"
     },
     {
@@ -171,7 +180,7 @@
       "source_file": "Mobiloan/android/app/src/main/java/com/mobiloan/app/MainActivity.kt",
       "source_location": "L14",
       "id": "app_mainactivity_mainactivity_oncreate",
-      "community": 13,
+      "community": 16,
       "norm_label": ".oncreate()"
     },
     {
@@ -180,7 +189,7 @@
       "source_file": "Mobiloan/android/app/src/main/java/com/mobiloan/app/MainActivity.kt",
       "source_location": "L26",
       "id": "app_mainactivity_mainactivity_getmaincomponentname",
-      "community": 13,
+      "community": 16,
       "norm_label": ".getmaincomponentname()"
     },
     {
@@ -189,7 +198,7 @@
       "source_file": "Mobiloan/android/app/src/main/java/com/mobiloan/app/MainActivity.kt",
       "source_location": "L32",
       "id": "app_mainactivity_mainactivity_createreactactivitydelegate",
-      "community": 13,
+      "community": 16,
       "norm_label": ".createreactactivitydelegate()"
     },
     {
@@ -198,7 +207,7 @@
       "source_file": "Mobiloan/android/app/src/main/java/com/mobiloan/app/MainActivity.kt",
       "source_location": "L48",
       "id": "app_mainactivity_mainactivity_invokedefaultonbackpressed",
-      "community": 13,
+      "community": 16,
       "norm_label": ".invokedefaultonbackpressed()"
     },
     {
@@ -207,7 +216,7 @@
       "source_file": "Mobiloan/android/app/src/main/java/com/mobiloan/app/MainApplication.kt",
       "source_location": "L1",
       "id": "mobiloan_android_app_src_main_java_com_mobiloan_app_mainapplication_kt",
-      "community": 20,
+      "community": 21,
       "norm_label": "mainapplication.kt"
     },
     {
@@ -216,7 +225,7 @@
       "source_file": "Mobiloan/android/app/src/main/java/com/mobiloan/app/MainApplication.kt",
       "source_location": "L17",
       "id": "app_mainapplication_mainapplication",
-      "community": 20,
+      "community": 21,
       "norm_label": "mainapplication"
     },
     {
@@ -225,7 +234,7 @@
       "source_file": "Mobiloan/android/app/src/main/java/com/mobiloan/app/MainApplication.kt",
       "source_location": "L30",
       "id": "app_mainapplication_mainapplication_oncreate",
-      "community": 20,
+      "community": 21,
       "norm_label": ".oncreate()"
     },
     {
@@ -234,7 +243,7 @@
       "source_file": "Mobiloan/android/app/src/main/java/com/mobiloan/app/MainApplication.kt",
       "source_location": "L41",
       "id": "app_mainapplication_mainapplication_onconfigurationchanged",
-      "community": 20,
+      "community": 21,
       "norm_label": ".onconfigurationchanged()"
     },
     {
@@ -243,7 +252,7 @@
       "source_file": "Mobiloan/app/index.tsx",
       "source_location": "L1",
       "id": "mobiloan_app_index_tsx",
-      "community": 1,
+      "community": 0,
       "norm_label": "index.tsx"
     },
     {
@@ -252,7 +261,7 @@
       "source_file": "Mobiloan/app/index.tsx",
       "source_location": "L5",
       "id": "app_index_indexscreen",
-      "community": 1,
+      "community": 0,
       "norm_label": "indexscreen()"
     },
     {
@@ -261,8 +270,17 @@
       "source_file": "Mobiloan/app/login.tsx",
       "source_location": "L1",
       "id": "mobiloan_app_login_tsx",
-      "community": 1,
+      "community": 0,
       "norm_label": "login.tsx"
+    },
+    {
+      "label": "handleLocalAccess()",
+      "file_type": "code",
+      "source_file": "Mobiloan/app/login.tsx",
+      "source_location": "L67",
+      "id": "app_login_handlelocalaccess",
+      "community": 0,
+      "norm_label": "handlelocalaccess()"
     },
     {
       "label": "_layout.tsx",
@@ -270,7 +288,7 @@
       "source_file": "Mobiloan/app/_layout.tsx",
       "source_location": "L1",
       "id": "mobiloan_app_layout_tsx",
-      "community": 1,
+      "community": 0,
       "norm_label": "_layout.tsx"
     },
     {
@@ -279,7 +297,7 @@
       "source_file": "Mobiloan/app/_layout.tsx",
       "source_location": "L7",
       "id": "app_layout_rootnavigator",
-      "community": 1,
+      "community": 0,
       "norm_label": "rootnavigator()"
     },
     {
@@ -288,8 +306,17 @@
       "source_file": "Mobiloan/app/_layout.tsx",
       "source_location": "L37",
       "id": "app_layout_rootlayout",
-      "community": 1,
+      "community": 0,
       "norm_label": "rootlayout()"
+    },
+    {
+      "label": "calculator.tsx",
+      "file_type": "code",
+      "source_file": "Mobiloan/app/(app)/calculator.tsx",
+      "source_location": "L1",
+      "id": "mobiloan_app_app_calculator_tsx",
+      "community": 0,
+      "norm_label": "calculator.tsx"
     },
     {
       "label": "index.tsx",
@@ -297,35 +324,71 @@
       "source_file": "Mobiloan/app/(app)/index.tsx",
       "source_location": "L1",
       "id": "mobiloan_app_app_index_tsx",
-      "community": 1,
+      "community": 0,
       "norm_label": "index.tsx"
     },
     {
       "label": "handleSync()",
       "file_type": "code",
       "source_file": "Mobiloan/app/(app)/index.tsx",
-      "source_location": "L53",
+      "source_location": "L55",
       "id": "app_index_handlesync",
-      "community": 1,
+      "community": 0,
       "norm_label": "handlesync()"
     },
     {
       "label": "async()",
       "file_type": "code",
       "source_file": "Mobiloan/app/(app)/index.tsx",
-      "source_location": "L229",
+      "source_location": "L108",
       "id": "app_index_async",
-      "community": 1,
+      "community": 0,
       "norm_label": "async()"
     },
     {
       "label": "formatCurrency()",
       "file_type": "code",
       "source_file": "Mobiloan/app/(app)/index.tsx",
-      "source_location": "L312",
+      "source_location": "L367",
       "id": "app_index_formatcurrency",
-      "community": 1,
+      "community": 0,
       "norm_label": "formatcurrency()"
+    },
+    {
+      "label": "new-client.tsx",
+      "file_type": "code",
+      "source_file": "Mobiloan/app/(app)/new-client.tsx",
+      "source_location": "L1",
+      "id": "mobiloan_app_app_new_client_tsx",
+      "community": 0,
+      "norm_label": "new-client.tsx"
+    },
+    {
+      "label": "NewClientScreen()",
+      "file_type": "code",
+      "source_file": "Mobiloan/app/(app)/new-client.tsx",
+      "source_location": "L8",
+      "id": "app_new_client_newclientscreen",
+      "community": 0,
+      "norm_label": "newclientscreen()"
+    },
+    {
+      "label": "new-loan.tsx",
+      "file_type": "code",
+      "source_file": "Mobiloan/app/(app)/new-loan.tsx",
+      "source_location": "L1",
+      "id": "mobiloan_app_app_new_loan_tsx",
+      "community": 0,
+      "norm_label": "new-loan.tsx"
+    },
+    {
+      "label": "NewLoanScreen()",
+      "file_type": "code",
+      "source_file": "Mobiloan/app/(app)/new-loan.tsx",
+      "source_location": "L11",
+      "id": "app_new_loan_newloanscreen",
+      "community": 0,
+      "norm_label": "newloanscreen()"
     },
     {
       "label": "_layout.tsx",
@@ -333,7 +396,7 @@
       "source_file": "Mobiloan/app/(app)/_layout.tsx",
       "source_location": "L1",
       "id": "mobiloan_app_app_layout_tsx",
-      "community": 1,
+      "community": 0,
       "norm_label": "_layout.tsx"
     },
     {
@@ -342,7 +405,7 @@
       "source_file": "Mobiloan/app/(app)/_layout.tsx",
       "source_location": "L5",
       "id": "app_layout_applayout",
-      "community": 1,
+      "community": 0,
       "norm_label": "applayout()"
     },
     {
@@ -351,7 +414,7 @@
       "source_file": "Mobiloan/app/(app)/clients/[id].tsx",
       "source_location": "L1",
       "id": "mobiloan_app_app_clients_id_tsx",
-      "community": 1,
+      "community": 0,
       "norm_label": "[id].tsx"
     },
     {
@@ -360,7 +423,7 @@
       "source_file": "Mobiloan/app/(app)/clients/[id].tsx",
       "source_location": "L45",
       "id": "clients_id_async",
-      "community": 1,
+      "community": 0,
       "norm_label": "async()"
     },
     {
@@ -369,25 +432,25 @@
       "source_file": "Mobiloan/app/(app)/loans/[id].tsx",
       "source_location": "L1",
       "id": "mobiloan_app_app_loans_id_tsx",
-      "community": 1,
+      "community": 0,
       "norm_label": "[id].tsx"
     },
     {
       "label": "handleQueuePayment()",
       "file_type": "code",
       "source_file": "Mobiloan/app/(app)/loans/[id].tsx",
-      "source_location": "L66",
+      "source_location": "L67",
       "id": "loans_id_handlequeuepayment",
-      "community": 1,
+      "community": 0,
       "norm_label": "handlequeuepayment()"
     },
     {
       "label": "async()",
       "file_type": "code",
       "source_file": "Mobiloan/app/(app)/loans/[id].tsx",
-      "source_location": "L173",
+      "source_location": "L174",
       "id": "loans_id_async",
-      "community": 1,
+      "community": 0,
       "norm_label": "async()"
     },
     {
@@ -396,7 +459,7 @@
       "source_file": "Mobiloan/scripts/build-android-debug.ps1",
       "source_location": "L1",
       "id": "mobiloan_scripts_build_android_debug_ps1",
-      "community": 48,
+      "community": 50,
       "norm_label": "build-android-debug.ps1"
     },
     {
@@ -405,80 +468,215 @@
       "source_file": "Mobiloan/src/data/database.ts",
       "source_location": "L1",
       "id": "mobiloan_src_data_database_ts",
-      "community": 10,
+      "community": 5,
       "norm_label": "database.ts"
     },
     {
       "label": "getDatabase()",
       "file_type": "code",
       "source_file": "Mobiloan/src/data/database.ts",
-      "source_location": "L19",
+      "source_location": "L24",
       "id": "data_database_getdatabase",
-      "community": 10,
+      "community": 5,
       "norm_label": "getdatabase()"
     },
     {
       "label": "serialize()",
       "file_type": "code",
       "source_file": "Mobiloan/src/data/database.ts",
-      "source_location": "L24",
+      "source_location": "L29",
       "id": "data_database_serialize",
-      "community": 10,
+      "community": 5,
       "norm_label": "serialize()"
     },
     {
       "label": "parseJson()",
       "file_type": "code",
       "source_file": "Mobiloan/src/data/database.ts",
-      "source_location": "L26",
+      "source_location": "L31",
       "id": "data_database_parsejson",
-      "community": 10,
+      "community": 5,
       "norm_label": "parsejson()"
     },
     {
       "label": "toNumber()",
       "file_type": "code",
       "source_file": "Mobiloan/src/data/database.ts",
-      "source_location": "L38",
+      "source_location": "L43",
       "id": "data_database_tonumber",
-      "community": 10,
+      "community": 5,
       "norm_label": "tonumber()"
+    },
+    {
+      "label": "createLocalId()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/data/database.ts",
+      "source_location": "L45",
+      "id": "data_database_createlocalid",
+      "community": 5,
+      "norm_label": "createlocalid()"
     },
     {
       "label": "isPastDue()",
       "file_type": "code",
       "source_file": "Mobiloan/src/data/database.ts",
-      "source_location": "L41",
+      "source_location": "L47",
       "id": "data_database_ispastdue",
-      "community": 10,
+      "community": 5,
       "norm_label": "ispastdue()"
     },
     {
       "label": "derivePaymentStatus()",
       "file_type": "code",
       "source_file": "Mobiloan/src/data/database.ts",
-      "source_location": "L47",
+      "source_location": "L53",
       "id": "data_database_derivepaymentstatus",
-      "community": 10,
+      "community": 5,
       "norm_label": "derivepaymentstatus()"
     },
     {
       "label": "deriveLoanStatus()",
       "file_type": "code",
       "source_file": "Mobiloan/src/data/database.ts",
-      "source_location": "L66",
+      "source_location": "L72",
       "id": "data_database_deriveloanstatus",
-      "community": 10,
+      "community": 5,
       "norm_label": "deriveloanstatus()"
     },
     {
       "label": "hydrateOutboxRows()",
       "file_type": "code",
       "source_file": "Mobiloan/src/data/database.ts",
-      "source_location": "L78",
+      "source_location": "L84",
       "id": "data_database_hydrateoutboxrows",
-      "community": 10,
+      "community": 5,
       "norm_label": "hydrateoutboxrows()"
+    },
+    {
+      "label": "database.web.ts",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L1",
+      "id": "mobiloan_src_data_database_web_ts",
+      "community": 9,
+      "norm_label": "database.web.ts"
+    },
+    {
+      "label": "createLocalId()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L21",
+      "id": "data_database_web_createlocalid",
+      "community": 9,
+      "norm_label": "createlocalid()"
+    },
+    {
+      "label": "defaultState()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L32",
+      "id": "data_database_web_defaultstate",
+      "community": 9,
+      "norm_label": "defaultstate()"
+    },
+    {
+      "label": "clone()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L41",
+      "id": "data_database_web_clone",
+      "community": 9,
+      "norm_label": "clone()"
+    },
+    {
+      "label": "getStorage()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L43",
+      "id": "data_database_web_getstorage",
+      "community": 9,
+      "norm_label": "getstorage()"
+    },
+    {
+      "label": "loadState()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L51",
+      "id": "data_database_web_loadstate",
+      "community": 9,
+      "norm_label": "loadstate()"
+    },
+    {
+      "label": "saveState()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L77",
+      "id": "data_database_web_savestate",
+      "community": 9,
+      "norm_label": "savestate()"
+    },
+    {
+      "label": "updateState()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L86",
+      "id": "data_database_web_updatestate",
+      "community": 9,
+      "norm_label": "updatestate()"
+    },
+    {
+      "label": "isPastDue()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L93",
+      "id": "data_database_web_ispastdue",
+      "community": 9,
+      "norm_label": "ispastdue()"
+    },
+    {
+      "label": "derivePaymentStatus()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L99",
+      "id": "data_database_web_derivepaymentstatus",
+      "community": 9,
+      "norm_label": "derivepaymentstatus()"
+    },
+    {
+      "label": "deriveLoanStatus()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L118",
+      "id": "data_database_web_deriveloanstatus",
+      "community": 9,
+      "norm_label": "deriveloanstatus()"
+    },
+    {
+      "label": "upsertById()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L130",
+      "id": "data_database_web_upsertbyid",
+      "community": 9,
+      "norm_label": "upsertbyid()"
+    },
+    {
+      "label": "sortByCreatedAt()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L142",
+      "id": "data_database_web_sortbycreatedat",
+      "community": 9,
+      "norm_label": "sortbycreatedat()"
+    },
+    {
+      "label": "hydrateOutboxRow()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L145",
+      "id": "data_database_web_hydrateoutboxrow",
+      "community": 9,
+      "norm_label": "hydrateoutboxrow()"
     },
     {
       "label": "useOfflineData.ts",
@@ -486,7 +684,7 @@
       "source_file": "Mobiloan/src/hooks/useOfflineData.ts",
       "source_location": "L1",
       "id": "mobiloan_src_hooks_useofflinedata_ts",
-      "community": 1,
+      "community": 0,
       "norm_label": "useofflinedata.ts"
     },
     {
@@ -495,7 +693,7 @@
       "source_file": "Mobiloan/src/hooks/useOfflineData.ts",
       "source_location": "L6",
       "id": "hooks_useofflinedata_usesyncsnapshot",
-      "community": 1,
+      "community": 0,
       "norm_label": "usesyncsnapshot()"
     },
     {
@@ -504,7 +702,7 @@
       "source_file": "Mobiloan/src/hooks/useOfflineData.ts",
       "source_location": "L12",
       "id": "hooks_useofflinedata_useclients",
-      "community": 1,
+      "community": 0,
       "norm_label": "useclients()"
     },
     {
@@ -513,7 +711,7 @@
       "source_file": "Mobiloan/src/hooks/useOfflineData.ts",
       "source_location": "L18",
       "id": "hooks_useofflinedata_useclientdetail",
-      "community": 1,
+      "community": 0,
       "norm_label": "useclientdetail()"
     },
     {
@@ -522,7 +720,7 @@
       "source_file": "Mobiloan/src/hooks/useOfflineData.ts",
       "source_location": "L25",
       "id": "hooks_useofflinedata_useloandetail",
-      "community": 1,
+      "community": 0,
       "norm_label": "useloandetail()"
     },
     {
@@ -531,7 +729,7 @@
       "source_file": "Mobiloan/src/hooks/useOfflineData.ts",
       "source_location": "L32",
       "id": "hooks_useofflinedata_userejectedoutbox",
-      "community": 1,
+      "community": 0,
       "norm_label": "userejectedoutbox()"
     },
     {
@@ -540,7 +738,7 @@
       "source_file": "Mobiloan/src/hooks/useOfflineData.ts",
       "source_location": "L38",
       "id": "hooks_useofflinedata_usependingoutbox",
-      "community": 1,
+      "community": 0,
       "norm_label": "usependingoutbox()"
     },
     {
@@ -549,8 +747,17 @@
       "source_file": "Mobiloan/src/hooks/useOfflineData.ts",
       "source_location": "L44",
       "id": "hooks_useofflinedata_usecollectionqueue",
-      "community": 1,
+      "community": 0,
       "norm_label": "usecollectionqueue()"
+    },
+    {
+      "label": "useAllClients()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/hooks/useOfflineData.ts",
+      "source_location": "L50",
+      "id": "hooks_useofflinedata_useallclients",
+      "community": 0,
+      "norm_label": "useallclients()"
     },
     {
       "label": "useSyncActions.ts",
@@ -558,53 +765,224 @@
       "source_file": "Mobiloan/src/hooks/useSyncActions.ts",
       "source_location": "L1",
       "id": "mobiloan_src_hooks_usesyncactions_ts",
-      "community": 1,
+      "community": 0,
       "norm_label": "usesyncactions.ts"
     },
     {
       "label": "invalidateAll()",
       "file_type": "code",
       "source_file": "Mobiloan/src/hooks/useSyncActions.ts",
-      "source_location": "L7",
+      "source_location": "L12",
       "id": "hooks_usesyncactions_invalidateall",
-      "community": 1,
+      "community": 0,
       "norm_label": "invalidateall()"
     },
     {
       "label": "useManualSync()",
       "file_type": "code",
       "source_file": "Mobiloan/src/hooks/useSyncActions.ts",
-      "source_location": "L19",
+      "source_location": "L24",
       "id": "hooks_usesyncactions_usemanualsync",
-      "community": 1,
+      "community": 0,
       "norm_label": "usemanualsync()"
     },
     {
       "label": "useQueuePayment()",
       "file_type": "code",
       "source_file": "Mobiloan/src/hooks/useSyncActions.ts",
-      "source_location": "L37",
+      "source_location": "L42",
       "id": "hooks_usesyncactions_usequeuepayment",
-      "community": 1,
+      "community": 0,
       "norm_label": "usequeuepayment()"
     },
     {
       "label": "useRetryRejectedMutation()",
       "file_type": "code",
       "source_file": "Mobiloan/src/hooks/useSyncActions.ts",
-      "source_location": "L50",
+      "source_location": "L55",
       "id": "hooks_usesyncactions_useretryrejectedmutation",
-      "community": 1,
+      "community": 0,
       "norm_label": "useretryrejectedmutation()"
     },
     {
       "label": "useDiscardRejectedMutation()",
       "file_type": "code",
       "source_file": "Mobiloan/src/hooks/useSyncActions.ts",
-      "source_location": "L64",
+      "source_location": "L69",
       "id": "hooks_usesyncactions_usediscardrejectedmutation",
-      "community": 1,
+      "community": 0,
       "norm_label": "usediscardrejectedmutation()"
+    },
+    {
+      "label": "useCreateLocalClient()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/hooks/useSyncActions.ts",
+      "source_location": "L83",
+      "id": "hooks_usesyncactions_usecreatelocalclient",
+      "community": 0,
+      "norm_label": "usecreatelocalclient()"
+    },
+    {
+      "label": "useCreateLocalLoan()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/hooks/useSyncActions.ts",
+      "source_location": "L94",
+      "id": "hooks_usesyncactions_usecreatelocalloan",
+      "community": 0,
+      "norm_label": "usecreatelocalloan()"
+    },
+    {
+      "label": "amortization.ts",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/lib/amortization.ts",
+      "source_location": "L1",
+      "id": "mobiloan_src_lib_amortization_ts",
+      "community": 5,
+      "norm_label": "amortization.ts"
+    },
+    {
+      "label": "normalizeFrequency()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/lib/amortization.ts",
+      "source_location": "L3",
+      "id": "lib_amortization_normalizefrequency",
+      "community": 5,
+      "norm_label": "normalizefrequency()"
+    },
+    {
+      "label": "buildMonthlySchedule()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/lib/amortization.ts",
+      "source_location": "L8",
+      "id": "lib_amortization_buildmonthlyschedule",
+      "community": 5,
+      "norm_label": "buildmonthlyschedule()"
+    },
+    {
+      "label": "splitMonthlySchedule()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/lib/amortization.ts",
+      "source_location": "L76",
+      "id": "lib_amortization_splitmonthlyschedule",
+      "community": 5,
+      "norm_label": "splitmonthlyschedule()"
+    },
+    {
+      "label": "calculateAmortization()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/lib/amortization.ts",
+      "source_location": "L105",
+      "id": "lib_amortization_calculateamortization",
+      "community": 5,
+      "norm_label": "calculateamortization()"
+    },
+    {
+      "label": "calendar.ts",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/lib/calendar.ts",
+      "source_location": "L1",
+      "id": "mobiloan_src_lib_calendar_ts",
+      "community": 13,
+      "norm_label": "calendar.ts"
+    },
+    {
+      "label": "buildReminderTitle()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/lib/calendar.ts",
+      "source_location": "L9",
+      "id": "lib_calendar_buildremindertitle",
+      "community": 13,
+      "norm_label": "buildremindertitle()"
+    },
+    {
+      "label": "buildReminderNotes()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/lib/calendar.ts",
+      "source_location": "L12",
+      "id": "lib_calendar_buildremindernotes",
+      "community": 13,
+      "norm_label": "buildremindernotes()"
+    },
+    {
+      "label": "ensureCalendarPermission()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/lib/calendar.ts",
+      "source_location": "L29",
+      "id": "lib_calendar_ensurecalendarpermission",
+      "community": 13,
+      "norm_label": "ensurecalendarpermission()"
+    },
+    {
+      "label": "ensureNotificationPermission()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/lib/calendar.ts",
+      "source_location": "L36",
+      "id": "lib_calendar_ensurenotificationpermission",
+      "community": 13,
+      "norm_label": "ensurenotificationpermission()"
+    },
+    {
+      "label": "ensureNotificationChannel()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/lib/calendar.ts",
+      "source_location": "L43",
+      "id": "lib_calendar_ensurenotificationchannel",
+      "community": 13,
+      "norm_label": "ensurenotificationchannel()"
+    },
+    {
+      "label": "resolveWritableCalendarId()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/lib/calendar.ts",
+      "source_location": "L57",
+      "id": "lib_calendar_resolvewritablecalendarid",
+      "community": 13,
+      "norm_label": "resolvewritablecalendarid()"
+    },
+    {
+      "label": "resolveReminderDate()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/lib/calendar.ts",
+      "source_location": "L70",
+      "id": "lib_calendar_resolvereminderdate",
+      "community": 13,
+      "norm_label": "resolvereminderdate()"
+    },
+    {
+      "label": "scheduleCollectionNotification()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/lib/calendar.ts",
+      "source_location": "L81",
+      "id": "lib_calendar_schedulecollectionnotification",
+      "community": 13,
+      "norm_label": "schedulecollectionnotification()"
+    },
+    {
+      "label": "createCollectionReminder()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/lib/calendar.ts",
+      "source_location": "L107",
+      "id": "lib_calendar_createcollectionreminder",
+      "community": 13,
+      "norm_label": "createcollectionreminder()"
+    },
+    {
+      "label": "calendar.web.ts",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/lib/calendar.web.ts",
+      "source_location": "L1",
+      "id": "mobiloan_src_lib_calendar_web_ts",
+      "community": 31,
+      "norm_label": "calendar.web.ts"
+    },
+    {
+      "label": "createCollectionReminder()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/lib/calendar.web.ts",
+      "source_location": "L3",
+      "id": "lib_calendar_web_createcollectionreminder",
+      "community": 31,
+      "norm_label": "createcollectionreminder()"
     },
     {
       "label": "config.ts",
@@ -612,35 +990,62 @@
       "source_file": "Mobiloan/src/lib/config.ts",
       "source_location": "L1",
       "id": "mobiloan_src_lib_config_ts",
-      "community": 21,
+      "community": 10,
       "norm_label": "config.ts"
     },
     {
       "label": "normalizeApiUrl()",
       "file_type": "code",
       "source_file": "Mobiloan/src/lib/config.ts",
-      "source_location": "L9",
+      "source_location": "L10",
       "id": "lib_config_normalizeapiurl",
-      "community": 21,
+      "community": 10,
       "norm_label": "normalizeapiurl()"
     },
     {
       "label": "resolveExpoHost()",
       "file_type": "code",
       "source_file": "Mobiloan/src/lib/config.ts",
-      "source_location": "L11",
+      "source_location": "L12",
       "id": "lib_config_resolveexpohost",
-      "community": 21,
+      "community": 10,
       "norm_label": "resolveexpohost()"
+    },
+    {
+      "label": "buildApiUrl()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/lib/config.ts",
+      "source_location": "L25",
+      "id": "lib_config_buildapiurl",
+      "community": 10,
+      "norm_label": "buildapiurl()"
+    },
+    {
+      "label": "resolveHostCandidates()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/lib/config.ts",
+      "source_location": "L27",
+      "id": "lib_config_resolvehostcandidates",
+      "community": 10,
+      "norm_label": "resolvehostcandidates()"
     },
     {
       "label": "resolveDefaultApiUrl()",
       "file_type": "code",
       "source_file": "Mobiloan/src/lib/config.ts",
-      "source_location": "L24",
+      "source_location": "L47",
       "id": "lib_config_resolvedefaultapiurl",
-      "community": 21,
+      "community": 10,
       "norm_label": "resolvedefaultapiurl()"
+    },
+    {
+      "label": "getApiCandidates()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/lib/config.ts",
+      "source_location": "L52",
+      "id": "lib_config_getapicandidates",
+      "community": 10,
+      "norm_label": "getapicandidates()"
     },
     {
       "label": "contact.ts",
@@ -648,7 +1053,7 @@
       "source_file": "Mobiloan/src/lib/contact.ts",
       "source_location": "L1",
       "id": "mobiloan_src_lib_contact_ts",
-      "community": 1,
+      "community": 0,
       "norm_label": "contact.ts"
     },
     {
@@ -657,7 +1062,7 @@
       "source_file": "Mobiloan/src/lib/contact.ts",
       "source_location": "L3",
       "id": "lib_contact_normalizephone",
-      "community": 1,
+      "community": 0,
       "norm_label": "normalizephone()"
     },
     {
@@ -666,7 +1071,7 @@
       "source_file": "Mobiloan/src/lib/contact.ts",
       "source_location": "L5",
       "id": "lib_contact_openexternalurl",
-      "community": 1,
+      "community": 0,
       "norm_label": "openexternalurl()"
     },
     {
@@ -675,7 +1080,7 @@
       "source_file": "Mobiloan/src/lib/contact.ts",
       "source_location": "L14",
       "id": "lib_contact_openphonecall",
-      "community": 1,
+      "community": 0,
       "norm_label": "openphonecall()"
     },
     {
@@ -684,7 +1089,7 @@
       "source_file": "Mobiloan/src/lib/contact.ts",
       "source_location": "L27",
       "id": "lib_contact_openwhatsapp",
-      "community": 1,
+      "community": 0,
       "norm_label": "openwhatsapp()"
     },
     {
@@ -693,7 +1098,7 @@
       "source_file": "Mobiloan/src/lib/format.ts",
       "source_location": "L1",
       "id": "mobiloan_src_lib_format_ts",
-      "community": 1,
+      "community": 0,
       "norm_label": "format.ts"
     },
     {
@@ -702,7 +1107,7 @@
       "source_file": "Mobiloan/src/lib/format.ts",
       "source_location": "L1",
       "id": "lib_format_formatcurrency",
-      "community": 1,
+      "community": 0,
       "norm_label": "formatcurrency()"
     },
     {
@@ -711,7 +1116,7 @@
       "source_file": "Mobiloan/src/lib/format.ts",
       "source_location": "L8",
       "id": "lib_format_formatdate",
-      "community": 1,
+      "community": 0,
       "norm_label": "formatdate()"
     },
     {
@@ -720,7 +1125,7 @@
       "source_file": "Mobiloan/src/lib/format.ts",
       "source_location": "L25",
       "id": "lib_format_formatdatetime",
-      "community": 1,
+      "community": 0,
       "norm_label": "formatdatetime()"
     },
     {
@@ -729,7 +1134,7 @@
       "source_file": "Mobiloan/src/lib/format.ts",
       "source_location": "L44",
       "id": "lib_format_getrelativeduelabel",
-      "community": 1,
+      "community": 0,
       "norm_label": "getrelativeduelabel()"
     },
     {
@@ -738,7 +1143,7 @@
       "source_file": "Mobiloan/src/lib/mutationId.ts",
       "source_location": "L1",
       "id": "mobiloan_src_lib_mutationid_ts",
-      "community": 18,
+      "community": 5,
       "norm_label": "mutationid.ts"
     },
     {
@@ -747,7 +1152,7 @@
       "source_file": "Mobiloan/src/lib/mutationId.ts",
       "source_location": "L1",
       "id": "lib_mutationid_createclientmutationid",
-      "community": 18,
+      "community": 5,
       "norm_label": "createclientmutationid()"
     },
     {
@@ -756,8 +1161,53 @@
       "source_file": "Mobiloan/src/lib/secureSession.ts",
       "source_location": "L1",
       "id": "mobiloan_src_lib_securesession_ts",
-      "community": 49,
+      "community": 22,
       "norm_label": "securesession.ts"
+    },
+    {
+      "label": "getWebStorage()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/lib/secureSession.ts",
+      "source_location": "L8",
+      "id": "lib_securesession_getwebstorage",
+      "community": 22,
+      "norm_label": "getwebstorage()"
+    },
+    {
+      "label": "loadFromWeb()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/lib/secureSession.ts",
+      "source_location": "L16",
+      "id": "lib_securesession_loadfromweb",
+      "community": 22,
+      "norm_label": "loadfromweb()"
+    },
+    {
+      "label": "canUseNativeSecureStore()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/lib/secureSession.ts",
+      "source_location": "L30",
+      "id": "lib_securesession_canusenativesecurestore",
+      "community": 22,
+      "norm_label": "canusenativesecurestore()"
+    },
+    {
+      "label": "syncPackage.ts",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/lib/syncPackage.ts",
+      "source_location": "L1",
+      "id": "mobiloan_src_lib_syncpackage_ts",
+      "community": 0,
+      "norm_label": "syncpackage.ts"
+    },
+    {
+      "label": "exportPortableSyncPackage()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/lib/syncPackage.ts",
+      "source_location": "L7",
+      "id": "lib_syncpackage_exportportablesyncpackage",
+      "community": 0,
+      "norm_label": "exportportablesyncpackage()"
     },
     {
       "label": "AppProviders.tsx",
@@ -765,7 +1215,7 @@
       "source_file": "Mobiloan/src/providers/AppProviders.tsx",
       "source_location": "L1",
       "id": "mobiloan_src_providers_appproviders_tsx",
-      "community": 1,
+      "community": 0,
       "norm_label": "appproviders.tsx"
     },
     {
@@ -774,7 +1224,7 @@
       "source_file": "Mobiloan/src/providers/AppProviders.tsx",
       "source_location": "L13",
       "id": "providers_appproviders_invalidateofflinequeries",
-      "community": 1,
+      "community": 0,
       "norm_label": "invalidateofflinequeries()"
     },
     {
@@ -783,7 +1233,7 @@
       "source_file": "Mobiloan/src/providers/AppProviders.tsx",
       "source_location": "L39",
       "id": "providers_appproviders_appproviders",
-      "community": 1,
+      "community": 0,
       "norm_label": "appproviders()"
     },
     {
@@ -792,7 +1242,7 @@
       "source_file": "Mobiloan/src/providers/AppProviders.tsx",
       "source_location": "L156",
       "id": "providers_appproviders_usesession",
-      "community": 1,
+      "community": 0,
       "norm_label": "usesession()"
     },
     {
@@ -801,44 +1251,71 @@
       "source_file": "Mobiloan/src/services/api.ts",
       "source_location": "L1",
       "id": "mobiloan_src_services_api_ts",
-      "community": 19,
+      "community": 10,
       "norm_label": "api.ts"
     },
     {
       "label": "MobileApiError",
       "file_type": "code",
       "source_file": "Mobiloan/src/services/api.ts",
-      "source_location": "L14",
+      "source_location": "L17",
       "id": "services_api_mobileapierror",
-      "community": 19,
+      "community": 10,
       "norm_label": "mobileapierror"
     },
     {
       "label": ".constructor()",
       "file_type": "code",
       "source_file": "Mobiloan/src/services/api.ts",
-      "source_location": "L18",
+      "source_location": "L22",
       "id": "services_api_mobileapierror_constructor",
-      "community": 19,
+      "community": 10,
       "norm_label": ".constructor()"
     },
     {
       "label": "isAuthApiError()",
       "file_type": "code",
       "source_file": "Mobiloan/src/services/api.ts",
-      "source_location": "L26",
+      "source_location": "L36",
       "id": "services_api_isauthapierror",
-      "community": 19,
+      "community": 0,
       "norm_label": "isauthapierror()"
+    },
+    {
+      "label": "isNetworkError()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/services/api.ts",
+      "source_location": "L39",
+      "id": "services_api_isnetworkerror",
+      "community": 10,
+      "norm_label": "isnetworkerror()"
+    },
+    {
+      "label": "describeAttemptedUrls()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/services/api.ts",
+      "source_location": "L45",
+      "id": "services_api_describeattemptedurls",
+      "community": 10,
+      "norm_label": "describeattemptedurls()"
     },
     {
       "label": "parseResponse()",
       "file_type": "code",
       "source_file": "Mobiloan/src/services/api.ts",
-      "source_location": "L29",
+      "source_location": "L48",
       "id": "services_api_parseresponse",
-      "community": 19,
+      "community": 10,
       "norm_label": "parseresponse()"
+    },
+    {
+      "label": "requestWithFallback()",
+      "file_type": "code",
+      "source_file": "Mobiloan/src/services/api.ts",
+      "source_location": "L60",
+      "id": "services_api_requestwithfallback",
+      "community": 10,
+      "norm_label": "requestwithfallback()"
     },
     {
       "label": "sync.ts",
@@ -846,7 +1323,7 @@
       "source_file": "Mobiloan/src/services/sync.ts",
       "source_location": "L1",
       "id": "mobiloan_src_services_sync_ts",
-      "community": 18,
+      "community": 5,
       "norm_label": "sync.ts"
     },
     {
@@ -855,7 +1332,7 @@
       "source_file": "Mobiloan/src/services/sync.ts",
       "source_location": "L14",
       "id": "services_sync_normalizetransaction",
-      "community": 18,
+      "community": 5,
       "norm_label": "normalizetransaction()"
     },
     {
@@ -864,7 +1341,7 @@
       "source_file": "Mobiloan/src/services/sync.ts",
       "source_location": "L34",
       "id": "services_sync_applypushresults",
-      "community": 18,
+      "community": 5,
       "norm_label": "applypushresults()"
     },
     {
@@ -873,7 +1350,7 @@
       "source_file": "Mobiloan/src/types/sync.ts",
       "source_location": "L1",
       "id": "mobiloan_src_types_sync_ts",
-      "community": 50,
+      "community": 51,
       "norm_label": "sync.ts"
     },
     {
@@ -882,7 +1359,7 @@
       "source_file": "Mobiloan/src/ui/styles.ts",
       "source_location": "L1",
       "id": "mobiloan_src_ui_styles_ts",
-      "community": 51,
+      "community": 52,
       "norm_label": "styles.ts"
     },
     {
@@ -891,7 +1368,7 @@
       "source_file": "server/app.js",
       "source_location": "L1",
       "id": "server_app_js",
-      "community": 22,
+      "community": 23,
       "norm_label": "app.js"
     },
     {
@@ -900,7 +1377,7 @@
       "source_file": "server/app.js",
       "source_location": "L9",
       "id": "server_app_lazyroute",
-      "community": 22,
+      "community": 23,
       "norm_label": "lazyroute()"
     },
     {
@@ -909,7 +1386,7 @@
       "source_file": "server/app.js",
       "source_location": "L22",
       "id": "server_app_createapp",
-      "community": 22,
+      "community": 23,
       "norm_label": "createapp()"
     },
     {
@@ -918,7 +1395,7 @@
       "source_file": "server/create-user.js",
       "source_location": "L1",
       "id": "server_create_user_js",
-      "community": 31,
+      "community": 32,
       "norm_label": "create-user.js"
     },
     {
@@ -927,7 +1404,7 @@
       "source_file": "server/create-user.js",
       "source_location": "L6",
       "id": "server_create_user_createuser",
-      "community": 31,
+      "community": 32,
       "norm_label": "createuser()"
     },
     {
@@ -935,9 +1412,18 @@
       "file_type": "code",
       "source_file": "server/index.js",
       "source_location": "L1",
-      "id": "server_index_js",
+      "id": "release_win_unpacked_resources_server_index_js",
       "community": 11,
       "norm_label": "index.js"
+    },
+    {
+      "label": "startServer()",
+      "file_type": "code",
+      "source_file": "server/index.js",
+      "source_location": "L11",
+      "id": "server_index_startserver",
+      "community": 11,
+      "norm_label": "startserver()"
     },
     {
       "label": "shutdown()",
@@ -954,7 +1440,7 @@
       "source_file": "server/prisma.config.ts",
       "source_location": "L1",
       "id": "server_prisma_config_ts",
-      "community": 52,
+      "community": 53,
       "norm_label": "prisma.config.ts"
     },
     {
@@ -963,7 +1449,7 @@
       "source_file": "server/test-zod-error.js",
       "source_location": "L1",
       "id": "server_test_zod_error_js",
-      "community": 53,
+      "community": 54,
       "norm_label": "test-zod-error.js"
     },
     {
@@ -972,7 +1458,7 @@
       "source_file": "server/lib/prisma.js",
       "source_location": "L1",
       "id": "release_win_unpacked_resources_server_lib_prisma_js",
-      "community": 54,
+      "community": 55,
       "norm_label": "prisma.js"
     },
     {
@@ -981,7 +1467,7 @@
       "source_file": "server/middleware/auth.js",
       "source_location": "L1",
       "id": "server_middleware_auth_js",
-      "community": 32,
+      "community": 33,
       "norm_label": "auth.js"
     },
     {
@@ -990,7 +1476,7 @@
       "source_file": "server/middleware/auth.js",
       "source_location": "L20",
       "id": "middleware_auth_authenticatetoken",
-      "community": 32,
+      "community": 33,
       "norm_label": "authenticatetoken()"
     },
     {
@@ -999,16 +1485,16 @@
       "source_file": "server/middleware/rateLimiter.js",
       "source_location": "L1",
       "id": "server_middleware_ratelimiter_js",
-      "community": 55,
+      "community": 56,
       "norm_label": "ratelimiter.js"
     },
     {
       "label": "validation.js",
       "file_type": "code",
-      "source_file": "release/win-unpacked/resources/server/middleware/validation.js",
+      "source_file": "server/middleware/validation.js",
       "source_location": "L1",
-      "id": "release_win_unpacked_resources_server_middleware_validation_js",
-      "community": 26,
+      "id": "server_middleware_validation_js",
+      "community": 27,
       "norm_label": "validation.js"
     },
     {
@@ -1017,7 +1503,7 @@
       "source_file": "server/middleware/validation.js",
       "source_location": "L19",
       "id": "middleware_validation_validate",
-      "community": 26,
+      "community": 27,
       "norm_label": "validate()"
     },
     {
@@ -1026,7 +1512,7 @@
       "source_file": "server/middleware/validationSchemas.js",
       "source_location": "L1",
       "id": "server_middleware_validationschemas_js",
-      "community": 56,
+      "community": 57,
       "norm_label": "validationschemas.js"
     },
     {
@@ -1035,7 +1521,7 @@
       "source_file": "server/routes/ai.js",
       "source_location": "L1",
       "id": "server_routes_ai_js",
-      "community": 33,
+      "community": 34,
       "norm_label": "ai.js"
     },
     {
@@ -1044,7 +1530,7 @@
       "source_file": "server/routes/ai.js",
       "source_location": "L12",
       "id": "routes_ai_mockgemmaresponse",
-      "community": 33,
+      "community": 34,
       "norm_label": "mockgemmaresponse()"
     },
     {
@@ -1053,7 +1539,7 @@
       "source_file": "server/routes/auth.js",
       "source_location": "L1",
       "id": "server_routes_auth_js",
-      "community": 57,
+      "community": 58,
       "norm_label": "auth.js"
     },
     {
@@ -1062,7 +1548,7 @@
       "source_file": "server/routes/backup.js",
       "source_location": "L1",
       "id": "server_routes_backup_js",
-      "community": 58,
+      "community": 59,
       "norm_label": "backup.js"
     },
     {
@@ -1071,7 +1557,7 @@
       "source_file": "server/routes/clients.js",
       "source_location": "L1",
       "id": "server_routes_clients_js",
-      "community": 59,
+      "community": 60,
       "norm_label": "clients.js"
     },
     {
@@ -1080,7 +1566,7 @@
       "source_file": "server/routes/dashboard.js",
       "source_location": "L1",
       "id": "release_win_unpacked_resources_server_routes_dashboard_js",
-      "community": 23,
+      "community": 24,
       "norm_label": "dashboard.js"
     },
     {
@@ -1089,7 +1575,7 @@
       "source_file": "server/routes/dashboard.js",
       "source_location": "L10",
       "id": "routes_dashboard_getremainingamount",
-      "community": 23,
+      "community": 24,
       "norm_label": "getremainingamount()"
     },
     {
@@ -1098,7 +1584,7 @@
       "source_file": "server/routes/dashboard.js",
       "source_location": "L16",
       "id": "routes_dashboard_getloanstatusfrompayments",
-      "community": 23,
+      "community": 24,
       "norm_label": "getloanstatusfrompayments()"
     },
     {
@@ -1107,16 +1593,16 @@
       "source_file": "server/routes/dashboard.js",
       "source_location": "L28",
       "id": "routes_dashboard_syncloansfordashboard",
-      "community": 23,
+      "community": 24,
       "norm_label": "syncloansfordashboard()"
     },
     {
       "label": "import.js",
       "file_type": "code",
-      "source_file": "server/routes/import.js",
+      "source_file": "release/win-unpacked/resources/server/routes/import.js",
       "source_location": "L1",
       "id": "release_win_unpacked_resources_server_routes_import_js",
-      "community": 27,
+      "community": 14,
       "norm_label": "import.js"
     },
     {
@@ -1125,7 +1611,7 @@
       "source_file": "server/routes/import.js",
       "source_location": "L9",
       "id": "routes_import_normalizefrequency",
-      "community": 27,
+      "community": 14,
       "norm_label": "normalizefrequency()"
     },
     {
@@ -1134,7 +1620,7 @@
       "source_file": "server/routes/import.js",
       "source_location": "L14",
       "id": "routes_import_buildclientdata",
-      "community": 27,
+      "community": 14,
       "norm_label": "buildclientdata()"
     },
     {
@@ -1158,29 +1644,11 @@
     {
       "label": "payments.js",
       "file_type": "code",
-      "source_file": "release/win-unpacked/resources/server/routes/payments.js",
+      "source_file": "server/routes/payments.js",
       "source_location": "L1",
-      "id": "release_win_unpacked_resources_server_routes_payments_js",
-      "community": 24,
+      "id": "server_routes_payments_js",
+      "community": 26,
       "norm_label": "payments.js"
-    },
-    {
-      "label": "getLoanStatusFromPayments()",
-      "file_type": "code",
-      "source_file": "release/win-unpacked/resources/server/routes/payments.js",
-      "source_location": "L33",
-      "id": "routes_payments_getloanstatusfrompayments",
-      "community": 24,
-      "norm_label": "getloanstatusfrompayments()"
-    },
-    {
-      "label": "toAmount()",
-      "file_type": "code",
-      "source_file": "release/win-unpacked/resources/server/routes/payments.js",
-      "source_location": "L45",
-      "id": "routes_payments_toamount",
-      "community": 24,
-      "norm_label": "toamount()"
     },
     {
       "label": "reports.js",
@@ -1188,224 +1656,8 @@
       "source_file": "server/routes/reports.js",
       "source_location": "L1",
       "id": "release_win_unpacked_resources_server_routes_reports_js",
-      "community": 60,
-      "norm_label": "reports.js"
-    },
-    {
-      "label": "api.integration.test.js",
-      "file_type": "code",
-      "source_file": "server/tests/api.integration.test.js",
-      "source_location": "L1",
-      "id": "server_tests_api_integration_test_js",
-      "community": 14,
-      "norm_label": "api.integration.test.js"
-    },
-    {
-      "label": "request()",
-      "file_type": "code",
-      "source_file": "server/tests/api.integration.test.js",
-      "source_location": "L97",
-      "id": "tests_api_integration_test_request",
-      "community": 14,
-      "norm_label": "request()"
-    },
-    {
-      "label": "createAuthenticatedLoanFixture()",
-      "file_type": "code",
-      "source_file": "server/tests/api.integration.test.js",
-      "source_location": "L111",
-      "id": "tests_api_integration_test_createauthenticatedloanfixture",
-      "community": 14,
-      "norm_label": "createauthenticatedloanfixture()"
-    },
-    {
-      "label": "amortization.js",
-      "file_type": "code",
-      "source_file": "server/utils/amortization.js",
-      "source_location": "L1",
-      "id": "server_utils_amortization_js",
-      "community": 6,
-      "norm_label": "amortization.js"
-    },
-    {
-      "label": "normalizeFrequency()",
-      "file_type": "code",
-      "source_file": "src/utils/amortization.js",
-      "source_location": "L6",
-      "id": "utils_amortization_normalizefrequency",
-      "community": 6,
-      "norm_label": "normalizefrequency()"
-    },
-    {
-      "label": "buildMonthlySchedule()",
-      "file_type": "code",
-      "source_file": "src/utils/amortization.js",
-      "source_location": "L11",
-      "id": "utils_amortization_buildmonthlyschedule",
-      "community": 6,
-      "norm_label": "buildmonthlyschedule()"
-    },
-    {
-      "label": "splitMonthlySchedule()",
-      "file_type": "code",
-      "source_file": "src/utils/amortization.js",
-      "source_location": "L69",
-      "id": "utils_amortization_splitmonthlyschedule",
-      "community": 6,
-      "norm_label": "splitmonthlyschedule()"
-    },
-    {
-      "label": "calculateAmortization()",
-      "file_type": "code",
-      "source_file": "src/utils/amortization.js",
-      "source_location": "L94",
-      "id": "utils_amortization_calculateamortization",
-      "community": 6,
-      "norm_label": "calculateamortization()"
-    },
-    {
-      "label": "fees.js",
-      "file_type": "code",
-      "source_file": "server/utils/fees.js",
-      "source_location": "L1",
-      "id": "server_utils_fees_js",
-      "community": 34,
-      "norm_label": "fees.js"
-    },
-    {
-      "label": "checkAndApplyLateFees()",
-      "file_type": "code",
-      "source_file": "server/utils/fees.js",
-      "source_location": "L9",
-      "id": "utils_fees_checkandapplylatefees",
-      "community": 34,
-      "norm_label": "checkandapplylatefees()"
-    },
-    {
-      "label": "logger.js",
-      "file_type": "code",
-      "source_file": "server/utils/logger.js",
-      "source_location": "L1",
-      "id": "server_utils_logger_js",
       "community": 61,
-      "norm_label": "logger.js"
-    },
-    {
-      "label": "generate_app_icon.py",
-      "file_type": "code",
-      "source_file": "scripts/generate_app_icon.py",
-      "source_location": "L1",
-      "id": "scripts_generate_app_icon_py",
-      "community": 7,
-      "norm_label": "generate_app_icon.py"
-    },
-    {
-      "label": "draw_lm_mark()",
-      "file_type": "code",
-      "source_file": "scripts/generate_app_icon.py",
-      "source_location": "L23",
-      "id": "scripts_generate_app_icon_draw_lm_mark",
-      "community": 7,
-      "norm_label": "draw_lm_mark()"
-    },
-    {
-      "label": "draw_coin()",
-      "file_type": "code",
-      "source_file": "scripts/generate_app_icon.py",
-      "source_location": "L32",
-      "id": "scripts_generate_app_icon_draw_coin",
-      "community": 7,
-      "norm_label": "draw_coin()"
-    },
-    {
-      "label": "draw_document()",
-      "file_type": "code",
-      "source_file": "scripts/generate_app_icon.py",
-      "source_location": "L40",
-      "id": "scripts_generate_app_icon_draw_document",
-      "community": 7,
-      "norm_label": "draw_document()"
-    },
-    {
-      "label": "draw_growth()",
-      "file_type": "code",
-      "source_file": "scripts/generate_app_icon.py",
-      "source_location": "L52",
-      "id": "scripts_generate_app_icon_draw_growth",
-      "community": 7,
-      "norm_label": "draw_growth()"
-    },
-    {
-      "label": "build_icon()",
-      "file_type": "code",
-      "source_file": "scripts/generate_app_icon.py",
-      "source_location": "L61",
-      "id": "scripts_generate_app_icon_build_icon",
-      "community": 7,
-      "norm_label": "build_icon()"
-    },
-    {
-      "label": "build_preview()",
-      "file_type": "code",
-      "source_file": "scripts/generate_app_icon.py",
-      "source_location": "L73",
-      "id": "scripts_generate_app_icon_build_preview",
-      "community": 7,
-      "norm_label": "build_preview()"
-    },
-    {
-      "label": "build_svg()",
-      "file_type": "code",
-      "source_file": "scripts/generate_app_icon.py",
-      "source_location": "L79",
-      "id": "scripts_generate_app_icon_build_svg",
-      "community": 7,
-      "norm_label": "build_svg()"
-    },
-    {
-      "label": "save_outputs()",
-      "file_type": "code",
-      "source_file": "scripts/generate_app_icon.py",
-      "source_location": "L108",
-      "id": "scripts_generate_app_icon_save_outputs",
-      "community": 7,
-      "norm_label": "save_outputs()"
-    },
-    {
-      "label": "main()",
-      "file_type": "code",
-      "source_file": "scripts/generate_app_icon.py",
-      "source_location": "L120",
-      "id": "scripts_generate_app_icon_main",
-      "community": 7,
-      "norm_label": "main()"
-    },
-    {
-      "label": "startServer()",
-      "file_type": "code",
-      "source_file": "server/index.js",
-      "source_location": "L11",
-      "id": "server_index_startserver",
-      "community": 11,
-      "norm_label": "startserver()"
-    },
-    {
-      "label": "validation.js",
-      "file_type": "code",
-      "source_file": "server/middleware/validation.js",
-      "source_location": "L1",
-      "id": "server_middleware_validation_js",
-      "community": 26,
-      "norm_label": "validation.js"
-    },
-    {
-      "label": "payments.js",
-      "file_type": "code",
-      "source_file": "server/routes/payments.js",
-      "source_location": "L1",
-      "id": "server_routes_payments_js",
-      "community": 24,
-      "norm_label": "payments.js"
+      "norm_label": "reports.js"
     },
     {
       "label": "sync.js",
@@ -1413,7 +1665,7 @@
       "source_file": "server/routes/sync.js",
       "source_location": "L1",
       "id": "server_routes_sync_js",
-      "community": 12,
+      "community": 15,
       "norm_label": "sync.js"
     },
     {
@@ -1422,7 +1674,7 @@
       "source_file": "server/routes/sync.js",
       "source_location": "L9",
       "id": "routes_sync_buildcursorfilter",
-      "community": 12,
+      "community": 15,
       "norm_label": "buildcursorfilter()"
     },
     {
@@ -1431,7 +1683,7 @@
       "source_file": "server/routes/sync.js",
       "source_location": "L14",
       "id": "routes_sync_todateornull",
-      "community": 12,
+      "community": 15,
       "norm_label": "todateornull()"
     },
     {
@@ -1440,7 +1692,7 @@
       "source_file": "server/routes/sync.js",
       "source_location": "L23",
       "id": "routes_sync_fetchbootstrapdata",
-      "community": 12,
+      "community": 15,
       "norm_label": "fetchbootstrapdata()"
     },
     {
@@ -1449,7 +1701,7 @@
       "source_file": "server/routes/sync.js",
       "source_location": "L54",
       "id": "routes_sync_fetchchangessince",
-      "community": 12,
+      "community": 15,
       "norm_label": "fetchchangessince()"
     },
     {
@@ -1458,7 +1710,7 @@
       "source_file": "server/routes/sync.js",
       "source_location": "L91",
       "id": "routes_sync_fetchdeletedidssince",
-      "community": 12,
+      "community": 15,
       "norm_label": "fetchdeletedidssince()"
     },
     {
@@ -1467,8 +1719,17 @@
       "source_file": "server/routes/sync.js",
       "source_location": "L142",
       "id": "routes_sync_mapsyncerror",
-      "community": 12,
+      "community": 15,
       "norm_label": "mapsyncerror()"
+    },
+    {
+      "label": "api.integration.test.js",
+      "file_type": "code",
+      "source_file": "server/tests/api.integration.test.js",
+      "source_location": "L1",
+      "id": "server_tests_api_integration_test_js",
+      "community": 17,
+      "norm_label": "api.integration.test.js"
     },
     {
       "label": "ensureSyncDeletedRecordTable()",
@@ -1476,7 +1737,7 @@
       "source_file": "server/tests/api.integration.test.js",
       "source_location": "L24",
       "id": "tests_api_integration_test_ensuresyncdeletedrecordtable",
-      "community": 14,
+      "community": 17,
       "norm_label": "ensuresyncdeletedrecordtable()"
     },
     {
@@ -1485,15 +1746,78 @@
       "source_file": "server/tests/api.integration.test.js",
       "source_location": "L41",
       "id": "tests_api_integration_test_resetdatabase",
-      "community": 14,
+      "community": 17,
       "norm_label": "resetdatabase()"
+    },
+    {
+      "label": "request()",
+      "file_type": "code",
+      "source_file": "server/tests/api.integration.test.js",
+      "source_location": "L97",
+      "id": "tests_api_integration_test_request",
+      "community": 17,
+      "norm_label": "request()"
+    },
+    {
+      "label": "createAuthenticatedLoanFixture()",
+      "file_type": "code",
+      "source_file": "server/tests/api.integration.test.js",
+      "source_location": "L111",
+      "id": "tests_api_integration_test_createauthenticatedloanfixture",
+      "community": 17,
+      "norm_label": "createauthenticatedloanfixture()"
+    },
+    {
+      "label": "amortization.js",
+      "file_type": "code",
+      "source_file": "server/utils/amortization.js",
+      "source_location": "L1",
+      "id": "server_utils_amortization_js",
+      "community": 7,
+      "norm_label": "amortization.js"
+    },
+    {
+      "label": "normalizeFrequency()",
+      "file_type": "code",
+      "source_file": "src/utils/amortization.js",
+      "source_location": "L6",
+      "id": "utils_amortization_normalizefrequency",
+      "community": 7,
+      "norm_label": "normalizefrequency()"
+    },
+    {
+      "label": "buildMonthlySchedule()",
+      "file_type": "code",
+      "source_file": "src/utils/amortization.js",
+      "source_location": "L11",
+      "id": "utils_amortization_buildmonthlyschedule",
+      "community": 7,
+      "norm_label": "buildmonthlyschedule()"
+    },
+    {
+      "label": "splitMonthlySchedule()",
+      "file_type": "code",
+      "source_file": "src/utils/amortization.js",
+      "source_location": "L69",
+      "id": "utils_amortization_splitmonthlyschedule",
+      "community": 7,
+      "norm_label": "splitmonthlyschedule()"
+    },
+    {
+      "label": "calculateAmortization()",
+      "file_type": "code",
+      "source_file": "src/utils/amortization.js",
+      "source_location": "L94",
+      "id": "utils_amortization_calculateamortization",
+      "community": 7,
+      "norm_label": "calculateamortization()"
     },
     {
       "label": "ensureDatabaseCompatibility.js",
       "file_type": "code",
       "source_file": "server/utils/ensureDatabaseCompatibility.js",
       "source_location": "L1",
-      "id": "server_utils_ensuredatabasecompatibility_js",
+      "id": "release_win_unpacked_resources_server_utils_ensuredatabasecompatibility_js",
       "community": 11,
       "norm_label": "ensuredatabasecompatibility.js"
     },
@@ -1528,7 +1852,7 @@
       "label": "ensureSyncDeletedRecordsTable()",
       "file_type": "code",
       "source_file": "server/utils/ensureDatabaseCompatibility.js",
-      "source_location": "L45",
+      "source_location": "L49",
       "id": "utils_ensuredatabasecompatibility_ensuresyncdeletedrecordstable",
       "community": 11,
       "norm_label": "ensuresyncdeletedrecordstable()"
@@ -1537,10 +1861,37 @@
       "label": "ensureDatabaseCompatibility()",
       "file_type": "code",
       "source_file": "server/utils/ensureDatabaseCompatibility.js",
-      "source_location": "L68",
+      "source_location": "L72",
       "id": "utils_ensuredatabasecompatibility_ensuredatabasecompatibility",
       "community": 11,
       "norm_label": "ensuredatabasecompatibility()"
+    },
+    {
+      "label": "fees.js",
+      "file_type": "code",
+      "source_file": "server/utils/fees.js",
+      "source_location": "L1",
+      "id": "server_utils_fees_js",
+      "community": 35,
+      "norm_label": "fees.js"
+    },
+    {
+      "label": "checkAndApplyLateFees()",
+      "file_type": "code",
+      "source_file": "server/utils/fees.js",
+      "source_location": "L9",
+      "id": "utils_fees_checkandapplylatefees",
+      "community": 35,
+      "norm_label": "checkandapplylatefees()"
+    },
+    {
+      "label": "logger.js",
+      "file_type": "code",
+      "source_file": "server/utils/logger.js",
+      "source_location": "L1",
+      "id": "server_utils_logger_js",
+      "community": 62,
+      "norm_label": "logger.js"
     },
     {
       "label": "paymentTransactions.js",
@@ -1606,12 +1957,156 @@
       "norm_label": "recorddeletedentities()"
     },
     {
+      "label": "generate_app_icon.py",
+      "file_type": "code",
+      "source_file": "scripts/generate_app_icon.py",
+      "source_location": "L1",
+      "id": "scripts_generate_app_icon_py",
+      "community": 8,
+      "norm_label": "generate_app_icon.py"
+    },
+    {
+      "label": "draw_lm_mark()",
+      "file_type": "code",
+      "source_file": "scripts/generate_app_icon.py",
+      "source_location": "L23",
+      "id": "scripts_generate_app_icon_draw_lm_mark",
+      "community": 8,
+      "norm_label": "draw_lm_mark()"
+    },
+    {
+      "label": "draw_coin()",
+      "file_type": "code",
+      "source_file": "scripts/generate_app_icon.py",
+      "source_location": "L32",
+      "id": "scripts_generate_app_icon_draw_coin",
+      "community": 8,
+      "norm_label": "draw_coin()"
+    },
+    {
+      "label": "draw_document()",
+      "file_type": "code",
+      "source_file": "scripts/generate_app_icon.py",
+      "source_location": "L40",
+      "id": "scripts_generate_app_icon_draw_document",
+      "community": 8,
+      "norm_label": "draw_document()"
+    },
+    {
+      "label": "draw_growth()",
+      "file_type": "code",
+      "source_file": "scripts/generate_app_icon.py",
+      "source_location": "L52",
+      "id": "scripts_generate_app_icon_draw_growth",
+      "community": 8,
+      "norm_label": "draw_growth()"
+    },
+    {
+      "label": "build_icon()",
+      "file_type": "code",
+      "source_file": "scripts/generate_app_icon.py",
+      "source_location": "L61",
+      "id": "scripts_generate_app_icon_build_icon",
+      "community": 8,
+      "norm_label": "build_icon()"
+    },
+    {
+      "label": "build_preview()",
+      "file_type": "code",
+      "source_file": "scripts/generate_app_icon.py",
+      "source_location": "L73",
+      "id": "scripts_generate_app_icon_build_preview",
+      "community": 8,
+      "norm_label": "build_preview()"
+    },
+    {
+      "label": "build_svg()",
+      "file_type": "code",
+      "source_file": "scripts/generate_app_icon.py",
+      "source_location": "L79",
+      "id": "scripts_generate_app_icon_build_svg",
+      "community": 8,
+      "norm_label": "build_svg()"
+    },
+    {
+      "label": "save_outputs()",
+      "file_type": "code",
+      "source_file": "scripts/generate_app_icon.py",
+      "source_location": "L108",
+      "id": "scripts_generate_app_icon_save_outputs",
+      "community": 8,
+      "norm_label": "save_outputs()"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "scripts/generate_app_icon.py",
+      "source_location": "L120",
+      "id": "scripts_generate_app_icon_main",
+      "community": 8,
+      "norm_label": "main()"
+    },
+    {
+      "label": "import.js",
+      "file_type": "code",
+      "source_file": "server/routes/import.js",
+      "source_location": "L1",
+      "id": "server_routes_import_js",
+      "community": 14,
+      "norm_label": "import.js"
+    },
+    {
+      "label": "sortByDate()",
+      "file_type": "code",
+      "source_file": "server/routes/import.js",
+      "source_location": "L22",
+      "id": "routes_import_sortbydate",
+      "community": 14,
+      "norm_label": "sortbydate()"
+    },
+    {
+      "label": "deriveImportedPaymentStatus()",
+      "file_type": "code",
+      "source_file": "server/routes/import.js",
+      "source_location": "L24",
+      "id": "routes_import_deriveimportedpaymentstatus",
+      "community": 14,
+      "norm_label": "deriveimportedpaymentstatus()"
+    },
+    {
+      "label": "deriveImportedLoanStatus()",
+      "file_type": "code",
+      "source_file": "server/routes/import.js",
+      "source_location": "L41",
+      "id": "routes_import_deriveimportedloanstatus",
+      "community": 14,
+      "norm_label": "deriveimportedloanstatus()"
+    },
+    {
+      "label": "importSpreadsheetData()",
+      "file_type": "code",
+      "source_file": "server/routes/import.js",
+      "source_location": "L53",
+      "id": "routes_import_importspreadsheetdata",
+      "community": 14,
+      "norm_label": "importspreadsheetdata()"
+    },
+    {
+      "label": "importMobiloanPortableData()",
+      "file_type": "code",
+      "source_file": "server/routes/import.js",
+      "source_location": "L123",
+      "id": "routes_import_importmobiloanportabledata",
+      "community": 14,
+      "norm_label": "importmobiloanportabledata()"
+    },
+    {
       "label": "App.jsx",
       "file_type": "code",
       "source_file": "src/App.jsx",
       "source_location": "L1",
       "id": "src_app_jsx",
-      "community": 3,
+      "community": 4,
       "norm_label": "app.jsx"
     },
     {
@@ -1620,7 +2115,7 @@
       "source_file": "src/App.jsx",
       "source_location": "L21",
       "id": "src_app_pageloader",
-      "community": 3,
+      "community": 4,
       "norm_label": "pageloader()"
     },
     {
@@ -1629,7 +2124,7 @@
       "source_file": "src/App.jsx",
       "source_location": "L27",
       "id": "src_app_protectedroute",
-      "community": 3,
+      "community": 4,
       "norm_label": "protectedroute()"
     },
     {
@@ -1638,7 +2133,7 @@
       "source_file": "src/App.jsx",
       "source_location": "L33",
       "id": "src_app_useresponsivedesktopscale",
-      "community": 3,
+      "community": 4,
       "norm_label": "useresponsivedesktopscale()"
     },
     {
@@ -1647,7 +2142,7 @@
       "source_file": "src/App.jsx",
       "source_location": "L60",
       "id": "src_app_layout",
-      "community": 3,
+      "community": 4,
       "norm_label": "layout()"
     },
     {
@@ -1656,7 +2151,7 @@
       "source_file": "src/App.jsx",
       "source_location": "L111",
       "id": "src_app_app",
-      "community": 3,
+      "community": 4,
       "norm_label": "app()"
     },
     {
@@ -1665,7 +2160,7 @@
       "source_file": "src/main.jsx",
       "source_location": "L1",
       "id": "src_main_jsx",
-      "community": 62,
+      "community": 63,
       "norm_label": "main.jsx"
     },
     {
@@ -1674,7 +2169,7 @@
       "source_file": "src/components/ConfirmModal.jsx",
       "source_location": "L1",
       "id": "src_components_confirmmodal_jsx",
-      "community": 35,
+      "community": 36,
       "norm_label": "confirmmodal.jsx"
     },
     {
@@ -1683,7 +2178,7 @@
       "source_file": "src/components/ConfirmModal.jsx",
       "source_location": "L4",
       "id": "components_confirmmodal_confirmmodal",
-      "community": 35,
+      "community": 36,
       "norm_label": "confirmmodal()"
     },
     {
@@ -1692,7 +2187,7 @@
       "source_file": "src/components/ErrorBoundary.jsx",
       "source_location": "L1",
       "id": "src_components_errorboundary_jsx",
-      "community": 15,
+      "community": 18,
       "norm_label": "errorboundary.jsx"
     },
     {
@@ -1701,7 +2196,7 @@
       "source_file": "src/components/ErrorBoundary.jsx",
       "source_location": "L3",
       "id": "components_errorboundary_errorboundary",
-      "community": 15,
+      "community": 18,
       "norm_label": "errorboundary"
     },
     {
@@ -1710,7 +2205,7 @@
       "source_file": "src/components/ErrorBoundary.jsx",
       "source_location": "L4",
       "id": "components_errorboundary_errorboundary_constructor",
-      "community": 15,
+      "community": 18,
       "norm_label": ".constructor()"
     },
     {
@@ -1719,7 +2214,7 @@
       "source_file": "src/components/ErrorBoundary.jsx",
       "source_location": "L9",
       "id": "components_errorboundary_errorboundary_getderivedstatefromerror",
-      "community": 15,
+      "community": 18,
       "norm_label": ".getderivedstatefromerror()"
     },
     {
@@ -1728,7 +2223,7 @@
       "source_file": "src/components/ErrorBoundary.jsx",
       "source_location": "L13",
       "id": "components_errorboundary_errorboundary_componentdidcatch",
-      "community": 15,
+      "community": 18,
       "norm_label": ".componentdidcatch()"
     },
     {
@@ -1737,7 +2232,7 @@
       "source_file": "src/components/ErrorBoundary.jsx",
       "source_location": "L18",
       "id": "components_errorboundary_errorboundary_render",
-      "community": 15,
+      "community": 18,
       "norm_label": ".render()"
     },
     {
@@ -1746,7 +2241,7 @@
       "source_file": "src/components/PagareModal.jsx",
       "source_location": "L1",
       "id": "src_components_pagaremodal_jsx",
-      "community": 0,
+      "community": 1,
       "norm_label": "pagaremodal.jsx"
     },
     {
@@ -1755,7 +2250,7 @@
       "source_file": "src/components/PagareModal.jsx",
       "source_location": "L7",
       "id": "components_pagaremodal_getpreferredloanid",
-      "community": 0,
+      "community": 1,
       "norm_label": "getpreferredloanid()"
     },
     {
@@ -1764,7 +2259,7 @@
       "source_file": "src/components/PagareModal.jsx",
       "source_location": "L21",
       "id": "components_pagaremodal_pagaremodal",
-      "community": 0,
+      "community": 1,
       "norm_label": "pagaremodal()"
     },
     {
@@ -1773,7 +2268,7 @@
       "source_file": "src/components/PaymentModal.jsx",
       "source_location": "L1",
       "id": "src_components_paymentmodal_jsx",
-      "community": 6,
+      "community": 7,
       "norm_label": "paymentmodal.jsx"
     },
     {
@@ -1782,7 +2277,7 @@
       "source_file": "src/components/PaymentModal.jsx",
       "source_location": "L6",
       "id": "components_paymentmodal_paymentmodal",
-      "community": 6,
+      "community": 7,
       "norm_label": "paymentmodal()"
     },
     {
@@ -1791,7 +2286,7 @@
       "source_file": "src/components/PaymentScheduleTable.jsx",
       "source_location": "L1",
       "id": "src_components_paymentscheduletable_jsx",
-      "community": 0,
+      "community": 1,
       "norm_label": "paymentscheduletable.jsx"
     },
     {
@@ -1800,7 +2295,7 @@
       "source_file": "src/components/PaymentScheduleTable.jsx",
       "source_location": "L9",
       "id": "components_paymentscheduletable_toamount",
-      "community": 0,
+      "community": 1,
       "norm_label": "toamount()"
     },
     {
@@ -1809,7 +2304,7 @@
       "source_file": "src/components/PaymentScheduleTable.jsx",
       "source_location": "L11",
       "id": "components_paymentscheduletable_paymentscheduletable",
-      "community": 0,
+      "community": 1,
       "norm_label": "paymentscheduletable()"
     },
     {
@@ -1818,7 +2313,7 @@
       "source_file": "src/components/Sidebar.jsx",
       "source_location": "L1",
       "id": "src_components_sidebar_jsx",
-      "community": 3,
+      "community": 4,
       "norm_label": "sidebar.jsx"
     },
     {
@@ -1827,7 +2322,7 @@
       "source_file": "src/components/Sidebar.jsx",
       "source_location": "L11",
       "id": "components_sidebar_sidebar",
-      "community": 3,
+      "community": 4,
       "norm_label": "sidebar()"
     },
     {
@@ -1836,7 +2331,7 @@
       "source_file": "src/components/Sidebar.jsx",
       "source_location": "L90",
       "id": "components_sidebar_footer",
-      "community": 3,
+      "community": 4,
       "norm_label": "footer()"
     },
     {
@@ -1845,7 +2340,7 @@
       "source_file": "src/components/dashboard/DashboardKPI.jsx",
       "source_location": "L1",
       "id": "src_components_dashboard_dashboardkpi_jsx",
-      "community": 6,
+      "community": 7,
       "norm_label": "dashboardkpi.jsx"
     },
     {
@@ -1854,7 +2349,7 @@
       "source_file": "src/components/dashboard/DashboardKPI.jsx",
       "source_location": "L7",
       "id": "dashboard_dashboardkpi_kpicard",
-      "community": 6,
+      "community": 7,
       "norm_label": "kpicard()"
     },
     {
@@ -1863,7 +2358,7 @@
       "source_file": "src/components/dashboard/DashboardKPI.jsx",
       "source_location": "L42",
       "id": "dashboard_dashboardkpi_dashboardkpi",
-      "community": 6,
+      "community": 7,
       "norm_label": "dashboardkpi()"
     },
     {
@@ -1872,7 +2367,7 @@
       "source_file": "src/components/dashboard/PortfolioChart.jsx",
       "source_location": "L1",
       "id": "src_components_dashboard_portfoliochart_jsx",
-      "community": 16,
+      "community": 19,
       "norm_label": "portfoliochart.jsx"
     },
     {
@@ -1881,7 +2376,7 @@
       "source_file": "src/components/dashboard/PortfolioChart.jsx",
       "source_location": "L5",
       "id": "dashboard_portfoliochart_portfoliochart",
-      "community": 16,
+      "community": 19,
       "norm_label": "portfoliochart()"
     },
     {
@@ -1890,7 +2385,7 @@
       "source_file": "src/components/dashboard/RecentActivity.jsx",
       "source_location": "L1",
       "id": "src_components_dashboard_recentactivity_jsx",
-      "community": 0,
+      "community": 1,
       "norm_label": "recentactivity.jsx"
     },
     {
@@ -1899,7 +2394,7 @@
       "source_file": "src/components/dashboard/RecentActivity.jsx",
       "source_location": "L7",
       "id": "dashboard_recentactivity_recentactivity",
-      "community": 0,
+      "community": 1,
       "norm_label": "recentactivity()"
     },
     {
@@ -1908,7 +2403,7 @@
       "source_file": "src/components/dashboard/RevenueChart.jsx",
       "source_location": "L1",
       "id": "src_components_dashboard_revenuechart_jsx",
-      "community": 16,
+      "community": 19,
       "norm_label": "revenuechart.jsx"
     },
     {
@@ -1917,7 +2412,7 @@
       "source_file": "src/components/dashboard/RevenueChart.jsx",
       "source_location": "L5",
       "id": "dashboard_revenuechart_revenuechart",
-      "community": 16,
+      "community": 19,
       "norm_label": "revenuechart()"
     },
     {
@@ -1926,7 +2421,7 @@
       "source_file": "src/components/ui/Skeleton.jsx",
       "source_location": "L1",
       "id": "src_components_ui_skeleton_jsx",
-      "community": 0,
+      "community": 1,
       "norm_label": "skeleton.jsx"
     },
     {
@@ -1935,7 +2430,7 @@
       "source_file": "src/components/ui/Skeleton.jsx",
       "source_location": "L4",
       "id": "ui_skeleton_skeleton",
-      "community": 0,
+      "community": 1,
       "norm_label": "skeleton()"
     },
     {
@@ -1944,7 +2439,7 @@
       "source_file": "src/config/api.js",
       "source_location": "L1",
       "id": "src_config_api_js",
-      "community": 36,
+      "community": 37,
       "norm_label": "api.js"
     },
     {
@@ -1953,7 +2448,7 @@
       "source_file": "src/config/api.js",
       "source_location": "L1",
       "id": "config_api_resolvedefaultapiurl",
-      "community": 36,
+      "community": 37,
       "norm_label": "resolvedefaultapiurl()"
     },
     {
@@ -1962,7 +2457,7 @@
       "source_file": "src/context/auth-context.js",
       "source_location": "L1",
       "id": "src_context_auth_context_js",
-      "community": 63,
+      "community": 64,
       "norm_label": "auth-context.js"
     },
     {
@@ -1971,7 +2466,7 @@
       "source_file": "src/context/AuthContext.jsx",
       "source_location": "L1",
       "id": "src_context_authcontext_jsx",
-      "community": 3,
+      "community": 4,
       "norm_label": "authcontext.jsx"
     },
     {
@@ -1980,7 +2475,7 @@
       "source_file": "src/context/AuthContext.jsx",
       "source_location": "L5",
       "id": "context_authcontext_authprovider",
-      "community": 3,
+      "community": 4,
       "norm_label": "authprovider()"
     },
     {
@@ -1989,7 +2484,7 @@
       "source_file": "src/context/loan-context.js",
       "source_location": "L1",
       "id": "src_context_loan_context_js",
-      "community": 64,
+      "community": 65,
       "norm_label": "loan-context.js"
     },
     {
@@ -1998,7 +2493,7 @@
       "source_file": "src/context/LoanContext.jsx",
       "source_location": "L1",
       "id": "src_context_loancontext_jsx",
-      "community": 3,
+      "community": 4,
       "norm_label": "loancontext.jsx"
     },
     {
@@ -2007,7 +2502,7 @@
       "source_file": "src/context/LoanContext.jsx",
       "source_location": "L8",
       "id": "context_loancontext_loanprovider",
-      "community": 3,
+      "community": 4,
       "norm_label": "loanprovider()"
     },
     {
@@ -2016,7 +2511,7 @@
       "source_file": "src/context/theme-context.js",
       "source_location": "L1",
       "id": "src_context_theme_context_js",
-      "community": 65,
+      "community": 66,
       "norm_label": "theme-context.js"
     },
     {
@@ -2025,7 +2520,7 @@
       "source_file": "src/context/ThemeContext.jsx",
       "source_location": "L1",
       "id": "src_context_themecontext_jsx",
-      "community": 3,
+      "community": 4,
       "norm_label": "themecontext.jsx"
     },
     {
@@ -2034,7 +2529,7 @@
       "source_file": "src/context/ThemeContext.jsx",
       "source_location": "L4",
       "id": "context_themecontext_themeprovider",
-      "community": 3,
+      "community": 4,
       "norm_label": "themeprovider()"
     },
     {
@@ -2043,7 +2538,7 @@
       "source_file": "src/context/useAuth.js",
       "source_location": "L1",
       "id": "src_context_useauth_js",
-      "community": 3,
+      "community": 4,
       "norm_label": "useauth.js"
     },
     {
@@ -2052,7 +2547,7 @@
       "source_file": "src/context/useAuth.js",
       "source_location": "L4",
       "id": "context_useauth_useauth",
-      "community": 3,
+      "community": 4,
       "norm_label": "useauth()"
     },
     {
@@ -2061,7 +2556,7 @@
       "source_file": "src/context/useLoans.js",
       "source_location": "L1",
       "id": "src_context_useloans_js",
-      "community": 0,
+      "community": 1,
       "norm_label": "useloans.js"
     },
     {
@@ -2070,7 +2565,7 @@
       "source_file": "src/context/useLoans.js",
       "source_location": "L4",
       "id": "context_useloans_useloans",
-      "community": 0,
+      "community": 1,
       "norm_label": "useloans()"
     },
     {
@@ -2079,7 +2574,7 @@
       "source_file": "src/context/useTheme.js",
       "source_location": "L1",
       "id": "src_context_usetheme_js",
-      "community": 3,
+      "community": 4,
       "norm_label": "usetheme.js"
     },
     {
@@ -2088,7 +2583,7 @@
       "source_file": "src/context/useTheme.js",
       "source_location": "L4",
       "id": "context_usetheme_usetheme",
-      "community": 3,
+      "community": 4,
       "norm_label": "usetheme()"
     },
     {
@@ -2097,7 +2592,7 @@
       "source_file": "src/context/__tests__/LoanContext.test.jsx",
       "source_location": "L1",
       "id": "src_context_tests_loancontext_test_jsx",
-      "community": 3,
+      "community": 4,
       "norm_label": "loancontext.test.jsx"
     },
     {
@@ -2106,7 +2601,7 @@
       "source_file": "src/context/__tests__/LoanContext.test.jsx",
       "source_location": "L24",
       "id": "tests_loancontext_test_createwrapper",
-      "community": 3,
+      "community": 4,
       "norm_label": "createwrapper()"
     },
     {
@@ -2115,7 +2610,7 @@
       "source_file": "src/hooks/useElementSize.js",
       "source_location": "L1",
       "id": "src_hooks_useelementsize_js",
-      "community": 16,
+      "community": 19,
       "norm_label": "useelementsize.js"
     },
     {
@@ -2124,7 +2619,7 @@
       "source_file": "src/hooks/useElementSize.js",
       "source_location": "L5",
       "id": "hooks_useelementsize_useelementsize",
-      "community": 16,
+      "community": 19,
       "norm_label": "useelementsize()"
     },
     {
@@ -2133,7 +2628,7 @@
       "source_file": "src/hooks/useLoanHealth.js",
       "source_location": "L1",
       "id": "src_hooks_useloanhealth_js",
-      "community": 5,
+      "community": 3,
       "norm_label": "useloanhealth.js"
     },
     {
@@ -2142,7 +2637,7 @@
       "source_file": "src/hooks/useLoanHealth.js",
       "source_location": "L4",
       "id": "hooks_useloanhealth_useloanhealth",
-      "community": 5,
+      "community": 3,
       "norm_label": "useloanhealth()"
     },
     {
@@ -2151,7 +2646,7 @@
       "source_file": "src/pages/Calculator.jsx",
       "source_location": "L1",
       "id": "src_pages_calculator_jsx",
-      "community": 6,
+      "community": 7,
       "norm_label": "calculator.jsx"
     },
     {
@@ -2160,7 +2655,7 @@
       "source_file": "src/pages/Calculator.jsx",
       "source_location": "L14",
       "id": "pages_calculator_calculator",
-      "community": 6,
+      "community": 7,
       "norm_label": "calculator()"
     },
     {
@@ -2169,7 +2664,7 @@
       "source_file": "src/pages/ClientDetail.jsx",
       "source_location": "L1",
       "id": "src_pages_clientdetail_jsx",
-      "community": 0,
+      "community": 1,
       "norm_label": "clientdetail.jsx"
     },
     {
@@ -2178,7 +2673,7 @@
       "source_file": "src/pages/ClientDetail.jsx",
       "source_location": "L13",
       "id": "pages_clientdetail_isvalidemail",
-      "community": 0,
+      "community": 1,
       "norm_label": "isvalidemail()"
     },
     {
@@ -2187,7 +2682,7 @@
       "source_file": "src/pages/ClientDetail.jsx",
       "source_location": "L16",
       "id": "pages_clientdetail_clientdetail",
-      "community": 0,
+      "community": 1,
       "norm_label": "clientdetail()"
     },
     {
@@ -2196,7 +2691,7 @@
       "source_file": "src/pages/Clients.jsx",
       "source_location": "L1",
       "id": "src_pages_clients_jsx",
-      "community": 0,
+      "community": 1,
       "norm_label": "clients.jsx"
     },
     {
@@ -2205,7 +2700,7 @@
       "source_file": "src/pages/Clients.jsx",
       "source_location": "L12",
       "id": "pages_clients_isvalidemail",
-      "community": 0,
+      "community": 1,
       "norm_label": "isvalidemail()"
     },
     {
@@ -2214,7 +2709,7 @@
       "source_file": "src/pages/Clients.jsx",
       "source_location": "L14",
       "id": "pages_clients_clients",
-      "community": 0,
+      "community": 1,
       "norm_label": "clients()"
     },
     {
@@ -2223,7 +2718,7 @@
       "source_file": "src/pages/Collections.jsx",
       "source_location": "L1",
       "id": "src_pages_collections_jsx",
-      "community": 0,
+      "community": 1,
       "norm_label": "collections.jsx"
     },
     {
@@ -2232,7 +2727,7 @@
       "source_file": "src/pages/Collections.jsx",
       "source_location": "L10",
       "id": "pages_collections_getpaymentdetailpath",
-      "community": 0,
+      "community": 1,
       "norm_label": "getpaymentdetailpath()"
     },
     {
@@ -2241,7 +2736,7 @@
       "source_file": "src/pages/Collections.jsx",
       "source_location": "L14",
       "id": "pages_collections_tabbutton",
-      "community": 0,
+      "community": 1,
       "norm_label": "tabbutton()"
     },
     {
@@ -2250,7 +2745,7 @@
       "source_file": "src/pages/Collections.jsx",
       "source_location": "L33",
       "id": "pages_collections_collections",
-      "community": 0,
+      "community": 1,
       "norm_label": "collections()"
     },
     {
@@ -2259,7 +2754,7 @@
       "source_file": "src/pages/Dashboard.jsx",
       "source_location": "L1",
       "id": "src_pages_dashboard_jsx",
-      "community": 0,
+      "community": 1,
       "norm_label": "dashboard.jsx"
     },
     {
@@ -2268,7 +2763,7 @@
       "source_file": "src/pages/Dashboard.jsx",
       "source_location": "L12",
       "id": "pages_dashboard_getpaymentdetailpath",
-      "community": 0,
+      "community": 1,
       "norm_label": "getpaymentdetailpath()"
     },
     {
@@ -2277,7 +2772,7 @@
       "source_file": "src/pages/Dashboard.jsx",
       "source_location": "L19",
       "id": "pages_dashboard_chartskeleton",
-      "community": 0,
+      "community": 1,
       "norm_label": "chartskeleton()"
     },
     {
@@ -2286,7 +2781,7 @@
       "source_file": "src/pages/Dashboard.jsx",
       "source_location": "L21",
       "id": "pages_dashboard_dashboard",
-      "community": 0,
+      "community": 1,
       "norm_label": "dashboard()"
     },
     {
@@ -2295,7 +2790,7 @@
       "source_file": "src/pages/ImportData.jsx",
       "source_location": "L1",
       "id": "src_pages_importdata_jsx",
-      "community": 0,
+      "community": 1,
       "norm_label": "importdata.jsx"
     },
     {
@@ -2304,7 +2799,7 @@
       "source_file": "src/pages/ImportData.jsx",
       "source_location": "L12",
       "id": "pages_importdata_loadxlsx",
-      "community": 0,
+      "community": 1,
       "norm_label": "loadxlsx()"
     },
     {
@@ -2313,7 +2808,7 @@
       "source_file": "src/pages/ImportData.jsx",
       "source_location": "L20",
       "id": "pages_importdata_importdata",
-      "community": 0,
+      "community": 1,
       "norm_label": "importdata()"
     },
     {
@@ -2322,7 +2817,7 @@
       "source_file": "src/pages/LoanDetail.jsx",
       "source_location": "L1",
       "id": "src_pages_loandetail_jsx",
-      "community": 5,
+      "community": 3,
       "norm_label": "loandetail.jsx"
     },
     {
@@ -2331,7 +2826,7 @@
       "source_file": "src/pages/LoanDetail.jsx",
       "source_location": "L42",
       "id": "pages_loandetail_sectionloader",
-      "community": 5,
+      "community": 3,
       "norm_label": "sectionloader()"
     },
     {
@@ -2340,7 +2835,7 @@
       "source_file": "src/pages/LoanDetail.jsx",
       "source_location": "L48",
       "id": "pages_loandetail_getloantypelabel",
-      "community": 5,
+      "community": 3,
       "norm_label": "getloantypelabel()"
     },
     {
@@ -2349,7 +2844,7 @@
       "source_file": "src/pages/LoanDetail.jsx",
       "source_location": "L49",
       "id": "pages_loandetail_getfrequencylabel",
-      "community": 5,
+      "community": 3,
       "norm_label": "getfrequencylabel()"
     },
     {
@@ -2358,7 +2853,7 @@
       "source_file": "src/pages/LoanDetail.jsx",
       "source_location": "L56",
       "id": "pages_loandetail_loandetail",
-      "community": 5,
+      "community": 3,
       "norm_label": "loandetail()"
     },
     {
@@ -2367,7 +2862,7 @@
       "source_file": "src/pages/LoanDetail.test.jsx",
       "source_location": "L1",
       "id": "src_pages_loandetail_test_jsx",
-      "community": 37,
+      "community": 38,
       "norm_label": "loandetail.test.jsx"
     },
     {
@@ -2376,7 +2871,7 @@
       "source_file": "src/pages/LoanDetail.test.jsx",
       "source_location": "L91",
       "id": "pages_loandetail_test_locationprobe",
-      "community": 37,
+      "community": 38,
       "norm_label": "locationprobe()"
     },
     {
@@ -2385,7 +2880,7 @@
       "source_file": "src/pages/Loans.jsx",
       "source_location": "L1",
       "id": "src_pages_loans_jsx",
-      "community": 5,
+      "community": 3,
       "norm_label": "loans.jsx"
     },
     {
@@ -2394,7 +2889,7 @@
       "source_file": "src/pages/Loans.jsx",
       "source_location": "L19",
       "id": "pages_loans_getpaymentdetailpath",
-      "community": 5,
+      "community": 3,
       "norm_label": "getpaymentdetailpath()"
     },
     {
@@ -2403,7 +2898,7 @@
       "source_file": "src/pages/Loans.jsx",
       "source_location": "L23",
       "id": "pages_loans_loans",
-      "community": 5,
+      "community": 3,
       "norm_label": "loans()"
     },
     {
@@ -2412,7 +2907,7 @@
       "source_file": "src/pages/Login.jsx",
       "source_location": "L1",
       "id": "src_pages_login_jsx",
-      "community": 3,
+      "community": 4,
       "norm_label": "login.jsx"
     },
     {
@@ -2421,7 +2916,7 @@
       "source_file": "src/pages/Login.jsx",
       "source_location": "L6",
       "id": "pages_login_login",
-      "community": 3,
+      "community": 4,
       "norm_label": "login()"
     },
     {
@@ -2430,7 +2925,7 @@
       "source_file": "src/pages/NewLoan.jsx",
       "source_location": "L1",
       "id": "src_pages_newloan_jsx",
-      "community": 0,
+      "community": 1,
       "norm_label": "newloan.jsx"
     },
     {
@@ -2439,7 +2934,7 @@
       "source_file": "src/pages/NewLoan.jsx",
       "source_location": "L20",
       "id": "pages_newloan_isvalidemail",
-      "community": 0,
+      "community": 1,
       "norm_label": "isvalidemail()"
     },
     {
@@ -2448,7 +2943,7 @@
       "source_file": "src/pages/NewLoan.jsx",
       "source_location": "L26",
       "id": "pages_newloan_newloan",
-      "community": 0,
+      "community": 1,
       "norm_label": "newloan()"
     },
     {
@@ -2457,7 +2952,7 @@
       "source_file": "src/utils/amortization.js",
       "source_location": "L1",
       "id": "src_utils_amortization_js",
-      "community": 6,
+      "community": 7,
       "norm_label": "amortization.js"
     },
     {
@@ -2466,7 +2961,7 @@
       "source_file": "src/utils/amortization.test.js",
       "source_location": "L1",
       "id": "src_utils_amortization_test_js",
-      "community": 6,
+      "community": 7,
       "norm_label": "amortization.test.js"
     },
     {
@@ -2475,7 +2970,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L1",
       "id": "src_utils_calendar_js",
-      "community": 4,
+      "community": 6,
       "norm_label": "calendar.js"
     },
     {
@@ -2484,7 +2979,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L7",
       "id": "utils_calendar_pad",
-      "community": 4,
+      "community": 6,
       "norm_label": "pad()"
     },
     {
@@ -2493,7 +2988,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L9",
       "id": "utils_calendar_todateinstance",
-      "community": 4,
+      "community": 6,
       "norm_label": "todateinstance()"
     },
     {
@@ -2502,7 +2997,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L13",
       "id": "utils_calendar_formatgoogledate",
-      "community": 4,
+      "community": 6,
       "norm_label": "formatgoogledate()"
     },
     {
@@ -2511,7 +3006,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L28",
       "id": "utils_calendar_formatutcdatetime",
-      "community": 4,
+      "community": 6,
       "norm_label": "formatutcdatetime()"
     },
     {
@@ -2520,7 +3015,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L43",
       "id": "utils_calendar_formatcurrentutcstamp",
-      "community": 4,
+      "community": 6,
       "norm_label": "formatcurrentutcstamp()"
     },
     {
@@ -2529,7 +3024,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L52",
       "id": "utils_calendar_escapeicstext",
-      "community": 4,
+      "community": 6,
       "norm_label": "escapeicstext()"
     },
     {
@@ -2538,7 +3033,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L58",
       "id": "utils_calendar_slugifyfilepart",
-      "community": 4,
+      "community": 6,
       "norm_label": "slugifyfilepart()"
     },
     {
@@ -2547,7 +3042,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L64",
       "id": "utils_calendar_downloadcalendarblob",
-      "community": 4,
+      "community": 6,
       "norm_label": "downloadcalendarblob()"
     },
     {
@@ -2556,7 +3051,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L76",
       "id": "utils_calendar_createcalendarevent",
-      "community": 4,
+      "community": 6,
       "norm_label": "createcalendarevent()"
     },
     {
@@ -2565,7 +3060,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L106",
       "id": "utils_calendar_buildcalendarfile",
-      "community": 4,
+      "community": 6,
       "norm_label": "buildcalendarfile()"
     },
     {
@@ -2574,7 +3069,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L116",
       "id": "utils_calendar_generategooglecalendarlink",
-      "community": 4,
+      "community": 6,
       "norm_label": "generategooglecalendarlink()"
     },
     {
@@ -2583,7 +3078,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L128",
       "id": "utils_calendar_getpaymenteventdetails",
-      "community": 4,
+      "community": 6,
       "norm_label": "getpaymenteventdetails()"
     },
     {
@@ -2592,7 +3087,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L138",
       "id": "utils_calendar_downloadpaymentreminder",
-      "community": 4,
+      "community": 6,
       "norm_label": "downloadpaymentreminder()"
     },
     {
@@ -2601,7 +3096,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L161",
       "id": "utils_calendar_downloadloancalendar",
-      "community": 4,
+      "community": 6,
       "norm_label": "downloadloancalendar()"
     },
     {
@@ -2610,7 +3105,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L189",
       "id": "utils_calendar_downloadbulkloancalendars",
-      "community": 4,
+      "community": 6,
       "norm_label": "downloadbulkloancalendars()"
     },
     {
@@ -2619,7 +3114,7 @@
       "source_file": "src/utils/calendar.js",
       "source_location": "L219",
       "id": "utils_calendar_opengooglecalendar",
-      "community": 4,
+      "community": 6,
       "norm_label": "opengooglecalendar()"
     },
     {
@@ -2628,7 +3123,7 @@
       "source_file": "src/utils/cn.js",
       "source_location": "L1",
       "id": "src_utils_cn_js",
-      "community": 0,
+      "community": 1,
       "norm_label": "cn.js"
     },
     {
@@ -2637,7 +3132,7 @@
       "source_file": "src/utils/cn.js",
       "source_location": "L4",
       "id": "utils_cn_cn",
-      "community": 0,
+      "community": 1,
       "norm_label": "cn()"
     },
     {
@@ -2646,7 +3141,7 @@
       "source_file": "src/utils/communication.js",
       "source_location": "L1",
       "id": "src_utils_communication_js",
-      "community": 0,
+      "community": 1,
       "norm_label": "communication.js"
     },
     {
@@ -2655,7 +3150,7 @@
       "source_file": "src/utils/communication.js",
       "source_location": "L3",
       "id": "utils_communication_normalizephonenumber",
-      "community": 0,
+      "community": 1,
       "norm_label": "normalizephonenumber()"
     },
     {
@@ -2664,7 +3159,7 @@
       "source_file": "src/utils/communication.js",
       "source_location": "L5",
       "id": "utils_communication_formatcurrency",
-      "community": 0,
+      "community": 1,
       "norm_label": "formatcurrency()"
     },
     {
@@ -2673,7 +3168,7 @@
       "source_file": "src/utils/communication.js",
       "source_location": "L10",
       "id": "utils_communication_hasphonenumber",
-      "community": 0,
+      "community": 1,
       "norm_label": "hasphonenumber()"
     },
     {
@@ -2682,7 +3177,7 @@
       "source_file": "src/utils/communication.js",
       "source_location": "L12",
       "id": "utils_communication_generatewhatsapplink",
-      "community": 0,
+      "community": 1,
       "norm_label": "generatewhatsapplink()"
     },
     {
@@ -2691,7 +3186,7 @@
       "source_file": "src/utils/communication.js",
       "source_location": "L22",
       "id": "utils_communication_generatemailtolink",
-      "community": 0,
+      "community": 1,
       "norm_label": "generatemailtolink()"
     },
     {
@@ -2700,7 +3195,7 @@
       "source_file": "src/utils/communication.js",
       "source_location": "L28",
       "id": "utils_communication_generateemaillink",
-      "community": 0,
+      "community": 1,
       "norm_label": "generateemaillink()"
     },
     {
@@ -2709,7 +3204,7 @@
       "source_file": "src/utils/communication.js",
       "source_location": "L34",
       "id": "utils_communication_openexternallink",
-      "community": 0,
+      "community": 1,
       "norm_label": "openexternallink()"
     },
     {
@@ -2718,7 +3213,7 @@
       "source_file": "src/utils/communication.js",
       "source_location": "L65",
       "id": "utils_communication_getreceiptmessage",
-      "community": 0,
+      "community": 1,
       "norm_label": "getreceiptmessage()"
     },
     {
@@ -2727,7 +3222,7 @@
       "source_file": "src/utils/communication.js",
       "source_location": "L69",
       "id": "utils_communication_getremindermessage",
-      "community": 0,
+      "community": 1,
       "norm_label": "getremindermessage()"
     },
     {
@@ -2736,7 +3231,7 @@
       "source_file": "src/utils/dates.js",
       "source_location": "L1",
       "id": "src_utils_dates_js",
-      "community": 5,
+      "community": 3,
       "norm_label": "dates.js"
     },
     {
@@ -2745,7 +3240,7 @@
       "source_file": "src/utils/dates.js",
       "source_location": "L6",
       "id": "utils_dates_parsestoreddate",
-      "community": 5,
+      "community": 3,
       "norm_label": "parsestoreddate()"
     },
     {
@@ -2754,7 +3249,7 @@
       "source_file": "src/utils/dates.js",
       "source_location": "L24",
       "id": "utils_dates_comparestoreddates",
-      "community": 5,
+      "community": 3,
       "norm_label": "comparestoreddates()"
     },
     {
@@ -2763,7 +3258,7 @@
       "source_file": "src/utils/dates.js",
       "source_location": "L35",
       "id": "utils_dates_formatstoreddate",
-      "community": 5,
+      "community": 3,
       "norm_label": "formatstoreddate()"
     },
     {
@@ -2772,7 +3267,7 @@
       "source_file": "src/utils/dates.js",
       "source_location": "L40",
       "id": "utils_dates_tostoredlocaledate",
-      "community": 5,
+      "community": 1,
       "norm_label": "tostoredlocaledate()"
     },
     {
@@ -2781,7 +3276,7 @@
       "source_file": "src/utils/dates.js",
       "source_location": "L45",
       "id": "utils_dates_getstoreddatedaylabel",
-      "community": 5,
+      "community": 3,
       "norm_label": "getstoreddatedaylabel()"
     },
     {
@@ -2790,7 +3285,7 @@
       "source_file": "src/utils/formatters.js",
       "source_location": "L1",
       "id": "src_utils_formatters_js",
-      "community": 6,
+      "community": 7,
       "norm_label": "formatters.js"
     },
     {
@@ -2799,7 +3294,7 @@
       "source_file": "src/utils/formatters.js",
       "source_location": "L1",
       "id": "utils_formatters_formatcurrency",
-      "community": 6,
+      "community": 7,
       "norm_label": "formatcurrency()"
     },
     {
@@ -2808,7 +3303,7 @@
       "source_file": "src/utils/mockData.js",
       "source_location": "L1",
       "id": "src_utils_mockdata_js",
-      "community": 38,
+      "community": 39,
       "norm_label": "mockdata.js"
     },
     {
@@ -2817,7 +3312,7 @@
       "source_file": "src/utils/mockData.js",
       "source_location": "L3",
       "id": "utils_mockdata_generatemockdata",
-      "community": 38,
+      "community": 39,
       "norm_label": "generatemockdata()"
     },
     {
@@ -3078,7 +3573,7 @@
       "source_file": "src/utils/pdfGenerator.js",
       "source_location": "L1",
       "id": "src_utils_pdfgenerator_js",
-      "community": 9,
+      "community": 12,
       "norm_label": "pdfgenerator.js"
     },
     {
@@ -3087,7 +3582,7 @@
       "source_file": "src/utils/pdfGenerator.js",
       "source_location": "L9",
       "id": "utils_pdfgenerator_getloaninterestrate",
-      "community": 9,
+      "community": 12,
       "norm_label": "getloaninterestrate()"
     },
     {
@@ -3096,7 +3591,7 @@
       "source_file": "src/utils/pdfGenerator.js",
       "source_location": "L10",
       "id": "utils_pdfgenerator_getloandurationmonths",
-      "community": 9,
+      "community": 12,
       "norm_label": "getloandurationmonths()"
     },
     {
@@ -3105,7 +3600,7 @@
       "source_file": "src/utils/pdfGenerator.js",
       "source_location": "L11",
       "id": "utils_pdfgenerator_getamount",
-      "community": 9,
+      "community": 12,
       "norm_label": "getamount()"
     },
     {
@@ -3114,7 +3609,7 @@
       "source_file": "src/utils/pdfGenerator.js",
       "source_location": "L12",
       "id": "utils_pdfgenerator_gettext",
-      "community": 9,
+      "community": 12,
       "norm_label": "gettext()"
     },
     {
@@ -3123,7 +3618,7 @@
       "source_file": "src/utils/pdfGenerator.js",
       "source_location": "L16",
       "id": "utils_pdfgenerator_getdatelabel",
-      "community": 9,
+      "community": 12,
       "norm_label": "getdatelabel()"
     },
     {
@@ -3132,7 +3627,7 @@
       "source_file": "src/utils/pdfGenerator.js",
       "source_location": "L17",
       "id": "utils_pdfgenerator_getfilesafelabel",
-      "community": 9,
+      "community": 12,
       "norm_label": "getfilesafelabel()"
     },
     {
@@ -3141,7 +3636,7 @@
       "source_file": "src/utils/pdfGenerator.js",
       "source_location": "L21",
       "id": "utils_pdfgenerator_downloadblob",
-      "community": 9,
+      "community": 12,
       "norm_label": "downloadblob()"
     },
     {
@@ -3150,7 +3645,7 @@
       "source_file": "src/utils/pdfGenerator.js",
       "source_location": "L32",
       "id": "utils_pdfgenerator_getschedulerows",
-      "community": 9,
+      "community": 12,
       "norm_label": "getschedulerows()"
     },
     {
@@ -3159,7 +3654,7 @@
       "source_file": "src/utils/pdfGenerator.js",
       "source_location": "L44",
       "id": "utils_pdfgenerator_generateloancontract",
-      "community": 9,
+      "community": 12,
       "norm_label": "generateloancontract()"
     },
     {
@@ -3168,7 +3663,7 @@
       "source_file": "src/utils/pdfGenerator.js",
       "source_location": "L99",
       "id": "utils_pdfgenerator_generatereceipt",
-      "community": 9,
+      "community": 12,
       "norm_label": "generatereceipt()"
     },
     {
@@ -3177,7 +3672,7 @@
       "source_file": "src/utils/rut.js",
       "source_location": "L1",
       "id": "src_utils_rut_js",
-      "community": 0,
+      "community": 1,
       "norm_label": "rut.js"
     },
     {
@@ -3186,7 +3681,7 @@
       "source_file": "src/utils/rut.js",
       "source_location": "L1",
       "id": "utils_rut_cleanrut",
-      "community": 0,
+      "community": 1,
       "norm_label": "cleanrut()"
     },
     {
@@ -3195,7 +3690,7 @@
       "source_file": "src/utils/rut.js",
       "source_location": "L3",
       "id": "utils_rut_normalizerut",
-      "community": 0,
+      "community": 1,
       "norm_label": "normalizerut()"
     },
     {
@@ -3204,7 +3699,7 @@
       "source_file": "src/utils/rut.js",
       "source_location": "L5",
       "id": "utils_rut_formatrut",
-      "community": 0,
+      "community": 2,
       "norm_label": "formatrut()"
     },
     {
@@ -3213,7 +3708,7 @@
       "source_file": "src/utils/rut.js",
       "source_location": "L17",
       "id": "utils_rut_isvalidrut",
-      "community": 0,
+      "community": 1,
       "norm_label": "isvalidrut()"
     },
     {
@@ -3222,7 +3717,7 @@
       "source_file": "src/utils/rut.js",
       "source_location": "L39",
       "id": "utils_rut_formatrutinput",
-      "community": 0,
+      "community": 1,
       "norm_label": "formatrutinput()"
     },
     {
@@ -3231,7 +3726,7 @@
       "source_file": "src/utils/wordGenerator.js",
       "source_location": "L1",
       "id": "src_utils_wordgenerator_js",
-      "community": 8,
+      "community": 3,
       "norm_label": "wordgenerator.js"
     },
     {
@@ -3240,7 +3735,7 @@
       "source_file": "src/utils/wordGenerator.js",
       "source_location": "L6",
       "id": "utils_wordgenerator_getloaninterestrate",
-      "community": 8,
+      "community": 3,
       "norm_label": "getloaninterestrate()"
     },
     {
@@ -3249,7 +3744,7 @@
       "source_file": "src/utils/wordGenerator.js",
       "source_location": "L7",
       "id": "utils_wordgenerator_getloandurationmonths",
-      "community": 8,
+      "community": 3,
       "norm_label": "getloandurationmonths()"
     },
     {
@@ -3258,7 +3753,7 @@
       "source_file": "src/utils/wordGenerator.js",
       "source_location": "L8",
       "id": "utils_wordgenerator_getamount",
-      "community": 8,
+      "community": 3,
       "norm_label": "getamount()"
     },
     {
@@ -3267,7 +3762,7 @@
       "source_file": "src/utils/wordGenerator.js",
       "source_location": "L9",
       "id": "utils_wordgenerator_gettext",
-      "community": 8,
+      "community": 3,
       "norm_label": "gettext()"
     },
     {
@@ -3276,7 +3771,7 @@
       "source_file": "src/utils/wordGenerator.js",
       "source_location": "L13",
       "id": "utils_wordgenerator_getdatelabel",
-      "community": 8,
+      "community": 3,
       "norm_label": "getdatelabel()"
     },
     {
@@ -3285,7 +3780,7 @@
       "source_file": "src/utils/wordGenerator.js",
       "source_location": "L14",
       "id": "utils_wordgenerator_getfilesafelabel",
-      "community": 8,
+      "community": 3,
       "norm_label": "getfilesafelabel()"
     },
     {
@@ -3294,7 +3789,7 @@
       "source_file": "src/utils/wordGenerator.js",
       "source_location": "L19",
       "id": "utils_wordgenerator_downloadblob",
-      "community": 8,
+      "community": 3,
       "norm_label": "downloadblob()"
     },
     {
@@ -3303,7 +3798,7 @@
       "source_file": "src/utils/wordGenerator.js",
       "source_location": "L30",
       "id": "utils_wordgenerator_buildscheduletablerows",
-      "community": 8,
+      "community": 3,
       "norm_label": "buildscheduletablerows()"
     },
     {
@@ -3312,7 +3807,7 @@
       "source_file": "src/utils/wordGenerator.js",
       "source_location": "L46",
       "id": "utils_wordgenerator_generatewordcontract",
-      "community": 8,
+      "community": 3,
       "norm_label": "generatewordcontract()"
     },
     {
@@ -3321,15 +3816,69 @@
       "source_file": "src/utils/wordGenerator.js",
       "source_location": "L132",
       "id": "utils_wordgenerator_generatewordreceipt",
-      "community": 8,
+      "community": 3,
       "norm_label": "generatewordreceipt()"
+    },
+    {
+      "label": "index.js",
+      "file_type": "code",
+      "source_file": "server/index.js",
+      "source_location": "L1",
+      "community": 11,
+      "norm_label": "index.js",
+      "id": "server_index_js"
+    },
+    {
+      "label": "validation.js",
+      "file_type": "code",
+      "source_file": "release/win-unpacked/resources/server/middleware/validation.js",
+      "source_location": "L1",
+      "community": 27,
+      "norm_label": "validation.js",
+      "id": "release_win_unpacked_resources_server_middleware_validation_js"
+    },
+    {
+      "label": "payments.js",
+      "file_type": "code",
+      "source_file": "release/win-unpacked/resources/server/routes/payments.js",
+      "source_location": "L1",
+      "community": 26,
+      "norm_label": "payments.js",
+      "id": "release_win_unpacked_resources_server_routes_payments_js"
+    },
+    {
+      "label": "getLoanStatusFromPayments()",
+      "file_type": "code",
+      "source_file": "release/win-unpacked/resources/server/routes/payments.js",
+      "source_location": "L33",
+      "community": 26,
+      "norm_label": "getloanstatusfrompayments()",
+      "id": "routes_payments_getloanstatusfrompayments"
+    },
+    {
+      "label": "toAmount()",
+      "file_type": "code",
+      "source_file": "release/win-unpacked/resources/server/routes/payments.js",
+      "source_location": "L45",
+      "community": 26,
+      "norm_label": "toamount()",
+      "id": "routes_payments_toamount"
+    },
+    {
+      "label": "ensureDatabaseCompatibility.js",
+      "file_type": "code",
+      "source_file": "server/utils/ensureDatabaseCompatibility.js",
+      "source_location": "L1",
+      "community": 11,
+      "norm_label": "ensuredatabasecompatibility.js",
+      "id": "server_utils_ensuredatabasecompatibility_js"
     },
     {
       "label": "formatDate()",
       "file_type": "code",
       "source_file": "Mobiloan/app/(app)/loans/[id].tsx",
       "source_location": "L196",
-      "community": 1,
+      "community": 0,
       "norm_label": "formatdate()",
       "id": "loans_id_formatdate"
     },
@@ -3338,7 +3887,7 @@
       "file_type": "code",
       "source_file": "release/test-install-2/resources/server/app.js",
       "source_location": "L1",
-      "community": 22,
+      "community": 23,
       "norm_label": "app.js",
       "id": "release_win_unpacked_resources_server_app_js"
     },
@@ -3347,7 +3896,7 @@
       "file_type": "code",
       "source_file": "release/win-unpacked/resources/server/routes/auth.js",
       "source_location": "L1",
-      "community": 66,
+      "community": 67,
       "norm_label": "auth.js",
       "id": "release_win_unpacked_resources_server_routes_auth_js"
     },
@@ -3356,7 +3905,7 @@
       "file_type": "code",
       "source_file": "server/routes/reports.js",
       "source_location": "L1",
-      "community": 67,
+      "community": 68,
       "norm_label": "reports.js",
       "id": "server_routes_reports_js"
     },
@@ -3365,7 +3914,7 @@
       "file_type": "code",
       "source_file": "release/win-unpacked/resources/server/tests/api.integration.test.js",
       "source_location": "L1",
-      "community": 14,
+      "community": 17,
       "norm_label": "api.integration.test.js",
       "id": "release_win_unpacked_resources_server_tests_api_integration_test_js"
     },
@@ -3374,7 +3923,7 @@
       "file_type": "code",
       "source_file": "src/pages/Loans.jsx",
       "source_location": "L22",
-      "community": 5,
+      "community": 3,
       "norm_label": "getdisplayloancode()",
       "id": "pages_loans_getdisplayloancode"
     },
@@ -3383,7 +3932,7 @@
       "file_type": "code",
       "source_file": "scripts/generate_app_icon.py",
       "source_location": "L24",
-      "community": 7,
+      "community": 8,
       "norm_label": "make_gradient()",
       "id": "scripts_generate_app_icon_make_gradient"
     },
@@ -3392,7 +3941,7 @@
       "file_type": "code",
       "source_file": "scripts/generate_app_icon.py",
       "source_location": "L48",
-      "community": 7,
+      "community": 8,
       "norm_label": "build_symbol_mask()",
       "id": "scripts_generate_app_icon_build_symbol_mask"
     },
@@ -3401,7 +3950,7 @@
       "file_type": "code",
       "source_file": "scripts/generate_app_icon.py",
       "source_location": "L81",
-      "community": 7,
+      "community": 8,
       "norm_label": "build_cutout_mask()",
       "id": "scripts_generate_app_icon_build_cutout_mask"
     },
@@ -3410,7 +3959,7 @@
       "file_type": "code",
       "source_file": "scripts/generate_app_icon.py",
       "source_location": "L117",
-      "community": 7,
+      "community": 8,
       "norm_label": "build_shadow()",
       "id": "scripts_generate_app_icon_build_shadow"
     },
@@ -3482,7 +4031,7 @@
       "file_type": "code",
       "source_file": "scripts/generate_app_icon.py",
       "source_location": "L19",
-      "community": 7,
+      "community": 8,
       "norm_label": "load_font()",
       "id": "scripts_generate_app_icon_load_font"
     },
@@ -3491,7 +4040,7 @@
       "file_type": "code",
       "source_file": "release/win-unpacked/resources/server/routes/clients.js",
       "source_location": "L1",
-      "community": 68,
+      "community": 69,
       "norm_label": "clients.js",
       "id": "release_win_unpacked_resources_server_routes_clients_js"
     },
@@ -3724,6 +4273,16 @@
       "target": "providers_appproviders_usesession"
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/app/login.tsx",
+      "source_location": "L67",
+      "weight": 1.0,
+      "source": "mobiloan_app_login_tsx",
+      "target": "app_login_handlelocalaccess",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -3780,11 +4339,33 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "Mobiloan/app/(app)/index.tsx",
-      "source_location": "L14",
+      "source_file": "Mobiloan/app/(app)/calculator.tsx",
+      "source_location": "L4",
       "weight": 1.0,
-      "source": "mobiloan_app_app_index_tsx",
-      "target": "lib_contact_openphonecall",
+      "source": "mobiloan_app_app_calculator_tsx",
+      "target": "lib_amortization_calculateamortization",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/app/(app)/calculator.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "mobiloan_app_app_calculator_tsx",
+      "target": "lib_format_formatcurrency",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/app/(app)/calculator.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "mobiloan_app_app_calculator_tsx",
+      "target": "lib_format_formatdate",
       "confidence_score": 1.0
     },
     {
@@ -3794,8 +4375,30 @@
       "source_file": "Mobiloan/app/(app)/index.tsx",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "mobiloan_app_app_index_tsx",
-      "target": "lib_contact_openwhatsapp",
+      "target": "lib_contact_openphonecall"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/app/(app)/index.tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "mobiloan_app_app_index_tsx",
+      "target": "lib_contact_openwhatsapp"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/app/(app)/index.tsx",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "mobiloan_app_app_index_tsx",
+      "target": "lib_calendar_createcollectionreminder",
       "confidence_score": 1.0
     },
     {
@@ -3838,8 +4441,19 @@
       "source_file": "Mobiloan/app/(app)/index.tsx",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "mobiloan_app_app_index_tsx",
-      "target": "lib_format_getrelativeduelabel",
+      "target": "lib_format_getrelativeduelabel"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/app/(app)/index.tsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "mobiloan_app_app_index_tsx",
+      "target": "lib_syncpackage_exportportablesyncpackage",
       "confidence_score": 1.0
     },
     {
@@ -3967,9 +4581,31 @@
       "source_file": "Mobiloan/app/(app)/index.tsx",
       "source_location": "L366",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "mobiloan_app_app_index_tsx",
-      "target": "app_index_formatcurrency",
+      "target": "app_index_formatcurrency"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/app/(app)/index.tsx",
+      "source_location": "L467",
+      "weight": 1.0,
+      "source": "app_index_async",
+      "target": "app_index_handlesync",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "Mobiloan/app/(app)/index.tsx",
+      "source_location": "L110",
+      "weight": 1.0,
+      "source": "app_index_async",
+      "target": "lib_syncpackage_exportportablesyncpackage"
     },
     {
       "relation": "calls",
@@ -3981,6 +4617,136 @@
       "weight": 1.0,
       "source": "app_index_async",
       "target": "lib_contact_openwhatsapp"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "Mobiloan/app/(app)/index.tsx",
+      "source_location": "L284",
+      "weight": 1.0,
+      "source": "app_index_async",
+      "target": "lib_format_formatdate"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/app/(app)/new-client.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "mobiloan_app_app_new_client_tsx",
+      "target": "hooks_usesyncactions_usecreatelocalclient",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/app/(app)/new-client.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "mobiloan_app_app_new_client_tsx",
+      "target": "app_new_client_newclientscreen",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "Mobiloan/app/(app)/new-client.tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "app_new_client_newclientscreen",
+      "target": "hooks_usesyncactions_usecreatelocalclient"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/app/(app)/new-loan.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "mobiloan_app_app_new_loan_tsx",
+      "target": "hooks_useofflinedata_useallclients",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/app/(app)/new-loan.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "mobiloan_app_app_new_loan_tsx",
+      "target": "hooks_usesyncactions_usecreatelocalloan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/app/(app)/new-loan.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "mobiloan_app_app_new_loan_tsx",
+      "target": "lib_amortization_calculateamortization",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/app/(app)/new-loan.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "mobiloan_app_app_new_loan_tsx",
+      "target": "lib_format_formatcurrency",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/app/(app)/new-loan.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "mobiloan_app_app_new_loan_tsx",
+      "target": "lib_format_formatdate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/app/(app)/new-loan.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "mobiloan_app_app_new_loan_tsx",
+      "target": "app_new_loan_newloanscreen",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "Mobiloan/app/(app)/new-loan.tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "app_new_loan_newloanscreen",
+      "target": "hooks_useofflinedata_useallclients"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "Mobiloan/app/(app)/new-loan.tsx",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "app_new_loan_newloanscreen",
+      "target": "hooks_usesyncactions_usecreatelocalloan"
     },
     {
       "relation": "imports",
@@ -4019,22 +4785,11 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "Mobiloan/app/(app)/clients/[id].tsx",
-      "source_location": "L4",
+      "source_location": "L5",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "mobiloan_app_app_clients_id_tsx",
-      "target": "lib_contact_openphonecall"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "Mobiloan/app/(app)/clients/[id].tsx",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "mobiloan_app_app_clients_id_tsx",
-      "target": "lib_contact_openwhatsapp"
+      "target": "hooks_useofflinedata_useclientdetail"
     },
     {
       "relation": "imports",
@@ -4063,11 +4818,22 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "Mobiloan/app/(app)/clients/[id].tsx",
-      "source_location": "L5",
+      "source_location": "L4",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "mobiloan_app_app_clients_id_tsx",
-      "target": "hooks_useofflinedata_useclientdetail"
+      "target": "lib_contact_openphonecall"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/app/(app)/clients/[id].tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "mobiloan_app_app_clients_id_tsx",
+      "target": "lib_contact_openwhatsapp"
     },
     {
       "relation": "contains",
@@ -4111,6 +4877,17 @@
       "confidence_score": 1.0,
       "source": "mobiloan_app_app_loans_id_tsx",
       "target": "lib_contact_openwhatsapp"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/app/(app)/loans/[id].tsx",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "mobiloan_app_app_loans_id_tsx",
+      "target": "lib_calendar_createcollectionreminder",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -4231,6 +5008,28 @@
       "target": "lib_contact_openwhatsapp"
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/data/database.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "mobiloan_src_data_database_ts",
+      "target": "lib_amortization_calculateamortization",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/data/database.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "mobiloan_src_data_database_ts",
+      "target": "lib_mutationid_createclientmutationid",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "Mobiloan/src/data/database.ts",
@@ -4269,6 +5068,16 @@
       "confidence_score": 1.0,
       "source": "mobiloan_src_data_database_ts",
       "target": "data_database_tonumber"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/data/database.ts",
+      "source_location": "L45",
+      "weight": 1.0,
+      "source": "mobiloan_src_data_database_ts",
+      "target": "data_database_createlocalid",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -4320,6 +5129,235 @@
       "confidence_score": 1.0,
       "source": "data_database_derivepaymentstatus",
       "target": "data_database_ispastdue"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "mobiloan_src_data_database_web_ts",
+      "target": "lib_amortization_calculateamortization",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "mobiloan_src_data_database_web_ts",
+      "target": "data_database_web_createlocalid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L32",
+      "weight": 1.0,
+      "source": "mobiloan_src_data_database_web_ts",
+      "target": "data_database_web_defaultstate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "mobiloan_src_data_database_web_ts",
+      "target": "data_database_web_clone",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L43",
+      "weight": 1.0,
+      "source": "mobiloan_src_data_database_web_ts",
+      "target": "data_database_web_getstorage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L51",
+      "weight": 1.0,
+      "source": "mobiloan_src_data_database_web_ts",
+      "target": "data_database_web_loadstate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L77",
+      "weight": 1.0,
+      "source": "mobiloan_src_data_database_web_ts",
+      "target": "data_database_web_savestate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L86",
+      "weight": 1.0,
+      "source": "mobiloan_src_data_database_web_ts",
+      "target": "data_database_web_updatestate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L93",
+      "weight": 1.0,
+      "source": "mobiloan_src_data_database_web_ts",
+      "target": "data_database_web_ispastdue",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L99",
+      "weight": 1.0,
+      "source": "mobiloan_src_data_database_web_ts",
+      "target": "data_database_web_derivepaymentstatus",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L118",
+      "weight": 1.0,
+      "source": "mobiloan_src_data_database_web_ts",
+      "target": "data_database_web_deriveloanstatus",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L130",
+      "weight": 1.0,
+      "source": "mobiloan_src_data_database_web_ts",
+      "target": "data_database_web_upsertbyid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L142",
+      "weight": 1.0,
+      "source": "mobiloan_src_data_database_web_ts",
+      "target": "data_database_web_sortbycreatedat",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L145",
+      "weight": 1.0,
+      "source": "mobiloan_src_data_database_web_ts",
+      "target": "data_database_web_hydrateoutboxrow",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L54",
+      "weight": 1.0,
+      "source": "data_database_web_loadstate",
+      "target": "data_database_web_defaultstate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L133",
+      "weight": 1.0,
+      "source": "data_database_web_upsertbyid",
+      "target": "data_database_web_clone",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L157",
+      "weight": 1.0,
+      "source": "data_database_web_hydrateoutboxrow",
+      "target": "data_database_web_clone",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L52",
+      "weight": 1.0,
+      "source": "data_database_web_loadstate",
+      "target": "data_database_web_getstorage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L78",
+      "weight": 1.0,
+      "source": "data_database_web_savestate",
+      "target": "data_database_web_getstorage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L87",
+      "weight": 1.0,
+      "source": "data_database_web_updatestate",
+      "target": "data_database_web_loadstate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L89",
+      "weight": 1.0,
+      "source": "data_database_web_updatestate",
+      "target": "data_database_web_savestate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/data/database.web.ts",
+      "source_location": "L112",
+      "weight": 1.0,
+      "source": "data_database_web_derivepaymentstatus",
+      "target": "data_database_web_ispastdue",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -4392,6 +5430,16 @@
       "target": "hooks_useofflinedata_usecollectionqueue"
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/hooks/useOfflineData.ts",
+      "source_location": "L50",
+      "weight": 1.0,
+      "source": "mobiloan_src_hooks_useofflinedata_ts",
+      "target": "hooks_useofflinedata_useallclients",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -4453,6 +5501,26 @@
       "target": "hooks_usesyncactions_usediscardrejectedmutation"
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/hooks/useSyncActions.ts",
+      "source_location": "L83",
+      "weight": 1.0,
+      "source": "mobiloan_src_hooks_usesyncactions_ts",
+      "target": "hooks_usesyncactions_usecreatelocalclient",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/hooks/useSyncActions.ts",
+      "source_location": "L94",
+      "weight": 1.0,
+      "source": "mobiloan_src_hooks_usesyncactions_ts",
+      "target": "hooks_usesyncactions_usecreatelocalloan",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "INFERRED",
@@ -4462,6 +5530,278 @@
       "weight": 1.0,
       "source": "hooks_usesyncactions_usemanualsync",
       "target": "providers_appproviders_usesession"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/amortization.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "mobiloan_src_lib_amortization_ts",
+      "target": "lib_amortization_normalizefrequency",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/amortization.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "mobiloan_src_lib_amortization_ts",
+      "target": "lib_amortization_buildmonthlyschedule",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/amortization.ts",
+      "source_location": "L76",
+      "weight": 1.0,
+      "source": "mobiloan_src_lib_amortization_ts",
+      "target": "lib_amortization_splitmonthlyschedule",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/amortization.ts",
+      "source_location": "L105",
+      "weight": 1.0,
+      "source": "mobiloan_src_lib_amortization_ts",
+      "target": "lib_amortization_calculateamortization",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/amortization.ts",
+      "source_location": "L113",
+      "weight": 1.0,
+      "source": "lib_amortization_calculateamortization",
+      "target": "lib_amortization_normalizefrequency",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/amortization.ts",
+      "source_location": "L114",
+      "weight": 1.0,
+      "source": "lib_amortization_calculateamortization",
+      "target": "lib_amortization_buildmonthlyschedule",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/amortization.ts",
+      "source_location": "L124",
+      "weight": 1.0,
+      "source": "lib_amortization_calculateamortization",
+      "target": "lib_amortization_splitmonthlyschedule",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/calendar.ts",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "mobiloan_src_lib_calendar_ts",
+      "target": "lib_calendar_buildremindertitle",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/calendar.ts",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "mobiloan_src_lib_calendar_ts",
+      "target": "lib_calendar_buildremindernotes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/calendar.ts",
+      "source_location": "L29",
+      "weight": 1.0,
+      "source": "mobiloan_src_lib_calendar_ts",
+      "target": "lib_calendar_ensurecalendarpermission",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/calendar.ts",
+      "source_location": "L36",
+      "weight": 1.0,
+      "source": "mobiloan_src_lib_calendar_ts",
+      "target": "lib_calendar_ensurenotificationpermission",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/calendar.ts",
+      "source_location": "L43",
+      "weight": 1.0,
+      "source": "mobiloan_src_lib_calendar_ts",
+      "target": "lib_calendar_ensurenotificationchannel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/calendar.ts",
+      "source_location": "L57",
+      "weight": 1.0,
+      "source": "mobiloan_src_lib_calendar_ts",
+      "target": "lib_calendar_resolvewritablecalendarid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/calendar.ts",
+      "source_location": "L70",
+      "weight": 1.0,
+      "source": "mobiloan_src_lib_calendar_ts",
+      "target": "lib_calendar_resolvereminderdate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/calendar.ts",
+      "source_location": "L81",
+      "weight": 1.0,
+      "source": "mobiloan_src_lib_calendar_ts",
+      "target": "lib_calendar_schedulecollectionnotification",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/calendar.ts",
+      "source_location": "L107",
+      "weight": 1.0,
+      "source": "mobiloan_src_lib_calendar_ts",
+      "target": "lib_calendar_createcollectionreminder",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/calendar.ts",
+      "source_location": "L87",
+      "weight": 1.0,
+      "source": "lib_calendar_schedulecollectionnotification",
+      "target": "lib_calendar_buildremindertitle",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/calendar.ts",
+      "source_location": "L115",
+      "weight": 1.0,
+      "source": "lib_calendar_createcollectionreminder",
+      "target": "lib_calendar_buildremindertitle",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/calendar.ts",
+      "source_location": "L116",
+      "weight": 1.0,
+      "source": "lib_calendar_createcollectionreminder",
+      "target": "lib_calendar_buildremindernotes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/calendar.ts",
+      "source_location": "L108",
+      "weight": 1.0,
+      "source": "lib_calendar_createcollectionreminder",
+      "target": "lib_calendar_ensurecalendarpermission",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/calendar.ts",
+      "source_location": "L82",
+      "weight": 1.0,
+      "source": "lib_calendar_schedulecollectionnotification",
+      "target": "lib_calendar_ensurenotificationpermission",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/calendar.ts",
+      "source_location": "L83",
+      "weight": 1.0,
+      "source": "lib_calendar_schedulecollectionnotification",
+      "target": "lib_calendar_ensurenotificationchannel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/calendar.ts",
+      "source_location": "L109",
+      "weight": 1.0,
+      "source": "lib_calendar_createcollectionreminder",
+      "target": "lib_calendar_resolvewritablecalendarid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/calendar.ts",
+      "source_location": "L110",
+      "weight": 1.0,
+      "source": "lib_calendar_createcollectionreminder",
+      "target": "lib_calendar_resolvereminderdate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/calendar.ts",
+      "source_location": "L124",
+      "weight": 1.0,
+      "source": "lib_calendar_createcollectionreminder",
+      "target": "lib_calendar_schedulecollectionnotification",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/calendar.web.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "mobiloan_src_lib_calendar_web_ts",
+      "target": "lib_calendar_web_createcollectionreminder",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -4487,11 +5827,63 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "Mobiloan/src/lib/config.ts",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "mobiloan_src_lib_config_ts",
+      "target": "lib_config_buildapiurl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/config.ts",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "mobiloan_src_lib_config_ts",
+      "target": "lib_config_resolvehostcandidates",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/config.ts",
       "source_location": "L24",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "mobiloan_src_lib_config_ts",
       "target": "lib_config_resolvedefaultapiurl"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/config.ts",
+      "source_location": "L52",
+      "weight": 1.0,
+      "source": "mobiloan_src_lib_config_ts",
+      "target": "lib_config_getapicandidates",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/config.ts",
+      "source_location": "L57",
+      "weight": 1.0,
+      "source": "lib_config_getapicandidates",
+      "target": "lib_config_normalizeapiurl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/config.ts",
+      "source_location": "L29",
+      "weight": 1.0,
+      "source": "lib_config_resolvehostcandidates",
+      "target": "lib_config_resolveexpohost",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -4503,6 +5895,83 @@
       "confidence_score": 1.0,
       "source": "lib_config_resolvedefaultapiurl",
       "target": "lib_config_resolveexpohost"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/config.ts",
+      "source_location": "L49",
+      "weight": 1.0,
+      "source": "lib_config_resolvedefaultapiurl",
+      "target": "lib_config_buildapiurl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/config.ts",
+      "source_location": "L61",
+      "weight": 1.0,
+      "source": "lib_config_getapicandidates",
+      "target": "lib_config_buildapiurl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/config.ts",
+      "source_location": "L48",
+      "weight": 1.0,
+      "source": "lib_config_resolvedefaultapiurl",
+      "target": "lib_config_resolvehostcandidates",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/config.ts",
+      "source_location": "L60",
+      "weight": 1.0,
+      "source": "lib_config_getapicandidates",
+      "target": "lib_config_resolvehostcandidates",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/config.ts",
+      "source_location": "L65",
+      "weight": 1.0,
+      "source": "lib_config_getapicandidates",
+      "target": "lib_config_resolvedefaultapiurl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/services/api.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "mobiloan_src_services_api_ts",
+      "target": "lib_config_getapicandidates",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "Mobiloan/src/services/api.ts",
+      "source_location": "L65",
+      "weight": 1.0,
+      "source": "services_api_requestwithfallback",
+      "target": "lib_config_getapicandidates"
     },
     {
       "relation": "contains",
@@ -4624,9 +6093,9 @@
       "source_file": "Mobiloan/src/lib/format.ts",
       "source_location": "L44",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "mobiloan_src_lib_format_ts",
-      "target": "lib_format_getrelativeduelabel",
-      "confidence_score": 1.0
+      "target": "lib_format_getrelativeduelabel"
     },
     {
       "relation": "contains",
@@ -4648,6 +6117,57 @@
       "confidence_score": 1.0,
       "source": "mobiloan_src_services_sync_ts",
       "target": "lib_mutationid_createclientmutationid"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/secureSession.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "mobiloan_src_lib_securesession_ts",
+      "target": "lib_securesession_getwebstorage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/secureSession.ts",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "mobiloan_src_lib_securesession_ts",
+      "target": "lib_securesession_loadfromweb",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/secureSession.ts",
+      "source_location": "L30",
+      "weight": 1.0,
+      "source": "mobiloan_src_lib_securesession_ts",
+      "target": "lib_securesession_canusenativesecurestore",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/secureSession.ts",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "lib_securesession_loadfromweb",
+      "target": "lib_securesession_getwebstorage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/lib/syncPackage.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "mobiloan_src_lib_syncpackage_ts",
+      "target": "lib_syncpackage_exportportablesyncpackage",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -4714,11 +6234,41 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "Mobiloan/src/services/api.ts",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "mobiloan_src_services_api_ts",
+      "target": "services_api_isnetworkerror",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/services/api.ts",
+      "source_location": "L45",
+      "weight": 1.0,
+      "source": "mobiloan_src_services_api_ts",
+      "target": "services_api_describeattemptedurls",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/services/api.ts",
       "source_location": "L14",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "mobiloan_src_services_api_ts",
       "target": "services_api_parseresponse"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/services/api.ts",
+      "source_location": "L60",
+      "weight": 1.0,
+      "source": "mobiloan_src_services_api_ts",
+      "target": "services_api_requestwithfallback",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -4729,6 +6279,28 @@
       "confidence_score": 1.0,
       "source": "services_api_mobileapierror",
       "target": "services_api_mobileapierror_constructor"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/services/api.ts",
+      "source_location": "L92",
+      "weight": 1.0,
+      "source": "services_api_requestwithfallback",
+      "target": "services_api_isnetworkerror",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "Mobiloan/src/services/api.ts",
+      "source_location": "L102",
+      "weight": 1.0,
+      "source": "services_api_requestwithfallback",
+      "target": "services_api_describeattemptedurls",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -4815,11 +6387,21 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "server/index.js",
-      "source_location": "L16",
+      "source_location": "L11",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "server_index_js",
-      "target": "server_index_shutdown"
+      "source": "release_win_unpacked_resources_server_index_js",
+      "target": "server_index_startserver",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/index.js",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "release_win_unpacked_resources_server_index_js",
+      "target": "server_index_shutdown",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -4830,6 +6412,27 @@
       "confidence_score": 1.0,
       "source": "server_index_js",
       "target": "server_index_startserver"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "server/index.js",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "server_index_startserver",
+      "target": "utils_ensuredatabasecompatibility_ensuredatabasecompatibility"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/index.js",
+      "source_location": "L16",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "server_index_js",
+      "target": "server_index_shutdown"
     },
     {
       "relation": "contains",
@@ -4848,7 +6451,7 @@
       "source_location": "L19",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "release_win_unpacked_resources_server_middleware_validation_js",
+      "source": "server_middleware_validation_js",
       "target": "middleware_validation_validate"
     },
     {
@@ -4858,7 +6461,7 @@
       "source_location": "L19",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "server_middleware_validation_js",
+      "source": "release_win_unpacked_resources_server_middleware_validation_js",
       "target": "middleware_validation_validate"
     },
     {
@@ -4924,6 +6527,26 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "server/routes/import.js",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "server_routes_import_js",
+      "target": "routes_import_normalizefrequency",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/routes/import.js",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "server_routes_import_js",
+      "target": "routes_import_buildclientdata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "server/routes/loans.js",
       "source_location": "L9",
       "weight": 1.0,
@@ -4944,26 +6567,6 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "release/win-unpacked/resources/server/routes/payments.js",
-      "source_location": "L33",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "release_win_unpacked_resources_server_routes_payments_js",
-      "target": "routes_payments_getloanstatusfrompayments"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "release/win-unpacked/resources/server/routes/payments.js",
-      "source_location": "L45",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "release_win_unpacked_resources_server_routes_payments_js",
-      "target": "routes_payments_toamount"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
       "source_file": "server/routes/payments.js",
       "source_location": "L33",
       "weight": 1.0,
@@ -4984,22 +6587,73 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "server/tests/api.integration.test.js",
-      "source_location": "L58",
+      "source_file": "server/routes/sync.js",
+      "source_location": "L9",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "server_tests_api_integration_test_js",
-      "target": "tests_api_integration_test_request"
+      "source": "server_routes_sync_js",
+      "target": "routes_sync_buildcursorfilter"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "server/tests/api.integration.test.js",
-      "source_location": "L72",
+      "source_file": "server/routes/sync.js",
+      "source_location": "L14",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "server_tests_api_integration_test_js",
-      "target": "tests_api_integration_test_createauthenticatedloanfixture"
+      "source": "server_routes_sync_js",
+      "target": "routes_sync_todateornull"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/routes/sync.js",
+      "source_location": "L23",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "server_routes_sync_js",
+      "target": "routes_sync_fetchbootstrapdata"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/routes/sync.js",
+      "source_location": "L54",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "server_routes_sync_js",
+      "target": "routes_sync_fetchchangessince"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/routes/sync.js",
+      "source_location": "L91",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "server_routes_sync_js",
+      "target": "routes_sync_fetchdeletedidssince"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/routes/sync.js",
+      "source_location": "L142",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "server_routes_sync_js",
+      "target": "routes_sync_mapsyncerror"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "server/routes/sync.js",
+      "source_location": "L55",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "routes_sync_fetchchangessince",
+      "target": "routes_sync_buildcursorfilter"
     },
     {
       "relation": "contains",
@@ -5020,6 +6674,26 @@
       "confidence_score": 1.0,
       "source": "server_tests_api_integration_test_js",
       "target": "tests_api_integration_test_resetdatabase"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/tests/api.integration.test.js",
+      "source_location": "L58",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "server_tests_api_integration_test_js",
+      "target": "tests_api_integration_test_request"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/tests/api.integration.test.js",
+      "source_location": "L72",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "server_tests_api_integration_test_js",
+      "target": "tests_api_integration_test_createauthenticatedloanfixture"
     },
     {
       "relation": "calls",
@@ -5190,12 +6864,250 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "server/utils/ensureDatabaseCompatibility.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "release_win_unpacked_resources_server_utils_ensuredatabasecompatibility_js",
+      "target": "utils_ensuredatabasecompatibility_gettablecolumns",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/utils/ensureDatabaseCompatibility.js",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "release_win_unpacked_resources_server_utils_ensuredatabasecompatibility_js",
+      "target": "utils_ensuredatabasecompatibility_indexexists",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/utils/ensureDatabaseCompatibility.js",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "release_win_unpacked_resources_server_utils_ensuredatabasecompatibility_js",
+      "target": "utils_ensuredatabasecompatibility_ensuretransactionsynccolumns",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/utils/ensureDatabaseCompatibility.js",
+      "source_location": "L49",
+      "weight": 1.0,
+      "source": "release_win_unpacked_resources_server_utils_ensuredatabasecompatibility_js",
+      "target": "utils_ensuredatabasecompatibility_ensuresyncdeletedrecordstable",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/utils/ensureDatabaseCompatibility.js",
+      "source_location": "L72",
+      "weight": 1.0,
+      "source": "release_win_unpacked_resources_server_utils_ensuredatabasecompatibility_js",
+      "target": "utils_ensuredatabasecompatibility_ensuredatabasecompatibility",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "server/utils/ensureDatabaseCompatibility.js",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "utils_ensuredatabasecompatibility_ensuretransactionsynccolumns",
+      "target": "utils_ensuredatabasecompatibility_gettablecolumns"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/utils/ensureDatabaseCompatibility.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "server_utils_ensuredatabasecompatibility_js",
+      "target": "utils_ensuredatabasecompatibility_gettablecolumns"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "server/utils/ensureDatabaseCompatibility.js",
+      "source_location": "L32",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "utils_ensuredatabasecompatibility_ensuretransactionsynccolumns",
+      "target": "utils_ensuredatabasecompatibility_indexexists"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "server/utils/ensureDatabaseCompatibility.js",
+      "source_location": "L55",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "utils_ensuredatabasecompatibility_ensuresyncdeletedrecordstable",
+      "target": "utils_ensuredatabasecompatibility_indexexists"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/utils/ensureDatabaseCompatibility.js",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "server_utils_ensuredatabasecompatibility_js",
+      "target": "utils_ensuredatabasecompatibility_indexexists"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "server/utils/ensureDatabaseCompatibility.js",
+      "source_location": "L69",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "utils_ensuredatabasecompatibility_ensuredatabasecompatibility",
+      "target": "utils_ensuredatabasecompatibility_ensuretransactionsynccolumns"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/utils/ensureDatabaseCompatibility.js",
+      "source_location": "L16",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "server_utils_ensuredatabasecompatibility_js",
+      "target": "utils_ensuredatabasecompatibility_ensuretransactionsynccolumns"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "server/utils/ensureDatabaseCompatibility.js",
+      "source_location": "L70",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "utils_ensuredatabasecompatibility_ensuredatabasecompatibility",
+      "target": "utils_ensuredatabasecompatibility_ensuresyncdeletedrecordstable"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/utils/ensureDatabaseCompatibility.js",
+      "source_location": "L45",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "server_utils_ensuredatabasecompatibility_js",
+      "target": "utils_ensuredatabasecompatibility_ensuresyncdeletedrecordstable"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/utils/ensureDatabaseCompatibility.js",
+      "source_location": "L68",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "server_utils_ensuredatabasecompatibility_js",
+      "target": "utils_ensuredatabasecompatibility_ensuredatabasecompatibility"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "server/utils/fees.js",
       "source_location": "L9",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "server_utils_fees_js",
       "target": "utils_fees_checkandapplylatefees"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/utils/paymentTransactions.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "server_utils_paymenttransactions_js",
+      "target": "utils_paymenttransactions_getloanstatusfrompayments"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/utils/paymentTransactions.js",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "server_utils_paymenttransactions_js",
+      "target": "utils_paymenttransactions_toamount"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/utils/paymentTransactions.js",
+      "source_location": "L18",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "server_utils_paymenttransactions_js",
+      "target": "utils_paymenttransactions_registerpaymenttransaction"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "server/utils/paymentTransactions.js",
+      "source_location": "L104",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "utils_paymenttransactions_registerpaymenttransaction",
+      "target": "utils_paymenttransactions_getloanstatusfrompayments"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "server/utils/paymentTransactions.js",
+      "source_location": "L51",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "utils_paymenttransactions_registerpaymenttransaction",
+      "target": "utils_paymenttransactions_toamount"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/utils/syncDeletedRecords.js",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "server_utils_syncdeletedrecords_js",
+      "target": "utils_syncdeletedrecords_createsyncdeletedrecordid"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/utils/syncDeletedRecords.js",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "server_utils_syncdeletedrecords_js",
+      "target": "utils_syncdeletedrecords_recorddeletedentities"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "server/utils/syncDeletedRecords.js",
+      "source_location": "L20",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "utils_syncdeletedrecords_recorddeletedentities",
+      "target": "utils_syncdeletedrecords_createsyncdeletedrecordid"
     },
     {
       "relation": "contains",
@@ -5481,274 +7393,54 @@
       "target": "scripts_generate_app_icon_save_outputs"
     },
     {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "server/index.js",
-      "source_location": "L12",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/routes/import.js",
+      "source_location": "L22",
       "weight": 1.0,
-      "source": "server_index_startserver",
-      "target": "utils_ensuredatabasecompatibility_ensuredatabasecompatibility"
+      "source": "server_routes_import_js",
+      "target": "routes_import_sortbydate",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "server/routes/sync.js",
-      "source_location": "L9",
+      "source_file": "server/routes/import.js",
+      "source_location": "L24",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "server_routes_sync_js",
-      "target": "routes_sync_buildcursorfilter"
+      "source": "server_routes_import_js",
+      "target": "routes_import_deriveimportedpaymentstatus",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "server/routes/sync.js",
-      "source_location": "L14",
+      "source_file": "server/routes/import.js",
+      "source_location": "L41",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "server_routes_sync_js",
-      "target": "routes_sync_todateornull"
+      "source": "server_routes_import_js",
+      "target": "routes_import_deriveimportedloanstatus",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "server/routes/sync.js",
-      "source_location": "L23",
+      "source_file": "server/routes/import.js",
+      "source_location": "L53",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "server_routes_sync_js",
-      "target": "routes_sync_fetchbootstrapdata"
+      "source": "server_routes_import_js",
+      "target": "routes_import_importspreadsheetdata",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "server/routes/sync.js",
-      "source_location": "L54",
+      "source_file": "server/routes/import.js",
+      "source_location": "L123",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "server_routes_sync_js",
-      "target": "routes_sync_fetchchangessince"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "server/routes/sync.js",
-      "source_location": "L91",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "server_routes_sync_js",
-      "target": "routes_sync_fetchdeletedidssince"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "server/routes/sync.js",
-      "source_location": "L142",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "server_routes_sync_js",
-      "target": "routes_sync_mapsyncerror"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "server/routes/sync.js",
-      "source_location": "L55",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "routes_sync_fetchchangessince",
-      "target": "routes_sync_buildcursorfilter"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "server/utils/ensureDatabaseCompatibility.js",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "server_utils_ensuredatabasecompatibility_js",
-      "target": "utils_ensuredatabasecompatibility_gettablecolumns"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "server/utils/ensureDatabaseCompatibility.js",
-      "source_location": "L7",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "server_utils_ensuredatabasecompatibility_js",
-      "target": "utils_ensuredatabasecompatibility_indexexists"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "server/utils/ensureDatabaseCompatibility.js",
-      "source_location": "L16",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "server_utils_ensuredatabasecompatibility_js",
-      "target": "utils_ensuredatabasecompatibility_ensuretransactionsynccolumns"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "server/utils/ensureDatabaseCompatibility.js",
-      "source_location": "L45",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "server_utils_ensuredatabasecompatibility_js",
-      "target": "utils_ensuredatabasecompatibility_ensuresyncdeletedrecordstable"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "server/utils/ensureDatabaseCompatibility.js",
-      "source_location": "L68",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "server_utils_ensuredatabasecompatibility_js",
-      "target": "utils_ensuredatabasecompatibility_ensuredatabasecompatibility"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "server/utils/ensureDatabaseCompatibility.js",
-      "source_location": "L17",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "utils_ensuredatabasecompatibility_ensuretransactionsynccolumns",
-      "target": "utils_ensuredatabasecompatibility_gettablecolumns"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "server/utils/ensureDatabaseCompatibility.js",
-      "source_location": "L32",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "utils_ensuredatabasecompatibility_ensuretransactionsynccolumns",
-      "target": "utils_ensuredatabasecompatibility_indexexists"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "server/utils/ensureDatabaseCompatibility.js",
-      "source_location": "L55",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "utils_ensuredatabasecompatibility_ensuresyncdeletedrecordstable",
-      "target": "utils_ensuredatabasecompatibility_indexexists"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "server/utils/ensureDatabaseCompatibility.js",
-      "source_location": "L69",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "utils_ensuredatabasecompatibility_ensuredatabasecompatibility",
-      "target": "utils_ensuredatabasecompatibility_ensuretransactionsynccolumns"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "server/utils/ensureDatabaseCompatibility.js",
-      "source_location": "L70",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "utils_ensuredatabasecompatibility_ensuredatabasecompatibility",
-      "target": "utils_ensuredatabasecompatibility_ensuresyncdeletedrecordstable"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "server/utils/paymentTransactions.js",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "server_utils_paymenttransactions_js",
-      "target": "utils_paymenttransactions_getloanstatusfrompayments"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "server/utils/paymentTransactions.js",
-      "source_location": "L15",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "server_utils_paymenttransactions_js",
-      "target": "utils_paymenttransactions_toamount"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "server/utils/paymentTransactions.js",
-      "source_location": "L18",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "server_utils_paymenttransactions_js",
-      "target": "utils_paymenttransactions_registerpaymenttransaction"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "server/utils/paymentTransactions.js",
-      "source_location": "L104",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "utils_paymenttransactions_registerpaymenttransaction",
-      "target": "utils_paymenttransactions_getloanstatusfrompayments"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "server/utils/paymentTransactions.js",
-      "source_location": "L51",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "utils_paymenttransactions_registerpaymenttransaction",
-      "target": "utils_paymenttransactions_toamount"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "server/utils/syncDeletedRecords.js",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "server_utils_syncdeletedrecords_js",
-      "target": "utils_syncdeletedrecords_createsyncdeletedrecordid"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "server/utils/syncDeletedRecords.js",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "server_utils_syncdeletedrecords_js",
-      "target": "utils_syncdeletedrecords_recorddeletedentities"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "server/utils/syncDeletedRecords.js",
-      "source_location": "L20",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "utils_syncdeletedrecords_recorddeletedentities",
-      "target": "utils_syncdeletedrecords_createsyncdeletedrecordid"
+      "source": "server_routes_import_js",
+      "target": "routes_import_importmobiloanportabledata",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -9891,6 +11583,26 @@
       "target": "utils_wordgenerator_buildscheduletablerows"
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "release/win-unpacked/resources/server/routes/payments.js",
+      "source_location": "L33",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "release_win_unpacked_resources_server_routes_payments_js",
+      "target": "routes_payments_getloanstatusfrompayments"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "release/win-unpacked/resources/server/routes/payments.js",
+      "source_location": "L45",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "release_win_unpacked_resources_server_routes_payments_js",
+      "target": "routes_payments_toamount"
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -9936,5 +11648,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "54a9ad472dd807df2116ab5455c3a0211b6b5120"
+  "built_at_commit": "0ab8a824afe67b2bcf0da94a1a6af90bcaaaadfc"
 }

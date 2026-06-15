@@ -140,6 +140,7 @@ export interface PendingOutboxItem extends OutboxMutationRecord {
 export interface SessionRecord {
   token: string;
   username: string;
+  mode?: 'remote' | 'local';
 }
 
 export interface SyncSnapshot {
@@ -166,4 +167,49 @@ export interface CollectionQueueItem {
   lateFee: number;
   paidAmount: number;
   status: PaymentStatus;
+}
+
+export interface LocalClientDraft {
+  name: string;
+  rut?: string | null;
+  phone?: string | null;
+  email?: string | null;
+  address?: string | null;
+}
+
+export interface LocalLoanDraft {
+  clientId: string;
+  amount: number;
+  interestRate: number;
+  durationMonths: number;
+  startDate: string;
+  frequency: LoanFrequency;
+  loanType: LoanType;
+}
+
+export interface LocalReminderInput {
+  clientName: string;
+  clientPhone?: string | null;
+  paymentId: string;
+  loanId: string;
+  amount: number;
+  dueDate: string;
+  installmentLabel: string;
+}
+
+export interface LocalReminderResult {
+  calendarEventId: string;
+  notificationId: string | null;
+  scheduledFor: string;
+}
+
+export interface PortableSyncPackage {
+  version: 1;
+  exportedAt: string;
+  source: 'mobiloan-android';
+  clients: ClientRecord[];
+  loans: LoanRecord[];
+  payments: PaymentRecord[];
+  paymentTransactions: PaymentTransactionRecord[];
+  pendingOutbox: OutboxMutationRecord[];
 }

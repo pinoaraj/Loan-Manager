@@ -1,13 +1,18 @@
 import * as SQLite from 'expo-sqlite';
+import { calculateAmortization } from '../lib/amortization';
+import { createClientMutationId } from '../lib/mutationId';
 
 import type {
   ClientRecord,
   CollectionFilter,
   CollectionQueueItem,
+  LocalClientDraft,
+  LocalLoanDraft,
   LoanRecord,
   OutboxMutationRecord,
   PendingOutboxItem,
   PaymentRecord,
+  PortableSyncPackage,
   RejectedOutboxItem,
   PaymentTransactionRecord,
   SyncSnapshot,
@@ -37,6 +42,7 @@ const parseJson = <T>(value: string | null): T | null => {
 
 const toNumber = (value: unknown) => Number(value || 0);
 const PAYMENT_EPSILON = 0.01;
+const createLocalId = (prefix: string) => `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
 
 const isPastDue = (dueDate: string) => {
   const normalizedDueDate = dueDate.slice(0, 10);
@@ -649,6 +655,129 @@ export const localDb = {
     };
   },
 
+  async createLocalClient(draft: LocalClientDraft): Promise<ClientRecord> {
+    const database = await getDatabase();
+    const now = new Date().toISOString();
+    const client: ClientRecord = {
+      id: createLocalId('client'),
+      name: draft.name.trim(),
+      rut: draft.rut?.trim() || null,
+      phone: draft.phone?.trim() || null,
+      email: draft.email?.trim() || null,
+      address: draft.address?.trim() || null,
+      createdAt: now,
+      updatedAt: now,
+    };
+
+    await database.runAsync(
+      `INSERT INTO clients (id, name, rut, phone, email, address, createdAt, updatedAt)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        client.id,
+        client.name,
+        client.rut,
+        client.phone,
+        client.email,
+        client.address,
+        client.createdAt,
+        client.updatedAt,
+      ],
+    );
+
+    return client;
+  },
+
+  async createLocalLoan(draft: LocalLoanDraft): Promise<{
+    loan: LoanRecord;
+    payments: PaymentRecord[];
+  }> {
+    const database = await getDatabase();
+    const client = await database.getFirstAsync<ClientRecord>(
+      `SELECT * FROM clients WHERE id = ?`,
+      [draft.clientId],
+    );
+
+    if (!client) {
+      throw new Error('Primero debes crear o seleccionar un cliente valido.');
+    }
+
+    const now = new Date().toISOString();
+    const loan: LoanRecord = {
+      id: createLocalId('loan'),
+      clientId: draft.clientId,
+      amount: draft.amount,
+      interestRate: draft.interestRate,
+      durationMonths: draft.durationMonths,
+      startDate: draft.startDate,
+      frequency: draft.frequency,
+      loanType: draft.loanType,
+      status: 'Active',
+      isPaused: false,
+      createdAt: now,
+      updatedAt: now,
+    };
+
+    const amortization = calculateAmortization(
+      draft.amount,
+      draft.interestRate,
+      draft.durationMonths,
+      draft.startDate,
+      draft.frequency,
+      draft.loanType,
+    );
+
+    const payments: PaymentRecord[] = amortization.map((item) => ({
+      id: createLocalId('payment'),
+      loanId: loan.id,
+      amount: Number(item.amount.toFixed(2)),
+      lateFee: 0,
+      paidAmount: 0,
+      dueDate: item.dueDate.toISOString(),
+      status: 'Pending',
+      createdAt: now,
+      updatedAt: now,
+    }));
+
+    await database.runAsync(
+      `INSERT INTO loans (id, clientId, amount, interestRate, durationMonths, startDate, frequency, loanType, status, isPaused, createdAt, updatedAt)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        loan.id,
+        loan.clientId,
+        loan.amount,
+        loan.interestRate,
+        loan.durationMonths,
+        loan.startDate,
+        loan.frequency,
+        loan.loanType,
+        loan.status,
+        0,
+        loan.createdAt,
+        loan.updatedAt,
+      ],
+    );
+
+    for (const payment of payments) {
+      await database.runAsync(
+        `INSERT INTO payments (id, loanId, amount, lateFee, paidAmount, dueDate, status, createdAt, updatedAt)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [
+          payment.id,
+          payment.loanId,
+          payment.amount,
+          payment.lateFee,
+          payment.paidAmount,
+          payment.dueDate,
+          payment.status,
+          payment.createdAt,
+          payment.updatedAt,
+        ],
+      );
+    }
+
+    return { loan, payments };
+  },
+
   async addOutboxMutation(record: OutboxMutationRecord): Promise<void> {
     const database = await getDatabase();
     await database.runAsync(
@@ -771,6 +900,42 @@ export const localDb = {
       rejectedOutbox: Number(rejectedOutbox?.total || 0),
       lastCursor,
       lastSyncAt,
+    };
+  },
+
+  async exportPortableSnapshot(): Promise<PortableSyncPackage> {
+    const database = await getDatabase();
+    const [clients, loans, payments, paymentTransactions, pendingOutbox] = await Promise.all([
+      database.getAllAsync<ClientRecord>(`SELECT * FROM clients ORDER BY updatedAt ASC`),
+      database.getAllAsync<any>(`SELECT * FROM loans ORDER BY updatedAt ASC`),
+      database.getAllAsync<any>(`SELECT * FROM payments ORDER BY dueDate ASC`),
+      database.getAllAsync<any>(`SELECT * FROM payment_transactions ORDER BY createdAt ASC`),
+      this.listPendingOutbox(),
+    ]);
+
+    return {
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      source: 'mobiloan-android',
+      clients,
+      loans: loans.map((row) => ({
+        ...row,
+        amount: toNumber(row.amount),
+        interestRate: toNumber(row.interestRate),
+        durationMonths: Number(row.durationMonths),
+        isPaused: Boolean(row.isPaused),
+      })),
+      payments: payments.map((row) => ({
+        ...row,
+        amount: toNumber(row.amount),
+        lateFee: toNumber(row.lateFee),
+        paidAmount: toNumber(row.paidAmount),
+      })),
+      paymentTransactions: paymentTransactions.map((row) => ({
+        ...row,
+        amount: toNumber(row.amount),
+      })),
+      pendingOutbox,
     };
   },
 };

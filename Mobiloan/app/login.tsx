@@ -64,6 +64,15 @@ export default function LoginScreen() {
     return <Redirect href="/(app)" />;
   }
 
+  const handleLocalAccess = async () => {
+    await setSession({
+      token: 'local-only',
+      username: 'Operador local',
+      mode: 'local',
+    });
+    router.replace('/(app)');
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -136,6 +145,12 @@ export default function LoginScreen() {
             <Text style={appStyles.buttonText}>
               {loginMutation.isPending ? 'Conectando...' : 'Entrar y sincronizar'}
             </Text>
+          </Pressable>
+        </View>
+
+        <View style={{ marginTop: 6 }}>
+          <Pressable style={appStyles.buttonMuted} onPress={handleLocalAccess}>
+            <Text style={appStyles.buttonMutedText}>Entrar en modo local</Text>
           </Pressable>
         </View>
       </View>

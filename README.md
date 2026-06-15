@@ -2,7 +2,7 @@
 
 Loan Manager is a desktop-first loan management system built with React, Express, Prisma and SQLite. The main product today is the local Windows desktop app packaged with Electron. Web mode remains useful for development and local QA.
 
-The repo now also includes an early `Mobiloan/` Expo workspace focused on offline-first field collections backed by local SQLite and the `/api/sync/*` contract.
+The repo now also includes `Mobiloan/`, an Expo workspace for field collections that can already operate in fully local mode on Android without requiring the desktop backend to be running.
 
 ## Current desktop beta scope
 
@@ -17,6 +17,21 @@ The repo now also includes an early `Mobiloan/` Expo workspace focused on offlin
 - Legal document generation for `Pagare` and `Mutuo`
 - Local packaged backend with SQLite in `AppData`
 - Prisma migrations applied at desktop startup
+- Portable and installer desktop builds rebuilt from the current workspace on `2026-06-15`
+
+## Current mobile beta scope
+
+- Local Android entry path with `Entrar en modo local`
+- Local client registration without backend
+- Local loan registration without backend
+- Local amortization schedule and payment projection
+- In-app loan calculator
+- Calendar reminders for collections using native device calendar access
+- Native collection reminders also schedule a local device notification on Android/iOS
+- Direct WhatsApp/contact shortcuts from operational screens
+- Portable local export package for later sync or desktop intake
+- Desktop import now accepts the Mobiloan portable JSON package
+- Optional later synchronization with the desktop/backend when available
 
 ## Legal documents
 
@@ -59,6 +74,9 @@ Because of this flow, `RUT` is now a first-class field in client creation, editi
 - Expo Router
 - Expo SQLite
 - Expo Secure Store
+- Expo Calendar
+- Expo File System
+- Expo Sharing
 
 ## Local development
 
@@ -114,6 +132,21 @@ npm run electron:build
 Installer output:
 
 - `release/LoanManager-Setup-1.0.0.exe`
+
+Portable testing build:
+
+- `release/win-unpacked/Loan Manager.exe`
+
+Prepared testing folder on Desktop:
+
+- `C:\Users\JP\Desktop\LoanManager-Desktop-Ultima-Beta`
+  - `Portable\win-unpacked\`
+  - `Instalador\LoanManager-Setup-1.0.0.exe`
+
+Workspace separation notes:
+
+- Desktop product workspace remains in `C:\Users\JP\Desktop\LoanManager`
+- Mobile workspace is exposed separately through `C:\Users\JP\Desktop\Mobiloan-Workspace`
 
 Useful desktop notes:
 
@@ -175,6 +208,11 @@ Graphify is part of the standard workflow for this repo.
 - Report output: `graphify-out/GRAPH_REPORT.md`
 - Team workflow: `docs/GRAPHIFY.md`
 
+Important freshness note:
+
+- The current checked-in graph report was refreshed on `2026-06-15`.
+- It already includes the latest desktop packaging work plus the new Mobiloan autonomous-local, reminder and portable-import flows.
+
 Use it before closing meaningful changes:
 
 ```bash
@@ -198,5 +236,7 @@ Current recommendation: ready for a controlled Windows beta.
 
 - Green checks: lint, frontend tests, backend integration tests, web build, desktop installer build
 - Validated areas: login, dashboard, clients, loan detail, partial payments, collections deep-links, document generation, import/export, packaged startup
+- Mobile validated areas: Expo dependency health, typecheck, web QA export, local-only boot, local clients, local loans, calculator, calendar reminder flow, portable export package flow
 - Desktop startup note: repeated packaged launches were revalidated on June 3, 2026 and the local backend again reached healthcheck in about 1 to 2 seconds after the migration-state cache was introduced
-- Residual risks to keep watching: legal document formatting with real customer data, packaged-app smoke testing on more than one Windows machine, and bundle size/performance around PDF/XLSX tooling
+- Desktop build note: the latest portable app `release/win-unpacked/Loan Manager.exe` and installer `release/LoanManager-Setup-1.0.0.exe` were rebuilt on `2026-06-15`
+- Residual risks to keep watching: legal document formatting with real customer data, packaged-app smoke testing on more than one Windows machine, Android physical-device smoke testing for permissions and calendar prompts, and the later desktop import/sync workflow for purely local mobile records

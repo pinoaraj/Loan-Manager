@@ -12,7 +12,9 @@ import {
 } from 'react-native';
 
 import { openPhoneCall, openWhatsApp } from '../../src/lib/contact';
+import { createCollectionReminder } from '../../src/lib/calendar';
 import { formatCurrency, formatDate, formatDateTime, getRelativeDueLabel } from '../../src/lib/format';
+import { exportPortableSyncPackage } from '../../src/lib/syncPackage';
 import {
   useClients,
   useCollectionQueue,
@@ -92,12 +94,44 @@ export default function PortfolioScreen() {
         </Text>
       </View>
 
+      <View style={appStyles.card}>
+        <Text style={appStyles.cardTitle}>Acciones rapidas</Text>
+        <View style={appStyles.actionRow}>
+          <Pressable style={appStyles.button} onPress={() => router.push('/(app)/new-client')}>
+            <Text style={appStyles.buttonText}>Nuevo cliente</Text>
+          </Pressable>
+          <Pressable style={appStyles.buttonMuted} onPress={() => router.push('/(app)/calculator')}>
+            <Text style={appStyles.buttonMutedText}>Calculadora</Text>
+          </Pressable>
+          <Pressable
+            style={appStyles.buttonMuted}
+            onPress={async () => {
+              try {
+                await exportPortableSyncPackage();
+              } catch (error) {
+                Alert.alert('No se pudo exportar', error instanceof Error ? error.message : 'Error desconocido');
+              }
+            }}
+          >
+            <Text style={appStyles.buttonMutedText}>Exportar al desktop</Text>
+          </Pressable>
+        </View>
+      </View>
+
       <View style={[appStyles.card, appStyles.statusCard, isOnline === false ? appStyles.statusWarning : appStyles.statusInfo]}>
         <Text style={appStyles.statusTitle}>
-          {needsReauth ? 'Reautenticacion pendiente' : isOnline === false ? 'Modo offline activo' : 'Operacion sincronizada'}
+          {session?.mode === 'local'
+            ? 'Modo local total'
+            : needsReauth
+              ? 'Reautenticacion pendiente'
+              : isOnline === false
+                ? 'Modo offline activo'
+                : 'Operacion sincronizada'}
         </Text>
         <Text style={appStyles.statusText}>
-          {needsReauth
+          {session?.mode === 'local'
+            ? 'La app esta operando sin backend. Puedes crear clientes, prestamos, calendario y cobranza local; la exportacion al desktop queda como paso opcional posterior.'
+            : needsReauth
             ? 'La cartera local sigue utilizable, pero el backend rechazo la sesion. Para volver a sincronizar, cierra sesion y entra otra vez con internet.'
             : isOnline === false
             ? hasOfflineData
@@ -236,6 +270,27 @@ export default function PortfolioScreen() {
               >
                 <Text style={appStyles.buttonMutedText}>WhatsApp</Text>
               </Pressable>
+              <Pressable
+                style={appStyles.buttonMuted}
+                onPress={async () => {
+                  try {
+                    await createCollectionReminder({
+                      clientName: item.clientName,
+                      clientPhone: item.clientPhone,
+                      paymentId: item.paymentId,
+                      loanId: item.loanId,
+                      amount: Math.max(item.amount + item.lateFee - item.paidAmount, 0),
+                      dueDate: item.dueDate,
+                      installmentLabel: `cuota ${formatDate(item.dueDate)}`,
+                    });
+                    Alert.alert('Recordatorio creado', 'La cobranza quedo agendada en el calendario del telefono.');
+                  } catch (error) {
+                    Alert.alert('No se pudo crear el recordatorio', error instanceof Error ? error.message : 'Error desconocido');
+                  }
+                }}
+              >
+                <Text style={appStyles.buttonMutedText}>Calendario</Text>
+              </Pressable>
             </View>
           </View>
         ))}
@@ -333,7 +388,10 @@ export default function PortfolioScreen() {
                   onPress={() =>
                     router.push({
                       pathname: '/(app)/loans/[id]',
-                      params: { id: mutation.loanId, paymentId: mutation.payload.paymentId },
+                      params: {
+                        id: String(mutation.loanId),
+                        paymentId: mutation.payload.paymentId ?? '',
+                      },
                     })
                   }
                 >
@@ -390,7 +448,10 @@ export default function PortfolioScreen() {
                   onPress={() =>
                     router.push({
                       pathname: '/(app)/loans/[id]',
-                      params: { id: mutation.loanId, paymentId: mutation.payload.paymentId },
+                      params: {
+                        id: String(mutation.loanId),
+                        paymentId: mutation.payload.paymentId ?? '',
+                      },
                     })
                   }
                 >

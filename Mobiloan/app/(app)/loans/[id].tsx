@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import { openPhoneCall, openWhatsApp } from '../../../src/lib/contact';
+import { createCollectionReminder } from '../../../src/lib/calendar';
 import { formatCurrency, formatDate, formatDateTime } from '../../../src/lib/format';
 import { useLoanDetail } from '../../../src/hooks/useOfflineData';
 import { useManualSync, useQueuePayment } from '../../../src/hooks/useSyncActions';
@@ -234,6 +235,30 @@ export default function LoanDetailScreen() {
                 : 'Selecciona una cuota pendiente'}
           </Text>
         </Pressable>
+
+        {selectedPayment ? (
+          <Pressable
+            style={appStyles.buttonMuted}
+            onPress={async () => {
+              try {
+                await createCollectionReminder({
+                  clientName: detailQuery.data?.client?.name || 'Cliente',
+                  clientPhone: detailQuery.data?.client?.phone,
+                  paymentId: selectedPayment.id,
+                  loanId: loanId ?? 'loan',
+                  amount: selectedPaymentRemaining ?? selectedPayment.amount,
+                  dueDate: selectedPayment.dueDate,
+                  installmentLabel: `cuota ${formatDate(selectedPayment.dueDate)}`,
+                });
+                Alert.alert('Recordatorio creado', 'La cobranza quedo guardada en el calendario del telefono.');
+              } catch (error) {
+                Alert.alert('No se pudo crear el recordatorio', error instanceof Error ? error.message : 'Error desconocido');
+              }
+            }}
+          >
+            <Text style={appStyles.buttonMutedText}>Agregar al calendario</Text>
+          </Pressable>
+        ) : null}
       </View>
 
       <View style={appStyles.card}>

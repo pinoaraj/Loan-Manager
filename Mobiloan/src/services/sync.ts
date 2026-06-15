@@ -128,6 +128,10 @@ export const syncService = {
   },
 
   async syncAll(session: SessionRecord): Promise<SyncPushResult[]> {
+    if (session.mode === 'local') {
+      return [];
+    }
+
     if (activeSyncPromise) {
       return activeSyncPromise;
     }

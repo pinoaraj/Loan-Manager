@@ -1,9 +1,9 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { Alert, Pressable, ScrollView, Text, View } from 'react-native';
 
-import { openPhoneCall, openWhatsApp } from '../../../src/lib/contact';
-import { formatCurrency, formatDate } from '../../../src/lib/format';
 import { useClientDetail } from '../../../src/hooks/useOfflineData';
+import { formatCurrency, formatDate } from '../../../src/lib/format';
+import { openPhoneCall, openWhatsApp } from '../../../src/lib/contact';
 import { appStyles } from '../../../src/ui/styles';
 
 export default function ClientDetailScreen() {
@@ -19,7 +19,7 @@ export default function ClientDetailScreen() {
       <View style={appStyles.heroCard}>
         <Text style={appStyles.heroTitle}>{client?.name || 'Cliente'}</Text>
         <Text style={appStyles.heroSubtitle}>
-          {client?.rut || 'Sin RUT'} • {client?.phone || 'Sin telefono'} • {client?.email || 'Sin email'}
+          {client?.rut || 'Sin RUT'} - {client?.phone || 'Sin telefono'} - {client?.email || 'Sin email'}
         </Text>
       </View>
 
@@ -56,7 +56,17 @@ export default function ClientDetailScreen() {
       </View>
 
       <View style={appStyles.card}>
-        <Text style={appStyles.cardTitle}>Prestamos</Text>
+        <View style={appStyles.rowBetween}>
+          <Text style={appStyles.cardTitle}>Prestamos</Text>
+          {client ? (
+            <Pressable
+              style={appStyles.buttonMuted}
+              onPress={() => router.push({ pathname: '/(app)/new-loan', params: { clientId: client.id } })}
+            >
+              <Text style={appStyles.buttonMutedText}>Nuevo prestamo</Text>
+            </Pressable>
+          ) : null}
+        </View>
         {loans.map((loan) => (
           <Pressable
             key={loan.id}
@@ -65,10 +75,10 @@ export default function ClientDetailScreen() {
           >
             <Text style={appStyles.itemTitle}>{formatCurrency(loan.amount)}</Text>
             <Text style={appStyles.itemText}>
-              {loan.loanType} • {loan.frequency} • {loan.status}
+              {loan.loanType} - {loan.frequency} - {loan.status}
             </Text>
             <Text style={appStyles.itemText}>
-              Inicio: {formatDate(loan.startDate)} • Duracion: {loan.durationMonths} meses
+              Inicio: {formatDate(loan.startDate)} - Duracion: {loan.durationMonths} meses
             </Text>
           </Pressable>
         ))}

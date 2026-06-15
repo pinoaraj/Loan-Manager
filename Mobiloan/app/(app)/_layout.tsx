@@ -12,6 +12,9 @@ export default function AppLayout() {
   return (
     <Stack>
       <Stack.Screen name="index" options={{ title: 'Cartera' }} />
+      <Stack.Screen name="new-client" options={{ title: 'Nuevo cliente' }} />
+      <Stack.Screen name="new-loan" options={{ title: 'Nuevo prestamo' }} />
+      <Stack.Screen name="calculator" options={{ title: 'Calculadora' }} />
       <Stack.Screen name="clients/[id]" options={{ title: 'Cliente' }} />
       <Stack.Screen name="loans/[id]" options={{ title: 'Prestamo' }} />
     </Stack>

@@ -21,6 +21,15 @@ function lazyRoute(loader) {
 
 function createApp() {
     const app = express();
+    const normalizeOrigin = (value) => String(value || '').trim().replace(/\/+$/, '');
+    const isLoopbackOrigin = (value) => {
+        try {
+            const url = new URL(value);
+            return url.hostname === '127.0.0.1' || url.hostname === 'localhost';
+        } catch {
+            return false;
+        }
+    };
 
     app.use(helmet({
         contentSecurityPolicy: {
@@ -47,21 +56,29 @@ function createApp() {
         'http://127.0.0.1:5173',
         'http://localhost:4173',
         'http://127.0.0.1:4173',
+        'http://localhost:19006',
+        'http://127.0.0.1:19006',
+        'http://localhost:19007',
+        'http://127.0.0.1:19007',
         'app://localhost'
     ];
     const envOrigins = process.env.CORS_ORIGINS?.split(',')
-        .map(origin => origin.trim())
+        .map(origin => normalizeOrigin(origin))
         .filter(Boolean) || [];
-    const allowedOrigins = [...new Set([...defaultOrigins, ...envOrigins])];
+    const allowedOrigins = [...new Set([...defaultOrigins, ...envOrigins].map(normalizeOrigin))];
 
     app.use(cors({
         origin: (origin, callback) => {
             if (!origin) return callback(null, true);
 
-            if (allowedOrigins.includes(origin)) {
+            const normalizedOrigin = normalizeOrigin(origin);
+            const loopbackAllowed = isLoopbackOrigin(normalizedOrigin);
+            const exactAllowed = allowedOrigins.includes(normalizedOrigin);
+
+            if (exactAllowed || loopbackAllowed) {
                 callback(null, true);
             } else {
-                logger.warn(`CORS blocked request from origin: ${origin}`);
+                logger.warn(`CORS blocked request from origin: ${origin} (normalized=${normalizedOrigin}, exactAllowed=${exactAllowed}, loopbackAllowed=${loopbackAllowed})`);
                 callback(new Error('Not allowed by CORS'));
             }
         },

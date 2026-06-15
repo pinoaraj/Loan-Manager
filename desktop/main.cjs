@@ -396,21 +396,65 @@ try {
         log(`Running Prisma migrations against ${dbPath} (${isPackagedBuild ? 'packaged' : 'development'})...`);
         const migrationStartedAt = Date.now();
 
-        const command = process.platform === 'win32' ? 'cmd.exe' : prismaBinary;
-        const args = process.platform === 'win32'
-            ? ['/c', prismaBinary, 'migrate', 'deploy', '--schema', path.join(cwd, 'prisma', 'schema.prisma')]
-            : ['migrate', 'deploy', '--schema', path.join(cwd, 'prisma', 'schema.prisma')];
+        const runPrismaCommand = (commandArgs) => spawnSync(
+            process.platform === 'win32' ? 'cmd.exe' : prismaBinary,
+            process.platform === 'win32' ? ['/c', prismaBinary, ...commandArgs] : commandArgs,
+            {
+                cwd,
+                env: {
+                    ...process.env,
+                    DATABASE_URL: `file:${dbPath}`
+                },
+                encoding: 'utf8',
+                timeout: 60000,
+                windowsHide: true
+            }
+        );
 
-        const migrationResult = spawnSync(command, args, {
-            cwd,
-            env: {
-                ...process.env,
-                DATABASE_URL: `file:${dbPath}`
-            },
-            encoding: 'utf8',
-            timeout: 60000,
-            windowsHide: true
-        });
+        let migrationResult = runPrismaCommand([
+            'migrate',
+            'deploy',
+            '--schema',
+            path.join(cwd, 'prisma', 'schema.prisma')
+        ]);
+
+        const combinedOutput = `${migrationResult.stdout || ''}\n${migrationResult.stderr || ''}`;
+        const hasKnownSQLiteDefaultError =
+            combinedOutput.includes('20260604120000_add_transaction_sync_fields')
+            && combinedOutput.includes('Cannot add a column with non-constant default');
+
+        if (migrationResult.status !== 0 && hasKnownSQLiteDefaultError) {
+            log('Detected failed packaged SQLite migration for transaction sync fields. Attempting automatic recovery.');
+
+            const resolveResult = runPrismaCommand([
+                'migrate',
+                'resolve',
+                '--rolled-back',
+                '20260604120000_add_transaction_sync_fields',
+                '--schema',
+                path.join(cwd, 'prisma', 'schema.prisma')
+            ]);
+
+            if (resolveResult.stdout) {
+                log(`[PRISMA RESOLVE OUT]: ${resolveResult.stdout}`);
+            }
+
+            if (resolveResult.stderr) {
+                log(`[PRISMA RESOLVE ERR]: ${resolveResult.stderr}`);
+            }
+
+            if (resolveResult.status !== 0) {
+                log(`Prisma migrate resolve failed: ${resolveResult.stderr || 'Unknown error'}`);
+                return false;
+            }
+
+            migrationResult = runPrismaCommand([
+                'migrate',
+                'deploy',
+                '--schema',
+                path.join(cwd, 'prisma', 'schema.prisma')
+            ]);
+        }
 
         if (migrationResult.error) {
             log(`Prisma migration error: ${migrationResult.error.message}`);
@@ -426,6 +470,35 @@ try {
         }
 
         if (migrationResult.status !== 0) {
+            const fallbackCompatiblePackagedError = isPackagedBuild && (
+                combinedOutput.includes('20260604120000_add_transaction_sync_fields')
+                || combinedOutput.includes('20260609143000_add_sync_deleted_records')
+                || combinedOutput.includes('table "SyncDeletedRecord" already exists')
+                || combinedOutput.includes('Error: P3009')
+            );
+
+            if (fallbackCompatiblePackagedError) {
+                log('Packaged migration fallback engaged. The server will repair compatible SQLite schema differences during startup.');
+
+                try {
+                    const latestMigration = getLatestMigrationName(cwd);
+                    const dbStats = fs.statSync(dbPath);
+                    persistMigrationState({
+                        key: `${app.getVersion()}::${latestMigration}`,
+                        appVersion: app.getVersion(),
+                        latestMigration,
+                        dbPath,
+                        dbMtimeMsAtSuccess: dbStats.mtimeMs,
+                        migratedAt: new Date().toISOString(),
+                        fallbackApplied: true
+                    });
+                } catch (error) {
+                    log(`Packaged migration fallback state persistence skipped: ${error.message}`);
+                }
+
+                return true;
+            }
+
             log(`Prisma migrate deploy failed: ${migrationResult.stderr || 'Unknown error'}`);
             return false;
         }

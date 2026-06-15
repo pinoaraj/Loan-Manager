@@ -19,7 +19,11 @@ const ensureTransactionSyncColumns = async () => {
 
     if (!columnNames.has('updatedAt')) {
         await prisma.$executeRawUnsafe(
-            'ALTER TABLE "Transaction" ADD COLUMN "updatedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP'
+            'ALTER TABLE "Transaction" ADD COLUMN "updatedAt" DATETIME'
+        );
+
+        await prisma.$executeRawUnsafe(
+            'UPDATE "Transaction" SET "updatedAt" = COALESCE("createdAt", "date", CURRENT_TIMESTAMP) WHERE "updatedAt" IS NULL'
         );
     }
 

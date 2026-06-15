@@ -46,3 +46,9 @@ export const useCollectionQueue = (filter: CollectionFilter) =>
     queryKey: ['collection-queue', filter],
     queryFn: () => localDb.listCollectionQueue(filter),
   });
+
+export const useAllClients = () =>
+  useQuery({
+    queryKey: ['clients', 'all'],
+    queryFn: () => localDb.listClients(''),
+  });

@@ -1,8 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+import { localDb } from '../data/database';
 import { syncService } from '../services/sync';
 import { useSession } from '../providers/AppProviders';
-import type { PaymentTransactionMutationPayload } from '../types/sync';
+import type {
+  LocalClientDraft,
+  LocalLoanDraft,
+  PaymentTransactionMutationPayload,
+} from '../types/sync';
 
 const invalidateAll = async (queryClient: ReturnType<typeof useQueryClient>) => {
   await Promise.all([
@@ -71,6 +76,28 @@ export const useDiscardRejectedMutation = () => {
     onSuccess: async () => {
       await invalidateAll(queryClient);
       await queryClient.invalidateQueries({ queryKey: ['rejected-outbox'] });
+    },
+  });
+};
+
+export const useCreateLocalClient = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (payload: LocalClientDraft) => localDb.createLocalClient(payload),
+    onSuccess: async () => {
+      await invalidateAll(queryClient);
+    },
+  });
+};
+
+export const useCreateLocalLoan = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (payload: LocalLoanDraft) => localDb.createLocalLoan(payload),
+    onSuccess: async () => {
+      await invalidateAll(queryClient);
     },
   });
 };

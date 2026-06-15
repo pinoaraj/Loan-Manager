@@ -77,7 +77,7 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    if (!isReady || !session) {
+    if (!isReady || !session || session.mode === 'local') {
       return;
     }
 
