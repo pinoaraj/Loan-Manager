@@ -17,10 +17,13 @@ This release is the current controlled beta for Loan Manager on Windows.
 ### Validation status
 
 - `npm run lint`: OK
-- `npx vitest run src/pages/LoanDetail.test.jsx`: OK
+- `npx vitest run`: OK
 - `cd server && npm test`: OK
 - `npm run build`: OK
 - `npm run rebuild-desktop`: OK
+- `npm run build:desktop-installer`: OK
+- Release artifacts rebuilt on `2026-06-16`: `release/win-unpacked/Loan Manager.exe` and `release/LoanManager-Setup-1.0.0.exe`
+- Validation refresh on `2026-06-16`: current workspace rechecked successfully before publish preparation
 - Packaged smoke test on `2026-06-03`: `release/win-unpacked/Loan Manager.exe` started successfully and the local backend answered `GET /api/health` with `200`
 - Installer smoke test on `2026-06-03`: `release/LoanManager-Setup-1.0.0.exe` installed and the installed app also passed the local backend healthcheck
 

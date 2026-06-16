@@ -237,6 +237,7 @@ Current recommendation: ready for a controlled Windows beta.
 - Green checks: lint, frontend tests, backend integration tests, web build, desktop installer build
 - Validated areas: login, dashboard, clients, loan detail, partial payments, collections deep-links, document generation, import/export, packaged startup
 - Mobile validated areas: Expo dependency health, typecheck, web QA export, local-only boot, local clients, local loans, calculator, calendar reminder flow, portable export package flow
+- Validation refresh on `2026-06-16`: `npm run lint`, `npx vitest run`, `cd server && npm test`, `npm run build`, `npm run rebuild-desktop`, and `npm run build:desktop-installer` all passed again from the current workspace state
 - Desktop startup note: repeated packaged launches were revalidated on June 3, 2026 and the local backend again reached healthcheck in about 1 to 2 seconds after the migration-state cache was introduced
-- Desktop build note: the latest portable app `release/win-unpacked/Loan Manager.exe` and installer `release/LoanManager-Setup-1.0.0.exe` were rebuilt on `2026-06-15`
+- Desktop build note: the latest portable app `release/win-unpacked/Loan Manager.exe` and installer `release/LoanManager-Setup-1.0.0.exe` were rebuilt on `2026-06-16`
 - Residual risks to keep watching: legal document formatting with real customer data, packaged-app smoke testing on more than one Windows machine, Android physical-device smoke testing for permissions and calendar prompts, and the later desktop import/sync workflow for purely local mobile records

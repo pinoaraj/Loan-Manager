@@ -14,7 +14,7 @@
    - La API opera con validaciones, autenticacion y pruebas automatizadas.
    - `npm test` en `server/` ya cubre el flujo principal real.
 3. Desktop
-   - `electron-builder` genera version `win-unpacked` validada de nuevo el `2026-06-03`.
+   - `electron-builder` genera version `win-unpacked` y el estado actual fue regenerado de nuevo el `2026-06-16`.
    - `desktop/main.cjs` levanta el backend local en `3011`.
    - El healthcheck del backend empaquetado ahora espera hasta `45s`.
    - El backend empaquetado ya difiere rutas pesadas y reutiliza un estado de migracion exitosa para acelerar aperturas repetidas.
@@ -78,6 +78,7 @@
 - `server/npm test`: OK
 - `npm run build`: OK
 - `npm run rebuild-desktop`: OK
+- `npm run build:desktop-installer`: OK
 - `graphify update .`: OK
 - QA visual embebido: rutas principales cargando con backend real
 - QA final web: login, dashboard, clientes, detalle cliente, nuevo prestamo, detalle prestamo, pago parcial, cobranza, documentos legales, calculadora e importacion/exportacion validados
@@ -87,6 +88,7 @@
 - QA final desktop adicional `2026-06-02`: los accesos directos corregidos y el build actualizado abren WhatsApp en el navegador externo, sin mostrar el falso error de version de Chrome dentro de Electron
 - QA final desktop adicional `2026-06-03`: smoke test manual de `release/win-unpacked/Loan Manager.exe` reconfirmado; el proceso empaquetado levanta backend local y deja evidencia en `%AppData%\\loan-manager\\debug-log.txt`
 - QA final desktop adicional `2026-06-03`: el instalador `release/LoanManager-Setup-1.0.0.exe` fue probado en instalacion silenciosa temporal y la app instalada tambien alcanzo `Server healthcheck passed`
+- QA de artefactos `2026-06-16`: `release/win-unpacked/Loan Manager.exe` y `release/LoanManager-Setup-1.0.0.exe` fueron regenerados desde el workspace actual; `latest.yml` quedo actualizado con `releaseDate` `2026-06-16T16:38:32.916Z`
 - QA backend desktop: pago parcial seguido de pago final deja `paidAmount` exacto, `status = Paid` y `transactions = 2`
 
 ## Go / No-Go beta

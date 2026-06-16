@@ -45,13 +45,20 @@ Confirm all of the following before publishing:
 - Import/export works with representative data
 - `release/win-unpacked/Loan Manager.exe` starts and `/api/health` returns `200`
 
-Latest local verification on `2026-06-03`:
+Latest local verification refresh on `2026-06-16`:
 
 - `npm run lint`: OK
-- `npx vitest run src/pages/LoanDetail.test.jsx`: OK
+- `npx vitest run`: OK
 - `cd server && npm test`: OK
 - `npm run build`: OK
 - `npm run rebuild-desktop`: OK
+- `npm run build:desktop-installer`: OK
+- Current release artifacts rebuilt on `2026-06-16`: OK
+  - `release/win-unpacked/Loan Manager.exe`
+  - `release/LoanManager-Setup-1.0.0.exe`
+
+Latest packaged smoke history:
+
 - Manual smoke test: `release/win-unpacked/Loan Manager.exe` exposed `GET http://127.0.0.1:3011/api/health` successfully and Electron logged `Server healthcheck passed` at `2026-06-03T13:52:03Z`
 - Installer smoke test: `release/LoanManager-Setup-1.0.0.exe` installed successfully in silent mode to a temporary folder and the installed `Loan Manager.exe` logged `Server healthcheck passed` at `2026-06-03T14:44:55Z`
 
@@ -75,10 +82,12 @@ This release is the current controlled beta for Loan Manager on Windows.
 ### Validation status
 
 - `npm run lint`: OK
-- `npx vitest run src/pages/LoanDetail.test.jsx`: OK
+- `npx vitest run`: OK
 - `cd server && npm test`: OK
 - `npm run build`: OK
 - `npm run rebuild-desktop`: OK
+- `npm run build:desktop-installer`: OK
+- Current release artifacts rebuilt on `2026-06-16`: OK
 - `release/win-unpacked/Loan Manager.exe` smoke test on June 3, 2026: OK
 - `release/LoanManager-Setup-1.0.0.exe` installer smoke test on June 3, 2026: OK
 
