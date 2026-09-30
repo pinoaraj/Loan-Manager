@@ -37,9 +37,11 @@ Confirm all of the following before publishing:
 
 - Login works on a clean local database
 - First-user registration works on a clean install
+- The packaged folder contains no `*.db`, no `.env`, no `tests/` and no logs
 - Client create/edit/search works with `RUT`
 - Loan creation and detail views load correctly
 - Partial payment plus final payment closes the installment exactly
+- Loan detail still lists the payment transaction history after a late fee is applied
 - Collections deep-link opens the correct pending `paymentId`
 - `Pagare`, `Mutuo`, `Contrato PDF`, `Word` and `Calendario` exports open correctly
 - Import/export works with representative data

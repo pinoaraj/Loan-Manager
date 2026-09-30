@@ -151,10 +151,12 @@ Workspace separation notes:
 Useful desktop notes:
 
 - The packaged backend runs from `resources/server/`
-- SQLite is copied to the Windows user data folder
+- A clean install always starts with an empty SQLite database in the Windows user data folder; the installer never ships user data or credentials
 - Desktop startup runs `prisma migrate deploy` on first packaged launch or when migrations change
 - Repeated packaged launches now reuse a cached successful migration state to avoid paying the migration cost every time
 - If packaged migrations fail, the app now stops instead of launching against an outdated schema
+- The database file is created empty before migrations run, because the Prisma schema engine fails on Windows when the SQLite file does not exist yet
+- Packaged migrations now run the Prisma CLI through Electron's own Node runtime (`ELECTRON_RUN_AS_NODE`) instead of `cmd.exe /c prisma.cmd`; the old command line broke whenever the install path contained a space, such as `C:\Program Files\Loan Manager`
 - WhatsApp and other external links now open in the system browser instead of Electron's embedded Chromium, avoiding compatibility issues with sites like WhatsApp Web
 - App icon assets live in `build/icons/`; `app-icon.png` and `app-icon.ico` are the packaged sources and `app-icon.svg` is kept aligned for repo/documentation use
 

@@ -31,15 +31,6 @@ try {
         }
     }
 
-    function findTemplateDb(baseDir) {
-        const candidates = [
-            path.join(baseDir, 'prisma', 'dev.db'),
-            path.join(baseDir, 'dev.db')
-        ];
-
-        return candidates.find((candidate) => fs.existsSync(candidate)) || null;
-    }
-
     function resolveMigrationStatePath() {
         return path.join(app.getPath('userData'), 'migration-state.json');
     }
@@ -230,13 +221,10 @@ try {
                 dbPath = path.join(userDataPath, 'dev.db');
 
                 if (!fs.existsSync(dbPath)) {
-                    const templateDb = findTemplateDb(cwd);
-                    if (templateDb) {
-                        fs.copyFileSync(templateDb, dbPath);
-                        log(`Database copied to userData from ${templateDb}`);
-                    } else {
-                        log('No packaged template database found. Server will create a fresh database if needed.');
-                    }
+                    // Never seed user data from the packaged app. A fresh install must start
+                    // with an empty database so the first-run registration flow works and no
+                    // developer/test data leaks into the user's machine.
+                    log('No user database found yet. A new empty database will be created for this install.');
                 }
             } else {
                 cwd = path.join(__dirname, '../server');
@@ -388,6 +376,19 @@ try {
             return true;
         }
 
+        // The Prisma schema engine fails on Windows when the SQLite file does not exist
+        // yet ("Schema engine error"). Creating an empty file first keeps `migrate deploy`
+        // able to build the schema from scratch on a clean install.
+        if (!fs.existsSync(dbPath)) {
+            try {
+                fs.writeFileSync(dbPath, '');
+                log(`Created empty database file at ${dbPath}`);
+            } catch (error) {
+                log(`Failed to create empty database file at ${dbPath}: ${error.message}`);
+                return false;
+            }
+        }
+
         if (!fs.existsSync(prismaBinary)) {
             log(`Prisma CLI not found at ${prismaBinary}.`);
             return !isPackagedBuild;
@@ -396,20 +397,46 @@ try {
         log(`Running Prisma migrations against ${dbPath} (${isPackagedBuild ? 'packaged' : 'development'})...`);
         const migrationStartedAt = Date.now();
 
-        const runPrismaCommand = (commandArgs) => spawnSync(
-            process.platform === 'win32' ? 'cmd.exe' : prismaBinary,
-            process.platform === 'win32' ? ['/c', prismaBinary, ...commandArgs] : commandArgs,
-            {
-                cwd,
-                env: {
-                    ...process.env,
-                    DATABASE_URL: `file:${dbPath}`
-                },
-                encoding: 'utf8',
-                timeout: 60000,
-                windowsHide: true
+        // Run the Prisma CLI with Electron's own Node runtime (ELECTRON_RUN_AS_NODE)
+        // instead of shelling out to `cmd.exe /c <prisma.cmd>`. The cmd.exe route broke
+        // whenever the install path contained a space (for example
+        // "C:\Program Files\Loan Manager"): the quoted batch path was re-parsed by cmd
+        // and Windows ended up trying to execute "C:\Program". Spawning the CLI entry
+        // point as a plain argument list avoids shell quoting entirely.
+        const prismaCliEntry = path.join(cwd, 'node_modules', 'prisma', 'build', 'index.js');
+
+        const runPrismaCommand = (commandArgs) => {
+            if (fs.existsSync(prismaCliEntry)) {
+                return spawnSync(process.execPath, [prismaCliEntry, ...commandArgs], {
+                    cwd,
+                    env: {
+                        ...process.env,
+                        ELECTRON_RUN_AS_NODE: '1',
+                        DATABASE_URL: `file:${dbPath}`
+                    },
+                    encoding: 'utf8',
+                    timeout: 120000,
+                    windowsHide: true
+                });
             }
-        );
+
+            log(`Prisma CLI entry point not found at ${prismaCliEntry}. Falling back to ${prismaBinary}.`);
+
+            return spawnSync(
+                process.platform === 'win32' ? 'cmd.exe' : prismaBinary,
+                process.platform === 'win32' ? ['/d', '/s', '/c', `""${prismaBinary}" ${commandArgs.map((arg) => (arg.includes(' ') ? `"${arg}"` : arg)).join(' ')}"`] : commandArgs,
+                {
+                    cwd,
+                    env: {
+                        ...process.env,
+                        DATABASE_URL: `file:${dbPath}`
+                    },
+                    encoding: 'utf8',
+                    timeout: 120000,
+                    windowsHide: true
+                }
+            );
+        };
 
         let migrationResult = runPrismaCommand([
             'migrate',

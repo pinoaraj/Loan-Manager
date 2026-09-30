@@ -4,8 +4,8 @@
     "hash": "eb024624c7bc2984d8a2bb904bdd2157"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\eslint.config.js": {
-    "mtime": 1779907178.7382736,
-    "hash": "2aaf2ca3392f74d91d639ff79ab9a946"
+    "mtime": 1790793462.3251467,
+    "hash": "2a7d1673547e672bda806b6d23f3854a"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\patch-desktop.ps1": {
     "mtime": 1770673510.783379,
@@ -42,6 +42,142 @@
   "C:\\Users\\JP\\Desktop\\LoanManager\\vitest.config.js": {
     "mtime": 1779907178.7882729,
     "hash": "750e9e693989ee83e416493d940f4c3e"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\COMPARTIR_FIGHT_AI.ps1": {
+    "mtime": 1788445649.377707,
+    "hash": "c975bfd3b1f92566cfee72facab6db88"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\INSTALAR_Y_INICIAR_FIGHT_AI.ps1": {
+    "mtime": 1788384441.4957044,
+    "hash": "46bb2213eca2661412632230896efcf2"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\instrumentation.ts": {
+    "mtime": 1788354077.5010793,
+    "hash": "ae68002a9972712f4eb09955e7eea440"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\middleware.ts": {
+    "mtime": 1788445338.609574,
+    "hash": "ed4ff0a6bf21f9de1c08621c43664729"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\next-env.d.ts": {
+    "mtime": 1788379330.025256,
+    "hash": "90426577ad8f38459f3e566411c85589"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\next.config.mjs": {
+    "mtime": 1788379427.732232,
+    "hash": "e564ae58b5c15e5086dc44d69112db5d"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\playwright.config.ts": {
+    "mtime": 1788354077.5015783,
+    "hash": "b732ef8be03504e2ea6404352912455d"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\postcss.config.mjs": {
+    "mtime": 1788379306.5856495,
+    "hash": "e5a8d7fdcf00f3252faf6f3d6f592470"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\layout.tsx": {
+    "mtime": 1788354077.488079,
+    "hash": "d7d02ee5195d9c322bd08e5e6acc1438"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\page.tsx": {
+    "mtime": 1788449455.9584668,
+    "hash": "81f79d52be22c7d182ec3c9472e2fbfc"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\api\\analyze\\route.ts": {
+    "mtime": 1788448882.8967123,
+    "hash": "f1a9967f4ad8e99ca956c36c5f6805dd"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\api\\analyze-uploaded\\route.ts": {
+    "mtime": 1788378566.6234639,
+    "hash": "b1152aca0aa4132467f6f55555a23327"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\api\\demo-video\\route.ts": {
+    "mtime": 1788354077.4800797,
+    "hash": "5b9637932a628ba2f02663b2c7f0ca4f"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\api\\direct-upload\\route.ts": {
+    "mtime": 1788378546.7465284,
+    "hash": "0c10c9f32324a0159bcb7f5e21cc611c"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\api\\evidence-frames\\route.ts": {
+    "mtime": 1788354077.483081,
+    "hash": "df024de16d19b5797d3cb01b50a56b53"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\api\\health\\route.ts": {
+    "mtime": 1788378566.6254652,
+    "hash": "8b119094617fd1ae8927124cb60f4620"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\api\\preview-frame\\route.ts": {
+    "mtime": 1788449231.8527555,
+    "hash": "fcd733e51de8571d60472536eeeb8a9d"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\api\\upload\\route.ts": {
+    "mtime": 1788354077.485079,
+    "hash": "6ac02444a9964355894815a2b20e7497"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\infra\\aws\\bootstrap-ecs-fargate.ps1": {
+    "mtime": 1788354077.4960856,
+    "hash": "b32aade3e64fd611fb51acead4910c4f"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\infra\\aws\\bootstrap-fight-ai.ps1": {
+    "mtime": 1788354077.4965804,
+    "hash": "0d3576e64ba0e387cc597f2cd784105d"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\infra\\aws\\bootstrap-large-video-ingestion.ps1": {
+    "mtime": 1788354077.4970796,
+    "hash": "10da317a3ee54c4aebe45fff4fc87ee6"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\infra\\aws\\grant-cloudfront-https-permissions.ps1": {
+    "mtime": 1788354077.4985805,
+    "hash": "ea156447d09bc0d8f4593ad3036a211a"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\infra\\aws\\repair-oidc-trust.ps1": {
+    "mtime": 1788354077.5000799,
+    "hash": "ac30fc64296d259893ce839de000d70b"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\lib\\boxingKnowledge.ts": {
+    "mtime": 1788378566.6284647,
+    "hash": "0b6771e77dbda2be53b069665f9d87c1"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\qa\\foreign-port-fixture.mjs": {
+    "mtime": 1788379101.3858857,
+    "hash": "3cb05223f7259c5bf2c6635a89c22128"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\qa\\local-port-safety.ps1": {
+    "mtime": 1788445343.8689344,
+    "hash": "46c3a785780a7c8a934561d5e676fdd3"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\qa\\web-agent\\fight-ai.spec.ts": {
+    "mtime": 1788378546.749028,
+    "hash": "99ca9970cb9d68869c451026215b95d0"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\qa\\web-agent\\mock_backend.py": {
+    "mtime": 1788354077.5035791,
+    "hash": "a8137a861a31a62878a5647a221d74e5"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\scripts\\analysis-worker.mjs": {
+    "mtime": 1788354077.5040808,
+    "hash": "8e95de3965167cae4d8d4fdbec1f61a3"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\scripts\\show-remote-access.ps1": {
+    "mtime": 1788388447.27081,
+    "hash": "a62b8803a6dd450d6710333a02f8b4c8"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\scripts\\start-local.ps1": {
+    "mtime": 1788445629.8735168,
+    "hash": "36d96c562022ba0957a1d59e65dd7d76"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\scripts\\start-remote-tunnel.ps1": {
+    "mtime": 1788449459.1152532,
+    "hash": "7b93099eb56c6baec61d6fd76d8fc9df"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\scripts\\stop-local.ps1": {
+    "mtime": 1788378956.3211167,
+    "hash": "94994338840e564eddb269bff2b0a893"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\scripts\\stop-remote-tunnel.ps1": {
+    "mtime": 1788386407.965927,
+    "hash": "c6e78e77d253fafad040beab1d11c483"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\expo-env.d.ts": {
     "mtime": 1781557723.967662,
@@ -100,8 +236,12 @@
     "hash": "4a27503b9ec9b92155f0eb1bcb1a551c"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\scripts\\build-android-debug.ps1": {
-    "mtime": 1780593028.2531323,
-    "hash": "e5e697fc187f9cd32c18d58fa5c092fe"
+    "mtime": 1781874992.9030638,
+    "hash": "057e7fa31808417e726d7224b47b891b"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\scripts\\install-android-beta.ps1": {
+    "mtime": 1782914965.4441657,
+    "hash": "fb12e8849a21c34efea59e7b494d47d7"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\data\\database.ts": {
     "mtime": 1781551704.654177,
@@ -176,8 +316,8 @@
     "hash": "baed5c66c2af76b4d2e0a13b8d2723c9"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\app.js": {
-    "mtime": 1780582216.9080863,
-    "hash": "83dbb1dadf6aaa21089c001e5aa67ba9"
+    "mtime": 1781557950.9876094,
+    "hash": "d313d5a7b2c5cc657ba93e49e28a4eb2"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\create-user.js": {
     "mtime": 1777660831.4173565,
@@ -212,8 +352,8 @@
     "hash": "f6b20ca9b0b15df0e13d4d94a121a2f5"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\middleware\\validationSchemas.js": {
-    "mtime": 1779831427.6093702,
-    "hash": "bee30ae60d45904d58e7ccdc8836058b"
+    "mtime": 1781555607.9151225,
+    "hash": "1e32bb8f75d2b08196ddb1cdf1fe102f"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\prisma\\migrations\\20260114194812_init\\migration.sql": {
     "mtime": 1768420092.8198826,
@@ -260,8 +400,8 @@
     "hash": "460bfd5238b89427ef8da646db51745d"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\routes\\import.js": {
-    "mtime": 1779829039.1824899,
-    "hash": "308cb5bd528b22df2b0d6c84b3a634aa"
+    "mtime": 1781555631.0851207,
+    "hash": "7d99b676efca316d6e51c2c74389e8b9"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\routes\\loans.js": {
     "mtime": 1781034683.184146,
@@ -279,10 +419,6 @@
     "mtime": 1781034643.7372904,
     "hash": "5375edd6a3ad06f40eda04794e0bb823"
   },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\tests\\api.integration.test.js": {
-    "mtime": 1781034739.3337195,
-    "hash": "6c595876bacc9d70b039c87020659d83"
-  },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\utils\\amortization.js": {
     "mtime": 1779907178.765274,
     "hash": "700dc099dae23bac8d09c1e574cc79e2"
@@ -292,8 +428,8 @@
     "hash": "8c045036100426bdc1eeb72e745f22da"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\utils\\fees.js": {
-    "mtime": 1779907178.7657743,
-    "hash": "8d4e325a8e70732fdac8a1f0ca34dec7"
+    "mtime": 1790793458.95778,
+    "hash": "f8cbb62be0c82ae93d60f26351436f07"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\utils\\logger.js": {
     "mtime": 1770594015.7967236,
@@ -416,8 +552,8 @@
     "hash": "5375edd6a3ad06f40eda04794e0bb823"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\tests\\api.integration.test.js": {
-    "mtime": 1781034739.3337195,
-    "hash": "6c595876bacc9d70b039c87020659d83"
+    "mtime": 1790793460.6254525,
+    "hash": "0373c857ee789bd4076a10a9db7848fa"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\utils\\amortization.js": {
     "mtime": 1779907178.765274,
@@ -428,8 +564,8 @@
     "hash": "8c045036100426bdc1eeb72e745f22da"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\utils\\fees.js": {
-    "mtime": 1779907178.7657743,
-    "hash": "8d4e325a8e70732fdac8a1f0ca34dec7"
+    "mtime": 1790793458.95778,
+    "hash": "f8cbb62be0c82ae93d60f26351436f07"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\utils\\logger.js": {
     "mtime": 1770594015.7967236,
@@ -648,36 +784,36 @@
     "hash": "59a3287c1a40ed1e237fc906d742d920"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\launch-log.txt": {
-    "mtime": 1779907178.7467766,
-    "hash": "5429b353448b47d93fdd7771001badd3"
+    "mtime": 1790609450.768994,
+    "hash": "eacc1acb0a7e0fa879e5e8937bfc5553"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\README.md": {
-    "mtime": 1781553103.9158788,
-    "hash": "28176bfca6c8ea8eeb206be7a1ec509f"
+    "mtime": 1790802978.1278007,
+    "hash": "1b0eabb202a192e554215deb4bea9263"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\BETA-TESTER.md": {
-    "mtime": 1780416847.474903,
-    "hash": "688d77401f7d459e8a16bbdf61f39a84"
+    "mtime": 1790792889.3361125,
+    "hash": "18a333284834536f3c4c779b9be926cf"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\GITHUB-RELEASE-CHECKLIST.md": {
-    "mtime": 1780497940.096465,
-    "hash": "a09813d9723dc922bc951d5b4f214153"
+    "mtime": 1790793540.6051166,
+    "hash": "aec0edc8129fd04726f7bf5831867303"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\GITHUB-RELEASE-NOTES.md": {
-    "mtime": 1780497940.097465,
-    "hash": "3f30806e027a73042934bc89d454faf5"
+    "mtime": 1781627949.6445565,
+    "hash": "7edefddea6e0dae4afca344de6840fa1"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\GRAPHIFY.md": {
-    "mtime": 1781553103.9163792,
-    "hash": "5790a5915fbf6c0e7f48aa3bfcf1a2c2"
+    "mtime": 1790802981.1684022,
+    "hash": "341d718c5e326c55acbea506129bff3d"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\PLAN-android-app.md": {
     "mtime": 1780496207.4659295,
     "hash": "1b37e2e9c7ba9ab56a12b32004e7dac7"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\PLAN-github-deployment.md": {
-    "mtime": 1780497940.0979645,
-    "hash": "53de1e4f07d9f4e6250ecaa2aa2b3cc3"
+    "mtime": 1790802986.723847,
+    "hash": "09192291d2a292f528b5267181a713d3"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\PLAN-mobile-sync-contract.md": {
     "mtime": 1780496254.3433275,
@@ -691,6 +827,50 @@
     "mtime": 1777660278.5987139,
     "hash": "e163d2f11bba64059536698774e6bbf5"
   },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\AGENTS.md": {
+    "mtime": 1788379112.1659212,
+    "hash": "dcea3a38648e51212a3c26279f27661f"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\README.md": {
+    "mtime": 1788378566.6219683,
+    "hash": "c0df4abd6fc6adb76ea6969c312e12ce"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\docs\\CODEX_HANDOFF_2026-08-29.md": {
+    "mtime": 1788379115.2769897,
+    "hash": "2865f5c81e2e90174358b980d293e444"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\docs\\GRAPIFY_BETA_SPEC.md": {
+    "mtime": 1788379119.1150184,
+    "hash": "7d1af0a04bdbaa075c76bb9765f35b60"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\docs\\LOCAL_PC_SERVER.md": {
+    "mtime": 1788388454.1739764,
+    "hash": "34a2b7ddf2ff1a4b57b15d447566493f"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\docs\\PROJECT_CONTINUITY.md": {
+    "mtime": 1788354077.4930794,
+    "hash": "3bcdac9b52fc1461415424914e5bfd7d"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\docs\\STATUS_2026-08-28.md": {
+    "mtime": 1788354077.493585,
+    "hash": "5715a609f57180c5a41d0698fdb701a2"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\docs\\STATUS_2026-08-31.md": {
+    "mtime": 1788354077.4940803,
+    "hash": "de281bbd28d678111826f0e55537dbd9"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\docs\\WEB_LONG_VIDEO_RUNTIME_FIX_2026-08-29.md": {
+    "mtime": 1788354077.494579,
+    "hash": "cf55f97ea9ec7004d1071cb4bbf4ea34"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\infra\\aws\\DEPLOY_NOTES.md": {
+    "mtime": 1788354077.495579,
+    "hash": "91eeca2dac364ae71ced4d03c58f2d9b"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\infra\\aws\\web-aws-deploy.template.yml": {
+    "mtime": 1788354077.5005798,
+    "hash": "3bde626a63868d2a3c286ee09af62654"
+  },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\AGENTS.md": {
     "mtime": 1780584360.968588,
     "hash": "0168b78417bf60f34fd1233c69591023"
@@ -700,28 +880,28 @@
     "hash": "5c27369b226fcf2be8a6cfe52224e767"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\README.md": {
-    "mtime": 1781553103.9178767,
-    "hash": "9eac5ec3b130920fa91302deef15ac0f"
+    "mtime": 1781875053.4905083,
+    "hash": "c09f6da165d153231b9b9ab32c08fb1a"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\ANDROID_SETUP.md": {
-    "mtime": 1780934632.9080346,
-    "hash": "37f7c3dc935dc3ed3ac2551aa7b4d887"
+    "mtime": 1782914969.678707,
+    "hash": "be433140e23c40ac5b1cc7de6b3a7c73"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\GRAPHIFY.md": {
     "mtime": 1781202062.416978,
     "hash": "9e61e3357e482a292f104e4b07faf0c2"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\MAP.md": {
-    "mtime": 1781553103.9183764,
-    "hash": "bb353e66aacb5da9c0f6e75909f77eef"
+    "mtime": 1781558180.096197,
+    "hash": "6e71b50f61ed4499b3d5964b7d1a187a"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\SYNC_SMOKE.md": {
     "mtime": 1781035178.6971138,
     "hash": "4b620fec8b85978c6e20a1817dab30ee"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\UPDATE_LOG.md": {
-    "mtime": 1781553103.919377,
-    "hash": "5bf8dcc9c3127875fcdc3322cba5e87f"
+    "mtime": 1781875057.5105147,
+    "hash": "0a38b6b1a32ec528cb64089745217c3e"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\github\\ANDROID_QA.md": {
     "mtime": 1781035178.7011127,
@@ -732,39 +912,39 @@
     "hash": "6d6202b641107f091e1d977827e95083"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\github\\RELEASE_NOTES.md": {
-    "mtime": 1781553103.9198768,
-    "hash": "0649b2700c7e7798d3aa6302a00acf51"
+    "mtime": 1781558180.0976944,
+    "hash": "c2a3a4fa8234a12fe845e08569db3359"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\graphify-out\\converted\\pagare_template_e62ac02c.md": {
-    "mtime": 1781558015.4404244,
+    "mtime": 1790803640.4189093,
     "hash": "3c57105453a9ba7f63d7459152a688e6"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\graphify-out\\converted\\pagare_template_sc_78d1f97f.md": {
-    "mtime": 1781558015.4784257,
+    "mtime": 1790803640.4639783,
     "hash": "9fedb158390f9703fc389a9e887bdcc3"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\builder-debug.yml": {
-    "mtime": 1781554301.1686084,
-    "hash": "d9ccb65e93684887b6abaf28ff43b557"
+    "mtime": 1790803122.2529914,
+    "hash": "5a35a9c8bced343e7ad8645cefadfb6e"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\builder-effective-config.yaml": {
     "mtime": 1770673186.1957,
     "hash": "bed16809b565bb3d711d95cd1ee438b8"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\latest.yml": {
-    "mtime": 1781554303.0556266,
-    "hash": "08e68e7a2085b51653ce4a6a55108cf7"
+    "mtime": 1790803124.0534966,
+    "hash": "0ea61edc0e46d8549f6aa65804c7dca8"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\LICENSE.electron.txt": {
-    "mtime": 1781553970.8087587,
+    "mtime": 1790802437.9736154,
     "hash": "4d42118d35941e0f664dddbd83f633c5"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\LICENSES.chromium.html": {
-    "mtime": 1781553970.6496973,
+    "mtime": 1790802437.7252848,
     "hash": "6ff57c0aeccdf44c39c95dee9ecea805"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\app-update.yml": {
-    "mtime": 1781554050.0445905,
+    "mtime": 1790802906.6976175,
     "hash": "0d5cd47bc3fb7b87705332d1840fd3ab"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\install-qr-direct-apk.png": {

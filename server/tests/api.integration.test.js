@@ -159,7 +159,9 @@ const createAuthenticatedLoanFixture = async () => {
             amount: 1200,
             interestRate: 0.1,
             durationMonths: 6,
-            startDate: '2026-05-26',
+            // Keep the schedule in the future so this fixture tests the partial-payment
+            // flow and never depends on the current date triggering overdue late fees.
+            startDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10),
             frequency: 'monthly',
             loanType: 'Fixed',
             graceDays: 3,

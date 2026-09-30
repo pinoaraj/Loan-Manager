@@ -25,6 +25,9 @@
    - En produccion, Electron mueve la DB a `AppData`.
 5. Migraciones
    - El arranque empaquetado ejecuta `prisma migrate deploy`.
+   - El instalador ya no incluye ninguna base de datos ni `.env`; una instalacion limpia parte siempre con una base vacia y crea el esquema desde migraciones.
+   - El arranque empaquetado ya no usa `cmd.exe` para migrar: la CLI de Prisma se ejecuta con el runtime Node de Electron, asi que la app abre bien incluso instalada en `C:\Program Files\Loan Manager`.
+   - Antes de migrar, se crea el archivo de base vacio porque el motor de esquema de Prisma falla en Windows cuando el archivo SQLite todavia no existe.
    - Si la migracion falla en build empaquetado, la app ya no continua con un esquema desactualizado.
 6. Documentos legales
    - `Pagare` usa la plantilla `pagare_template_sc.docx`.
@@ -57,6 +60,9 @@
 - [x] Modal de pago profundo cerrando al primer click.
 - [x] Icono desktop actualizado y consistente en assets principales.
 - [x] Revisiones visuales de pestanas principales, iconos y legibilidad en escritorio y vista movil.
+- [x] El empaquetado excluye bases de datos, `.env`, tests y logs, y el arranque ya no copia ninguna base de datos de plantilla.
+- [x] El registro del primer usuario en una instalacion limpia fue validado de punta a punta (`POST /api/auth/register` devuelve `201`).
+- [x] `checkAndApplyLateFees` ya no pierde el historial de transacciones al aplicar mora, por lo que el detalle del prestamo sigue mostrando los pagos registrados.
 
 ## Riesgos aun vigilados
 

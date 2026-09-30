@@ -39,7 +39,9 @@ Eso significa:
 
 ## Si la opcion de registro no funciona
 
-Lo mas probable es que esa maquina ya tenga datos previos de Loan Manager.
+Hay dos causas posibles.
+
+Causa 1: esa maquina ya tiene datos previos de Loan Manager.
 
 Opciones:
 
@@ -47,6 +49,20 @@ Opciones:
 2. Si necesitas probar como instalacion completamente nueva, cierra la app y elimina la carpeta de datos local:
    - `C:\Users\<TU_USUARIO>\AppData\Roaming\loan-manager`
 3. Abre la app otra vez y repite el flujo de registro inicial.
+
+Atencion: eliminar esa carpeta borra clientes, prestamos y pagos guardados en ese equipo. Haz un respaldo antes si ya tienes datos reales.
+
+Causa 2: estas usando un instalador anterior al arreglo del `2026-09-30`.
+
+Los instaladores antiguos incluian por error una base de datos de prueba con usuarios ya creados. Eso impedia registrar el primer usuario en un equipo nuevo.
+
+Solucion:
+
+1. Desinstala Loan Manager.
+2. Elimina la carpeta `C:\Users\<TU_USUARIO>\AppData\Roaming\loan-manager`.
+3. Instala de nuevo usando el instalador actualizado.
+
+Los instaladores actuales ya no incluyen ninguna base de datos, asi que una instalacion limpia siempre permite crear el primer usuario.
 
 ## Que validar en la beta
 
