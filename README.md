@@ -139,8 +139,8 @@ Portable testing build:
 
 Prepared beta package on Desktop (latest version, ready for another PC):
 
-- `C:\Users\JP\Desktop\LoanManager-Beta-1.0.0`
-  - `Instalador\LoanManager-Setup-1.0.0.exe` (207 MB, SHA256 `B0D7F77B407522FCEB9C70C3E8292A70BF885815CD1E290C83DF4D347E2BBC44`)
+- `C:\Users\JP\Desktop\INSTALADOR Loan Manager Beta`
+  - `LoanManager-Setup-1.0.0.exe` (207 MB, SHA256 `B0D7F77B407522FCEB9C70C3E8292A70BF885815CD1E290C83DF4D347E2BBC44`)
   - `Portable\win-unpacked\Loan Manager.exe` (no install needed)
   - `LEEME-INSTALACION.txt` (steps, first use and checksum)
 

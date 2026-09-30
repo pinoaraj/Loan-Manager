@@ -4,8 +4,8 @@
 
 Copia esta carpeta completa al PC donde vas a probar la beta:
 
-- `C:\Users\JP\Desktop\LoanManager-Beta-1.0.0`
-  - `Instalador\LoanManager-Setup-1.0.0.exe` -> instalador para Windows 64 bits
+- `C:\Users\JP\Desktop\INSTALADOR Loan Manager Beta`
+  - `LoanManager-Setup-1.0.0.exe` -> instalador para Windows 64 bits (esta en la raiz de la carpeta)
   - `Portable\win-unpacked\Loan Manager.exe` -> version portable, no instala nada
   - `LEEME-INSTALACION.txt` -> los mismos pasos de este documento
 

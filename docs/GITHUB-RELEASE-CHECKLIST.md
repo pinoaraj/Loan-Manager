@@ -18,7 +18,7 @@ Use this checklist when publishing the current Windows desktop beta to GitHub.
 - `release/LoanManager-Setup-1.0.0.exe`
 - `release/win-unpacked/` zipped, only if you want an internal portable build for advanced testers
 - `docs/BETA-TESTER.md` or its contents adapted into the GitHub release notes
-- The ready-to-share package on Desktop: `C:\Users\JP\Desktop\LoanManager-Beta-1.0.0` (installer + portable + `LEEME-INSTALACION.txt`)
+- The ready-to-share package on Desktop: `C:\Users\JP\Desktop\INSTALADOR Loan Manager Beta` (installer at the top level + portable + `LEEME-INSTALACION.txt`)
 
 ## Pre-publish verification
 

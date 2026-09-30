@@ -1,7 +1,7 @@
 # Graph Report - LoanManager  (2026-09-30)
 
 ## Corpus Check
-- 194 files · ~1,522,863 words
+- 194 files · ~1,522,881 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `f1716826`
+- Built from commit: `df73fb64`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -78,8 +78,6 @@
 10. `GET()` - 11 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `ProtectedRoute()` --calls--> `useAuth()`  [INFERRED]
-  src/App.jsx → src/context/useAuth.js
 - `Sidebar()` --calls--> `useLoans()`  [INFERRED]
   src/components/Sidebar.jsx → src/context/useLoans.js
 - `Dashboard()` --calls--> `useLoans()`  [INFERRED]
@@ -88,6 +86,8 @@
   src/pages/NewLoan.jsx → src/context/useLoans.js
 - `analyzeWithGemini()` --calls--> `boxingKnowledgePrompt()`  [INFERRED]
   fight-ai-web-mvp/app/api/analyze/route.ts → fight-ai-web-mvp/lib/boxingKnowledge.ts
+- `IndexScreen()` --calls--> `useSession()`  [INFERRED]
+  Mobiloan/app/index.tsx → Mobiloan/src/providers/AppProviders.tsx
 
 ## Communities (108 total, 21 thin omitted)
 
@@ -112,48 +112,48 @@ Cohesion: 0.12
 Nodes (7): derivePaymentStatus(), isPastDue(), buildMonthlySchedule(), calculateAmortization(), normalizeFrequency(), splitMonthlySchedule(), createClientMutationId()
 
 ### Community 5 - "Community 5"
+Cohesion: 0.21
+Nodes (11): ClientDetail(), formatCurrency(), generateEmailLink(), generateMailtoLink(), generateWhatsAppLink(), getReceiptMessage(), getReminderMessage(), hasPhoneNumber() (+3 more)
+
+### Community 6 - "Community 6"
 Cohesion: 0.27
 Nodes (16): buildCalendarFile(), createCalendarEvent(), downloadBulkLoanCalendars(), downloadCalendarBlob(), downloadLoanCalendar(), downloadPaymentReminder(), escapeIcsText(), formatCurrentUtcStamp() (+8 more)
 
-### Community 6 - "Community 6"
+### Community 7 - "Community 7"
+Cohesion: 0.17
+Nodes (8): AuthProvider(), LoanProvider(), ThemeProvider(), useAuth(), Login(), App(), ProtectedRoute(), useResponsiveDesktopScale()
+
+### Community 8 - "Community 8"
 Cohesion: 0.26
 Nodes (14): build_cutout_mask(), build_icon(), build_preview(), build_shadow(), build_svg(), build_symbol_mask(), draw_coin(), draw_document() (+6 more)
 
-### Community 7 - "Community 7"
+### Community 9 - "Community 9"
 Cohesion: 0.27
 Nodes (11): analyzeWithGemini(), cleanGeminiJson(), field(), generateCoachJson(), interactionOutputText(), makeCompactCompatibleClip(), makeThreeMinuteClip(), normalizeReport() (+3 more)
 
-### Community 8 - "Community 8"
+### Community 10 - "Community 10"
 Cohesion: 0.23
 Nodes (10): clone(), defaultState(), derivePaymentStatus(), getStorage(), hydrateOutboxRow(), isPastDue(), loadState(), saveState() (+2 more)
 
-### Community 9 - "Community 9"
+### Community 11 - "Community 11"
 Cohesion: 0.26
 Nodes (10): buildApiUrl(), getApiCandidates(), normalizeApiUrl(), resolveDefaultApiUrl(), resolveExpoHost(), resolveHostCandidates(), describeAttemptedUrls(), isNetworkError() (+2 more)
 
-### Community 10 - "Community 10"
+### Community 12 - "Community 12"
 Cohesion: 0.21
 Nodes (7): PagareModal(), Clients(), NewLoan(), cleanRut(), formatRutInput(), isValidRut(), normalizeRut()
 
-### Community 11 - "Community 11"
-Cohesion: 0.27
-Nodes (11): ClientDetail(), formatCurrency(), generateEmailLink(), generateMailtoLink(), generateWhatsAppLink(), getReceiptMessage(), getReminderMessage(), hasPhoneNumber() (+3 more)
-
-### Community 12 - "Community 12"
-Cohesion: 0.21
-Nodes (6): Footer(), Sidebar(), LoanProvider(), useAuth(), useTheme(), Login()
-
 ### Community 13 - "Community 13"
+Cohesion: 0.19
+Nodes (4): useLoans(), RecentActivity(), Collections(), ImportData()
+
+### Community 14 - "Community 14"
 Cohesion: 0.24
 Nodes (6): useLoanHealth(), getFrequencyLabel(), getLoanTypeLabel(), LoanDetail(), Loans(), formatStoredDate()
 
-### Community 14 - "Community 14"
+### Community 15 - "Community 15"
 Cohesion: 0.36
 Nodes (7): shutdown(), startServer(), ensureDatabaseCompatibility(), ensureSyncDeletedRecordsTable(), ensureTransactionSyncColumns(), getTableColumns(), indexExists()
-
-### Community 15 - "Community 15"
-Cohesion: 0.24
-Nodes (4): useLoans(), RecentActivity(), Collections(), ImportData()
 
 ### Community 16 - "Community 16"
 Cohesion: 0.42
@@ -168,32 +168,32 @@ Cohesion: 0.4
 Nodes (9): buildReminderNotes(), buildReminderTitle(), createCollectionReminder(), ensureCalendarPermission(), ensureNotificationChannel(), ensureNotificationPermission(), resolveReminderDate(), resolveWritableCalendarId() (+1 more)
 
 ### Community 19 - "Community 19"
-Cohesion: 0.22
-Nodes (5): AuthProvider(), ThemeProvider(), App(), ProtectedRoute(), useResponsiveDesktopScale()
-
-### Community 21 - "Community 21"
 Cohesion: 0.39
 Nodes (4): buildMonthlySchedule(), calculateAmortization(), normalizeFrequency(), splitMonthlySchedule()
 
-### Community 23 - "Community 23"
+### Community 21 - "Community 21"
 Cohesion: 0.32
 Nodes (3): Get-LocalIPv4(), Show-Ready(), Write-Banner()
 
-### Community 24 - "Community 24"
+### Community 22 - "Community 22"
 Cohesion: 0.29
 Nodes (3): Dashboard(), Skeleton(), cn()
 
-### Community 25 - "Community 25"
+### Community 23 - "Community 23"
 Cohesion: 0.52
 Nodes (5): chunkedFrame(), POST(), receiveBody(), renderFrame(), requestedTime()
 
-### Community 30 - "Community 30"
+### Community 29 - "Community 29"
 Cohesion: 0.47
 Nodes (3): PortfolioChart(), RevenueChart(), useElementSize()
 
-### Community 32 - "Community 32"
+### Community 31 - "Community 31"
 Cohesion: 0.7
 Nodes (4): login(), runTests(), testCreateClient(), testCreateClientWithoutPhone()
+
+### Community 32 - "Community 32"
+Cohesion: 0.5
+Nodes (3): Footer(), Sidebar(), useTheme()
 
 ### Community 35 - "Community 35"
 Cohesion: 0.83
@@ -211,11 +211,11 @@ Nodes (3): getLoanStatusFromPayments(), registerPaymentTransaction(), toAmount()
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `formatStoredDate()` connect `Community 13` to `Community 1`, `Community 11`, `Community 15`, `Community 16`, `Community 17`, `Community 20`?**
+- **Why does `formatStoredDate()` connect `Community 14` to `Community 1`, `Community 5`, `Community 13`, `Community 16`, `Community 17`?**
   _High betweenness centrality (0.023) - this node is a cross-community bridge._
-- **Why does `compareStoredDates()` connect `Community 1` to `Community 5`, `Community 10`, `Community 11`, `Community 13`, `Community 16`, `Community 17`, `Community 20`?**
+- **Why does `compareStoredDates()` connect `Community 1` to `Community 5`, `Community 6`, `Community 12`, `Community 14`, `Community 16`, `Community 17`?**
   _High betweenness centrality (0.019) - this node is a cross-community bridge._
-- **Why does `calculateAmortization()` connect `Community 4` to `Community 0`, `Community 8`?**
+- **Why does `calculateAmortization()` connect `Community 4` to `Community 0`, `Community 10`?**
   _High betweenness centrality (0.017) - this node is a cross-community bridge._
 - **Are the 10 inferred relationships involving `useLoans()` (e.g. with `Sidebar()` and `RecentActivity()`) actually correct?**
   _`useLoans()` has 10 INFERRED edges - model-reasoned connections that need verification._
