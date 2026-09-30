@@ -2,19 +2,36 @@
 
 ## Archivo de instalacion
 
-Usa este instalador:
+Copia esta carpeta completa al PC donde vas a probar la beta:
 
-- `C:\Users\JP\Desktop\LoanManager\release\LoanManager-Setup-1.0.0.exe`
+- `C:\Users\JP\Desktop\LoanManager-Beta-1.0.0`
+  - `Instalador\LoanManager-Setup-1.0.0.exe` -> instalador para Windows 64 bits
+  - `Portable\win-unpacked\Loan Manager.exe` -> version portable, no instala nada
+  - `LEEME-INSTALACION.txt` -> los mismos pasos de este documento
 
-Tambien existe una version portable para pruebas internas:
+Verificacion del instalador:
 
-- `C:\Users\JP\Desktop\LoanManager\release\win-unpacked\Loan Manager.exe`
+- SHA256: `B0D7F77B407522FCEB9C70C3E8292A70BF885815CD1E290C83DF4D347E2BBC44`
+
+Estos son los mismos archivos que genera el repo en `release/`, pero ya juntos y probados para probar la beta en otro equipo.
 
 ## Instalacion
 
 1. Ejecuta `LoanManager-Setup-1.0.0.exe`.
 2. Completa la instalacion normalmente.
 3. Abre `Loan Manager` desde el acceso directo o desde el menu Inicio.
+
+Nota sobre permisos:
+
+- En un PC que nunca tuvo Loan Manager, la instalacion es por usuario y no pide permisos de administrador.
+- Si ese PC ya tiene una version instalada, Windows pedira permisos de administrador para reemplazarla. Acepta el aviso.
+
+## Probar sin instalar (version portable)
+
+1. Abre `Portable\win-unpacked\Loan Manager.exe`.
+2. La primera apertura tarda unos 10 segundos porque crea la base de datos local.
+
+Sirve para probar en un PC donde no quieras o no puedas instalar nada.
 
 ## Primera ejecucion
 
@@ -64,6 +81,10 @@ Solucion:
 
 Los instaladores actuales ya no incluyen ninguna base de datos, asi que una instalacion limpia siempre permite crear el primer usuario.
 
+Causa 3: el instalador es actual, pero el PC tiene la app en una ruta con espacios y fallaba al migrar.
+
+Eso quedo corregido en la version del `2026-09-30`: el arranque ya no depende de `cmd.exe` y ahora funciona incluso instalada en `C:\Program Files\Loan Manager`. Usa siempre el instalador de la carpeta `LoanManager-Beta-1.0.0`.
+
 ## Que validar en la beta
 
 - inicio de sesion
@@ -77,9 +98,10 @@ Los instaladores actuales ya no incluyen ninguna base de datos, asi que una inst
 
 ## Si algo falla
 
-Revisa este log:
+Revisa estos archivos:
 
-- `C:\Users\<TU_USUARIO>\AppData\Roaming\loan-manager\debug-log.txt`
+- `C:\Users\<TU_USUARIO>\AppData\Roaming\loan-manager\debug-log.txt` (arranque del escritorio)
+- `C:\Users\<TU_USUARIO>\AppData\Roaming\loan-manager\logs\` (logs del backend)
 
 Si reportas un problema, idealmente incluye:
 

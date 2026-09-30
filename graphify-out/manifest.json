@@ -788,32 +788,32 @@
     "hash": "eacc1acb0a7e0fa879e5e8937bfc5553"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\README.md": {
-    "mtime": 1790804771.006345,
-    "hash": "d8a2829932e788ec0dcf47551f991b80"
+    "mtime": 1790805255.35008,
+    "hash": "1503addc6e98b9aaf213e3424aa47eea"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\BETA-TESTER.md": {
-    "mtime": 1790792889.3361125,
-    "hash": "18a333284834536f3c4c779b9be926cf"
+    "mtime": 1790805267.913787,
+    "hash": "e96c0ff782bd6e8720f777f4baa8c41a"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\GITHUB-RELEASE-CHECKLIST.md": {
-    "mtime": 1790793540.6051166,
-    "hash": "aec0edc8129fd04726f7bf5831867303"
+    "mtime": 1790805281.5213215,
+    "hash": "d497fe6e127418e29326d5a3b6700aca"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\GITHUB-RELEASE-NOTES.md": {
-    "mtime": 1781627949.6445565,
-    "hash": "7edefddea6e0dae4afca344de6840fa1"
+    "mtime": 1790805284.2664013,
+    "hash": "a8fbb66a73b643ccf2c42425830195b3"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\GRAPHIFY.md": {
-    "mtime": 1790804773.7970822,
-    "hash": "79773ea1f54fc87023a73fe2c8d2da33"
+    "mtime": 1790805258.0569162,
+    "hash": "efab41c586c8fb7f9fcb0e51854ea5a9"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\PLAN-android-app.md": {
     "mtime": 1780496207.4659295,
     "hash": "1b37e2e9c7ba9ab56a12b32004e7dac7"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\PLAN-github-deployment.md": {
-    "mtime": 1790804779.093131,
-    "hash": "f2ced942527059b32967d7676006183b"
+    "mtime": 1790805289.7980177,
+    "hash": "758171361ce1777ca877775160addad5"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\PLAN-mobile-sync-contract.md": {
     "mtime": 1780496254.3433275,
@@ -916,11 +916,11 @@
     "hash": "c2a3a4fa8234a12fe845e08569db3359"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\graphify-out\\converted\\pagare_template_e62ac02c.md": {
-    "mtime": 1790804786.4045527,
+    "mtime": 1790805299.9887753,
     "hash": "3c57105453a9ba7f63d7459152a688e6"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\graphify-out\\converted\\pagare_template_sc_78d1f97f.md": {
-    "mtime": 1790804786.434058,
+    "mtime": 1790805300.0167768,
     "hash": "9fedb158390f9703fc389a9e887bdcc3"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\builder-debug.yml": {
@@ -934,6 +934,10 @@
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\latest.yml": {
     "mtime": 1790804544.5193615,
     "hash": "fb7c1de79f79a7d01335afba68274cbe"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\beta-package\\LEEME-INSTALACION.txt": {
+    "mtime": 1790804960.858974,
+    "hash": "1ef5b83c686df99e094ed42a81b4ea25"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\LICENSE.electron.txt": {
     "mtime": 1790804026.84966,

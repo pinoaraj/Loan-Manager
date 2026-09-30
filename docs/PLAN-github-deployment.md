@@ -15,6 +15,7 @@
    - `npm test` en `server/` ya cubre el flujo principal real.
 3. Desktop
    - `electron-builder` genera version `win-unpacked` y el estado actual fue regenerado de nuevo el `2026-06-16`.
+   - `2026-09-30`: instalador regenerado, instalado en `C:\Program Files\Loan Manager` y validado de punta a punta (arranque, migraciones, registro del primer usuario y login).
    - `desktop/main.cjs` levanta el backend local en `3011`.
    - El healthcheck del backend empaquetado ahora espera hasta `45s`.
    - El backend empaquetado ya difiere rutas pesadas y reutiliza un estado de migracion exitosa para acelerar aperturas repetidas.

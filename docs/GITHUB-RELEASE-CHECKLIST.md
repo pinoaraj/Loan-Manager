@@ -16,8 +16,9 @@ Use this checklist when publishing the current Windows desktop beta to GitHub.
 ## Attachments to include
 
 - `release/LoanManager-Setup-1.0.0.exe`
-- `release/win-unpacked/` only if you want an internal portable build for advanced testers
+- `release/win-unpacked/` zipped, only if you want an internal portable build for advanced testers
 - `docs/BETA-TESTER.md` or its contents adapted into the GitHub release notes
+- The ready-to-share package on Desktop: `C:\Users\JP\Desktop\LoanManager-Beta-1.0.0` (installer + portable + `LEEME-INSTALACION.txt`)
 
 ## Pre-publish verification
 
@@ -38,6 +39,8 @@ Confirm all of the following before publishing:
 - Login works on a clean local database
 - First-user registration works on a clean install
 - The packaged folder contains no `*.db`, no `.env`, no `tests/` and no logs
+- The app starts when it is installed in a path with spaces such as `C:\Program Files\Loan Manager`
+- Server logs end up in `%AppData%\loan-manager\logs` instead of the install folder
 - Client create/edit/search works with `RUT`
 - Loan creation and detail views load correctly
 - Partial payment plus final payment closes the installment exactly
@@ -58,6 +61,17 @@ Latest local verification refresh on `2026-06-16`:
 - Current release artifacts rebuilt on `2026-06-16`: OK
   - `release/win-unpacked/Loan Manager.exe`
   - `release/LoanManager-Setup-1.0.0.exe`
+
+Verification refresh on `2026-09-30` (desktop clean install fix):
+
+- `npx vitest run`: OK (11/11)
+- `cd server && npm test`: OK (12/12)
+- `npm run build:desktop-installer`: OK
+- Release artifacts rebuilt on `2026-09-30`: `release/win-unpacked/Loan Manager.exe` and `release/LoanManager-Setup-1.0.0.exe`
+- Installer installed to `C:\Program Files\Loan Manager`; the app started, applied the 6 migrations and answered `GET /api/health` with `200`
+- `POST /api/auth/register` returned `201` and `POST /api/auth/login` returned `200` on a clean database, so first-user registration works on a fresh install
+- Packaged server verified to contain no `*.db`, no `.env`, no `tests/` and no logs
+- Portable copy tested from the Desktop beta package: started, migrated and registered the first user
 
 Latest packaged smoke history:
 
@@ -89,9 +103,16 @@ This release is the current controlled beta for Loan Manager on Windows.
 - `npm run build`: OK
 - `npm run rebuild-desktop`: OK
 - `npm run build:desktop-installer`: OK
-- Current release artifacts rebuilt on `2026-06-16`: OK
-- `release/win-unpacked/Loan Manager.exe` smoke test on June 3, 2026: OK
-- `release/LoanManager-Setup-1.0.0.exe` installer smoke test on June 3, 2026: OK
+- Current release artifacts rebuilt on `2026-09-30`: OK
+- Clean install verified on September 30, 2026 on a real Windows machine installed in `C:\Program Files\Loan Manager`: startup, migrations, first-user registration and login OK
+- Portable build smoke test on September 30, 2026: OK
+
+### Fixes in this build
+
+- The installer no longer ships a seeded SQLite database or `.env`, so a clean install starts empty and allows creating the first user
+- The database file is created empty before running `prisma migrate deploy`, because the Prisma schema engine fails on Windows when the SQLite file does not exist yet
+- Packaged migrations run the Prisma CLI through Electron's own Node runtime instead of `cmd.exe`, so the app also starts when installed under a path with spaces
+- Backend logs are written to `%AppData%\loan-manager\logs` with a temp-folder fallback, because a normal user cannot create folders inside `C:\Program Files\Loan Manager`
 
 ### Known watch items
 

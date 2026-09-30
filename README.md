@@ -137,11 +137,12 @@ Portable testing build:
 
 - `release/win-unpacked/Loan Manager.exe`
 
-Prepared testing folder on Desktop:
+Prepared beta package on Desktop (latest version, ready for another PC):
 
-- `C:\Users\JP\Desktop\LoanManager-Desktop-Ultima-Beta`
-  - `Portable\win-unpacked\`
-  - `Instalador\LoanManager-Setup-1.0.0.exe`
+- `C:\Users\JP\Desktop\LoanManager-Beta-1.0.0`
+  - `Instalador\LoanManager-Setup-1.0.0.exe` (207 MB, SHA256 `B0D7F77B407522FCEB9C70C3E8292A70BF885815CD1E290C83DF4D347E2BBC44`)
+  - `Portable\win-unpacked\Loan Manager.exe` (no install needed)
+  - `LEEME-INSTALACION.txt` (steps, first use and checksum)
 
 Workspace separation notes:
 
@@ -160,6 +161,7 @@ Useful desktop notes:
 - Server logs are written to `%AppData%\loan-manager\logs` (via `LOAN_MANAGER_LOG_DIR`) with a temp-folder fallback, because a normal user cannot create folders inside `C:\Program Files\Loan Manager`
 - WhatsApp and other external links now open in the system browser instead of Electron's embedded Chromium, avoiding compatibility issues with sites like WhatsApp Web
 - App icon assets live in `build/icons/`; `app-icon.png` and `app-icon.ico` are the packaged sources and `app-icon.svg` is kept aligned for repo/documentation use
+- Revalidated on `2026-09-30` over a real Windows install at `C:\Program Files\Loan Manager`: the app starts, applies migrations and creates the first user from the registration screen
 
 ## API highlights
 
