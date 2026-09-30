@@ -252,6 +252,7 @@ try {
                     PORT: SERVER_PORT,
                     DATABASE_URL: `file:${dbPath}`,
                     JWT_SECRET: jwtSecret,
+                    LOAN_MANAGER_LOG_DIR: path.join(app.getPath('userData'), 'logs'),
                     DESKTOP_APP: 'true'
                 },
                 stdio: 'pipe'

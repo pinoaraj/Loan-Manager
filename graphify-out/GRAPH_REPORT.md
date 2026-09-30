@@ -1,16 +1,16 @@
 # Graph Report - LoanManager  (2026-09-30)
 
 ## Corpus Check
-- 194 files · ~1,521,722 words
+- 194 files · ~1,521,951 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 598 nodes · 939 edges · 41 communities detected
+- 600 nodes · 941 edges · 42 communities detected
 - Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 58 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `6b8ccddc`
+- Built from commit: `021fd40f`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -56,6 +56,7 @@
 - [[_COMMUNITY_Community 40|Community 40]]
 - [[_COMMUNITY_Community 41|Community 41]]
 - [[_COMMUNITY_Community 42|Community 42]]
+- [[_COMMUNITY_Community 43|Community 43]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `useLoans()` - 22 edges
@@ -81,7 +82,7 @@
 - `AppLayout()` --calls--> `useSession()`  [INFERRED]
   Mobiloan/app/(app)/_layout.tsx → Mobiloan/src/providers/AppProviders.tsx
 
-## Communities (101 total, 19 thin omitted)
+## Communities (101 total, 20 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.05
@@ -136,12 +137,12 @@ Cohesion: 0.26
 Nodes (10): buildApiUrl(), getApiCandidates(), normalizeApiUrl(), resolveDefaultApiUrl(), resolveExpoHost(), resolveHostCandidates(), describeAttemptedUrls(), isNetworkError() (+2 more)
 
 ### Community 13 - "Community 13"
-Cohesion: 0.42
-Nodes (10): downloadBlob(), generateLoanContract(), generateReceipt(), getAmount(), getDateLabel(), getFileSafeLabel(), getLoanDurationMonths(), getLoanInterestRate() (+2 more)
-
-### Community 14 - "Community 14"
 Cohesion: 0.36
 Nodes (7): shutdown(), startServer(), ensureDatabaseCompatibility(), ensureSyncDeletedRecordsTable(), ensureTransactionSyncColumns(), getTableColumns(), indexExists()
+
+### Community 14 - "Community 14"
+Cohesion: 0.42
+Nodes (10): downloadBlob(), generateLoanContract(), generateReceipt(), getAmount(), getDateLabel(), getFileSafeLabel(), getLoanDurationMonths(), getLoanInterestRate() (+2 more)
 
 ### Community 15 - "Community 15"
 Cohesion: 0.4
@@ -155,7 +156,7 @@ Nodes (3): Get-LocalIPv4(), Show-Ready(), Write-Banner()
 Cohesion: 0.52
 Nodes (5): chunkedFrame(), POST(), receiveBody(), renderFrame(), requestedTime()
 
-### Community 24 - "Community 24"
+### Community 23 - "Community 23"
 Cohesion: 0.47
 Nodes (3): PortfolioChart(), RevenueChart(), useElementSize()
 
@@ -167,21 +168,21 @@ Nodes (4): login(), runTests(), testCreateClient(), testCreateClientWithoutPhone
 Cohesion: 0.83
 Nodes (3): isLocalHostname(), middleware(), requestHostname()
 
-### Community 35 - "Community 35"
+### Community 34 - "Community 34"
 Cohesion: 0.83
 Nodes (3): getLoanStatusFromPayments(), registerPaymentTransaction(), toAmount()
 
 ## Knowledge Gaps
 - **1 isolated node(s):** `BaseHTTPRequestHandler`
   These have ≤1 connection - possible missing edges or undocumented components.
-- **19 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **20 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `formatStoredDate()` connect `Community 4` to `Community 0`, `Community 3`, `Community 13`?**
-  _High betweenness centrality (0.024) - this node is a cross-community bridge._
-- **Why does `compareStoredDates()` connect `Community 4` to `Community 0`, `Community 8`, `Community 3`, `Community 13`?**
+- **Why does `formatStoredDate()` connect `Community 4` to `Community 0`, `Community 3`, `Community 14`?**
+  _High betweenness centrality (0.023) - this node is a cross-community bridge._
+- **Why does `compareStoredDates()` connect `Community 4` to `Community 0`, `Community 8`, `Community 3`, `Community 14`?**
   _High betweenness centrality (0.019) - this node is a cross-community bridge._
 - **Why does `calculateAmortization()` connect `Community 7` to `Community 1`, `Community 11`?**
   _High betweenness centrality (0.017) - this node is a cross-community bridge._

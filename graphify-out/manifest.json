@@ -432,8 +432,8 @@
     "hash": "f8cbb62be0c82ae93d60f26351436f07"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\utils\\logger.js": {
-    "mtime": 1770594015.7967236,
-    "hash": "f67e395af8e6dae1e56bd5b127f0c7de"
+    "mtime": 1790803979.8177755,
+    "hash": "c41e8ccba148d30ca21b39f2edd6133d"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\utils\\paymentTransactions.js": {
     "mtime": 1781013915.3727038,
@@ -568,8 +568,8 @@
     "hash": "f8cbb62be0c82ae93d60f26351436f07"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\utils\\logger.js": {
-    "mtime": 1770594015.7967236,
-    "hash": "f67e395af8e6dae1e56bd5b127f0c7de"
+    "mtime": 1790803979.8177755,
+    "hash": "c41e8ccba148d30ca21b39f2edd6133d"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\utils\\paymentTransactions.js": {
     "mtime": 1781013915.3727038,
@@ -788,8 +788,8 @@
     "hash": "eacc1acb0a7e0fa879e5e8937bfc5553"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\README.md": {
-    "mtime": 1790802978.1278007,
-    "hash": "1b0eabb202a192e554215deb4bea9263"
+    "mtime": 1790804771.006345,
+    "hash": "d8a2829932e788ec0dcf47551f991b80"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\BETA-TESTER.md": {
     "mtime": 1790792889.3361125,
@@ -804,16 +804,16 @@
     "hash": "7edefddea6e0dae4afca344de6840fa1"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\GRAPHIFY.md": {
-    "mtime": 1790802981.1684022,
-    "hash": "341d718c5e326c55acbea506129bff3d"
+    "mtime": 1790804773.7970822,
+    "hash": "79773ea1f54fc87023a73fe2c8d2da33"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\PLAN-android-app.md": {
     "mtime": 1780496207.4659295,
     "hash": "1b37e2e9c7ba9ab56a12b32004e7dac7"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\PLAN-github-deployment.md": {
-    "mtime": 1790802986.723847,
-    "hash": "09192291d2a292f528b5267181a713d3"
+    "mtime": 1790804779.093131,
+    "hash": "f2ced942527059b32967d7676006183b"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\PLAN-mobile-sync-contract.md": {
     "mtime": 1780496254.3433275,
@@ -916,35 +916,35 @@
     "hash": "c2a3a4fa8234a12fe845e08569db3359"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\graphify-out\\converted\\pagare_template_e62ac02c.md": {
-    "mtime": 1790803640.4189093,
+    "mtime": 1790804786.4045527,
     "hash": "3c57105453a9ba7f63d7459152a688e6"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\graphify-out\\converted\\pagare_template_sc_78d1f97f.md": {
-    "mtime": 1790803640.4639783,
+    "mtime": 1790804786.434058,
     "hash": "9fedb158390f9703fc389a9e887bdcc3"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\builder-debug.yml": {
-    "mtime": 1790803122.2529914,
-    "hash": "5a35a9c8bced343e7ad8645cefadfb6e"
+    "mtime": 1790804542.8263638,
+    "hash": "c9a5834e21aa8d519d4816259deb669d"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\builder-effective-config.yaml": {
     "mtime": 1770673186.1957,
     "hash": "bed16809b565bb3d711d95cd1ee438b8"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\latest.yml": {
-    "mtime": 1790803124.0534966,
-    "hash": "0ea61edc0e46d8549f6aa65804c7dca8"
+    "mtime": 1790804544.5193615,
+    "hash": "fb7c1de79f79a7d01335afba68274cbe"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\LICENSE.electron.txt": {
-    "mtime": 1790802437.9736154,
+    "mtime": 1790804026.84966,
     "hash": "4d42118d35941e0f664dddbd83f633c5"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\LICENSES.chromium.html": {
-    "mtime": 1790802437.7252848,
+    "mtime": 1790804026.6030784,
     "hash": "6ff57c0aeccdf44c39c95dee9ecea805"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\app-update.yml": {
-    "mtime": 1790802906.6976175,
+    "mtime": 1790804329.3199575,
     "hash": "0d5cd47bc3fb7b87705332d1840fd3ab"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\install-qr-direct-apk.png": {

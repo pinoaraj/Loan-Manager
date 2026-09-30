@@ -27,6 +27,7 @@
    - El arranque empaquetado ejecuta `prisma migrate deploy`.
    - El instalador ya no incluye ninguna base de datos ni `.env`; una instalacion limpia parte siempre con una base vacia y crea el esquema desde migraciones.
    - El arranque empaquetado ya no usa `cmd.exe` para migrar: la CLI de Prisma se ejecuta con el runtime Node de Electron, asi que la app abre bien incluso instalada en `C:\Program Files\Loan Manager`.
+   - Los logs del backend se escriben en `%AppData%\loan-manager\logs`, no dentro de la carpeta de instalacion, porque un usuario normal no puede crear carpetas bajo `C:\Program Files`.
    - Antes de migrar, se crea el archivo de base vacio porque el motor de esquema de Prisma falla en Windows cuando el archivo SQLite todavia no existe.
    - Si la migracion falla en build empaquetado, la app ya no continua con un esquema desactualizado.
 6. Documentos legales

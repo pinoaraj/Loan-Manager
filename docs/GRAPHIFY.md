@@ -82,6 +82,7 @@ If the change is mobile-only inside `Mobiloan/`, also review `Mobiloan/graphify-
 - The desktop build artifacts were rebuilt from the current workspace and staged separately for portable and installer testing.
 - The desktop package no longer ships a seeded SQLite database or `.env`; `desktop/main.cjs` had been copying a bundled `prisma/dev.db` into `AppData`, which already contained developer users and made first-run registration impossible.
 - `desktop/main.cjs` now launches the packaged Prisma CLI with `ELECTRON_RUN_AS_NODE` instead of shelling out to `cmd.exe`, which fixes desktop startup when the install path contains spaces (for example `C:\Program Files\Loan Manager`).
+- `server/utils/logger.js` resolves a writable log folder (`LOAN_MANAGER_LOG_DIR`, then `%AppData%\loan-manager\logs`, then the temp folder), so the packaged backend also starts when it lives under `C:\Program Files`.
 - The packaged startup now creates an empty SQLite file before `prisma migrate deploy`, because the Prisma schema engine fails on Windows when the database file does not exist yet.
 - `server/utils/fees.js` now reloads the loan with `payments.transactions` included, so applying a late fee no longer drops the payment history returned by the loan detail endpoints.
 

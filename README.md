@@ -157,6 +157,7 @@ Useful desktop notes:
 - If packaged migrations fail, the app now stops instead of launching against an outdated schema
 - The database file is created empty before migrations run, because the Prisma schema engine fails on Windows when the SQLite file does not exist yet
 - Packaged migrations now run the Prisma CLI through Electron's own Node runtime (`ELECTRON_RUN_AS_NODE`) instead of `cmd.exe /c prisma.cmd`; the old command line broke whenever the install path contained a space, such as `C:\Program Files\Loan Manager`
+- Server logs are written to `%AppData%\loan-manager\logs` (via `LOAN_MANAGER_LOG_DIR`) with a temp-folder fallback, because a normal user cannot create folders inside `C:\Program Files\Loan Manager`
 - WhatsApp and other external links now open in the system browser instead of Electron's embedded Chromium, avoiding compatibility issues with sites like WhatsApp Web
 - App icon assets live in `build/icons/`; `app-icon.png` and `app-icon.ico` are the packaged sources and `app-icon.svg` is kept aligned for repo/documentation use
 

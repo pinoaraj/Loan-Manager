@@ -9,7 +9,7 @@
       "source_file": "check_build.js",
       "source_location": "L1",
       "id": "check_build_js",
-      "community": 43,
+      "community": 44,
       "norm_label": "check_build.js"
     },
     {
@@ -18,7 +18,7 @@
       "source_file": "check_build.js",
       "source_location": "L8",
       "id": "loanmanager_check_build_getnewestfiletime",
-      "community": 43,
+      "community": 44,
       "norm_label": "getnewestfiletime()"
     },
     {
@@ -27,7 +27,7 @@
       "source_file": "eslint.config.js",
       "source_location": "L1",
       "id": "eslint_config_js",
-      "community": 60,
+      "community": 61,
       "norm_label": "eslint.config.js"
     },
     {
@@ -36,7 +36,7 @@
       "source_file": "patch-desktop.ps1",
       "source_location": "L1",
       "id": "patch_desktop_ps1",
-      "community": 61,
+      "community": 62,
       "norm_label": "patch-desktop.ps1"
     },
     {
@@ -45,7 +45,7 @@
       "source_file": "postcss.config.js",
       "source_location": "L1",
       "id": "postcss_config_js",
-      "community": 62,
+      "community": 63,
       "norm_label": "postcss.config.js"
     },
     {
@@ -54,7 +54,7 @@
       "source_file": "rebuild-desktop-app.ps1",
       "source_location": "L1",
       "id": "rebuild_desktop_app_ps1",
-      "community": 63,
+      "community": 64,
       "norm_label": "rebuild-desktop-app.ps1"
     },
     {
@@ -63,7 +63,7 @@
       "source_file": "rebuild-desktop-final.ps1",
       "source_location": "L1",
       "id": "rebuild_desktop_final_ps1",
-      "community": 64,
+      "community": 65,
       "norm_label": "rebuild-desktop-final.ps1"
     },
     {
@@ -72,7 +72,7 @@
       "source_file": "tailwind.config.js",
       "source_location": "L1",
       "id": "tailwind_config_js",
-      "community": 65,
+      "community": 66,
       "norm_label": "tailwind.config.js"
     },
     {
@@ -126,7 +126,7 @@
       "source_file": "test-client-creation.ps1",
       "source_location": "L1",
       "id": "test_client_creation_ps1",
-      "community": 66,
+      "community": 67,
       "norm_label": "test-client-creation.ps1"
     },
     {
@@ -135,7 +135,7 @@
       "source_file": "vite.config.js",
       "source_location": "L1",
       "id": "vite_config_js",
-      "community": 67,
+      "community": 68,
       "norm_label": "vite.config.js"
     },
     {
@@ -144,7 +144,7 @@
       "source_file": "vitest.config.js",
       "source_location": "L1",
       "id": "vitest_config_js",
-      "community": 68,
+      "community": 69,
       "norm_label": "vitest.config.js"
     },
     {
@@ -225,7 +225,7 @@
       "source_file": "fight-ai-web-mvp/instrumentation.ts",
       "source_location": "L1",
       "id": "fight_ai_web_mvp_instrumentation_ts",
-      "community": 44,
+      "community": 45,
       "norm_label": "instrumentation.ts"
     },
     {
@@ -234,7 +234,7 @@
       "source_file": "fight-ai-web-mvp/instrumentation.ts",
       "source_location": "L4",
       "id": "fight_ai_web_mvp_instrumentation_register",
-      "community": 44,
+      "community": 45,
       "norm_label": "register()"
     },
     {
@@ -279,7 +279,7 @@
       "source_file": "fight-ai-web-mvp/next-env.d.ts",
       "source_location": "L1",
       "id": "fight_ai_web_mvp_next_env_d_ts",
-      "community": 69,
+      "community": 70,
       "norm_label": "next-env.d.ts"
     },
     {
@@ -288,7 +288,7 @@
       "source_file": "fight-ai-web-mvp/next.config.mjs",
       "source_location": "L1",
       "id": "fight_ai_web_mvp_next_config_mjs",
-      "community": 70,
+      "community": 71,
       "norm_label": "next.config.mjs"
     },
     {
@@ -297,7 +297,7 @@
       "source_file": "fight-ai-web-mvp/playwright.config.ts",
       "source_location": "L1",
       "id": "fight_ai_web_mvp_playwright_config_ts",
-      "community": 71,
+      "community": 72,
       "norm_label": "playwright.config.ts"
     },
     {
@@ -306,7 +306,7 @@
       "source_file": "fight-ai-web-mvp/postcss.config.mjs",
       "source_location": "L1",
       "id": "fight_ai_web_mvp_postcss_config_mjs",
-      "community": 72,
+      "community": 73,
       "norm_label": "postcss.config.mjs"
     },
     {
@@ -963,7 +963,7 @@
       "source_file": "fight-ai-web-mvp/app/api/direct-upload/route.ts",
       "source_location": "L1",
       "id": "fight_ai_web_mvp_app_api_direct_upload_route_ts",
-      "community": 45,
+      "community": 46,
       "norm_label": "route.ts"
     },
     {
@@ -972,7 +972,7 @@
       "source_file": "fight-ai-web-mvp/app/api/direct-upload/route.ts",
       "source_location": "L10",
       "id": "direct_upload_route_post",
-      "community": 45,
+      "community": 46,
       "norm_label": "post()"
     },
     {
@@ -1017,7 +1017,7 @@
       "source_file": "fight-ai-web-mvp/app/api/health/route.ts",
       "source_location": "L1",
       "id": "fight_ai_web_mvp_app_api_health_route_ts",
-      "community": 46,
+      "community": 47,
       "norm_label": "route.ts"
     },
     {
@@ -1026,7 +1026,7 @@
       "source_file": "fight-ai-web-mvp/app/api/health/route.ts",
       "source_location": "L6",
       "id": "health_route_get",
-      "community": 46,
+      "community": 47,
       "norm_label": "get()"
     },
     {
@@ -1098,7 +1098,7 @@
       "source_file": "fight-ai-web-mvp/app/api/upload/route.ts",
       "source_location": "L1",
       "id": "fight_ai_web_mvp_app_api_upload_route_ts",
-      "community": 47,
+      "community": 48,
       "norm_label": "route.ts"
     },
     {
@@ -1107,7 +1107,7 @@
       "source_file": "fight-ai-web-mvp/app/api/upload/route.ts",
       "source_location": "L6",
       "id": "upload_route_post",
-      "community": 47,
+      "community": 48,
       "norm_label": "post()"
     },
     {
@@ -1170,7 +1170,7 @@
       "source_file": "fight-ai-web-mvp/infra/aws/bootstrap-large-video-ingestion.ps1",
       "source_location": "L1",
       "id": "fight_ai_web_mvp_infra_aws_bootstrap_large_video_ingestion_ps1",
-      "community": 48,
+      "community": 49,
       "norm_label": "bootstrap-large-video-ingestion.ps1"
     },
     {
@@ -1179,7 +1179,7 @@
       "source_file": "fight-ai-web-mvp/infra/aws/bootstrap-large-video-ingestion.ps1",
       "source_location": "L12",
       "id": "aws_bootstrap_large_video_ingestion_invoke_aws",
-      "community": 48,
+      "community": 49,
       "norm_label": "invoke-aws()"
     },
     {
@@ -1188,7 +1188,7 @@
       "source_file": "fight-ai-web-mvp/infra/aws/grant-cloudfront-https-permissions.ps1",
       "source_location": "L1",
       "id": "fight_ai_web_mvp_infra_aws_grant_cloudfront_https_permissions_ps1",
-      "community": 73,
+      "community": 74,
       "norm_label": "grant-cloudfront-https-permissions.ps1"
     },
     {
@@ -1197,7 +1197,7 @@
       "source_file": "fight-ai-web-mvp/infra/aws/repair-oidc-trust.ps1",
       "source_location": "L1",
       "id": "fight_ai_web_mvp_infra_aws_repair_oidc_trust_ps1",
-      "community": 74,
+      "community": 75,
       "norm_label": "repair-oidc-trust.ps1"
     },
     {
@@ -1233,7 +1233,7 @@
       "source_file": "fight-ai-web-mvp/qa/foreign-port-fixture.mjs",
       "source_location": "L1",
       "id": "fight_ai_web_mvp_qa_foreign_port_fixture_mjs",
-      "community": 75,
+      "community": 76,
       "norm_label": "foreign-port-fixture.mjs"
     },
     {
@@ -1242,7 +1242,7 @@
       "source_file": "fight-ai-web-mvp/qa/local-port-safety.ps1",
       "source_location": "L1",
       "id": "fight_ai_web_mvp_qa_local_port_safety_ps1",
-      "community": 76,
+      "community": 77,
       "norm_label": "local-port-safety.ps1"
     },
     {
@@ -1251,7 +1251,7 @@
       "source_file": "fight-ai-web-mvp/qa/web-agent/fight-ai.spec.ts",
       "source_location": "L1",
       "id": "fight_ai_web_mvp_qa_web_agent_fight_ai_spec_ts",
-      "community": 49,
+      "community": 50,
       "norm_label": "fight-ai.spec.ts"
     },
     {
@@ -1260,7 +1260,7 @@
       "source_file": "fight-ai-web-mvp/qa/web-agent/fight-ai.spec.ts",
       "source_location": "L5",
       "id": "web_agent_fight_ai_spec_realvideo",
-      "community": 49,
+      "community": 50,
       "norm_label": "realvideo()"
     },
     {
@@ -1350,7 +1350,7 @@
       "source_file": "fight-ai-web-mvp/scripts/show-remote-access.ps1",
       "source_location": "L1",
       "id": "fight_ai_web_mvp_scripts_show_remote_access_ps1",
-      "community": 77,
+      "community": 78,
       "norm_label": "show-remote-access.ps1"
     },
     {
@@ -1431,7 +1431,7 @@
       "source_file": "fight-ai-web-mvp/scripts/start-remote-tunnel.ps1",
       "source_location": "L1",
       "id": "fight_ai_web_mvp_scripts_start_remote_tunnel_ps1",
-      "community": 50,
+      "community": 51,
       "norm_label": "start-remote-tunnel.ps1"
     },
     {
@@ -1440,7 +1440,7 @@
       "source_file": "fight-ai-web-mvp/scripts/start-remote-tunnel.ps1",
       "source_location": "L7",
       "id": "scripts_start_remote_tunnel_stop_tunnelattempt",
-      "community": 50,
+      "community": 51,
       "norm_label": "stop-tunnelattempt()"
     },
     {
@@ -1449,7 +1449,7 @@
       "source_file": "fight-ai-web-mvp/scripts/stop-local.ps1",
       "source_location": "L1",
       "id": "fight_ai_web_mvp_scripts_stop_local_ps1",
-      "community": 51,
+      "community": 52,
       "norm_label": "stop-local.ps1"
     },
     {
@@ -1458,7 +1458,7 @@
       "source_file": "fight-ai-web-mvp/scripts/stop-local.ps1",
       "source_location": "L5",
       "id": "scripts_stop_local_get_fightaihealth",
-      "community": 51,
+      "community": 52,
       "norm_label": "get-fightaihealth()"
     },
     {
@@ -1467,7 +1467,7 @@
       "source_file": "fight-ai-web-mvp/scripts/stop-remote-tunnel.ps1",
       "source_location": "L1",
       "id": "fight_ai_web_mvp_scripts_stop_remote_tunnel_ps1",
-      "community": 78,
+      "community": 79,
       "norm_label": "stop-remote-tunnel.ps1"
     },
     {
@@ -1476,7 +1476,7 @@
       "source_file": "Mobiloan/expo-env.d.ts",
       "source_location": "L1",
       "id": "mobiloan_expo_env_d_ts",
-      "community": 79,
+      "community": 80,
       "norm_label": "expo-env.d.ts"
     },
     {
@@ -1773,7 +1773,7 @@
       "source_file": "Mobiloan/scripts/build-android-debug.ps1",
       "source_location": "L1",
       "id": "mobiloan_scripts_build_android_debug_ps1",
-      "community": 80,
+      "community": 81,
       "norm_label": "build-android-debug.ps1"
     },
     {
@@ -1782,7 +1782,7 @@
       "source_file": "Mobiloan/scripts/install-android-beta.ps1",
       "source_location": "L1",
       "id": "mobiloan_scripts_install_android_beta_ps1",
-      "community": 81,
+      "community": 82,
       "norm_label": "install-android-beta.ps1"
     },
     {
@@ -2295,7 +2295,7 @@
       "source_file": "Mobiloan/src/lib/calendar.web.ts",
       "source_location": "L1",
       "id": "mobiloan_src_lib_calendar_web_ts",
-      "community": 52,
+      "community": 53,
       "norm_label": "calendar.web.ts"
     },
     {
@@ -2304,7 +2304,7 @@
       "source_file": "Mobiloan/src/lib/calendar.web.ts",
       "source_location": "L3",
       "id": "lib_calendar_web_createcollectionreminder",
-      "community": 52,
+      "community": 53,
       "norm_label": "createcollectionreminder()"
     },
     {
@@ -2673,7 +2673,7 @@
       "source_file": "Mobiloan/src/types/sync.ts",
       "source_location": "L1",
       "id": "mobiloan_src_types_sync_ts",
-      "community": 82,
+      "community": 83,
       "norm_label": "sync.ts"
     },
     {
@@ -2682,7 +2682,7 @@
       "source_file": "Mobiloan/src/ui/styles.ts",
       "source_location": "L1",
       "id": "mobiloan_src_ui_styles_ts",
-      "community": 83,
+      "community": 84,
       "norm_label": "styles.ts"
     },
     {
@@ -2718,7 +2718,7 @@
       "source_file": "server/create-user.js",
       "source_location": "L1",
       "id": "server_create_user_js",
-      "community": 53,
+      "community": 54,
       "norm_label": "create-user.js"
     },
     {
@@ -2727,7 +2727,7 @@
       "source_file": "server/create-user.js",
       "source_location": "L6",
       "id": "server_create_user_createuser",
-      "community": 53,
+      "community": 54,
       "norm_label": "createuser()"
     },
     {
@@ -2736,7 +2736,7 @@
       "source_file": "server/index.js",
       "source_location": "L1",
       "id": "release_win_unpacked_resources_server_index_js",
-      "community": 14,
+      "community": 13,
       "norm_label": "index.js"
     },
     {
@@ -2745,7 +2745,7 @@
       "source_file": "server/index.js",
       "source_location": "L11",
       "id": "server_index_startserver",
-      "community": 14,
+      "community": 13,
       "norm_label": "startserver()"
     },
     {
@@ -2754,7 +2754,7 @@
       "source_file": "server/index.js",
       "source_location": "L27",
       "id": "server_index_shutdown",
-      "community": 14,
+      "community": 13,
       "norm_label": "shutdown()"
     },
     {
@@ -2763,7 +2763,7 @@
       "source_file": "server/prisma.config.ts",
       "source_location": "L1",
       "id": "server_prisma_config_ts",
-      "community": 84,
+      "community": 85,
       "norm_label": "prisma.config.ts"
     },
     {
@@ -2772,7 +2772,7 @@
       "source_file": "server/test-zod-error.js",
       "source_location": "L1",
       "id": "server_test_zod_error_js",
-      "community": 85,
+      "community": 86,
       "norm_label": "test-zod-error.js"
     },
     {
@@ -2781,7 +2781,7 @@
       "source_file": "server/lib/prisma.js",
       "source_location": "L1",
       "id": "release_win_unpacked_resources_server_lib_prisma_js",
-      "community": 86,
+      "community": 87,
       "norm_label": "prisma.js"
     },
     {
@@ -2790,7 +2790,7 @@
       "source_file": "server/middleware/auth.js",
       "source_location": "L1",
       "id": "server_middleware_auth_js",
-      "community": 54,
+      "community": 55,
       "norm_label": "auth.js"
     },
     {
@@ -2799,7 +2799,7 @@
       "source_file": "server/middleware/auth.js",
       "source_location": "L20",
       "id": "middleware_auth_authenticatetoken",
-      "community": 54,
+      "community": 55,
       "norm_label": "authenticatetoken()"
     },
     {
@@ -2808,7 +2808,7 @@
       "source_file": "server/middleware/rateLimiter.js",
       "source_location": "L1",
       "id": "server_middleware_ratelimiter_js",
-      "community": 87,
+      "community": 88,
       "norm_label": "ratelimiter.js"
     },
     {
@@ -2835,7 +2835,7 @@
       "source_file": "server/middleware/validationSchemas.js",
       "source_location": "L1",
       "id": "server_middleware_validationschemas_js",
-      "community": 88,
+      "community": 89,
       "norm_label": "validationschemas.js"
     },
     {
@@ -2844,7 +2844,7 @@
       "source_file": "server/routes/ai.js",
       "source_location": "L1",
       "id": "server_routes_ai_js",
-      "community": 55,
+      "community": 56,
       "norm_label": "ai.js"
     },
     {
@@ -2853,7 +2853,7 @@
       "source_file": "server/routes/ai.js",
       "source_location": "L12",
       "id": "routes_ai_mockgemmaresponse",
-      "community": 55,
+      "community": 56,
       "norm_label": "mockgemmaresponse()"
     },
     {
@@ -2862,7 +2862,7 @@
       "source_file": "server/routes/auth.js",
       "source_location": "L1",
       "id": "server_routes_auth_js",
-      "community": 89,
+      "community": 90,
       "norm_label": "auth.js"
     },
     {
@@ -2871,7 +2871,7 @@
       "source_file": "server/routes/backup.js",
       "source_location": "L1",
       "id": "server_routes_backup_js",
-      "community": 90,
+      "community": 91,
       "norm_label": "backup.js"
     },
     {
@@ -2880,7 +2880,7 @@
       "source_file": "server/routes/clients.js",
       "source_location": "L1",
       "id": "server_routes_clients_js",
-      "community": 91,
+      "community": 92,
       "norm_label": "clients.js"
     },
     {
@@ -3015,7 +3015,7 @@
       "source_file": "server/routes/payments.js",
       "source_location": "L1",
       "id": "server_routes_payments_js",
-      "community": 34,
+      "community": 35,
       "norm_label": "payments.js"
     },
     {
@@ -3024,7 +3024,7 @@
       "source_file": "server/routes/reports.js",
       "source_location": "L1",
       "id": "release_win_unpacked_resources_server_routes_reports_js",
-      "community": 92,
+      "community": 93,
       "norm_label": "reports.js"
     },
     {
@@ -3141,7 +3141,7 @@
       "source_file": "server/utils/ensureDatabaseCompatibility.js",
       "source_location": "L1",
       "id": "release_win_unpacked_resources_server_utils_ensuredatabasecompatibility_js",
-      "community": 14,
+      "community": 13,
       "norm_label": "ensuredatabasecompatibility.js"
     },
     {
@@ -3150,7 +3150,7 @@
       "source_file": "server/utils/ensureDatabaseCompatibility.js",
       "source_location": "L3",
       "id": "utils_ensuredatabasecompatibility_gettablecolumns",
-      "community": 14,
+      "community": 13,
       "norm_label": "gettablecolumns()"
     },
     {
@@ -3159,7 +3159,7 @@
       "source_file": "server/utils/ensureDatabaseCompatibility.js",
       "source_location": "L7",
       "id": "utils_ensuredatabasecompatibility_indexexists",
-      "community": 14,
+      "community": 13,
       "norm_label": "indexexists()"
     },
     {
@@ -3168,7 +3168,7 @@
       "source_file": "server/utils/ensureDatabaseCompatibility.js",
       "source_location": "L16",
       "id": "utils_ensuredatabasecompatibility_ensuretransactionsynccolumns",
-      "community": 14,
+      "community": 13,
       "norm_label": "ensuretransactionsynccolumns()"
     },
     {
@@ -3177,7 +3177,7 @@
       "source_file": "server/utils/ensureDatabaseCompatibility.js",
       "source_location": "L49",
       "id": "utils_ensuredatabasecompatibility_ensuresyncdeletedrecordstable",
-      "community": 14,
+      "community": 13,
       "norm_label": "ensuresyncdeletedrecordstable()"
     },
     {
@@ -3186,7 +3186,7 @@
       "source_file": "server/utils/ensureDatabaseCompatibility.js",
       "source_location": "L72",
       "id": "utils_ensuredatabasecompatibility_ensuredatabasecompatibility",
-      "community": 14,
+      "community": 13,
       "norm_label": "ensuredatabasecompatibility()"
     },
     {
@@ -3210,11 +3210,20 @@
     {
       "label": "logger.js",
       "file_type": "code",
-      "source_file": "server/utils/logger.js",
+      "source_file": "release/win-unpacked/resources/server/utils/logger.js",
       "source_location": "L1",
-      "id": "server_utils_logger_js",
-      "community": 93,
+      "id": "release_win_unpacked_resources_server_utils_logger_js",
+      "community": 42,
       "norm_label": "logger.js"
+    },
+    {
+      "label": "resolveLogsDir()",
+      "file_type": "code",
+      "source_file": "server/utils/logger.js",
+      "source_location": "L9",
+      "id": "utils_logger_resolvelogsdir",
+      "community": 42,
+      "norm_label": "resolvelogsdir()"
     },
     {
       "label": "paymentTransactions.js",
@@ -3222,7 +3231,7 @@
       "source_file": "server/utils/paymentTransactions.js",
       "source_location": "L1",
       "id": "server_utils_paymenttransactions_js",
-      "community": 35,
+      "community": 34,
       "norm_label": "paymenttransactions.js"
     },
     {
@@ -3231,7 +3240,7 @@
       "source_file": "server/utils/paymentTransactions.js",
       "source_location": "L3",
       "id": "utils_paymenttransactions_getloanstatusfrompayments",
-      "community": 35,
+      "community": 34,
       "norm_label": "getloanstatusfrompayments()"
     },
     {
@@ -3240,7 +3249,7 @@
       "source_file": "server/utils/paymentTransactions.js",
       "source_location": "L15",
       "id": "utils_paymenttransactions_toamount",
-      "community": 35,
+      "community": 34,
       "norm_label": "toamount()"
     },
     {
@@ -3249,7 +3258,7 @@
       "source_file": "server/utils/paymentTransactions.js",
       "source_location": "L18",
       "id": "utils_paymenttransactions_registerpaymenttransaction",
-      "community": 35,
+      "community": 34,
       "norm_label": "registerpaymenttransaction()"
     },
     {
@@ -3258,7 +3267,7 @@
       "source_file": "server/utils/syncDeletedRecords.js",
       "source_location": "L1",
       "id": "server_utils_syncdeletedrecords_js",
-      "community": 42,
+      "community": 43,
       "norm_label": "syncdeletedrecords.js"
     },
     {
@@ -3267,7 +3276,7 @@
       "source_file": "server/utils/syncDeletedRecords.js",
       "source_location": "L3",
       "id": "utils_syncdeletedrecords_createsyncdeletedrecordid",
-      "community": 42,
+      "community": 43,
       "norm_label": "createsyncdeletedrecordid()"
     },
     {
@@ -3276,7 +3285,7 @@
       "source_file": "server/utils/syncDeletedRecords.js",
       "source_location": "L5",
       "id": "utils_syncdeletedrecords_recorddeletedentities",
-      "community": 42,
+      "community": 43,
       "norm_label": "recorddeletedentities()"
     },
     {
@@ -3375,7 +3384,7 @@
       "source_file": "server/tests/api.integration.test.js",
       "source_location": "L1",
       "id": "server_tests_api_integration_test_js",
-      "community": 22,
+      "community": 24,
       "norm_label": "api.integration.test.js"
     },
     {
@@ -3384,7 +3393,7 @@
       "source_file": "server/tests/api.integration.test.js",
       "source_location": "L24",
       "id": "tests_api_integration_test_ensuresyncdeletedrecordtable",
-      "community": 22,
+      "community": 24,
       "norm_label": "ensuresyncdeletedrecordtable()"
     },
     {
@@ -3393,7 +3402,7 @@
       "source_file": "server/tests/api.integration.test.js",
       "source_location": "L41",
       "id": "tests_api_integration_test_resetdatabase",
-      "community": 22,
+      "community": 24,
       "norm_label": "resetdatabase()"
     },
     {
@@ -3402,7 +3411,7 @@
       "source_file": "server/tests/api.integration.test.js",
       "source_location": "L97",
       "id": "tests_api_integration_test_request",
-      "community": 22,
+      "community": 24,
       "norm_label": "request()"
     },
     {
@@ -3411,8 +3420,17 @@
       "source_file": "server/tests/api.integration.test.js",
       "source_location": "L111",
       "id": "tests_api_integration_test_createauthenticatedloanfixture",
-      "community": 22,
+      "community": 24,
       "norm_label": "createauthenticatedloanfixture()"
+    },
+    {
+      "label": "logger.js",
+      "file_type": "code",
+      "source_file": "server/utils/logger.js",
+      "source_location": "L1",
+      "id": "server_utils_logger_js",
+      "community": 42,
+      "norm_label": "logger.js"
     },
     {
       "label": "App.jsx",
@@ -3483,7 +3501,7 @@
       "source_file": "src/components/ConfirmModal.jsx",
       "source_location": "L1",
       "id": "src_components_confirmmodal_jsx",
-      "community": 56,
+      "community": 57,
       "norm_label": "confirmmodal.jsx"
     },
     {
@@ -3492,7 +3510,7 @@
       "source_file": "src/components/ConfirmModal.jsx",
       "source_location": "L4",
       "id": "components_confirmmodal_confirmmodal",
-      "community": 56,
+      "community": 57,
       "norm_label": "confirmmodal()"
     },
     {
@@ -3501,7 +3519,7 @@
       "source_file": "src/components/ErrorBoundary.jsx",
       "source_location": "L1",
       "id": "src_components_errorboundary_jsx",
-      "community": 23,
+      "community": 22,
       "norm_label": "errorboundary.jsx"
     },
     {
@@ -3510,7 +3528,7 @@
       "source_file": "src/components/ErrorBoundary.jsx",
       "source_location": "L3",
       "id": "components_errorboundary_errorboundary",
-      "community": 23,
+      "community": 22,
       "norm_label": "errorboundary"
     },
     {
@@ -3519,7 +3537,7 @@
       "source_file": "src/components/ErrorBoundary.jsx",
       "source_location": "L4",
       "id": "components_errorboundary_errorboundary_constructor",
-      "community": 23,
+      "community": 22,
       "norm_label": ".constructor()"
     },
     {
@@ -3528,7 +3546,7 @@
       "source_file": "src/components/ErrorBoundary.jsx",
       "source_location": "L9",
       "id": "components_errorboundary_errorboundary_getderivedstatefromerror",
-      "community": 23,
+      "community": 22,
       "norm_label": ".getderivedstatefromerror()"
     },
     {
@@ -3537,7 +3555,7 @@
       "source_file": "src/components/ErrorBoundary.jsx",
       "source_location": "L13",
       "id": "components_errorboundary_errorboundary_componentdidcatch",
-      "community": 23,
+      "community": 22,
       "norm_label": ".componentdidcatch()"
     },
     {
@@ -3546,7 +3564,7 @@
       "source_file": "src/components/ErrorBoundary.jsx",
       "source_location": "L18",
       "id": "components_errorboundary_errorboundary_render",
-      "community": 23,
+      "community": 22,
       "norm_label": ".render()"
     },
     {
@@ -3681,7 +3699,7 @@
       "source_file": "src/components/dashboard/PortfolioChart.jsx",
       "source_location": "L1",
       "id": "src_components_dashboard_portfoliochart_jsx",
-      "community": 24,
+      "community": 23,
       "norm_label": "portfoliochart.jsx"
     },
     {
@@ -3690,7 +3708,7 @@
       "source_file": "src/components/dashboard/PortfolioChart.jsx",
       "source_location": "L5",
       "id": "dashboard_portfoliochart_portfoliochart",
-      "community": 24,
+      "community": 23,
       "norm_label": "portfoliochart()"
     },
     {
@@ -3717,7 +3735,7 @@
       "source_file": "src/components/dashboard/RevenueChart.jsx",
       "source_location": "L1",
       "id": "src_components_dashboard_revenuechart_jsx",
-      "community": 24,
+      "community": 23,
       "norm_label": "revenuechart.jsx"
     },
     {
@@ -3726,7 +3744,7 @@
       "source_file": "src/components/dashboard/RevenueChart.jsx",
       "source_location": "L5",
       "id": "dashboard_revenuechart_revenuechart",
-      "community": 24,
+      "community": 23,
       "norm_label": "revenuechart()"
     },
     {
@@ -3753,7 +3771,7 @@
       "source_file": "src/config/api.js",
       "source_location": "L1",
       "id": "src_config_api_js",
-      "community": 57,
+      "community": 58,
       "norm_label": "api.js"
     },
     {
@@ -3762,7 +3780,7 @@
       "source_file": "src/config/api.js",
       "source_location": "L1",
       "id": "config_api_resolvedefaultapiurl",
-      "community": 57,
+      "community": 58,
       "norm_label": "resolvedefaultapiurl()"
     },
     {
@@ -3924,7 +3942,7 @@
       "source_file": "src/hooks/useElementSize.js",
       "source_location": "L1",
       "id": "src_hooks_useelementsize_js",
-      "community": 24,
+      "community": 23,
       "norm_label": "useelementsize.js"
     },
     {
@@ -3933,7 +3951,7 @@
       "source_file": "src/hooks/useElementSize.js",
       "source_location": "L5",
       "id": "hooks_useelementsize_useelementsize",
-      "community": 24,
+      "community": 23,
       "norm_label": "useelementsize()"
     },
     {
@@ -4176,7 +4194,7 @@
       "source_file": "src/pages/LoanDetail.test.jsx",
       "source_location": "L1",
       "id": "src_pages_loandetail_test_jsx",
-      "community": 58,
+      "community": 59,
       "norm_label": "loandetail.test.jsx"
     },
     {
@@ -4185,7 +4203,7 @@
       "source_file": "src/pages/LoanDetail.test.jsx",
       "source_location": "L91",
       "id": "pages_loandetail_test_locationprobe",
-      "community": 58,
+      "community": 59,
       "norm_label": "locationprobe()"
     },
     {
@@ -4617,7 +4635,7 @@
       "source_file": "src/utils/mockData.js",
       "source_location": "L1",
       "id": "src_utils_mockdata_js",
-      "community": 59,
+      "community": 60,
       "norm_label": "mockdata.js"
     },
     {
@@ -4626,7 +4644,7 @@
       "source_file": "src/utils/mockData.js",
       "source_location": "L3",
       "id": "utils_mockdata_generatemockdata",
-      "community": 59,
+      "community": 60,
       "norm_label": "generatemockdata()"
     },
     {
@@ -4887,7 +4905,7 @@
       "source_file": "src/utils/pdfGenerator.js",
       "source_location": "L1",
       "id": "src_utils_pdfgenerator_js",
-      "community": 13,
+      "community": 14,
       "norm_label": "pdfgenerator.js"
     },
     {
@@ -4896,7 +4914,7 @@
       "source_file": "src/utils/pdfGenerator.js",
       "source_location": "L9",
       "id": "utils_pdfgenerator_getloaninterestrate",
-      "community": 13,
+      "community": 14,
       "norm_label": "getloaninterestrate()"
     },
     {
@@ -4905,7 +4923,7 @@
       "source_file": "src/utils/pdfGenerator.js",
       "source_location": "L10",
       "id": "utils_pdfgenerator_getloandurationmonths",
-      "community": 13,
+      "community": 14,
       "norm_label": "getloandurationmonths()"
     },
     {
@@ -4914,7 +4932,7 @@
       "source_file": "src/utils/pdfGenerator.js",
       "source_location": "L11",
       "id": "utils_pdfgenerator_getamount",
-      "community": 13,
+      "community": 14,
       "norm_label": "getamount()"
     },
     {
@@ -4923,7 +4941,7 @@
       "source_file": "src/utils/pdfGenerator.js",
       "source_location": "L12",
       "id": "utils_pdfgenerator_gettext",
-      "community": 13,
+      "community": 14,
       "norm_label": "gettext()"
     },
     {
@@ -4932,7 +4950,7 @@
       "source_file": "src/utils/pdfGenerator.js",
       "source_location": "L16",
       "id": "utils_pdfgenerator_getdatelabel",
-      "community": 13,
+      "community": 14,
       "norm_label": "getdatelabel()"
     },
     {
@@ -4941,7 +4959,7 @@
       "source_file": "src/utils/pdfGenerator.js",
       "source_location": "L17",
       "id": "utils_pdfgenerator_getfilesafelabel",
-      "community": 13,
+      "community": 14,
       "norm_label": "getfilesafelabel()"
     },
     {
@@ -4950,7 +4968,7 @@
       "source_file": "src/utils/pdfGenerator.js",
       "source_location": "L21",
       "id": "utils_pdfgenerator_downloadblob",
-      "community": 13,
+      "community": 14,
       "norm_label": "downloadblob()"
     },
     {
@@ -4959,7 +4977,7 @@
       "source_file": "src/utils/pdfGenerator.js",
       "source_location": "L32",
       "id": "utils_pdfgenerator_getschedulerows",
-      "community": 13,
+      "community": 14,
       "norm_label": "getschedulerows()"
     },
     {
@@ -4968,7 +4986,7 @@
       "source_file": "src/utils/pdfGenerator.js",
       "source_location": "L44",
       "id": "utils_pdfgenerator_generateloancontract",
-      "community": 13,
+      "community": 14,
       "norm_label": "generateloancontract()"
     },
     {
@@ -4977,7 +4995,7 @@
       "source_file": "src/utils/pdfGenerator.js",
       "source_location": "L99",
       "id": "utils_pdfgenerator_generatereceipt",
-      "community": 13,
+      "community": 14,
       "norm_label": "generatereceipt()"
     },
     {
@@ -5156,7 +5174,7 @@
       "file_type": "code",
       "source_file": "server/index.js",
       "source_location": "L1",
-      "community": 14,
+      "community": 13,
       "norm_label": "index.js",
       "id": "server_index_js"
     },
@@ -5174,7 +5192,7 @@
       "file_type": "code",
       "source_file": "release/win-unpacked/resources/server/routes/payments.js",
       "source_location": "L1",
-      "community": 34,
+      "community": 35,
       "norm_label": "payments.js",
       "id": "release_win_unpacked_resources_server_routes_payments_js"
     },
@@ -5183,7 +5201,7 @@
       "file_type": "code",
       "source_file": "release/win-unpacked/resources/server/routes/payments.js",
       "source_location": "L33",
-      "community": 34,
+      "community": 35,
       "norm_label": "getloanstatusfrompayments()",
       "id": "routes_payments_getloanstatusfrompayments"
     },
@@ -5192,7 +5210,7 @@
       "file_type": "code",
       "source_file": "release/win-unpacked/resources/server/routes/payments.js",
       "source_location": "L45",
-      "community": 34,
+      "community": 35,
       "norm_label": "toamount()",
       "id": "routes_payments_toamount"
     },
@@ -5201,7 +5219,7 @@
       "file_type": "code",
       "source_file": "server/utils/ensureDatabaseCompatibility.js",
       "source_location": "L1",
-      "community": 14,
+      "community": 13,
       "norm_label": "ensuredatabasecompatibility.js",
       "id": "server_utils_ensuredatabasecompatibility_js"
     },
@@ -5246,7 +5264,7 @@
       "file_type": "code",
       "source_file": "release/win-unpacked/resources/server/tests/api.integration.test.js",
       "source_location": "L1",
-      "community": 22,
+      "community": 24,
       "norm_label": "api.integration.test.js",
       "id": "release_win_unpacked_resources_server_tests_api_integration_test_js"
     },
@@ -10619,6 +10637,26 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "release/win-unpacked/resources/server/utils/logger.js",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "release_win_unpacked_resources_server_utils_logger_js",
+      "target": "utils_logger_resolvelogsdir",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server/utils/logger.js",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "server_utils_logger_js",
+      "target": "utils_logger_resolvelogsdir",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "server/utils/paymentTransactions.js",
       "source_location": "L3",
       "weight": 1.0,
@@ -15259,5 +15297,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "6b8ccddc5aefdb26fabeb13c6273feb6f0becb5c"
+  "built_at_commit": "021fd40f1273d7f0c6c63bd4ecf8acd0caa8c420"
 }

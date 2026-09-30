@@ -1,12 +1,33 @@
 const winston = require('winston');
 const path = require('path');
 const fs = require('fs');
+const os = require('os');
 
-// Create logs directory if it doesn't exist
-const logsDir = path.join(__dirname, '..', 'logs');
-if (!fs.existsSync(logsDir)) {
-    fs.mkdirSync(logsDir, { recursive: true });
+// Resolve a writable folder for the log files. The packaged app can live in a
+// read-only location such as "C:\Program Files\Loan Manager", so writing next to
+// the server code is only a preference, never a requirement.
+function resolveLogsDir() {
+    const candidates = [
+        process.env.LOAN_MANAGER_LOG_DIR,
+        path.join(__dirname, '..', 'logs'),
+        process.env.APPDATA ? path.join(process.env.APPDATA, 'loan-manager', 'logs') : null,
+        path.join(os.tmpdir(), 'loan-manager-logs')
+    ].filter(Boolean);
+
+    for (const candidate of candidates) {
+        try {
+            fs.mkdirSync(candidate, { recursive: true });
+            fs.accessSync(candidate, fs.constants.W_OK);
+            return candidate;
+        } catch (error) {
+            // Try the next candidate.
+        }
+    }
+
+    return os.tmpdir();
 }
+
+const logsDir = resolveLogsDir();
 
 const logger = winston.createLogger({
     level: process.env.LOG_LEVEL || 'info',
