@@ -1,5 +1,47 @@
 # Plan de despliegue y estado actual: Loan Manager Desktop
 
+## Estado al cierre de la beta (2026-09-30)
+
+Punto de retorno. Si hay que retomar despues del beta testing, empezar por aqui.
+
+Lo que quedo publicado:
+
+- Version: `1.0.0` (beta) publicada como pre-release `v1.0.0-beta.1`
+- Rama: `codex/publish-icon-update`
+- Commit de codigo del build publicado: `f171682` (los arreglos de arranque); la documentacion sigue en commits posteriores
+- PR abierto: `#1 Prepare desktop beta release and validate installer flow` (pendiente de merge a `main`)
+- Release en GitHub: `https://github.com/pinoaraj/Loan-Manager/releases/tag/v1.0.0-beta.1`
+  - Adjunto: `LoanManager-Setup-1.0.0.exe` (207 MB)
+  - SHA256 del instalador publicado: `B0D7F77B407522FCEB9C70C3E8292A70BF885815CD1E290C83DF4D347E2BBC44`
+
+Paquete local listo para testers:
+
+- `C:\Users\JP\Desktop\INSTALADOR Loan Manager Beta`
+  - `LoanManager-Setup-1.0.0.exe` (instalador)
+  - `LoanManager-Beta-1.0.0.zip` (mismo instalador + instructivo, para enviar por WhatsApp; SHA256 `148D9289F502A84AD9BD48E4C4E6BB9480995CAEBE9EF979178D254FCE4F73B8`)
+  - `Portable\win-unpacked\Loan Manager.exe`
+  - `LEEME-INSTALACION.txt`
+- Respaldo de los datos anteriores: `C:\Users\JP\LoanManager-backup-datos-2026-09-30`
+
+Verificacion de cierre (`2026-09-30`):
+
+- `npm run lint`: OK
+- `npx vitest run`: OK (11/11)
+- `cd server && npm test`: OK (12/12)
+- Instalacion real en `C:\Program Files\Loan Manager`: la app arranca, aplica las 6 migraciones, responde `/api/health` `200`, registra el primer usuario (`201`) y permite login (`200`)
+- Version portable probada desde el paquete del Escritorio: arranca, migra y registra el primer usuario
+
+Notas para el proximo build:
+
+- Unico cambio posterior al build publicado: `server/utils/logger.js` usa `catch {}` sin variable de error para pasar `lint`. No cambia el comportamiento; se incluia en el proximo instalador.
+- Quedan cambios locales sin commitear que no son parte de esta entrega: `Mobiloan/*`, `launch-log.txt`, `.vscode/`, `Mobiloan/scripts/install-android-beta.ps1`, `fight-ai-web-mvp/`.
+
+Pendientes cuando vuelva el feedback de testers:
+
+1. Triage de bugs por severidad y reproducibilidad.
+2. Si hace falta un build nuevo, regenerar con `npm run build:desktop-installer` y actualizar el SHA256 en `README.md`, `docs/BETA-TESTER.md` y en la release.
+3. Merge del PR `#1` a `main` cuando la beta quede aprobada.
+
 ## Foco actual
 
 - Producto principal: app local para Windows con Electron + React + Express + Prisma/SQLite.

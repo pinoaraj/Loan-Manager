@@ -19,7 +19,7 @@ function resolveLogsDir() {
             fs.mkdirSync(candidate, { recursive: true });
             fs.accessSync(candidate, fs.constants.W_OK);
             return candidate;
-        } catch (error) {
+        } catch {
             // Try the next candidate.
         }
     }
