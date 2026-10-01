@@ -1,5 +1,13 @@
 # PLAN-mobile-app
 
+## Estado de ejecucion
+
+- Actualizado: `2026-09-30`.
+- La beta Android ya se distribuye como APK release standalone con bundle JS embebido: el telefono opera en modo local sin PC, sin Metro y sin backend.
+- Carril vigente: `npm run android:release` + `npm run android:install` desde `Mobiloan/`.
+- Pendiente para cerrar la beta: smoke test en dispositivo fisico, keystore propio si se firma fuera de desarrollo, y decision sobre publicacion del APK como artefacto de release en GitHub.
+- Detalle del artefacto y brechas: `Mobiloan/docs/APK-BETA.md`. Guia de instalacion: `Mobiloan/docs/INSTALACION-APK-BETA.md`.
+
 ## Estado de prioridad
 
 - Prioridad actual: siguiente linea de trabajo despues de cerrar la beta desktop de Windows.

@@ -2,6 +2,8 @@ import * as Calendar from 'expo-calendar';
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
 
+import { parseStoredDate } from './dates';
+
 import type { LocalReminderInput, LocalReminderResult } from '../types/sync';
 
 const REMINDER_CHANNEL_ID = 'collections-reminders';
@@ -29,14 +31,18 @@ const buildReminderNotes = (input: LocalReminderInput) =>
 const ensureCalendarPermission = async () => {
   const permission = await Calendar.requestCalendarPermissionsAsync();
   if (permission.status !== 'granted') {
-    throw new Error('Permiso de calendario denegado.');
+    throw new Error(
+      'Permiso de calendario denegado. Activalo en Ajustes > Aplicaciones > Mobiloan > Permisos.',
+    );
   }
 };
 
 const ensureNotificationPermission = async () => {
   const permission = await Notifications.requestPermissionsAsync();
   if (permission.status !== 'granted') {
-    throw new Error('Permiso de notificaciones denegado.');
+    throw new Error(
+      'Permiso de notificaciones denegado. Activalo en Ajustes > Aplicaciones > Mobiloan > Notificaciones.',
+    );
   }
 };
 
@@ -69,7 +75,14 @@ const resolveWritableCalendarId = async () => {
 
 const resolveReminderDate = (dueDate: string) => {
   const now = new Date();
-  const sameDayReminder = new Date(`${dueDate.slice(0, 10)}T09:00:00`);
+  const due = parseStoredDate(dueDate);
+
+  if (!due) {
+    return new Date(now.getTime() + 5 * 60 * 1000);
+  }
+
+  const sameDayReminder = new Date(due.getTime());
+  sameDayReminder.setHours(9, 0, 0, 0);
 
   if (sameDayReminder.getTime() > now.getTime() + 60_000) {
     return sameDayReminder;

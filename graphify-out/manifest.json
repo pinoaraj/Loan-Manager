@@ -239,13 +239,17 @@
     "mtime": 1781874992.9030638,
     "hash": "057e7fa31808417e726d7224b47b891b"
   },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\scripts\\build-android-release.ps1": {
+    "mtime": 1790808197.107576,
+    "hash": "9d6291fc7c307bfe148d2f252593569c"
+  },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\scripts\\install-android-beta.ps1": {
-    "mtime": 1782914965.4441657,
-    "hash": "fb12e8849a21c34efea59e7b494d47d7"
+    "mtime": 1790807575.7185102,
+    "hash": "f44f1c17a2427a33d05bc07ebc519009"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\data\\database.ts": {
-    "mtime": 1781551704.654177,
-    "hash": "0e57a7e46ef68d3abf05831520de26ca"
+    "mtime": 1790808272.048288,
+    "hash": "56605c8dada70b178e6951cfe3e7c146"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\data\\database.web.ts": {
     "mtime": 1781551726.3520076,
@@ -260,8 +264,8 @@
     "hash": "2a899491caab4f2aef0fe8dca263517a"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\amortization.ts": {
-    "mtime": 1781551641.6643648,
-    "hash": "e5408b49c985c73e4ff141e23404d30e"
+    "mtime": 1790808261.8339183,
+    "hash": "2f7068f8a7a03735be6c1cba2b9d4ed6"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\calendar.ts": {
     "mtime": 1781557687.4611676,
@@ -279,9 +283,13 @@
     "mtime": 1781199928.0771952,
     "hash": "a9c1ef34d57f971ef5a811fb5289a2ac"
   },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\dates.ts": {
+    "mtime": 1790808239.5289652,
+    "hash": "be7f53f24849af107d8e072697e1cbbe"
+  },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\format.ts": {
-    "mtime": 1781201969.5232441,
-    "hash": "e0717d5b7ca55ffaa040125dd033de74"
+    "mtime": 1790808249.7142248,
+    "hash": "6b5642677fbbb47e2137c36349ea1834"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\mutationId.ts": {
     "mtime": 1780584572.6317313,
@@ -788,8 +796,8 @@
     "hash": "eacc1acb0a7e0fa879e5e8937bfc5553"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\README.md": {
-    "mtime": 1790805601.4860897,
-    "hash": "424db68013533dcdba31cdbdbf05d117"
+    "mtime": 1790808239.5044646,
+    "hash": "89e22eff71ae7eedbcfb1c4338a8a06e"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\BETA-TESTER.md": {
     "mtime": 1790805605.3781025,
@@ -804,12 +812,12 @@
     "hash": "a8fbb66a73b643ccf2c42425830195b3"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\GRAPHIFY.md": {
-    "mtime": 1790805258.0569162,
-    "hash": "efab41c586c8fb7f9fcb0e51854ea5a9"
+    "mtime": 1790808243.779654,
+    "hash": "cd23642628ddbc6ecdb61c91b8c167b8"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\PLAN-android-app.md": {
-    "mtime": 1780496207.4659295,
-    "hash": "1b37e2e9c7ba9ab56a12b32004e7dac7"
+    "mtime": 1790808248.2251534,
+    "hash": "ba74d207649705e62c723a50ffb051c8"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\PLAN-github-deployment.md": {
     "mtime": 1790805956.0600386,
@@ -880,47 +888,59 @@
     "hash": "5c27369b226fcf2be8a6cfe52224e767"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\README.md": {
-    "mtime": 1781875053.4905083,
-    "hash": "c09f6da165d153231b9b9ab32c08fb1a"
+    "mtime": 1790808025.5650249,
+    "hash": "2d2f6fb8503f6dfb60afc1033aa84c13"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\ANDROID_SETUP.md": {
-    "mtime": 1782914969.678707,
-    "hash": "be433140e23c40ac5b1cc7de6b3a7c73"
+    "mtime": 1790808009.8825402,
+    "hash": "ff9a43426b285905323d16994efcd45f"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\APK-BETA.md": {
+    "mtime": 1790808216.3792908,
+    "hash": "d53df4b84bc7791708a2017100013077"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\GRAPHIFY.md": {
     "mtime": 1781202062.416978,
     "hash": "9e61e3357e482a292f104e4b07faf0c2"
   },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\INSTALACION-APK-BETA.md": {
+    "mtime": 1790808197.112577,
+    "hash": "6cd4215e6411443e91d8222049df533e"
+  },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\MAP.md": {
-    "mtime": 1781558180.096197,
-    "hash": "6e71b50f61ed4499b3d5964b7d1a187a"
+    "mtime": 1790808233.0071757,
+    "hash": "d8b3d3f98b431c1cb05d0e836ff573be"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\SYNC_SMOKE.md": {
     "mtime": 1781035178.6971138,
     "hash": "4b620fec8b85978c6e20a1817dab30ee"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\UPDATE_LOG.md": {
-    "mtime": 1781875057.5105147,
-    "hash": "0a38b6b1a32ec528cb64089745217c3e"
+    "mtime": 1790807990.2065313,
+    "hash": "c72c2ab3b6e5c588c82fe4a27cabf147"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\github\\ANDROID_QA.md": {
-    "mtime": 1781035178.7011127,
-    "hash": "b47a7dcfcb5397397972cc68962e7ba9"
+    "mtime": 1790808060.5419033,
+    "hash": "a87bd1fcf96ccb48df9f7fc4e77afe11"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\github\\CHECKLIST.md": {
-    "mtime": 1781035178.7001123,
-    "hash": "6d6202b641107f091e1d977827e95083"
+    "mtime": 1790808082.2274017,
+    "hash": "95909203cd95fdf6893d5c4bdd0482ee"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\github\\RELEASE_NOTES.md": {
-    "mtime": 1781558180.0976944,
-    "hash": "c2a3a4fa8234a12fe845e08569db3359"
+    "mtime": 1790808230.0531256,
+    "hash": "e5bded292aa8d796147d6b2d5ca3539c"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\release\\LEEME-INSTALACION-ANDROID.txt": {
+    "mtime": 1790808211.3477864,
+    "hash": "5a32b7af9ed8d0ca1071df0d341dfc0b"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\graphify-out\\converted\\pagare_template_e62ac02c.md": {
-    "mtime": 1790805964.9223075,
+    "mtime": 1790808273.3354177,
     "hash": "3c57105453a9ba7f63d7459152a688e6"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\graphify-out\\converted\\pagare_template_sc_78d1f97f.md": {
-    "mtime": 1790805964.9443266,
+    "mtime": 1790808273.3599179,
     "hash": "9fedb158390f9703fc389a9e887bdcc3"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\builder-debug.yml": {

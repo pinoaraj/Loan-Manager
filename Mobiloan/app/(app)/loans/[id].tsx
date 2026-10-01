@@ -102,6 +102,14 @@ export default function LoanDetailScreen() {
       setNotes('');
       await refreshAppState();
 
+      if (session?.mode === 'local') {
+        Alert.alert(
+          'Pago guardado',
+          'La transaccion quedo guardada en la base local del telefono. Este prestamo nacio en Mobiloan, asi que viaja al desktop con la exportacion portable.',
+        );
+        return;
+      }
+
       if (session && (await syncService.isOnline())) {
         try {
           await syncMutation.mutateAsync();

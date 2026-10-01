@@ -1,5 +1,25 @@
 # Update Log
 
+## 2026-10-01
+
+- Found and fixed a beta-blocking gap: the native project did not declare `READ_CALENDAR` or `WRITE_CALENDAR`, so `expo-calendar` could never get calendar permission on the phone and every collection reminder failed silently on Android.
+- Re-ran `expo prebuild --platform android` so `app.json` (calendar permissions plus the `expo-calendar` plugin) is now reflected in `android/app/src/main/AndroidManifest.xml`.
+- Bumped the app to `1.1.0` (`versionCode 2`) so beta testers can tell this build apart from the previous `1.0.0` APK.
+- Rebuilt the release APK from the current workspace with `EXPO_PUBLIC_API_URL=http://192.168.4.81:3011/api` and published the delivery copy as `dist/mobiloan-beta-1.1.0.apk`.
+- Added the install QR `dist/install-qr-beta-1.1.0.png` plus a tiny LAN HTTP server flow so the phone can download the APK over Wi-Fi.
+
+## 2026-09-30
+
+- Added `scripts/build-android-release.ps1` plus `npm run android:release`, which builds the release APK with the production JS profile and refuses to finish if the APK has no embedded `assets/index.android.bundle`.
+- Fixed `scripts/install-android-beta.ps1` so it prefers the release APK and now blocks the debug APK by default, because the debug variant ships without a bundle and only runs while Metro is serving from the PC.
+- Verified that the previous `app-release.apk` from `2026-06-08` had an embedded bundle but did not contain the autonomous local mode, the local calculator or the portable export, and that the newer `app-debug.apk` from `2026-07-01` had no bundle at all.
+- Regenerated the release APK from the current workspace so the phone instalment can run the local mode without a PC or a backend.
+
+## 2026-06-19
+
+- Fixed the Android debug build script so it compiles through a short temporary Windows junction, avoiding native path-length failures during CMake and codegen tasks.
+- Exported `NODE_ENV=development` from the Android debug build helper so Expo env loading stays explicit during local packaging.
+
 ## 2026-06-15
 
 - Added a fully autonomous local entry path so Mobiloan can operate on Android without the desktop backend running.

@@ -1,5 +1,6 @@
 import * as SQLite from 'expo-sqlite';
 import { calculateAmortization } from '../lib/amortization';
+import { parseStoredDate, toLocalDateKey, toStoredDueDate, todayDateKey } from '../lib/dates';
 import { createClientMutationId } from '../lib/mutationId';
 
 import type {
@@ -44,10 +45,27 @@ const toNumber = (value: unknown) => Number(value || 0);
 const PAYMENT_EPSILON = 0.01;
 const createLocalId = (prefix: string) => `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
 
+/**
+ * Los registros creados en el telefono se marcan como `local` para que una
+ * sincronizacion contra el desktop nunca los borre. Todo lo que baja del
+ * backend queda como `server` y si puede reemplazarse en cada bootstrap.
+ */
+const ensureOriginColumn = async (database: SQLite.SQLiteDatabase, table: string) => {
+  const columns = await database.getAllAsync<{ name: string }>(`PRAGMA table_info(${table})`);
+  if (columns.some((column) => column.name === 'origin')) {
+    return;
+  }
+
+  await database.execAsync(`ALTER TABLE ${table} ADD COLUMN origin TEXT NOT NULL DEFAULT 'server'`);
+};
+
 const isPastDue = (dueDate: string) => {
-  const normalizedDueDate = dueDate.slice(0, 10);
-  const today = new Date().toISOString().slice(0, 10);
-  return normalizedDueDate < today;
+  const dueDateKey = toLocalDateKey(dueDate);
+  if (!dueDateKey) {
+    return false;
+  }
+
+  return dueDateKey < todayDateKey();
 };
 
 const derivePaymentStatus = (payment: {
@@ -144,6 +162,7 @@ export const localDb = {
         phone TEXT,
         email TEXT,
         address TEXT,
+        origin TEXT NOT NULL DEFAULT 'server',
         createdAt TEXT NOT NULL,
         updatedAt TEXT NOT NULL
       );
@@ -159,6 +178,7 @@ export const localDb = {
         loanType TEXT NOT NULL,
         status TEXT NOT NULL,
         isPaused INTEGER NOT NULL DEFAULT 0,
+        origin TEXT NOT NULL DEFAULT 'server',
         createdAt TEXT NOT NULL,
         updatedAt TEXT NOT NULL
       );
@@ -171,6 +191,7 @@ export const localDb = {
         paidAmount REAL NOT NULL DEFAULT 0,
         dueDate TEXT NOT NULL,
         status TEXT NOT NULL,
+        origin TEXT NOT NULL DEFAULT 'server',
         createdAt TEXT NOT NULL,
         updatedAt TEXT NOT NULL
       );
@@ -205,15 +226,24 @@ export const localDb = {
       CREATE INDEX IF NOT EXISTS idx_payment_transactions_paymentId ON payment_transactions(paymentId);
       CREATE INDEX IF NOT EXISTS idx_outbox_status ON outbox_mutations(status);
     `);
+
+    await ensureOriginColumn(database, 'clients');
+    await ensureOriginColumn(database, 'loans');
+    await ensureOriginColumn(database, 'payments');
   },
 
   async resetSnapshot(): Promise<void> {
+    // Solo se reemplaza lo que vino del backend. La cartera creada en terreno
+    // desde el telefono sobrevive al primer login remoto.
     const database = await getDatabase();
     await database.execAsync(`
-      DELETE FROM payment_transactions;
-      DELETE FROM payments;
-      DELETE FROM loans;
-      DELETE FROM clients;
+      DELETE FROM payment_transactions
+        WHERE paymentId IN (SELECT id FROM payments WHERE origin = 'server');
+      DELETE FROM payments WHERE origin = 'server';
+      DELETE FROM loans WHERE origin = 'server';
+      DELETE FROM clients
+        WHERE origin = 'server'
+          AND id NOT IN (SELECT clientId FROM loans WHERE origin = 'local');
     `);
   },
 
@@ -221,8 +251,15 @@ export const localDb = {
     const database = await getDatabase();
     for (const record of records) {
       await database.runAsync(
-        `INSERT OR REPLACE INTO clients (id, name, rut, phone, email, address, createdAt, updatedAt)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO clients (id, name, rut, phone, email, address, origin, createdAt, updatedAt)
+         VALUES (?, ?, ?, ?, ?, ?, 'server', ?, ?)
+         ON CONFLICT(id) DO UPDATE SET
+           name = excluded.name,
+           rut = excluded.rut,
+           phone = excluded.phone,
+           email = excluded.email,
+           address = excluded.address,
+           updatedAt = excluded.updatedAt`,
         [
           record.id,
           record.name,
@@ -241,8 +278,19 @@ export const localDb = {
     const database = await getDatabase();
     for (const record of records) {
       await database.runAsync(
-        `INSERT OR REPLACE INTO loans (id, clientId, amount, interestRate, durationMonths, startDate, frequency, loanType, status, isPaused, createdAt, updatedAt)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO loans (id, clientId, amount, interestRate, durationMonths, startDate, frequency, loanType, status, isPaused, origin, createdAt, updatedAt)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'server', ?, ?)
+         ON CONFLICT(id) DO UPDATE SET
+           clientId = excluded.clientId,
+           amount = excluded.amount,
+           interestRate = excluded.interestRate,
+           durationMonths = excluded.durationMonths,
+           startDate = excluded.startDate,
+           frequency = excluded.frequency,
+           loanType = excluded.loanType,
+           status = excluded.status,
+           isPaused = excluded.isPaused,
+           updatedAt = excluded.updatedAt`,
         [
           record.id,
           record.clientId,
@@ -265,8 +313,16 @@ export const localDb = {
     const database = await getDatabase();
     for (const record of records) {
       await database.runAsync(
-        `INSERT OR REPLACE INTO payments (id, loanId, amount, lateFee, paidAmount, dueDate, status, createdAt, updatedAt)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO payments (id, loanId, amount, lateFee, paidAmount, dueDate, status, origin, createdAt, updatedAt)
+         VALUES (?, ?, ?, ?, ?, ?, ?, 'server', ?, ?)
+         ON CONFLICT(id) DO UPDATE SET
+           loanId = excluded.loanId,
+           amount = excluded.amount,
+           lateFee = excluded.lateFee,
+           paidAmount = excluded.paidAmount,
+           dueDate = excluded.dueDate,
+           status = excluded.status,
+           updatedAt = excluded.updatedAt`,
         [
           record.id,
           record.loanId,
@@ -342,6 +398,20 @@ export const localDb = {
       await database.runAsync(`DELETE FROM loans WHERE clientId = ?`, [clientId]);
       await database.runAsync(`DELETE FROM clients WHERE id = ?`, [clientId]);
     }
+  },
+
+  async getPaymentOrigin(paymentId: string): Promise<'local' | 'server' | null> {
+    const database = await getDatabase();
+    const row = await database.getFirstAsync<{ origin: string }>(
+      `SELECT origin FROM payments WHERE id = ?`,
+      [paymentId],
+    );
+
+    if (!row) {
+      return null;
+    }
+
+    return row.origin === 'local' ? 'local' : 'server';
   },
 
   async applyOptimisticPaymentTransaction(
@@ -523,14 +593,7 @@ export const localDb = {
 
   async listCollectionQueue(filter: CollectionFilter): Promise<CollectionQueueItem[]> {
     const database = await getDatabase();
-    const today = new Date().toISOString().slice(0, 10);
-
-    const whereClause =
-      filter === 'overdue'
-        ? `date(substr(p.dueDate, 1, 10)) < date(?) AND p.status != 'Paid'`
-        : filter === 'today'
-          ? `date(substr(p.dueDate, 1, 10)) = date(?) AND p.status != 'Paid'`
-          : `date(substr(p.dueDate, 1, 10)) > date(?) AND p.status != 'Paid'`;
+    const todayKey = todayDateKey();
 
     const rows = await database.getAllAsync<any>(
       `SELECT
@@ -547,23 +610,40 @@ export const localDb = {
        FROM payments p
        INNER JOIN loans l ON l.id = p.loanId
        INNER JOIN clients c ON c.id = l.clientId
-       WHERE ${whereClause}
+       WHERE p.status != 'Paid'
        ORDER BY p.dueDate ASC, c.name ASC`,
-      [today],
     );
 
-    return rows.map((row) => ({
-      paymentId: row.paymentId,
-      loanId: row.loanId,
-      clientId: row.clientId,
-      clientName: row.clientName,
-      clientPhone: row.clientPhone,
-      dueDate: row.dueDate,
-      amount: toNumber(row.amount),
-      lateFee: toNumber(row.lateFee),
-      paidAmount: toNumber(row.paidAmount),
-      status: row.status,
-    }));
+    return rows
+      .map((row) => ({
+        paymentId: row.paymentId,
+        loanId: row.loanId,
+        clientId: row.clientId,
+        clientName: row.clientName,
+        clientPhone: row.clientPhone,
+        dueDate: row.dueDate,
+        amount: toNumber(row.amount),
+        lateFee: toNumber(row.lateFee),
+        paidAmount: toNumber(row.paidAmount),
+        status: row.status,
+        dueDateKey: toLocalDateKey(row.dueDate),
+      }))
+      .filter((row) => {
+        if (!row.dueDateKey) {
+          return false;
+        }
+
+        if (filter === 'overdue') {
+          return row.dueDateKey < todayKey;
+        }
+
+        if (filter === 'today') {
+          return row.dueDateKey === todayKey;
+        }
+
+        return row.dueDateKey > todayKey;
+      })
+      .map(({ dueDateKey: _dueDateKey, ...item }) => item);
   },
 
   async getClientDetail(clientId: string): Promise<{
@@ -670,8 +750,8 @@ export const localDb = {
     };
 
     await database.runAsync(
-      `INSERT INTO clients (id, name, rut, phone, email, address, createdAt, updatedAt)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO clients (id, name, rut, phone, email, address, origin, createdAt, updatedAt)
+       VALUES (?, ?, ?, ?, ?, ?, 'local', ?, ?)`,
       [
         client.id,
         client.name,
@@ -701,14 +781,35 @@ export const localDb = {
       throw new Error('Primero debes crear o seleccionar un cliente valido.');
     }
 
+    const amount = Number(draft.amount);
+    const interestRate = Number(draft.interestRate);
+    const durationMonths = Number(draft.durationMonths);
+    const startDate = parseStoredDate(draft.startDate);
+
+    if (!Number.isFinite(amount) || amount <= 0) {
+      throw new Error('El monto del prestamo debe ser mayor que cero.');
+    }
+
+    if (!Number.isFinite(interestRate) || interestRate < 0) {
+      throw new Error('La tasa de interes no puede ser negativa.');
+    }
+
+    if (!Number.isFinite(durationMonths) || durationMonths < 1) {
+      throw new Error('El plazo en meses debe ser al menos 1.');
+    }
+
+    if (!startDate) {
+      throw new Error('La fecha de inicio debe tener el formato AAAA-MM-DD.');
+    }
+
     const now = new Date().toISOString();
     const loan: LoanRecord = {
       id: createLocalId('loan'),
       clientId: draft.clientId,
-      amount: draft.amount,
-      interestRate: draft.interestRate,
-      durationMonths: draft.durationMonths,
-      startDate: draft.startDate,
+      amount,
+      interestRate,
+      durationMonths: Math.floor(durationMonths),
+      startDate: toLocalDateKey(startDate) as string,
       frequency: draft.frequency,
       loanType: draft.loanType,
       status: 'Active',
@@ -718,13 +819,17 @@ export const localDb = {
     };
 
     const amortization = calculateAmortization(
-      draft.amount,
-      draft.interestRate,
-      draft.durationMonths,
-      draft.startDate,
+      loan.amount,
+      loan.interestRate,
+      loan.durationMonths,
+      loan.startDate,
       draft.frequency,
       draft.loanType,
     );
+
+    if (amortization.length === 0) {
+      throw new Error('No se pudo generar el calendario de cuotas con esos datos.');
+    }
 
     const payments: PaymentRecord[] = amortization.map((item) => ({
       id: createLocalId('payment'),
@@ -732,15 +837,15 @@ export const localDb = {
       amount: Number(item.amount.toFixed(2)),
       lateFee: 0,
       paidAmount: 0,
-      dueDate: item.dueDate.toISOString(),
+      dueDate: toStoredDueDate(item.dueDate),
       status: 'Pending',
       createdAt: now,
       updatedAt: now,
     }));
 
     await database.runAsync(
-      `INSERT INTO loans (id, clientId, amount, interestRate, durationMonths, startDate, frequency, loanType, status, isPaused, createdAt, updatedAt)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO loans (id, clientId, amount, interestRate, durationMonths, startDate, frequency, loanType, status, isPaused, origin, createdAt, updatedAt)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'local', ?, ?)`,
       [
         loan.id,
         loan.clientId,
@@ -759,8 +864,8 @@ export const localDb = {
 
     for (const payment of payments) {
       await database.runAsync(
-        `INSERT INTO payments (id, loanId, amount, lateFee, paidAmount, dueDate, status, createdAt, updatedAt)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO payments (id, loanId, amount, lateFee, paidAmount, dueDate, status, origin, createdAt, updatedAt)
+         VALUES (?, ?, ?, ?, ?, ?, ?, 'local', ?, ?)`,
         [
           payment.id,
           payment.loanId,

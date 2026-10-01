@@ -1,3 +1,5 @@
+import { differenceInDays, parseStoredDate } from './dates';
+
 export const formatCurrency = (value: number) =>
   new Intl.NumberFormat('es-CL', {
     style: 'currency',
@@ -5,21 +7,31 @@ export const formatCurrency = (value: number) =>
     maximumFractionDigits: 0,
   }).format(Number.isFinite(value) ? value : 0);
 
-export const formatDate = (value: string | null | undefined) => {
+const DATE_FORMATTER = new Intl.DateTimeFormat('es-CL', {
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric',
+});
+
+const DATE_TIME_FORMATTER = new Intl.DateTimeFormat('es-CL', {
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+});
+
+export const formatDate = (value: string | Date | null | undefined) => {
   if (!value) {
     return 'Sin fecha';
   }
 
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) {
-    return value;
+  const date = parseStoredDate(value);
+  if (!date) {
+    return typeof value === 'string' ? value : 'Sin fecha';
   }
 
-  return new Intl.DateTimeFormat('es-CL', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-  }).format(date);
+  return DATE_FORMATTER.format(date);
 };
 
 export const formatDateTime = (value: string | null | undefined) => {
@@ -32,13 +44,7 @@ export const formatDateTime = (value: string | null | undefined) => {
     return value;
   }
 
-  return new Intl.DateTimeFormat('es-CL', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  }).format(date);
+  return DATE_TIME_FORMATTER.format(date);
 };
 
 export const getRelativeDueLabel = (value: string | null | undefined) => {
@@ -46,15 +52,12 @@ export const getRelativeDueLabel = (value: string | null | undefined) => {
     return 'Sin fecha';
   }
 
-  const targetDate = new Date(value);
-  if (Number.isNaN(targetDate.getTime())) {
+  const targetDate = parseStoredDate(value);
+  if (!targetDate) {
     return value;
   }
 
-  const today = new Date();
-  const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-  const startOfTarget = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
-  const diffDays = Math.round((startOfTarget.getTime() - startOfToday.getTime()) / 86400000);
+  const diffDays = differenceInDays(targetDate, new Date());
 
   if (diffDays === 0) {
     return 'Vence hoy';

@@ -1,4 +1,8 @@
 {
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\expo-env.d.ts": {
+    "mtime": 1781557723.967662,
+    "hash": "0dd9dccdb4b08595bc83df70d6a154d3"
+  },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\gradlew": {
     "mtime": 1780585946.073759,
     "hash": "780b1d3e23a3b82154795f73df943a14"
@@ -16,80 +20,124 @@
     "hash": "e22276291e9abf9d453e67b7c92e3b28"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\login.tsx": {
-    "mtime": 1781199349.5472605,
-    "hash": "3e463a2395e56c56e71563e967403043"
+    "mtime": 1781551761.505862,
+    "hash": "09f89895e06a34f3529482082345a534"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\_layout.tsx": {
     "mtime": 1780584801.4856124,
     "hash": "6cb042679a44df63822a3e0b6a9ffd8b"
   },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\calculator.tsx": {
+    "mtime": 1781551810.591512,
+    "hash": "cf5e31c0e3bfce127af86c1930cb40bf"
+  },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\index.tsx": {
-    "mtime": 1781202012.2041323,
-    "hash": "2e1a64e3db8981c90dc79d52bcdcd41a"
+    "mtime": 1781557577.7842042,
+    "hash": "ebc0964c381884278a7d14ef1a4b4592"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\new-client.tsx": {
+    "mtime": 1781551826.607443,
+    "hash": "dd3924eef1c81c49cd75d163bbabbc7a"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\new-loan.tsx": {
+    "mtime": 1781551861.716447,
+    "hash": "6df2b179ee8a4dfd329f8089a3b91cd3"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\_layout.tsx": {
-    "mtime": 1780935351.7799127,
-    "hash": "e3727135246c6442892ed740d3ade2e4"
+    "mtime": 1781551780.3137162,
+    "hash": "4e5448b2a4e8633ae3045ea67f504047"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\clients\\[id].tsx": {
-    "mtime": 1781199950.4919798,
-    "hash": "f3d3af355cb4919283f174ae8a81fda8"
+    "mtime": 1781551894.7913842,
+    "hash": "69d44da9880565c0d0d66875142b7166"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\loans\\[id].tsx": {
-    "mtime": 1781199964.219377,
-    "hash": "8df35a2bf2f5ad1edb7d2c9c86cabc9c"
+    "mtime": 1781551907.0352652,
+    "hash": "4a27503b9ec9b92155f0eb1bcb1a551c"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\scripts\\build-android-debug.ps1": {
-    "mtime": 1780593028.2531323,
-    "hash": "e5e697fc187f9cd32c18d58fa5c092fe"
+    "mtime": 1781874992.9030638,
+    "hash": "057e7fa31808417e726d7224b47b891b"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\scripts\\build-android-release.ps1": {
+    "mtime": 1790808197.107576,
+    "hash": "9d6291fc7c307bfe148d2f252593569c"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\scripts\\install-android-beta.ps1": {
+    "mtime": 1790807575.7185102,
+    "hash": "f44f1c17a2427a33d05bc07ebc519009"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\data\\database.ts": {
-    "mtime": 1781199606.8183198,
-    "hash": "7b9a7c4aac3d47982a17a3a5e40c0b86"
+    "mtime": 1790808282.4109228,
+    "hash": "f1f1b2f60f16210f4ba62762b9ce1961"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\data\\database.web.ts": {
+    "mtime": 1781551726.3520076,
+    "hash": "f2dd11ffe56ddb7938833f9dc880cfbc"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\hooks\\useOfflineData.ts": {
-    "mtime": 1781199614.4076464,
-    "hash": "a64785c2dce4973f5a36d7217b5a0d5b"
+    "mtime": 1781551736.1751988,
+    "hash": "6ef945353d020633eed8caa57a8fcaca"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\hooks\\useSyncActions.ts": {
-    "mtime": 1781199622.6777983,
-    "hash": "708a84a6701e1602c4123fc82da29119"
+    "mtime": 1781551745.8749964,
+    "hash": "2a899491caab4f2aef0fe8dca263517a"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\amortization.ts": {
+    "mtime": 1790808261.8339183,
+    "hash": "2f7068f8a7a03735be6c1cba2b9d4ed6"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\calendar.ts": {
+    "mtime": 1781557687.4611676,
+    "hash": "e835455fb156efa2c28a1331b129ec9a"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\calendar.web.ts": {
+    "mtime": 1781557637.9196236,
+    "hash": "7f782cc5bddb9fad4a85d94b0cfcea41"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\config.ts": {
-    "mtime": 1780932118.2295456,
-    "hash": "41c1aba279015600187c72fdb9ad3032"
+    "mtime": 1781550237.9001658,
+    "hash": "18eb68b52949c232f61de0be660d827e"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\contact.ts": {
     "mtime": 1781199928.0771952,
     "hash": "a9c1ef34d57f971ef5a811fb5289a2ac"
   },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\dates.ts": {
+    "mtime": 1790808239.5289652,
+    "hash": "be7f53f24849af107d8e072697e1cbbe"
+  },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\format.ts": {
-    "mtime": 1781201969.5232441,
-    "hash": "e0717d5b7ca55ffaa040125dd033de74"
+    "mtime": 1790808249.7142248,
+    "hash": "6b5642677fbbb47e2137c36349ea1834"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\mutationId.ts": {
     "mtime": 1780584572.6317313,
     "hash": "3cbd6a2dc20c570b16860451d1878b1e"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\secureSession.ts": {
-    "mtime": 1780584563.8019915,
-    "hash": "e0fb3cab5d1121129119e55867852106"
+    "mtime": 1781536574.8736546,
+    "hash": "52219867f7425c97018597df3e90993f"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\syncPackage.ts": {
+    "mtime": 1781551959.2085204,
+    "hash": "c23df3267cf9ddc3cf4f34716d9c2b07"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\providers\\AppProviders.tsx": {
-    "mtime": 1781199780.6851459,
-    "hash": "2a7a798eb425070326a4baef2b1d0910"
+    "mtime": 1781551751.458098,
+    "hash": "cace043b00cab82aa449326094432494"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\services\\api.ts": {
-    "mtime": 1781199832.5147245,
-    "hash": "38e0fb0384b1de63ea820b926f9dbdc2"
+    "mtime": 1781550682.4148443,
+    "hash": "2613da69ff4b9e66ffcfba16de3529a5"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\services\\sync.ts": {
-    "mtime": 1781198826.5399864,
-    "hash": "3884f61fe15f8c95e7fce47329036ccb"
+    "mtime": 1781551769.0079417,
+    "hash": "712b2b2273d27ebd5df0b344881611e4"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\types\\sync.ts": {
-    "mtime": 1781199582.7613785,
-    "hash": "297a791714b42faae3e8c0ca6dd8f695"
+    "mtime": 1781557281.6967602,
+    "hash": "4c54e4ff7e8016fe2c539f61f92a038e"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\ui\\styles.ts": {
     "mtime": 1781201979.3821282,
@@ -104,40 +152,52 @@
     "hash": "5c27369b226fcf2be8a6cfe52224e767"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\README.md": {
-    "mtime": 1780932127.1037574,
-    "hash": "9df5406d4d495fa36155ab8fbae6a6eb"
+    "mtime": 1790808025.5650249,
+    "hash": "2d2f6fb8503f6dfb60afc1033aa84c13"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\ANDROID_SETUP.md": {
-    "mtime": 1780934632.9080346,
-    "hash": "37f7c3dc935dc3ed3ac2551aa7b4d887"
+    "mtime": 1790808009.8825402,
+    "hash": "ff9a43426b285905323d16994efcd45f"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\APK-BETA.md": {
+    "mtime": 1790808216.3792908,
+    "hash": "d53df4b84bc7791708a2017100013077"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\GRAPHIFY.md": {
-    "mtime": 1781200014.9090402,
-    "hash": "cff5231e3e5dd65a1f1cb172ba5a745b"
+    "mtime": 1781202062.416978,
+    "hash": "9e61e3357e482a292f104e4b07faf0c2"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\INSTALACION-APK-BETA.md": {
+    "mtime": 1790808197.112577,
+    "hash": "6cd4215e6411443e91d8222049df533e"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\MAP.md": {
-    "mtime": 1781199996.2879379,
-    "hash": "6d5fa1dc054d004ef1d468d3e0d096a1"
+    "mtime": 1790808233.0071757,
+    "hash": "d8b3d3f98b431c1cb05d0e836ff573be"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\SYNC_SMOKE.md": {
     "mtime": 1781035178.6971138,
     "hash": "4b620fec8b85978c6e20a1817dab30ee"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\UPDATE_LOG.md": {
-    "mtime": 1781199987.5906713,
-    "hash": "d2011ca6b3680b813e88c39d372e4673"
+    "mtime": 1790807990.2065313,
+    "hash": "c72c2ab3b6e5c588c82fe4a27cabf147"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\github\\ANDROID_QA.md": {
-    "mtime": 1781035178.7011127,
-    "hash": "b47a7dcfcb5397397972cc68962e7ba9"
+    "mtime": 1790808060.5419033,
+    "hash": "a87bd1fcf96ccb48df9f7fc4e77afe11"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\github\\CHECKLIST.md": {
-    "mtime": 1781035178.7001123,
-    "hash": "6d6202b641107f091e1d977827e95083"
+    "mtime": 1790808082.2274017,
+    "hash": "95909203cd95fdf6893d5c4bdd0482ee"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\github\\RELEASE_NOTES.md": {
-    "mtime": 1781200003.540263,
-    "hash": "8f3a57a54072bf72cc4b823dfe13ddc6"
+    "mtime": 1790808230.0531256,
+    "hash": "e5bded292aa8d796147d6b2d5ca3539c"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\release\\LEEME-INSTALACION-ANDROID.txt": {
+    "mtime": 1790808211.3477864,
+    "hash": "5a32b7af9ed8d0ca1071df0d341dfc0b"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\install-qr-direct-apk.png": {
     "mtime": 1780609413.9531567,

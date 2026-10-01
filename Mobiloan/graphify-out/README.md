@@ -34,8 +34,12 @@ Esta carpeta queda reservada para la salida de Graphify del track mobile.
 - 2026-06-15: el desktop quedo capaz de importar el paquete portable JSON de Mobiloan
 - 2026-06-15: se corrigio el login con sync desde QA web local al permitir origenes loopback en el backend desktop
 - 2026-06-15: se completo una pasada comparativa sobre las pestanas funcionales clave de Mobiloan
+- 2026-09-30: se agrego `scripts/build-android-release.ps1` y `npm run android:release` para compilar el APK standalone con bundle JS embebido
+- 2026-09-30: `scripts/install-android-beta.ps1` ahora prioriza el release y rechaza el debug sin bundle salvo `-AllowDebug`
+- 2026-09-30: se confirmo que el `app-release.apk` del 2026-06-08 no contenia el modo local ni la exportacion portable, y que el `app-debug.apk` del 2026-07-01 no traia bundle
+- 2026-09-30: se regenero el APK release standalone desde el workspace actual
 
 ## Nota de frescura
 
-- El reporte Graphify raiz del repo fue refrescado el `2026-06-15`.
-- Los cambios de hoy ya quedaron reflejados tambien en `graphify-out/GRAPH_REPORT.md`.
+- El reporte Graphify raiz del repo fue refrescado el `2026-09-30`.
+- El grafo de este workspace mobile se refresco por ultima vez el `2026-06-11`; conviene regenerarlo con `graphify update .` desde `Mobiloan/` despues de cerrar cambios de codigo.

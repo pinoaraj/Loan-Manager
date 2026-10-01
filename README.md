@@ -32,6 +32,45 @@ The repo now also includes `Mobiloan/`, an Expo workspace for field collections 
 - Portable local export package for later sync or desktop intake
 - Desktop import now accepts the Mobiloan portable JSON package
 - Optional later synchronization with the desktop/backend when available
+- Android beta is distributed as a standalone release APK with the JS bundle embedded, so the phone needs no PC, no Metro and no backend
+- The debug APK is development-only: it ships without a bundle and only runs while Metro serves from the PC
+
+## Android beta package
+
+Build and install the standalone APK from the `Mobiloan` workspace:
+
+```bash
+cd Mobiloan
+npm run android:release
+npm run android:install
+```
+
+Artifact:
+
+- `Mobiloan/android/app/build/outputs/apk/release/app-release.apk`
+  - `1.1.0` (`versionCode 2`), package `com.mobiloan.app`
+  - embedded `assets/index.android.bundle`, `arm64-v8a` + `x86_64`
+  - SHA256 `FE381A6BC74DBE251C63E6F0130BA7626C9294701A0CC8BE7B6195B29DFCC52C`
+  - signed with the debug keystore (fine for beta sideload, not for Play Store)
+- `Mobiloan/dist/mobiloan-beta-1.1.0.apk` (delivery copy, git-ignored)
+- `Mobiloan/dist/install-qr-beta-1.1.0.png` (Wi-Fi install QR, git-ignored)
+
+`npm run android:release` runs `expo prebuild` first, because the calendar and
+notification permissions live in the generated `android/` project, and it refuses
+to build if `AndroidManifest.xml` is missing `READ_CALENDAR`, `WRITE_CALENDAR` or
+`POST_NOTIFICATIONS`.
+
+Handoff material for the phone:
+
+- send `mobiloan-beta-1.1.0.apk` over WhatsApp, Drive or USB, or serve
+  `Mobiloan/dist` on the LAN and scan `install-qr-beta-1.1.0.png`
+
+Reference docs:
+
+- Tester install guide: `Mobiloan/docs/INSTALACION-APK-BETA.md`
+- Artifact history and gaps: `Mobiloan/docs/APK-BETA.md`
+
+Why the June artifact was replaced: the `2026-06-08` release APK had an embedded bundle but no local mode, calculator or portable export, and the newer `2026-07-01` debug APK had no bundle at all, so it only worked with Metro running on the PC.
 
 ## Legal documents
 

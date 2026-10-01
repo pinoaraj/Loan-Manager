@@ -19,6 +19,10 @@
 - Validar filtros `vencidas`, `hoy` y `proximas` sobre base local
 - Validar carril `android/` o `eas.json` segun entorno disponible
 - Confirmar instalacion del `app-release.apk` en un telefono Android arm64
+- Ejecutar `npm run android:release` y confirmar que el APK incluye `assets/index.android.bundle`
+- Publicar el `sha256` del APK junto al artefacto de la beta
+- Verificar que el APK release abre y opera en modo local con el PC apagado
+- Confirmar que el APK debug no se entrega como artefacto de beta
 
 ## Criterio actual del proyecto
 

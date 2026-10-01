@@ -86,6 +86,9 @@ If the change is mobile-only inside `Mobiloan/`, also review `Mobiloan/graphify-
 - Since `2026-09-30` the desktop beta package lives in `C:\Users\JP\Desktop\LoanManager-Beta-1.0.0` with the installer, the portable build and `LEEME-INSTALACION.txt`; the package was smoke tested before handing it over.
 - The packaged startup now creates an empty SQLite file before `prisma migrate deploy`, because the Prisma schema engine fails on Windows when the database file does not exist yet.
 - `server/utils/fees.js` now reloads the loan with `payments.transactions` included, so applying a late fee no longer drops the payment history returned by the loan detail endpoints.
+- The Android beta path is now explicit in the repo: `Mobiloan/scripts/build-android-release.ps1` produces the standalone APK and `Mobiloan/scripts/install-android-beta.ps1` installs it while rejecting the bundle-less debug variant.
+- The stale mobile artifacts were replaced after verifying that the `2026-06-08` release APK lacked `modo local` in its embedded bundle and that the `2026-07-01` debug APK had no `assets/index.android.bundle` entry.
+- The mobile handoff documentation now lives in `Mobiloan/docs/INSTALACION-APK-BETA.md` and `Mobiloan/docs/APK-BETA.md`, alongside the updated `Mobiloan/docs/ANDROID_SETUP.md` release lane.
 
 ## Last Graph Refresh
 - `graphify update .` run successfully on `2026-09-30`.

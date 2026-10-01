@@ -11,6 +11,8 @@
 
 - Documentacion funcional: `docs/`
   - Smoke guide de sync: `docs/SYNC_SMOKE.md`
+  - Guia de instalacion del APK para testers: `docs/INSTALACION-APK-BETA.md`
+  - Ficha vigente del artefacto Android: `docs/APK-BETA.md`
 - Publicacion y seguimiento GitHub: `github/`
 - Analisis estructural Graphify: `graphify-out/`
 
@@ -32,6 +34,8 @@
 - Perfil `preview` APK preparado con `eas.json`
 - APK debug local generado correctamente
 - APK release LAN generado y servido por QR local
+- Carril `npm run android:release` que compila el APK standalone con bundle JS embebido y valida ese bundle antes de dar por buena la build
+- Carril `npm run android:install` que instala por ADB priorizando el release y bloqueando el debug sin bundle
 - Validacion de dependencias Expo SDK 56 limpia en `expo-doctor`
 - Export web funcional para QA rapido con adaptadores locales de sesion y base de datos
 - Entrada en `modo local` sin backend
@@ -64,6 +68,8 @@
 - En QA web el recordatorio nativo se bloquea con mensaje explicito porque calendario y notificaciones son solo del dispositivo
 - La exportacion local prepara el puente para sincronizacion opcional posterior con desktop
 - El desktop beta ya puede importar el paquete portable JSON generado desde Mobiloan
+- La beta de Android se distribuye como APK release standalone: el telefono no necesita PC, Metro ni backend
+- El APK debug queda reservado para desarrollo y no se considera un artefacto de beta
 
 ## Validacion funcional reciente
 

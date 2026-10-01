@@ -1,3 +1,5 @@
+import { parseStoredDate } from './dates';
+
 import type { LoanFrequency, LoanType, PaymentRecord } from '../types/sync';
 
 const normalizeFrequency = (frequency: LoanFrequency | string = 'monthly') => {
@@ -9,7 +11,7 @@ const buildMonthlySchedule = (
   principal: number,
   monthlyRate: number,
   durationMonths: number,
-  startDate: string,
+  start: Date,
   loanType: LoanType = 'Fixed',
 ) => {
   const schedule: Array<{
@@ -20,8 +22,6 @@ const buildMonthlySchedule = (
     interest: number;
     status: PaymentRecord['status'];
   }> = [];
-  const start = new Date(startDate);
-
   if (loanType === 'Fixed') {
     const paymentAmount =
       monthlyRate === 0
@@ -38,6 +38,7 @@ const buildMonthlySchedule = (
 
       const dueDate = new Date(start);
       dueDate.setMonth(dueDate.getMonth() + i);
+      dueDate.setHours(12, 0, 0, 0);
 
       schedule.push({
         installment: i,
@@ -58,6 +59,7 @@ const buildMonthlySchedule = (
     for (let i = 1; i <= durationMonths; i += 1) {
       const dueDate = new Date(start);
       dueDate.setMonth(dueDate.getMonth() + i);
+      dueDate.setHours(12, 0, 0, 0);
 
       schedule.push({
         installment: i,
@@ -75,11 +77,10 @@ const buildMonthlySchedule = (
 
 const splitMonthlySchedule = (
   monthlySchedule: ReturnType<typeof buildMonthlySchedule>,
-  startDate: string,
+  start: Date,
   partsPerMonth: number,
   dayStep: number,
 ) => {
-  const start = new Date(startDate);
   const schedule: ReturnType<typeof buildMonthlySchedule> = [];
 
   monthlySchedule.forEach((payment, monthIndex) => {
@@ -87,6 +88,7 @@ const splitMonthlySchedule = (
       const installment = monthIndex * partsPerMonth + part;
       const dueDate = new Date(start);
       dueDate.setDate(dueDate.getDate() + installment * dayStep);
+      dueDate.setHours(12, 0, 0, 0);
 
       schedule.push({
         installment,
@@ -110,20 +112,38 @@ export const calculateAmortization = (
   frequency: LoanFrequency | string = 'monthly',
   loanType: LoanType = 'Fixed',
 ) => {
+  const amount = Number(principal);
+  const rate = Number(monthlyRate);
+  const months = Number(durationMonths);
+  const start = parseStoredDate(startDate);
+
+  if (!start || !Number.isFinite(amount) || amount <= 0) {
+    return [];
+  }
+
+  if (!Number.isFinite(rate) || rate < 0) {
+    return [];
+  }
+
+  if (!Number.isFinite(months) || months < 1) {
+    return [];
+  }
+
+  const roundedMonths = Math.floor(months);
   const normalizedFrequency = normalizeFrequency(frequency);
   const monthlySchedule = buildMonthlySchedule(
-    principal,
-    monthlyRate,
-    durationMonths,
-    startDate,
+    amount,
+    rate,
+    roundedMonths,
+    start,
     loanType,
   );
 
   switch (normalizedFrequency) {
     case 'weekly':
-      return splitMonthlySchedule(monthlySchedule, startDate, 4, 7);
+      return splitMonthlySchedule(monthlySchedule, start, 4, 7);
     case 'bi-weekly':
-      return splitMonthlySchedule(monthlySchedule, startDate, 2, 14);
+      return splitMonthlySchedule(monthlySchedule, start, 2, 14);
     case 'monthly':
     default:
       return monthlySchedule;

@@ -87,7 +87,14 @@ export const syncService = {
 
   async enqueuePaymentTransaction(payload: PaymentTransactionMutationPayload): Promise<string> {
     const clientMutationId = createClientMutationId();
-    await localDb.addOutboxMutation(normalizeTransaction(clientMutationId, payload));
+    const paymentOrigin = await localDb.getPaymentOrigin(payload.paymentId);
+
+    // Una cuota creada en el telefono no existe en el backend: encolarla solo
+    // generaria un rechazo permanente. Se guarda local y viaja por el paquete
+    // portable de exportacion.
+    if (paymentOrigin !== 'local') {
+      await localDb.addOutboxMutation(normalizeTransaction(clientMutationId, payload));
+    }
 
     try {
       await localDb.applyOptimisticPaymentTransaction(clientMutationId, payload);

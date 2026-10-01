@@ -4,12 +4,21 @@
   "graph": {},
   "nodes": [
     {
+      "label": "expo-env.d.ts",
+      "file_type": "code",
+      "source_file": "expo-env.d.ts",
+      "source_location": "L1",
+      "id": "expo_env_d_ts",
+      "community": 13,
+      "norm_label": "expo-env.d.ts"
+    },
+    {
       "label": "MainActivity.kt",
       "file_type": "code",
       "source_file": "android/app/src/main/java/com/mobiloan/app/MainActivity.kt",
       "source_location": "L1",
       "id": "android_app_src_main_java_com_mobiloan_app_mainactivity_kt",
-      "community": 5,
+      "community": 8,
       "norm_label": "mainactivity.kt"
     },
     {
@@ -18,7 +27,7 @@
       "source_file": "android/app/src/main/java/com/mobiloan/app/MainActivity.kt",
       "source_location": "L13",
       "id": "app_mainactivity_mainactivity",
-      "community": 5,
+      "community": 8,
       "norm_label": "mainactivity"
     },
     {
@@ -27,7 +36,7 @@
       "source_file": "android/app/src/main/java/com/mobiloan/app/MainActivity.kt",
       "source_location": "L14",
       "id": "app_mainactivity_mainactivity_oncreate",
-      "community": 5,
+      "community": 8,
       "norm_label": ".oncreate()"
     },
     {
@@ -36,7 +45,7 @@
       "source_file": "android/app/src/main/java/com/mobiloan/app/MainActivity.kt",
       "source_location": "L26",
       "id": "app_mainactivity_mainactivity_getmaincomponentname",
-      "community": 5,
+      "community": 8,
       "norm_label": ".getmaincomponentname()"
     },
     {
@@ -45,7 +54,7 @@
       "source_file": "android/app/src/main/java/com/mobiloan/app/MainActivity.kt",
       "source_location": "L32",
       "id": "app_mainactivity_mainactivity_createreactactivitydelegate",
-      "community": 5,
+      "community": 8,
       "norm_label": ".createreactactivitydelegate()"
     },
     {
@@ -54,7 +63,7 @@
       "source_file": "android/app/src/main/java/com/mobiloan/app/MainActivity.kt",
       "source_location": "L48",
       "id": "app_mainactivity_mainactivity_invokedefaultonbackpressed",
-      "community": 5,
+      "community": 8,
       "norm_label": ".invokedefaultonbackpressed()"
     },
     {
@@ -63,7 +72,7 @@
       "source_file": "android/app/src/main/java/com/mobiloan/app/MainApplication.kt",
       "source_location": "L1",
       "id": "android_app_src_main_java_com_mobiloan_app_mainapplication_kt",
-      "community": 8,
+      "community": 10,
       "norm_label": "mainapplication.kt"
     },
     {
@@ -72,7 +81,7 @@
       "source_file": "android/app/src/main/java/com/mobiloan/app/MainApplication.kt",
       "source_location": "L17",
       "id": "app_mainapplication_mainapplication",
-      "community": 8,
+      "community": 10,
       "norm_label": "mainapplication"
     },
     {
@@ -81,7 +90,7 @@
       "source_file": "android/app/src/main/java/com/mobiloan/app/MainApplication.kt",
       "source_location": "L30",
       "id": "app_mainapplication_mainapplication_oncreate",
-      "community": 8,
+      "community": 10,
       "norm_label": ".oncreate()"
     },
     {
@@ -90,7 +99,7 @@
       "source_file": "android/app/src/main/java/com/mobiloan/app/MainApplication.kt",
       "source_location": "L41",
       "id": "app_mainapplication_mainapplication_onconfigurationchanged",
-      "community": 8,
+      "community": 10,
       "norm_label": ".onconfigurationchanged()"
     },
     {
@@ -117,8 +126,17 @@
       "source_file": "app/login.tsx",
       "source_location": "L1",
       "id": "app_login_tsx",
-      "community": 0,
+      "community": 2,
       "norm_label": "login.tsx"
+    },
+    {
+      "label": "handleLocalAccess()",
+      "file_type": "code",
+      "source_file": "app/login.tsx",
+      "source_location": "L67",
+      "id": "app_login_handlelocalaccess",
+      "community": 2,
+      "norm_label": "handlelocalaccess()"
     },
     {
       "label": "_layout.tsx",
@@ -148,6 +166,15 @@
       "norm_label": "rootlayout()"
     },
     {
+      "label": "calculator.tsx",
+      "file_type": "code",
+      "source_file": "app/(app)/calculator.tsx",
+      "source_location": "L1",
+      "id": "app_app_calculator_tsx",
+      "community": 3,
+      "norm_label": "calculator.tsx"
+    },
+    {
       "label": "index.tsx",
       "file_type": "code",
       "source_file": "app/(app)/index.tsx",
@@ -160,7 +187,7 @@
       "label": "handleSync()",
       "file_type": "code",
       "source_file": "app/(app)/index.tsx",
-      "source_location": "L53",
+      "source_location": "L55",
       "id": "app_index_handlesync",
       "community": 0,
       "norm_label": "handlesync()"
@@ -169,19 +196,55 @@
       "label": "async()",
       "file_type": "code",
       "source_file": "app/(app)/index.tsx",
-      "source_location": "L229",
+      "source_location": "L108",
       "id": "app_index_async",
-      "community": 4,
+      "community": 0,
       "norm_label": "async()"
     },
     {
       "label": "formatCurrency()",
       "file_type": "code",
       "source_file": "app/(app)/index.tsx",
-      "source_location": "L312",
+      "source_location": "L367",
       "id": "app_index_formatcurrency",
       "community": 0,
       "norm_label": "formatcurrency()"
+    },
+    {
+      "label": "new-client.tsx",
+      "file_type": "code",
+      "source_file": "app/(app)/new-client.tsx",
+      "source_location": "L1",
+      "id": "app_app_new_client_tsx",
+      "community": 0,
+      "norm_label": "new-client.tsx"
+    },
+    {
+      "label": "NewClientScreen()",
+      "file_type": "code",
+      "source_file": "app/(app)/new-client.tsx",
+      "source_location": "L8",
+      "id": "app_new_client_newclientscreen",
+      "community": 0,
+      "norm_label": "newclientscreen()"
+    },
+    {
+      "label": "new-loan.tsx",
+      "file_type": "code",
+      "source_file": "app/(app)/new-loan.tsx",
+      "source_location": "L1",
+      "id": "app_app_new_loan_tsx",
+      "community": 3,
+      "norm_label": "new-loan.tsx"
+    },
+    {
+      "label": "NewLoanScreen()",
+      "file_type": "code",
+      "source_file": "app/(app)/new-loan.tsx",
+      "source_location": "L11",
+      "id": "app_new_loan_newloanscreen",
+      "community": 3,
+      "norm_label": "newloanscreen()"
     },
     {
       "label": "_layout.tsx",
@@ -207,7 +270,7 @@
       "source_file": "app/(app)/clients/[id].tsx",
       "source_location": "L1",
       "id": "app_app_clients_id_tsx",
-      "community": 4,
+      "community": 6,
       "norm_label": "[id].tsx"
     },
     {
@@ -216,7 +279,7 @@
       "source_file": "app/(app)/clients/[id].tsx",
       "source_location": "L45",
       "id": "clients_id_async",
-      "community": 4,
+      "community": 6,
       "norm_label": "async()"
     },
     {
@@ -225,25 +288,25 @@
       "source_file": "app/(app)/loans/[id].tsx",
       "source_location": "L1",
       "id": "app_app_loans_id_tsx",
-      "community": 1,
+      "community": 6,
       "norm_label": "[id].tsx"
     },
     {
       "label": "handleQueuePayment()",
       "file_type": "code",
       "source_file": "app/(app)/loans/[id].tsx",
-      "source_location": "L66",
+      "source_location": "L67",
       "id": "loans_id_handlequeuepayment",
-      "community": 1,
+      "community": 6,
       "norm_label": "handlequeuepayment()"
     },
     {
       "label": "async()",
       "file_type": "code",
       "source_file": "app/(app)/loans/[id].tsx",
-      "source_location": "L173",
+      "source_location": "L174",
       "id": "loans_id_async",
-      "community": 1,
+      "community": 6,
       "norm_label": "async()"
     },
     {
@@ -252,8 +315,26 @@
       "source_file": "scripts/build-android-debug.ps1",
       "source_location": "L1",
       "id": "scripts_build_android_debug_ps1",
-      "community": 10,
+      "community": 14,
       "norm_label": "build-android-debug.ps1"
+    },
+    {
+      "label": "build-android-release.ps1",
+      "file_type": "code",
+      "source_file": "scripts/build-android-release.ps1",
+      "source_location": "L1",
+      "id": "scripts_build_android_release_ps1",
+      "community": 15,
+      "norm_label": "build-android-release.ps1"
+    },
+    {
+      "label": "install-android-beta.ps1",
+      "file_type": "code",
+      "source_file": "scripts/install-android-beta.ps1",
+      "source_location": "L1",
+      "id": "scripts_install_android_beta_ps1",
+      "community": 16,
+      "norm_label": "install-android-beta.ps1"
     },
     {
       "label": "database.ts",
@@ -261,80 +342,215 @@
       "source_file": "src/data/database.ts",
       "source_location": "L1",
       "id": "src_data_database_ts",
-      "community": 3,
+      "community": 1,
       "norm_label": "database.ts"
     },
     {
       "label": "getDatabase()",
       "file_type": "code",
       "source_file": "src/data/database.ts",
-      "source_location": "L19",
+      "source_location": "L25",
       "id": "data_database_getdatabase",
-      "community": 3,
+      "community": 1,
       "norm_label": "getdatabase()"
     },
     {
       "label": "serialize()",
       "file_type": "code",
       "source_file": "src/data/database.ts",
-      "source_location": "L24",
+      "source_location": "L30",
       "id": "data_database_serialize",
-      "community": 3,
+      "community": 1,
       "norm_label": "serialize()"
     },
     {
       "label": "parseJson()",
       "file_type": "code",
       "source_file": "src/data/database.ts",
-      "source_location": "L26",
+      "source_location": "L32",
       "id": "data_database_parsejson",
-      "community": 3,
+      "community": 1,
       "norm_label": "parsejson()"
     },
     {
       "label": "toNumber()",
       "file_type": "code",
       "source_file": "src/data/database.ts",
-      "source_location": "L38",
+      "source_location": "L44",
       "id": "data_database_tonumber",
-      "community": 3,
+      "community": 1,
       "norm_label": "tonumber()"
+    },
+    {
+      "label": "createLocalId()",
+      "file_type": "code",
+      "source_file": "src/data/database.ts",
+      "source_location": "L46",
+      "id": "data_database_createlocalid",
+      "community": 1,
+      "norm_label": "createlocalid()"
     },
     {
       "label": "isPastDue()",
       "file_type": "code",
       "source_file": "src/data/database.ts",
-      "source_location": "L41",
+      "source_location": "L48",
       "id": "data_database_ispastdue",
-      "community": 3,
+      "community": 1,
       "norm_label": "ispastdue()"
     },
     {
       "label": "derivePaymentStatus()",
       "file_type": "code",
       "source_file": "src/data/database.ts",
-      "source_location": "L47",
+      "source_location": "L57",
       "id": "data_database_derivepaymentstatus",
-      "community": 3,
+      "community": 1,
       "norm_label": "derivepaymentstatus()"
     },
     {
       "label": "deriveLoanStatus()",
       "file_type": "code",
       "source_file": "src/data/database.ts",
-      "source_location": "L66",
+      "source_location": "L76",
       "id": "data_database_deriveloanstatus",
-      "community": 3,
+      "community": 1,
       "norm_label": "deriveloanstatus()"
     },
     {
       "label": "hydrateOutboxRows()",
       "file_type": "code",
       "source_file": "src/data/database.ts",
-      "source_location": "L78",
+      "source_location": "L88",
       "id": "data_database_hydrateoutboxrows",
-      "community": 3,
+      "community": 1,
       "norm_label": "hydrateoutboxrows()"
+    },
+    {
+      "label": "database.web.ts",
+      "file_type": "code",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L1",
+      "id": "src_data_database_web_ts",
+      "community": 4,
+      "norm_label": "database.web.ts"
+    },
+    {
+      "label": "createLocalId()",
+      "file_type": "code",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L21",
+      "id": "data_database_web_createlocalid",
+      "community": 4,
+      "norm_label": "createlocalid()"
+    },
+    {
+      "label": "defaultState()",
+      "file_type": "code",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L32",
+      "id": "data_database_web_defaultstate",
+      "community": 4,
+      "norm_label": "defaultstate()"
+    },
+    {
+      "label": "clone()",
+      "file_type": "code",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L41",
+      "id": "data_database_web_clone",
+      "community": 4,
+      "norm_label": "clone()"
+    },
+    {
+      "label": "getStorage()",
+      "file_type": "code",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L43",
+      "id": "data_database_web_getstorage",
+      "community": 4,
+      "norm_label": "getstorage()"
+    },
+    {
+      "label": "loadState()",
+      "file_type": "code",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L51",
+      "id": "data_database_web_loadstate",
+      "community": 4,
+      "norm_label": "loadstate()"
+    },
+    {
+      "label": "saveState()",
+      "file_type": "code",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L77",
+      "id": "data_database_web_savestate",
+      "community": 4,
+      "norm_label": "savestate()"
+    },
+    {
+      "label": "updateState()",
+      "file_type": "code",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L86",
+      "id": "data_database_web_updatestate",
+      "community": 4,
+      "norm_label": "updatestate()"
+    },
+    {
+      "label": "isPastDue()",
+      "file_type": "code",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L93",
+      "id": "data_database_web_ispastdue",
+      "community": 4,
+      "norm_label": "ispastdue()"
+    },
+    {
+      "label": "derivePaymentStatus()",
+      "file_type": "code",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L99",
+      "id": "data_database_web_derivepaymentstatus",
+      "community": 4,
+      "norm_label": "derivepaymentstatus()"
+    },
+    {
+      "label": "deriveLoanStatus()",
+      "file_type": "code",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L118",
+      "id": "data_database_web_deriveloanstatus",
+      "community": 4,
+      "norm_label": "deriveloanstatus()"
+    },
+    {
+      "label": "upsertById()",
+      "file_type": "code",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L130",
+      "id": "data_database_web_upsertbyid",
+      "community": 4,
+      "norm_label": "upsertbyid()"
+    },
+    {
+      "label": "sortByCreatedAt()",
+      "file_type": "code",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L142",
+      "id": "data_database_web_sortbycreatedat",
+      "community": 4,
+      "norm_label": "sortbycreatedat()"
+    },
+    {
+      "label": "hydrateOutboxRow()",
+      "file_type": "code",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L145",
+      "id": "data_database_web_hydrateoutboxrow",
+      "community": 4,
+      "norm_label": "hydrateoutboxrow()"
     },
     {
       "label": "useOfflineData.ts",
@@ -369,7 +585,7 @@
       "source_file": "src/hooks/useOfflineData.ts",
       "source_location": "L18",
       "id": "hooks_useofflinedata_useclientdetail",
-      "community": 4,
+      "community": 6,
       "norm_label": "useclientdetail()"
     },
     {
@@ -378,7 +594,7 @@
       "source_file": "src/hooks/useOfflineData.ts",
       "source_location": "L25",
       "id": "hooks_useofflinedata_useloandetail",
-      "community": 1,
+      "community": 6,
       "norm_label": "useloandetail()"
     },
     {
@@ -409,58 +625,238 @@
       "norm_label": "usecollectionqueue()"
     },
     {
+      "label": "useAllClients()",
+      "file_type": "code",
+      "source_file": "src/hooks/useOfflineData.ts",
+      "source_location": "L50",
+      "id": "hooks_useofflinedata_useallclients",
+      "community": 3,
+      "norm_label": "useallclients()"
+    },
+    {
       "label": "useSyncActions.ts",
       "file_type": "code",
       "source_file": "src/hooks/useSyncActions.ts",
       "source_location": "L1",
       "id": "src_hooks_usesyncactions_ts",
-      "community": 1,
+      "community": 0,
       "norm_label": "usesyncactions.ts"
     },
     {
       "label": "invalidateAll()",
       "file_type": "code",
       "source_file": "src/hooks/useSyncActions.ts",
-      "source_location": "L7",
+      "source_location": "L12",
       "id": "hooks_usesyncactions_invalidateall",
-      "community": 1,
+      "community": 0,
       "norm_label": "invalidateall()"
     },
     {
       "label": "useManualSync()",
       "file_type": "code",
       "source_file": "src/hooks/useSyncActions.ts",
-      "source_location": "L19",
+      "source_location": "L24",
       "id": "hooks_usesyncactions_usemanualsync",
-      "community": 1,
+      "community": 0,
       "norm_label": "usemanualsync()"
     },
     {
       "label": "useQueuePayment()",
       "file_type": "code",
       "source_file": "src/hooks/useSyncActions.ts",
-      "source_location": "L37",
+      "source_location": "L42",
       "id": "hooks_usesyncactions_usequeuepayment",
-      "community": 1,
+      "community": 0,
       "norm_label": "usequeuepayment()"
     },
     {
       "label": "useRetryRejectedMutation()",
       "file_type": "code",
       "source_file": "src/hooks/useSyncActions.ts",
-      "source_location": "L50",
+      "source_location": "L55",
       "id": "hooks_usesyncactions_useretryrejectedmutation",
-      "community": 1,
+      "community": 0,
       "norm_label": "useretryrejectedmutation()"
     },
     {
       "label": "useDiscardRejectedMutation()",
       "file_type": "code",
       "source_file": "src/hooks/useSyncActions.ts",
-      "source_location": "L64",
+      "source_location": "L69",
       "id": "hooks_usesyncactions_usediscardrejectedmutation",
-      "community": 1,
+      "community": 0,
       "norm_label": "usediscardrejectedmutation()"
+    },
+    {
+      "label": "useCreateLocalClient()",
+      "file_type": "code",
+      "source_file": "src/hooks/useSyncActions.ts",
+      "source_location": "L83",
+      "id": "hooks_usesyncactions_usecreatelocalclient",
+      "community": 0,
+      "norm_label": "usecreatelocalclient()"
+    },
+    {
+      "label": "useCreateLocalLoan()",
+      "file_type": "code",
+      "source_file": "src/hooks/useSyncActions.ts",
+      "source_location": "L94",
+      "id": "hooks_usesyncactions_usecreatelocalloan",
+      "community": 3,
+      "norm_label": "usecreatelocalloan()"
+    },
+    {
+      "label": "amortization.ts",
+      "file_type": "code",
+      "source_file": "src/lib/amortization.ts",
+      "source_location": "L1",
+      "id": "src_lib_amortization_ts",
+      "community": 3,
+      "norm_label": "amortization.ts"
+    },
+    {
+      "label": "normalizeFrequency()",
+      "file_type": "code",
+      "source_file": "src/lib/amortization.ts",
+      "source_location": "L5",
+      "id": "lib_amortization_normalizefrequency",
+      "community": 3,
+      "norm_label": "normalizefrequency()"
+    },
+    {
+      "label": "buildMonthlySchedule()",
+      "file_type": "code",
+      "source_file": "src/lib/amortization.ts",
+      "source_location": "L10",
+      "id": "lib_amortization_buildmonthlyschedule",
+      "community": 3,
+      "norm_label": "buildmonthlyschedule()"
+    },
+    {
+      "label": "splitMonthlySchedule()",
+      "file_type": "code",
+      "source_file": "src/lib/amortization.ts",
+      "source_location": "L78",
+      "id": "lib_amortization_splitmonthlyschedule",
+      "community": 3,
+      "norm_label": "splitmonthlyschedule()"
+    },
+    {
+      "label": "calculateAmortization()",
+      "file_type": "code",
+      "source_file": "src/lib/amortization.ts",
+      "source_location": "L107",
+      "id": "lib_amortization_calculateamortization",
+      "community": 3,
+      "norm_label": "calculateamortization()"
+    },
+    {
+      "label": "calendar.ts",
+      "file_type": "code",
+      "source_file": "src/lib/calendar.ts",
+      "source_location": "L1",
+      "id": "src_lib_calendar_ts",
+      "community": 7,
+      "norm_label": "calendar.ts"
+    },
+    {
+      "label": "buildReminderTitle()",
+      "file_type": "code",
+      "source_file": "src/lib/calendar.ts",
+      "source_location": "L9",
+      "id": "lib_calendar_buildremindertitle",
+      "community": 7,
+      "norm_label": "buildremindertitle()"
+    },
+    {
+      "label": "buildReminderNotes()",
+      "file_type": "code",
+      "source_file": "src/lib/calendar.ts",
+      "source_location": "L12",
+      "id": "lib_calendar_buildremindernotes",
+      "community": 7,
+      "norm_label": "buildremindernotes()"
+    },
+    {
+      "label": "ensureCalendarPermission()",
+      "file_type": "code",
+      "source_file": "src/lib/calendar.ts",
+      "source_location": "L29",
+      "id": "lib_calendar_ensurecalendarpermission",
+      "community": 7,
+      "norm_label": "ensurecalendarpermission()"
+    },
+    {
+      "label": "ensureNotificationPermission()",
+      "file_type": "code",
+      "source_file": "src/lib/calendar.ts",
+      "source_location": "L36",
+      "id": "lib_calendar_ensurenotificationpermission",
+      "community": 7,
+      "norm_label": "ensurenotificationpermission()"
+    },
+    {
+      "label": "ensureNotificationChannel()",
+      "file_type": "code",
+      "source_file": "src/lib/calendar.ts",
+      "source_location": "L43",
+      "id": "lib_calendar_ensurenotificationchannel",
+      "community": 7,
+      "norm_label": "ensurenotificationchannel()"
+    },
+    {
+      "label": "resolveWritableCalendarId()",
+      "file_type": "code",
+      "source_file": "src/lib/calendar.ts",
+      "source_location": "L57",
+      "id": "lib_calendar_resolvewritablecalendarid",
+      "community": 7,
+      "norm_label": "resolvewritablecalendarid()"
+    },
+    {
+      "label": "resolveReminderDate()",
+      "file_type": "code",
+      "source_file": "src/lib/calendar.ts",
+      "source_location": "L70",
+      "id": "lib_calendar_resolvereminderdate",
+      "community": 7,
+      "norm_label": "resolvereminderdate()"
+    },
+    {
+      "label": "scheduleCollectionNotification()",
+      "file_type": "code",
+      "source_file": "src/lib/calendar.ts",
+      "source_location": "L81",
+      "id": "lib_calendar_schedulecollectionnotification",
+      "community": 7,
+      "norm_label": "schedulecollectionnotification()"
+    },
+    {
+      "label": "createCollectionReminder()",
+      "file_type": "code",
+      "source_file": "src/lib/calendar.ts",
+      "source_location": "L107",
+      "id": "lib_calendar_createcollectionreminder",
+      "community": 7,
+      "norm_label": "createcollectionreminder()"
+    },
+    {
+      "label": "calendar.web.ts",
+      "file_type": "code",
+      "source_file": "src/lib/calendar.web.ts",
+      "source_location": "L1",
+      "id": "src_lib_calendar_web_ts",
+      "community": 12,
+      "norm_label": "calendar.web.ts"
+    },
+    {
+      "label": "createCollectionReminder()",
+      "file_type": "code",
+      "source_file": "src/lib/calendar.web.ts",
+      "source_location": "L3",
+      "id": "lib_calendar_web_createcollectionreminder",
+      "community": 12,
+      "norm_label": "createcollectionreminder()"
     },
     {
       "label": "config.ts",
@@ -468,35 +864,62 @@
       "source_file": "src/lib/config.ts",
       "source_location": "L1",
       "id": "src_lib_config_ts",
-      "community": 9,
+      "community": 5,
       "norm_label": "config.ts"
     },
     {
       "label": "normalizeApiUrl()",
       "file_type": "code",
       "source_file": "src/lib/config.ts",
-      "source_location": "L9",
+      "source_location": "L10",
       "id": "lib_config_normalizeapiurl",
-      "community": 9,
+      "community": 5,
       "norm_label": "normalizeapiurl()"
     },
     {
       "label": "resolveExpoHost()",
       "file_type": "code",
       "source_file": "src/lib/config.ts",
-      "source_location": "L11",
+      "source_location": "L12",
       "id": "lib_config_resolveexpohost",
-      "community": 9,
+      "community": 5,
       "norm_label": "resolveexpohost()"
+    },
+    {
+      "label": "buildApiUrl()",
+      "file_type": "code",
+      "source_file": "src/lib/config.ts",
+      "source_location": "L25",
+      "id": "lib_config_buildapiurl",
+      "community": 5,
+      "norm_label": "buildapiurl()"
+    },
+    {
+      "label": "resolveHostCandidates()",
+      "file_type": "code",
+      "source_file": "src/lib/config.ts",
+      "source_location": "L27",
+      "id": "lib_config_resolvehostcandidates",
+      "community": 5,
+      "norm_label": "resolvehostcandidates()"
     },
     {
       "label": "resolveDefaultApiUrl()",
       "file_type": "code",
       "source_file": "src/lib/config.ts",
-      "source_location": "L24",
+      "source_location": "L47",
       "id": "lib_config_resolvedefaultapiurl",
-      "community": 9,
+      "community": 5,
       "norm_label": "resolvedefaultapiurl()"
+    },
+    {
+      "label": "getApiCandidates()",
+      "file_type": "code",
+      "source_file": "src/lib/config.ts",
+      "source_location": "L52",
+      "id": "lib_config_getapicandidates",
+      "community": 5,
+      "norm_label": "getapicandidates()"
     },
     {
       "label": "contact.ts",
@@ -504,7 +927,7 @@
       "source_file": "src/lib/contact.ts",
       "source_location": "L1",
       "id": "src_lib_contact_ts",
-      "community": 4,
+      "community": 6,
       "norm_label": "contact.ts"
     },
     {
@@ -513,7 +936,7 @@
       "source_file": "src/lib/contact.ts",
       "source_location": "L3",
       "id": "lib_contact_normalizephone",
-      "community": 4,
+      "community": 6,
       "norm_label": "normalizephone()"
     },
     {
@@ -522,7 +945,7 @@
       "source_file": "src/lib/contact.ts",
       "source_location": "L5",
       "id": "lib_contact_openexternalurl",
-      "community": 4,
+      "community": 6,
       "norm_label": "openexternalurl()"
     },
     {
@@ -531,7 +954,7 @@
       "source_file": "src/lib/contact.ts",
       "source_location": "L14",
       "id": "lib_contact_openphonecall",
-      "community": 4,
+      "community": 6,
       "norm_label": "openphonecall()"
     },
     {
@@ -540,8 +963,89 @@
       "source_file": "src/lib/contact.ts",
       "source_location": "L27",
       "id": "lib_contact_openwhatsapp",
-      "community": 4,
+      "community": 6,
       "norm_label": "openwhatsapp()"
+    },
+    {
+      "label": "dates.ts",
+      "file_type": "code",
+      "source_file": "src/lib/dates.ts",
+      "source_location": "L1",
+      "id": "src_lib_dates_ts",
+      "community": 1,
+      "norm_label": "dates.ts"
+    },
+    {
+      "label": "isValidDate()",
+      "file_type": "code",
+      "source_file": "src/lib/dates.ts",
+      "source_location": "L13",
+      "id": "lib_dates_isvaliddate",
+      "community": 1,
+      "norm_label": "isvaliddate()"
+    },
+    {
+      "label": "parseStoredDate()",
+      "file_type": "code",
+      "source_file": "src/lib/dates.ts",
+      "source_location": "L15",
+      "id": "lib_dates_parsestoreddate",
+      "community": 3,
+      "norm_label": "parsestoreddate()"
+    },
+    {
+      "label": "toLocalDateKey()",
+      "file_type": "code",
+      "source_file": "src/lib/dates.ts",
+      "source_location": "L39",
+      "id": "lib_dates_tolocaldatekey",
+      "community": 1,
+      "norm_label": "tolocaldatekey()"
+    },
+    {
+      "label": "todayDateKey()",
+      "file_type": "code",
+      "source_file": "src/lib/dates.ts",
+      "source_location": "L51",
+      "id": "lib_dates_todaydatekey",
+      "community": 1,
+      "norm_label": "todaydatekey()"
+    },
+    {
+      "label": "parseDateInput()",
+      "file_type": "code",
+      "source_file": "src/lib/dates.ts",
+      "source_location": "L54",
+      "id": "lib_dates_parsedateinput",
+      "community": 1,
+      "norm_label": "parsedateinput()"
+    },
+    {
+      "label": "isValidDateInput()",
+      "file_type": "code",
+      "source_file": "src/lib/dates.ts",
+      "source_location": "L74",
+      "id": "lib_dates_isvaliddateinput",
+      "community": 1,
+      "norm_label": "isvaliddateinput()"
+    },
+    {
+      "label": "toStoredDueDate()",
+      "file_type": "code",
+      "source_file": "src/lib/dates.ts",
+      "source_location": "L77",
+      "id": "lib_dates_tostoredduedate",
+      "community": 1,
+      "norm_label": "tostoredduedate()"
+    },
+    {
+      "label": "differenceInDays()",
+      "file_type": "code",
+      "source_file": "src/lib/dates.ts",
+      "source_location": "L83",
+      "id": "lib_dates_differenceindays",
+      "community": 3,
+      "norm_label": "differenceindays()"
     },
     {
       "label": "format.ts",
@@ -549,43 +1053,43 @@
       "source_file": "src/lib/format.ts",
       "source_location": "L1",
       "id": "src_lib_format_ts",
-      "community": 0,
+      "community": 3,
       "norm_label": "format.ts"
     },
     {
       "label": "formatCurrency()",
       "file_type": "code",
       "source_file": "src/lib/format.ts",
-      "source_location": "L1",
+      "source_location": "L3",
       "id": "lib_format_formatcurrency",
-      "community": 1,
+      "community": 6,
       "norm_label": "formatcurrency()"
     },
     {
       "label": "formatDate()",
       "file_type": "code",
       "source_file": "src/lib/format.ts",
-      "source_location": "L8",
+      "source_location": "L24",
       "id": "lib_format_formatdate",
-      "community": 0,
+      "community": 3,
       "norm_label": "formatdate()"
     },
     {
       "label": "formatDateTime()",
       "file_type": "code",
       "source_file": "src/lib/format.ts",
-      "source_location": "L25",
+      "source_location": "L37",
       "id": "lib_format_formatdatetime",
-      "community": 0,
+      "community": 2,
       "norm_label": "formatdatetime()"
     },
     {
       "label": "getRelativeDueLabel()",
       "file_type": "code",
       "source_file": "src/lib/format.ts",
-      "source_location": "L44",
+      "source_location": "L50",
       "id": "lib_format_getrelativeduelabel",
-      "community": 0,
+      "community": 3,
       "norm_label": "getrelativeduelabel()"
     },
     {
@@ -594,7 +1098,7 @@
       "source_file": "src/lib/mutationId.ts",
       "source_location": "L1",
       "id": "src_lib_mutationid_ts",
-      "community": 7,
+      "community": 9,
       "norm_label": "mutationid.ts"
     },
     {
@@ -603,7 +1107,7 @@
       "source_file": "src/lib/mutationId.ts",
       "source_location": "L1",
       "id": "lib_mutationid_createclientmutationid",
-      "community": 7,
+      "community": 9,
       "norm_label": "createclientmutationid()"
     },
     {
@@ -614,6 +1118,51 @@
       "id": "src_lib_securesession_ts",
       "community": 11,
       "norm_label": "securesession.ts"
+    },
+    {
+      "label": "getWebStorage()",
+      "file_type": "code",
+      "source_file": "src/lib/secureSession.ts",
+      "source_location": "L8",
+      "id": "lib_securesession_getwebstorage",
+      "community": 11,
+      "norm_label": "getwebstorage()"
+    },
+    {
+      "label": "loadFromWeb()",
+      "file_type": "code",
+      "source_file": "src/lib/secureSession.ts",
+      "source_location": "L16",
+      "id": "lib_securesession_loadfromweb",
+      "community": 11,
+      "norm_label": "loadfromweb()"
+    },
+    {
+      "label": "canUseNativeSecureStore()",
+      "file_type": "code",
+      "source_file": "src/lib/secureSession.ts",
+      "source_location": "L30",
+      "id": "lib_securesession_canusenativesecurestore",
+      "community": 11,
+      "norm_label": "canusenativesecurestore()"
+    },
+    {
+      "label": "syncPackage.ts",
+      "file_type": "code",
+      "source_file": "src/lib/syncPackage.ts",
+      "source_location": "L1",
+      "id": "src_lib_syncpackage_ts",
+      "community": 0,
+      "norm_label": "syncpackage.ts"
+    },
+    {
+      "label": "exportPortableSyncPackage()",
+      "file_type": "code",
+      "source_file": "src/lib/syncPackage.ts",
+      "source_location": "L7",
+      "id": "lib_syncpackage_exportportablesyncpackage",
+      "community": 0,
+      "norm_label": "exportportablesyncpackage()"
     },
     {
       "label": "AppProviders.tsx",
@@ -657,44 +1206,71 @@
       "source_file": "src/services/api.ts",
       "source_location": "L1",
       "id": "src_services_api_ts",
-      "community": 6,
+      "community": 5,
       "norm_label": "api.ts"
     },
     {
       "label": "MobileApiError",
       "file_type": "code",
       "source_file": "src/services/api.ts",
-      "source_location": "L14",
+      "source_location": "L17",
       "id": "services_api_mobileapierror",
-      "community": 6,
+      "community": 5,
       "norm_label": "mobileapierror"
     },
     {
       "label": ".constructor()",
       "file_type": "code",
       "source_file": "src/services/api.ts",
-      "source_location": "L18",
+      "source_location": "L22",
       "id": "services_api_mobileapierror_constructor",
-      "community": 6,
+      "community": 5,
       "norm_label": ".constructor()"
     },
     {
       "label": "isAuthApiError()",
       "file_type": "code",
       "source_file": "src/services/api.ts",
-      "source_location": "L26",
+      "source_location": "L36",
       "id": "services_api_isauthapierror",
-      "community": 6,
+      "community": 2,
       "norm_label": "isauthapierror()"
+    },
+    {
+      "label": "isNetworkError()",
+      "file_type": "code",
+      "source_file": "src/services/api.ts",
+      "source_location": "L39",
+      "id": "services_api_isnetworkerror",
+      "community": 5,
+      "norm_label": "isnetworkerror()"
+    },
+    {
+      "label": "describeAttemptedUrls()",
+      "file_type": "code",
+      "source_file": "src/services/api.ts",
+      "source_location": "L45",
+      "id": "services_api_describeattemptedurls",
+      "community": 5,
+      "norm_label": "describeattemptedurls()"
     },
     {
       "label": "parseResponse()",
       "file_type": "code",
       "source_file": "src/services/api.ts",
-      "source_location": "L29",
+      "source_location": "L48",
       "id": "services_api_parseresponse",
-      "community": 6,
+      "community": 5,
       "norm_label": "parseresponse()"
+    },
+    {
+      "label": "requestWithFallback()",
+      "file_type": "code",
+      "source_file": "src/services/api.ts",
+      "source_location": "L60",
+      "id": "services_api_requestwithfallback",
+      "community": 5,
+      "norm_label": "requestwithfallback()"
     },
     {
       "label": "sync.ts",
@@ -702,7 +1278,7 @@
       "source_file": "src/services/sync.ts",
       "source_location": "L1",
       "id": "src_services_sync_ts",
-      "community": 7,
+      "community": 9,
       "norm_label": "sync.ts"
     },
     {
@@ -711,7 +1287,7 @@
       "source_file": "src/services/sync.ts",
       "source_location": "L14",
       "id": "services_sync_normalizetransaction",
-      "community": 7,
+      "community": 9,
       "norm_label": "normalizetransaction()"
     },
     {
@@ -720,7 +1296,7 @@
       "source_file": "src/services/sync.ts",
       "source_location": "L34",
       "id": "services_sync_applypushresults",
-      "community": 7,
+      "community": 9,
       "norm_label": "applypushresults()"
     },
     {
@@ -729,7 +1305,7 @@
       "source_file": "src/types/sync.ts",
       "source_location": "L1",
       "id": "src_types_sync_ts",
-      "community": 12,
+      "community": 17,
       "norm_label": "sync.ts"
     },
     {
@@ -738,7 +1314,7 @@
       "source_file": "src/ui/styles.ts",
       "source_location": "L1",
       "id": "src_ui_styles_ts",
-      "community": 13,
+      "community": 18,
       "norm_label": "styles.ts"
     },
     {
@@ -746,7 +1322,7 @@
       "file_type": "code",
       "source_file": "app/(app)/loans/[id].tsx",
       "source_location": "L196",
-      "community": 1,
+      "community": 6,
       "norm_label": "formatdate()",
       "id": "loans_id_formatdate"
     }
@@ -887,6 +1463,16 @@
       "target": "providers_appproviders_usesession"
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/login.tsx",
+      "source_location": "L67",
+      "weight": 1.0,
+      "source": "app_login_tsx",
+      "target": "app_login_handlelocalaccess",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -943,11 +1529,33 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "app/(app)/index.tsx",
-      "source_location": "L14",
+      "source_file": "app/(app)/calculator.tsx",
+      "source_location": "L4",
       "weight": 1.0,
-      "source": "app_app_index_tsx",
-      "target": "lib_contact_openphonecall",
+      "source": "app_app_calculator_tsx",
+      "target": "lib_amortization_calculateamortization",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/calculator.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "app_app_calculator_tsx",
+      "target": "lib_format_formatcurrency",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/calculator.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "app_app_calculator_tsx",
+      "target": "lib_format_formatdate",
       "confidence_score": 1.0
     },
     {
@@ -957,8 +1565,30 @@
       "source_file": "app/(app)/index.tsx",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "app_app_index_tsx",
-      "target": "lib_contact_openwhatsapp",
+      "target": "lib_contact_openphonecall"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_index_tsx",
+      "target": "lib_contact_openwhatsapp"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "app_app_index_tsx",
+      "target": "lib_calendar_createcollectionreminder",
       "confidence_score": 1.0
     },
     {
@@ -1001,8 +1631,19 @@
       "source_file": "app/(app)/index.tsx",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "app_app_index_tsx",
-      "target": "lib_format_getrelativeduelabel",
+      "target": "lib_format_getrelativeduelabel"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "app_app_index_tsx",
+      "target": "lib_syncpackage_exportportablesyncpackage",
       "confidence_score": 1.0
     },
     {
@@ -1137,6 +1778,28 @@
     {
       "relation": "calls",
       "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L467",
+      "weight": 1.0,
+      "source": "app_index_async",
+      "target": "app_index_handlesync",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L110",
+      "weight": 1.0,
+      "source": "app_index_async",
+      "target": "lib_syncpackage_exportportablesyncpackage"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "app/(app)/index.tsx",
@@ -1144,6 +1807,136 @@
       "weight": 1.0,
       "source": "app_index_async",
       "target": "lib_contact_openwhatsapp"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/(app)/index.tsx",
+      "source_location": "L284",
+      "weight": 1.0,
+      "source": "app_index_async",
+      "target": "lib_format_formatdate"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/new-client.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "app_app_new_client_tsx",
+      "target": "hooks_usesyncactions_usecreatelocalclient",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/new-client.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "app_app_new_client_tsx",
+      "target": "app_new_client_newclientscreen",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/(app)/new-client.tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "app_new_client_newclientscreen",
+      "target": "hooks_usesyncactions_usecreatelocalclient"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/new-loan.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "app_app_new_loan_tsx",
+      "target": "hooks_useofflinedata_useallclients",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/new-loan.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "app_app_new_loan_tsx",
+      "target": "hooks_usesyncactions_usecreatelocalloan",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/new-loan.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "app_app_new_loan_tsx",
+      "target": "lib_amortization_calculateamortization",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/new-loan.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "app_app_new_loan_tsx",
+      "target": "lib_format_formatcurrency",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/new-loan.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "app_app_new_loan_tsx",
+      "target": "lib_format_formatdate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/new-loan.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "app_app_new_loan_tsx",
+      "target": "app_new_loan_newloanscreen",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/(app)/new-loan.tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "app_new_loan_newloanscreen",
+      "target": "hooks_useofflinedata_useallclients"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "app/(app)/new-loan.tsx",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "app_new_loan_newloanscreen",
+      "target": "hooks_usesyncactions_usecreatelocalloan"
     },
     {
       "relation": "imports",
@@ -1182,22 +1975,11 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "app/(app)/clients/[id].tsx",
-      "source_location": "L4",
+      "source_location": "L5",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "app_app_clients_id_tsx",
-      "target": "lib_contact_openphonecall"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "app/(app)/clients/[id].tsx",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "app_app_clients_id_tsx",
-      "target": "lib_contact_openwhatsapp"
+      "target": "hooks_useofflinedata_useclientdetail"
     },
     {
       "relation": "imports",
@@ -1226,11 +2008,22 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "app/(app)/clients/[id].tsx",
-      "source_location": "L5",
+      "source_location": "L4",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "app_app_clients_id_tsx",
-      "target": "hooks_useofflinedata_useclientdetail"
+      "target": "lib_contact_openphonecall"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/clients/[id].tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_app_clients_id_tsx",
+      "target": "lib_contact_openwhatsapp"
     },
     {
       "relation": "contains",
@@ -1274,6 +2067,17 @@
       "confidence_score": 1.0,
       "source": "app_app_loans_id_tsx",
       "target": "lib_contact_openwhatsapp"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/(app)/loans/[id].tsx",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "app_app_loans_id_tsx",
+      "target": "lib_calendar_createcollectionreminder",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -1405,6 +2209,72 @@
       "target": "lib_contact_openwhatsapp"
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "src_data_database_ts",
+      "target": "lib_amortization_calculateamortization",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "src_data_database_ts",
+      "target": "lib_dates_parsestoreddate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "src_data_database_ts",
+      "target": "lib_dates_tolocaldatekey",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "src_data_database_ts",
+      "target": "lib_dates_tostoredduedate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "src_data_database_ts",
+      "target": "lib_dates_todaydatekey",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "src_data_database_ts",
+      "target": "lib_mutationid_createclientmutationid",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/database.ts",
@@ -1443,6 +2313,16 @@
       "confidence_score": 1.0,
       "source": "src_data_database_ts",
       "target": "data_database_tonumber"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.ts",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "src_data_database_ts",
+      "target": "data_database_createlocalid",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1494,6 +2374,257 @@
       "confidence_score": 1.0,
       "source": "data_database_derivepaymentstatus",
       "target": "data_database_ispastdue"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/data/database.ts",
+      "source_location": "L49",
+      "weight": 1.0,
+      "source": "data_database_ispastdue",
+      "target": "lib_dates_tolocaldatekey"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/data/database.ts",
+      "source_location": "L54",
+      "weight": 1.0,
+      "source": "data_database_ispastdue",
+      "target": "lib_dates_todaydatekey"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "src_data_database_web_ts",
+      "target": "lib_amortization_calculateamortization",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "src_data_database_web_ts",
+      "target": "data_database_web_createlocalid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L32",
+      "weight": 1.0,
+      "source": "src_data_database_web_ts",
+      "target": "data_database_web_defaultstate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "src_data_database_web_ts",
+      "target": "data_database_web_clone",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L43",
+      "weight": 1.0,
+      "source": "src_data_database_web_ts",
+      "target": "data_database_web_getstorage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L51",
+      "weight": 1.0,
+      "source": "src_data_database_web_ts",
+      "target": "data_database_web_loadstate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L77",
+      "weight": 1.0,
+      "source": "src_data_database_web_ts",
+      "target": "data_database_web_savestate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L86",
+      "weight": 1.0,
+      "source": "src_data_database_web_ts",
+      "target": "data_database_web_updatestate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L93",
+      "weight": 1.0,
+      "source": "src_data_database_web_ts",
+      "target": "data_database_web_ispastdue",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L99",
+      "weight": 1.0,
+      "source": "src_data_database_web_ts",
+      "target": "data_database_web_derivepaymentstatus",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L118",
+      "weight": 1.0,
+      "source": "src_data_database_web_ts",
+      "target": "data_database_web_deriveloanstatus",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L130",
+      "weight": 1.0,
+      "source": "src_data_database_web_ts",
+      "target": "data_database_web_upsertbyid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L142",
+      "weight": 1.0,
+      "source": "src_data_database_web_ts",
+      "target": "data_database_web_sortbycreatedat",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L145",
+      "weight": 1.0,
+      "source": "src_data_database_web_ts",
+      "target": "data_database_web_hydrateoutboxrow",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L54",
+      "weight": 1.0,
+      "source": "data_database_web_loadstate",
+      "target": "data_database_web_defaultstate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L133",
+      "weight": 1.0,
+      "source": "data_database_web_upsertbyid",
+      "target": "data_database_web_clone",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L157",
+      "weight": 1.0,
+      "source": "data_database_web_hydrateoutboxrow",
+      "target": "data_database_web_clone",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L52",
+      "weight": 1.0,
+      "source": "data_database_web_loadstate",
+      "target": "data_database_web_getstorage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L78",
+      "weight": 1.0,
+      "source": "data_database_web_savestate",
+      "target": "data_database_web_getstorage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L87",
+      "weight": 1.0,
+      "source": "data_database_web_updatestate",
+      "target": "data_database_web_loadstate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L89",
+      "weight": 1.0,
+      "source": "data_database_web_updatestate",
+      "target": "data_database_web_savestate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/database.web.ts",
+      "source_location": "L112",
+      "weight": 1.0,
+      "source": "data_database_web_derivepaymentstatus",
+      "target": "data_database_web_ispastdue",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1566,6 +2697,16 @@
       "target": "hooks_useofflinedata_usecollectionqueue"
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/useOfflineData.ts",
+      "source_location": "L50",
+      "weight": 1.0,
+      "source": "src_hooks_useofflinedata_ts",
+      "target": "hooks_useofflinedata_useallclients",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -1627,6 +2768,26 @@
       "target": "hooks_usesyncactions_usediscardrejectedmutation"
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/useSyncActions.ts",
+      "source_location": "L83",
+      "weight": 1.0,
+      "source": "src_hooks_usesyncactions_ts",
+      "target": "hooks_usesyncactions_usecreatelocalclient",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/hooks/useSyncActions.ts",
+      "source_location": "L94",
+      "weight": 1.0,
+      "source": "src_hooks_usesyncactions_ts",
+      "target": "hooks_usesyncactions_usecreatelocalloan",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "INFERRED",
@@ -1636,6 +2797,300 @@
       "weight": 1.0,
       "source": "hooks_usesyncactions_usemanualsync",
       "target": "providers_appproviders_usesession"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/amortization.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "src_lib_amortization_ts",
+      "target": "lib_dates_parsestoreddate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/amortization.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "src_lib_amortization_ts",
+      "target": "lib_amortization_normalizefrequency",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/amortization.ts",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "src_lib_amortization_ts",
+      "target": "lib_amortization_buildmonthlyschedule",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/amortization.ts",
+      "source_location": "L78",
+      "weight": 1.0,
+      "source": "src_lib_amortization_ts",
+      "target": "lib_amortization_splitmonthlyschedule",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/amortization.ts",
+      "source_location": "L107",
+      "weight": 1.0,
+      "source": "src_lib_amortization_ts",
+      "target": "lib_amortization_calculateamortization",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/amortization.ts",
+      "source_location": "L133",
+      "weight": 1.0,
+      "source": "lib_amortization_calculateamortization",
+      "target": "lib_amortization_normalizefrequency",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/amortization.ts",
+      "source_location": "L134",
+      "weight": 1.0,
+      "source": "lib_amortization_calculateamortization",
+      "target": "lib_amortization_buildmonthlyschedule",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/amortization.ts",
+      "source_location": "L144",
+      "weight": 1.0,
+      "source": "lib_amortization_calculateamortization",
+      "target": "lib_amortization_splitmonthlyschedule",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/lib/amortization.ts",
+      "source_location": "L118",
+      "weight": 1.0,
+      "source": "lib_amortization_calculateamortization",
+      "target": "lib_dates_parsestoreddate"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/calendar.ts",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "src_lib_calendar_ts",
+      "target": "lib_calendar_buildremindertitle",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/calendar.ts",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "src_lib_calendar_ts",
+      "target": "lib_calendar_buildremindernotes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/calendar.ts",
+      "source_location": "L29",
+      "weight": 1.0,
+      "source": "src_lib_calendar_ts",
+      "target": "lib_calendar_ensurecalendarpermission",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/calendar.ts",
+      "source_location": "L36",
+      "weight": 1.0,
+      "source": "src_lib_calendar_ts",
+      "target": "lib_calendar_ensurenotificationpermission",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/calendar.ts",
+      "source_location": "L43",
+      "weight": 1.0,
+      "source": "src_lib_calendar_ts",
+      "target": "lib_calendar_ensurenotificationchannel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/calendar.ts",
+      "source_location": "L57",
+      "weight": 1.0,
+      "source": "src_lib_calendar_ts",
+      "target": "lib_calendar_resolvewritablecalendarid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/calendar.ts",
+      "source_location": "L70",
+      "weight": 1.0,
+      "source": "src_lib_calendar_ts",
+      "target": "lib_calendar_resolvereminderdate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/calendar.ts",
+      "source_location": "L81",
+      "weight": 1.0,
+      "source": "src_lib_calendar_ts",
+      "target": "lib_calendar_schedulecollectionnotification",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/calendar.ts",
+      "source_location": "L107",
+      "weight": 1.0,
+      "source": "src_lib_calendar_ts",
+      "target": "lib_calendar_createcollectionreminder",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/calendar.ts",
+      "source_location": "L87",
+      "weight": 1.0,
+      "source": "lib_calendar_schedulecollectionnotification",
+      "target": "lib_calendar_buildremindertitle",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/calendar.ts",
+      "source_location": "L115",
+      "weight": 1.0,
+      "source": "lib_calendar_createcollectionreminder",
+      "target": "lib_calendar_buildremindertitle",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/calendar.ts",
+      "source_location": "L116",
+      "weight": 1.0,
+      "source": "lib_calendar_createcollectionreminder",
+      "target": "lib_calendar_buildremindernotes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/calendar.ts",
+      "source_location": "L108",
+      "weight": 1.0,
+      "source": "lib_calendar_createcollectionreminder",
+      "target": "lib_calendar_ensurecalendarpermission",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/calendar.ts",
+      "source_location": "L82",
+      "weight": 1.0,
+      "source": "lib_calendar_schedulecollectionnotification",
+      "target": "lib_calendar_ensurenotificationpermission",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/calendar.ts",
+      "source_location": "L83",
+      "weight": 1.0,
+      "source": "lib_calendar_schedulecollectionnotification",
+      "target": "lib_calendar_ensurenotificationchannel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/calendar.ts",
+      "source_location": "L109",
+      "weight": 1.0,
+      "source": "lib_calendar_createcollectionreminder",
+      "target": "lib_calendar_resolvewritablecalendarid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/calendar.ts",
+      "source_location": "L110",
+      "weight": 1.0,
+      "source": "lib_calendar_createcollectionreminder",
+      "target": "lib_calendar_resolvereminderdate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/calendar.ts",
+      "source_location": "L124",
+      "weight": 1.0,
+      "source": "lib_calendar_createcollectionreminder",
+      "target": "lib_calendar_schedulecollectionnotification",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/calendar.web.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "src_lib_calendar_web_ts",
+      "target": "lib_calendar_web_createcollectionreminder",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1661,11 +3116,63 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/config.ts",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "src_lib_config_ts",
+      "target": "lib_config_buildapiurl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/config.ts",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "src_lib_config_ts",
+      "target": "lib_config_resolvehostcandidates",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/config.ts",
       "source_location": "L24",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "src_lib_config_ts",
       "target": "lib_config_resolvedefaultapiurl"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/config.ts",
+      "source_location": "L52",
+      "weight": 1.0,
+      "source": "src_lib_config_ts",
+      "target": "lib_config_getapicandidates",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/config.ts",
+      "source_location": "L57",
+      "weight": 1.0,
+      "source": "lib_config_getapicandidates",
+      "target": "lib_config_normalizeapiurl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/config.ts",
+      "source_location": "L29",
+      "weight": 1.0,
+      "source": "lib_config_resolvehostcandidates",
+      "target": "lib_config_resolveexpohost",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -1677,6 +3184,83 @@
       "confidence_score": 1.0,
       "source": "lib_config_resolvedefaultapiurl",
       "target": "lib_config_resolveexpohost"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/config.ts",
+      "source_location": "L49",
+      "weight": 1.0,
+      "source": "lib_config_resolvedefaultapiurl",
+      "target": "lib_config_buildapiurl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/config.ts",
+      "source_location": "L61",
+      "weight": 1.0,
+      "source": "lib_config_getapicandidates",
+      "target": "lib_config_buildapiurl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/config.ts",
+      "source_location": "L48",
+      "weight": 1.0,
+      "source": "lib_config_resolvedefaultapiurl",
+      "target": "lib_config_resolvehostcandidates",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/config.ts",
+      "source_location": "L60",
+      "weight": 1.0,
+      "source": "lib_config_getapicandidates",
+      "target": "lib_config_resolvehostcandidates",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/config.ts",
+      "source_location": "L65",
+      "weight": 1.0,
+      "source": "lib_config_getapicandidates",
+      "target": "lib_config_resolvedefaultapiurl",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/api.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "src_services_api_ts",
+      "target": "lib_config_getapicandidates",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/services/api.ts",
+      "source_location": "L65",
+      "weight": 1.0,
+      "source": "services_api_requestwithfallback",
+      "target": "lib_config_getapicandidates"
     },
     {
       "relation": "contains",
@@ -1765,6 +3349,196 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "src/lib/dates.ts",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "src_lib_dates_ts",
+      "target": "lib_dates_isvaliddate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/dates.ts",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "src_lib_dates_ts",
+      "target": "lib_dates_parsestoreddate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/dates.ts",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "src_lib_dates_ts",
+      "target": "lib_dates_tolocaldatekey",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/dates.ts",
+      "source_location": "L51",
+      "weight": 1.0,
+      "source": "src_lib_dates_ts",
+      "target": "lib_dates_todaydatekey",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/dates.ts",
+      "source_location": "L54",
+      "weight": 1.0,
+      "source": "src_lib_dates_ts",
+      "target": "lib_dates_parsedateinput",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/dates.ts",
+      "source_location": "L74",
+      "weight": 1.0,
+      "source": "src_lib_dates_ts",
+      "target": "lib_dates_isvaliddateinput",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/dates.ts",
+      "source_location": "L77",
+      "weight": 1.0,
+      "source": "src_lib_dates_ts",
+      "target": "lib_dates_tostoredduedate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/dates.ts",
+      "source_location": "L83",
+      "weight": 1.0,
+      "source": "src_lib_dates_ts",
+      "target": "lib_dates_differenceindays",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/dates.ts",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "lib_dates_parsestoreddate",
+      "target": "lib_dates_isvaliddate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/dates.ts",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "lib_dates_tolocaldatekey",
+      "target": "lib_dates_isvaliddate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/dates.ts",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "lib_dates_tolocaldatekey",
+      "target": "lib_dates_parsestoreddate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/format.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "src_lib_format_ts",
+      "target": "lib_dates_parsestoreddate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/lib/format.ts",
+      "source_location": "L29",
+      "weight": 1.0,
+      "source": "lib_format_formatdate",
+      "target": "lib_dates_parsestoreddate"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/lib/format.ts",
+      "source_location": "L55",
+      "weight": 1.0,
+      "source": "lib_format_getrelativeduelabel",
+      "target": "lib_dates_parsestoreddate"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/dates.ts",
+      "source_location": "L51",
+      "weight": 1.0,
+      "source": "lib_dates_todaydatekey",
+      "target": "lib_dates_tolocaldatekey",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/dates.ts",
+      "source_location": "L74",
+      "weight": 1.0,
+      "source": "lib_dates_isvaliddateinput",
+      "target": "lib_dates_parsedateinput",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/format.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "src_lib_format_ts",
+      "target": "lib_dates_differenceindays",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "src/lib/format.ts",
+      "source_location": "L60",
+      "weight": 1.0,
+      "source": "lib_format_getrelativeduelabel",
+      "target": "lib_dates_differenceindays"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "src/lib/format.ts",
       "source_location": "L1",
       "weight": 1.0,
@@ -1798,9 +3572,9 @@
       "source_file": "src/lib/format.ts",
       "source_location": "L44",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_lib_format_ts",
-      "target": "lib_format_getrelativeduelabel",
-      "confidence_score": 1.0
+      "target": "lib_format_getrelativeduelabel"
     },
     {
       "relation": "contains",
@@ -1822,6 +3596,57 @@
       "confidence_score": 1.0,
       "source": "src_services_sync_ts",
       "target": "lib_mutationid_createclientmutationid"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/secureSession.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "src_lib_securesession_ts",
+      "target": "lib_securesession_getwebstorage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/secureSession.ts",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "src_lib_securesession_ts",
+      "target": "lib_securesession_loadfromweb",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/secureSession.ts",
+      "source_location": "L30",
+      "weight": 1.0,
+      "source": "src_lib_securesession_ts",
+      "target": "lib_securesession_canusenativesecurestore",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/secureSession.ts",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "lib_securesession_loadfromweb",
+      "target": "lib_securesession_getwebstorage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/syncPackage.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "src_lib_syncpackage_ts",
+      "target": "lib_syncpackage_exportportablesyncpackage",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports",
@@ -1888,11 +3713,41 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/services/api.ts",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "src_services_api_ts",
+      "target": "services_api_isnetworkerror",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/api.ts",
+      "source_location": "L45",
+      "weight": 1.0,
+      "source": "src_services_api_ts",
+      "target": "services_api_describeattemptedurls",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/api.ts",
       "source_location": "L14",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "src_services_api_ts",
       "target": "services_api_parseresponse"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/api.ts",
+      "source_location": "L60",
+      "weight": 1.0,
+      "source": "src_services_api_ts",
+      "target": "services_api_requestwithfallback",
+      "confidence_score": 1.0
     },
     {
       "relation": "method",
@@ -1903,6 +3758,28 @@
       "confidence_score": 1.0,
       "source": "services_api_mobileapierror",
       "target": "services_api_mobileapierror_constructor"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/api.ts",
+      "source_location": "L92",
+      "weight": 1.0,
+      "source": "services_api_requestwithfallback",
+      "target": "services_api_isnetworkerror",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/services/api.ts",
+      "source_location": "L102",
+      "weight": 1.0,
+      "source": "services_api_requestwithfallback",
+      "target": "services_api_describeattemptedurls",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -1926,5 +3803,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "54a9ad472dd807df2116ab5455c3a0211b6b5120"
+  "built_at_commit": "f70362b78ebd2a8b0d9d064590ec72d6145d66dd"
 }

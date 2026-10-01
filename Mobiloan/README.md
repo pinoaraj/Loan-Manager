@@ -62,11 +62,35 @@ npm run start
 npm run android
 npm run android:prebuild
 npm run android:debug
+npm run android:release
+npm run android:install
 npm run doctor
 npm run typecheck
 ```
 
-APK debug actual:
+## APK beta standalone (uso en el celular sin PC)
+
+Para instalar la beta en el telefono y usarla sin PC, sin Metro y sin backend:
+
+```bash
+npm run android:release
+npm run android:install
+```
+
+Artefacto resultante:
+
+- `android/app/build/outputs/apk/release/app-release.apk` (bundle JS embebido, `arm64-v8a` + `x86_64`)
+
+Reglas del carril:
+
+- `npm run android:release` corre `expo prebuild` para sincronizar `app.json` con el proyecto nativo, valida que el manifiesto declare `READ_CALENDAR`, `WRITE_CALENDAR` y `POST_NOTIFICATIONS`, compila `assembleRelease` y deja una copia con `sha256` en `dist/`
+- la sincronizacion nativa importa porque `android/` no esta versionado: sin ese paso los recordatorios de cobranza fallan al pedir permiso en el telefono
+- `npm run android:install` instala el release por defecto y rechaza el debug salvo `-AllowDebug`
+- el APK debug (`android/app/build/outputs/apk/debug/app-debug.apk`) no trae bundle y solo sirve con Metro encendido en el PC
+
+Guia paso a paso para el telefono: `docs/ANDROID_SETUP.md` y `docs/INSTALACION-APK-BETA.md`.
+
+APK debug (solo desarrollo):
 
 - `android/app/build/outputs/apk/debug/app-debug.apk`
 
@@ -116,7 +140,8 @@ APK debug actual:
 - `android/`
   - proyecto nativo generado para la pista Android de prueba
 - `scripts/build-android-debug.ps1`
-  - compila el APK debug usando el JDK/SKD local configurado
+  - compila el APK debug usando el JDK/SDK local configurado
+  - en Windows usa un junction temporal corto para evitar fallos por rutas nativas demasiado largas
 
 ## Estado beta actual
 

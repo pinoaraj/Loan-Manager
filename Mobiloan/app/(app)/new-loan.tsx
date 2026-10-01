@@ -5,6 +5,7 @@ import { Alert, Pressable, ScrollView, Text, TextInput, View } from 'react-nativ
 import { useAllClients } from '../../src/hooks/useOfflineData';
 import { useCreateLocalLoan } from '../../src/hooks/useSyncActions';
 import { calculateAmortization } from '../../src/lib/amortization';
+import { isValidDateInput, todayDateKey } from '../../src/lib/dates';
 import { formatCurrency, formatDate } from '../../src/lib/format';
 import { appStyles } from '../../src/ui/styles';
 
@@ -18,7 +19,7 @@ export default function NewLoanScreen() {
   const [amount, setAmount] = useState('500000');
   const [interestRate, setInterestRate] = useState('0.10');
   const [durationMonths, setDurationMonths] = useState('6');
-  const [startDate, setStartDate] = useState(new Date().toISOString().slice(0, 10));
+  const [startDate, setStartDate] = useState(todayDateKey());
   const [frequency, setFrequency] = useState<'monthly' | 'bi-weekly' | 'weekly'>('monthly');
   const [loanType, setLoanType] = useState<'Fixed' | 'Simple'>('Fixed');
 
@@ -29,7 +30,7 @@ export default function NewLoanScreen() {
     const principal = Number(amount);
     const rate = Number(interestRate);
     const months = Number(durationMonths);
-    if (!Number.isFinite(principal) || principal <= 0 || !Number.isFinite(rate) || !Number.isFinite(months) || months <= 0) {
+    if (!isValidDateInput(startDate)) {
       return [];
     }
 
@@ -42,12 +43,36 @@ export default function NewLoanScreen() {
       return;
     }
 
+    const parsedAmount = Number(amount);
+    const parsedRate = Number(interestRate);
+    const parsedMonths = Number(durationMonths);
+
+    if (!Number.isFinite(parsedAmount) || parsedAmount <= 0) {
+      Alert.alert('Monto invalido', 'El monto del prestamo debe ser mayor que cero.');
+      return;
+    }
+
+    if (!Number.isFinite(parsedRate) || parsedRate < 0) {
+      Alert.alert('Tasa invalida', 'La tasa de interes no puede ser negativa.');
+      return;
+    }
+
+    if (!Number.isFinite(parsedMonths) || parsedMonths < 1) {
+      Alert.alert('Plazo invalido', 'El plazo debe ser de al menos un mes.');
+      return;
+    }
+
+    if (!isValidDateInput(startDate)) {
+      Alert.alert('Fecha invalida', 'Usa el formato AAAA-MM-DD, por ejemplo 2026-06-15.');
+      return;
+    }
+
     try {
       const result = await createLoan.mutateAsync({
         clientId,
-        amount: Number(amount),
-        interestRate: Number(interestRate),
-        durationMonths: Number(durationMonths),
+        amount: parsedAmount,
+        interestRate: parsedRate,
+        durationMonths: Math.floor(parsedMonths),
         startDate,
         frequency,
         loanType,
@@ -143,9 +168,14 @@ export default function NewLoanScreen() {
             <Text style={appStyles.itemTitle}>
               Cuota {payment.installment} - {formatCurrency(payment.amount)}
             </Text>
-            <Text style={appStyles.itemText}>Fecha: {formatDate(payment.dueDate.toISOString())}</Text>
+            <Text style={appStyles.itemText}>Fecha: {formatDate(payment.dueDate)}</Text>
           </View>
         ))}
+        {preview.length === 0 && (
+          <Text style={appStyles.itemText}>
+            Revisa monto, tasa, plazo y fecha de inicio (AAAA-MM-DD) para ver la vista previa.
+          </Text>
+        )}
       </View>
     </ScrollView>
   );
