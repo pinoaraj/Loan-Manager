@@ -7,12 +7,13 @@ const serverDir = path.resolve(__dirname, '..');
 const sourceDbPath = path.join(serverDir, 'prisma', 'dev.db');
 const dbPath = path.join(serverDir, 'prisma', 'test.integration.db');
 
-fs.copyFileSync(sourceDbPath, dbPath);
-
 process.env.NODE_ENV = 'test';
 process.env.JWT_SECRET = 'test-secret-with-at-least-32-characters';
 process.env.CORS_ORIGINS = 'http://localhost:4173,http://localhost:5173';
 process.env.DATABASE_URL = 'file:./test.integration.db';
+
+fs.rmSync(dbPath, { force: true });
+fs.copyFileSync(sourceDbPath, dbPath);
 
 const prisma = require('../lib/prisma');
 const { createApp } = require('../app');
@@ -20,12 +21,56 @@ const { createApp } = require('../app');
 let server;
 let baseUrl;
 
-test.before(async () => {
+const ensureSyncDeletedRecordTable = async () => {
+    await prisma.$executeRawUnsafe(`
+        CREATE TABLE IF NOT EXISTS "SyncDeletedRecord" (
+            "id" TEXT PRIMARY KEY NOT NULL,
+            "entity" TEXT NOT NULL,
+            "recordId" TEXT NOT NULL,
+            "deletedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+        )
+    `);
+    await prisma.$executeRawUnsafe(
+        'CREATE INDEX IF NOT EXISTS "SyncDeletedRecord_entity_deletedAt_idx" ON "SyncDeletedRecord"("entity", "deletedAt")'
+    );
+    await prisma.$executeRawUnsafe(
+        'CREATE INDEX IF NOT EXISTS "SyncDeletedRecord_recordId_idx" ON "SyncDeletedRecord"("recordId")'
+    );
+};
+
+const resetDatabase = async () => {
+    await prisma.$executeRawUnsafe('DELETE FROM "SyncDeletedRecord"');
     await prisma.transaction.deleteMany();
     await prisma.payment.deleteMany();
     await prisma.loan.deleteMany();
     await prisma.client.deleteMany();
     await prisma.user.deleteMany();
+};
+
+test.before(async () => {
+    const clientColumns = await prisma.$queryRawUnsafe(`PRAGMA table_info('Client')`);
+    if (!clientColumns.some((column) => column.name === 'rut')) {
+        await prisma.$executeRawUnsafe('ALTER TABLE "Client" ADD COLUMN "rut" TEXT');
+    }
+
+    const transactionColumns = await prisma.$queryRawUnsafe(`PRAGMA table_info('Transaction')`);
+    if (!transactionColumns.some((column) => column.name === 'updatedAt')) {
+        await prisma.$executeRawUnsafe('ALTER TABLE "Transaction" ADD COLUMN "updatedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP');
+    }
+    if (!transactionColumns.some((column) => column.name === 'clientMutationId')) {
+        await prisma.$executeRawUnsafe('ALTER TABLE "Transaction" ADD COLUMN "clientMutationId" TEXT');
+    }
+
+    const transactionIndexes = await prisma.$queryRawUnsafe(`PRAGMA index_list('Transaction')`);
+    if (!transactionIndexes.some((index) => index.name === 'Transaction_clientMutationId_key')) {
+        await prisma.$executeRawUnsafe('CREATE UNIQUE INDEX "Transaction_clientMutationId_key" ON "Transaction"("clientMutationId")');
+    }
+    if (!transactionIndexes.some((index) => index.name === 'Transaction_updatedAt_idx')) {
+        await prisma.$executeRawUnsafe('CREATE INDEX "Transaction_updatedAt_idx" ON "Transaction"("updatedAt")');
+    }
+
+    await ensureSyncDeletedRecordTable();
+    await resetDatabase();
 
     const { app } = createApp();
     server = await new Promise((resolve) => {
@@ -114,7 +159,9 @@ const createAuthenticatedLoanFixture = async () => {
             amount: 1200,
             interestRate: 0.1,
             durationMonths: 6,
-            startDate: '2026-05-26',
+            // Keep the schedule in the future so this fixture tests the partial-payment
+            // flow and never depends on the current date triggering overdue late fees.
+            startDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10),
             frequency: 'monthly',
             loanType: 'Fixed',
             graceDays: 3,
@@ -175,11 +222,7 @@ test('registers, authenticates, creates a client, creates a loan, and records a 
 });
 
 test('rejects invalid or excessive payment transactions', async () => {
-    await prisma.transaction.deleteMany();
-    await prisma.payment.deleteMany();
-    await prisma.loan.deleteMany();
-    await prisma.client.deleteMany();
-    await prisma.user.deleteMany();
+    await resetDatabase();
 
     const fixture = await createAuthenticatedLoanFixture();
     const payment = fixture.payments[0];
@@ -209,12 +252,40 @@ test('rejects invalid or excessive payment transactions', async () => {
     assert.equal(excessivePayment.body.error, 'El pago excede el saldo pendiente de la cuota');
 });
 
+test('rejects transactions for a payment that is already closed', async () => {
+    await resetDatabase();
+
+    const fixture = await createAuthenticatedLoanFixture();
+    const payment = fixture.payments[0];
+    const paymentTotal = Number(payment.amount) + Number(payment.lateFee || 0);
+
+    const firstPayment = await request(`/api/payments/${payment.id}/transactions`, {
+        method: 'POST',
+        headers: fixture.authHeaders,
+        body: JSON.stringify({
+            amount: paymentTotal,
+            method: 'Cash'
+        })
+    });
+
+    assert.equal(firstPayment.response.status, 200);
+    assert.equal(firstPayment.body.updatedPayment.status, 'Paid');
+
+    const secondPayment = await request(`/api/payments/${payment.id}/transactions`, {
+        method: 'POST',
+        headers: fixture.authHeaders,
+        body: JSON.stringify({
+            amount: 1,
+            method: 'Cash'
+        })
+    });
+
+    assert.equal(secondPayment.response.status, 400);
+    assert.equal(secondPayment.body.error, 'La cuota ya se encuentra pagada');
+});
+
 test('blocks recalculation when a loan already has registered transactions', async () => {
-    await prisma.transaction.deleteMany();
-    await prisma.payment.deleteMany();
-    await prisma.loan.deleteMany();
-    await prisma.client.deleteMany();
-    await prisma.user.deleteMany();
+    await resetDatabase();
 
     const fixture = await createAuthenticatedLoanFixture();
     const payment = fixture.payments[0];
@@ -237,4 +308,357 @@ test('blocks recalculation when a loan already has registered transactions', asy
 
     assert.equal(recalculateResult.response.status, 400);
     assert.equal(recalculateResult.body.error, 'No se puede recalcular un prestamo con pagos registrados');
+});
+
+test('returns bootstrap data for offline sync', async () => {
+    await resetDatabase();
+
+    const fixture = await createAuthenticatedLoanFixture();
+
+    const transactionResult = await request(`/api/payments/${fixture.payments[0].id}/transactions`, {
+        method: 'POST',
+        headers: fixture.authHeaders,
+        body: JSON.stringify({
+            amount: 100,
+            method: 'Cash',
+            note: 'Bootstrap transaction',
+            clientMutationId: 'bootstrap_txn_001'
+        })
+    });
+
+    assert.equal(transactionResult.response.status, 200);
+
+    const bootstrapResult = await request('/api/sync/bootstrap', {
+        headers: fixture.authHeaders
+    });
+
+    assert.equal(bootstrapResult.response.status, 200);
+    assert.ok(bootstrapResult.body.serverCursor);
+    assert.equal(bootstrapResult.body.clients.length, 1);
+    assert.equal(bootstrapResult.body.loans.length, 1);
+    assert.equal(bootstrapResult.body.payments.length, 6);
+    assert.equal(bootstrapResult.body.paymentTransactions.length, 1);
+    assert.equal(bootstrapResult.body.paymentTransactions[0].clientMutationId, 'bootstrap_txn_001');
+});
+
+test('returns incremental sync changes after a cursor', async () => {
+    await resetDatabase();
+
+    const fixture = await createAuthenticatedLoanFixture();
+
+    const bootstrapResult = await request('/api/sync/bootstrap', {
+        headers: fixture.authHeaders
+    });
+
+    assert.equal(bootstrapResult.response.status, 200);
+    const cursor = bootstrapResult.body.serverCursor;
+    assert.ok(cursor);
+
+    await new Promise((resolve) => setTimeout(resolve, 25));
+
+    const updatedClient = await request(`/api/clients/${fixture.client.id}`, {
+        method: 'PUT',
+        headers: fixture.authHeaders,
+        body: JSON.stringify({
+            name: 'Cliente Prueba Editado',
+            rut: '12.345.678-5',
+            email: 'cliente@example.com',
+            phone: '555-0202',
+            address: 'Calle Actualizada 456'
+        })
+    });
+
+    assert.equal(updatedClient.response.status, 200);
+
+    const transactionResult = await request(`/api/payments/${fixture.payments[1].id}/transactions`, {
+        method: 'POST',
+        headers: fixture.authHeaders,
+        body: JSON.stringify({
+            amount: 75,
+            method: 'Transfer',
+            note: 'Incremental sync transaction',
+            clientMutationId: 'changes_txn_001'
+        })
+    });
+
+    assert.equal(transactionResult.response.status, 200);
+
+    const changesResult = await request(`/api/sync/changes?cursor=${encodeURIComponent(cursor)}`, {
+        headers: fixture.authHeaders
+    });
+
+    assert.equal(changesResult.response.status, 200);
+    assert.ok(changesResult.body.serverCursor);
+    assert.equal(changesResult.body.changes.clients.length, 1);
+    assert.equal(changesResult.body.changes.clients[0].name, 'Cliente Prueba Editado');
+    assert.equal(changesResult.body.changes.paymentTransactions.length, 1);
+    assert.equal(changesResult.body.changes.paymentTransactions[0].clientMutationId, 'changes_txn_001');
+    assert.deepEqual(changesResult.body.deletedIds, {
+        clients: [],
+        loans: [],
+        payments: [],
+        paymentTransactions: []
+    });
+});
+
+test('returns deleted client ids after a client is removed', async () => {
+    await resetDatabase();
+
+    const fixture = await createAuthenticatedLoanFixture();
+    const extraClientResult = await request('/api/clients', {
+        method: 'POST',
+        headers: fixture.authHeaders,
+        body: JSON.stringify({
+            name: 'Cliente Sin Prestamo',
+            rut: '11.111.111-1',
+            email: 'sinprestamo@example.com',
+            phone: '555-0303',
+            address: 'Pasaje Borrado 789'
+        })
+    });
+
+    assert.equal(extraClientResult.response.status, 200);
+
+    const bootstrapResult = await request('/api/sync/bootstrap', {
+        headers: fixture.authHeaders
+    });
+
+    assert.equal(bootstrapResult.response.status, 200);
+    const cursor = bootstrapResult.body.serverCursor;
+    assert.ok(cursor);
+
+    await new Promise((resolve) => setTimeout(resolve, 25));
+
+    const deleteResult = await request(`/api/clients/${extraClientResult.body.id}`, {
+        method: 'DELETE',
+        headers: fixture.authHeaders
+    });
+
+    assert.equal(deleteResult.response.status, 200);
+
+    const changesResult = await request(`/api/sync/changes?cursor=${encodeURIComponent(cursor)}`, {
+        headers: fixture.authHeaders
+    });
+
+    assert.equal(changesResult.response.status, 200);
+    assert.ok(changesResult.body.deletedIds.clients.includes(extraClientResult.body.id));
+    assert.equal(changesResult.body.deletedIds.payments.length, 0);
+});
+
+test('returns deleted payment ids after loan recalculation replaces the schedule', async () => {
+    await resetDatabase();
+
+    const fixture = await createAuthenticatedLoanFixture();
+    const originalPaymentIds = fixture.payments.map((payment) => payment.id);
+
+    const bootstrapResult = await request('/api/sync/bootstrap', {
+        headers: fixture.authHeaders
+    });
+
+    assert.equal(bootstrapResult.response.status, 200);
+    const cursor = bootstrapResult.body.serverCursor;
+    assert.ok(cursor);
+
+    await new Promise((resolve) => setTimeout(resolve, 25));
+
+    const recalculateResult = await request(`/api/loans/${fixture.loan.id}/recalculate`, {
+        method: 'POST',
+        headers: fixture.authHeaders
+    });
+
+    assert.equal(recalculateResult.response.status, 200);
+    assert.equal(recalculateResult.body.payments.length, 6);
+
+    const changesResult = await request(`/api/sync/changes?cursor=${encodeURIComponent(cursor)}`, {
+        headers: fixture.authHeaders
+    });
+
+    assert.equal(changesResult.response.status, 200);
+    assert.deepEqual(
+        [...changesResult.body.deletedIds.payments].sort(),
+        [...originalPaymentIds].sort()
+    );
+    assert.equal(changesResult.body.changes.payments.length, 6);
+});
+
+test('push applies payment transaction mutations in batch', async () => {
+    await resetDatabase();
+
+    const fixture = await createAuthenticatedLoanFixture();
+
+    const pushResult = await request('/api/sync/push', {
+        method: 'POST',
+        headers: fixture.authHeaders,
+        body: JSON.stringify({
+            mutations: [
+                {
+                    clientMutationId: 'push_txn_001',
+                    entity: 'paymentTransaction',
+                    operation: 'create',
+                    payload: {
+                        paymentId: fixture.payments[0].id,
+                        amount: 80,
+                        paymentDate: '2026-06-04',
+                        method: 'Cash',
+                        notes: 'Cobrado en terreno'
+                    }
+                }
+            ]
+        })
+    });
+
+    assert.equal(pushResult.response.status, 200);
+    assert.ok(pushResult.body.serverCursor);
+    assert.equal(pushResult.body.results.length, 1);
+    assert.equal(pushResult.body.results[0].clientMutationId, 'push_txn_001');
+    assert.equal(pushResult.body.results[0].status, 'applied');
+    assert.equal(pushResult.body.results[0].idempotentReplay, false);
+
+    const paymentAfterPush = await prisma.payment.findUnique({
+        where: { id: fixture.payments[0].id }
+    });
+    assert.equal(Number(paymentAfterPush.paidAmount), 80);
+    assert.equal(paymentAfterPush.status, 'Partial');
+});
+
+test('push is idempotent for repeated clientMutationId values', async () => {
+    await resetDatabase();
+
+    const fixture = await createAuthenticatedLoanFixture();
+    const mutation = {
+        clientMutationId: 'push_txn_repeat_001',
+        entity: 'paymentTransaction',
+        operation: 'create',
+        payload: {
+            paymentId: fixture.payments[0].id,
+            amount: 60,
+            paymentDate: '2026-06-04',
+            method: 'Transfer',
+            notes: 'Retry-safe payment'
+        }
+    };
+
+    const firstPush = await request('/api/sync/push', {
+        method: 'POST',
+        headers: fixture.authHeaders,
+        body: JSON.stringify({ mutations: [mutation] })
+    });
+
+    const secondPush = await request('/api/sync/push', {
+        method: 'POST',
+        headers: fixture.authHeaders,
+        body: JSON.stringify({ mutations: [mutation] })
+    });
+
+    assert.equal(firstPush.response.status, 200);
+    assert.equal(secondPush.response.status, 200);
+    assert.equal(firstPush.body.results[0].status, 'applied');
+    assert.equal(secondPush.body.results[0].status, 'applied');
+    assert.equal(secondPush.body.results[0].idempotentReplay, true);
+    assert.equal(firstPush.body.results[0].serverId, secondPush.body.results[0].serverId);
+
+    const transactionCount = await prisma.transaction.count({
+        where: { clientMutationId: 'push_txn_repeat_001' }
+    });
+    assert.equal(transactionCount, 1);
+
+    const paymentAfterRetry = await prisma.payment.findUnique({
+        where: { id: fixture.payments[0].id }
+    });
+    assert.equal(Number(paymentAfterRetry.paidAmount), 60);
+});
+
+test('push reports rejected mutations without aborting the whole batch', async () => {
+    await resetDatabase();
+
+    const fixture = await createAuthenticatedLoanFixture();
+    const paymentTotal = Number(fixture.payments[0].amount) + Number(fixture.payments[0].lateFee || 0);
+
+    const pushResult = await request('/api/sync/push', {
+        method: 'POST',
+        headers: fixture.authHeaders,
+        body: JSON.stringify({
+            mutations: [
+                {
+                    clientMutationId: 'push_txn_ok_001',
+                    entity: 'paymentTransaction',
+                    operation: 'create',
+                    payload: {
+                        paymentId: fixture.payments[0].id,
+                        amount: 50,
+                        paymentDate: '2026-06-04',
+                        method: 'Cash',
+                        notes: 'Valid payment'
+                    }
+                },
+                {
+                    clientMutationId: 'push_txn_fail_001',
+                    entity: 'paymentTransaction',
+                    operation: 'create',
+                    payload: {
+                        paymentId: fixture.payments[0].id,
+                        amount: paymentTotal + 1,
+                        paymentDate: '2026-06-04',
+                        method: 'Cash',
+                        notes: 'Invalid overpayment'
+                    }
+                }
+            ]
+        })
+    });
+
+    assert.equal(pushResult.response.status, 200);
+    assert.equal(pushResult.body.results.length, 2);
+    assert.equal(pushResult.body.results[0].status, 'applied');
+    assert.equal(pushResult.body.results[1].status, 'rejected');
+    assert.equal(pushResult.body.results[1].errorCode, 'OVERPAYMENT_BLOCKED');
+
+    const transactionCount = await prisma.transaction.count();
+    assert.equal(transactionCount, 1);
+});
+
+test('push reports closed payments with a dedicated error code', async () => {
+    await resetDatabase();
+
+    const fixture = await createAuthenticatedLoanFixture();
+    const payment = fixture.payments[0];
+    const paymentTotal = Number(payment.amount) + Number(payment.lateFee || 0);
+
+    const closePaymentResult = await request(`/api/payments/${payment.id}/transactions`, {
+        method: 'POST',
+        headers: fixture.authHeaders,
+        body: JSON.stringify({
+            amount: paymentTotal,
+            method: 'Cash',
+            clientMutationId: 'close_payment_txn_001'
+        })
+    });
+
+    assert.equal(closePaymentResult.response.status, 200);
+
+    const pushResult = await request('/api/sync/push', {
+        method: 'POST',
+        headers: fixture.authHeaders,
+        body: JSON.stringify({
+            mutations: [
+                {
+                    clientMutationId: 'push_closed_txn_001',
+                    entity: 'paymentTransaction',
+                    operation: 'create',
+                    payload: {
+                        paymentId: payment.id,
+                        amount: 10,
+                        paymentDate: '2026-06-04',
+                        method: 'Cash',
+                        notes: 'Should fail because payment is closed'
+                    }
+                }
+            ]
+        })
+    });
+
+    assert.equal(pushResult.response.status, 200);
+    assert.equal(pushResult.body.results.length, 1);
+    assert.equal(pushResult.body.results[0].status, 'rejected');
+    assert.equal(pushResult.body.results[0].errorCode, 'PAYMENT_ALREADY_CLOSED');
 });

@@ -3,6 +3,7 @@ const router = express.Router();
 const { authenticateToken } = require('../middleware/auth');
 const { validate, clientSchema } = require('../middleware/validation');
 const prisma = require('../lib/prisma');
+const { recordDeletedEntities } = require('../utils/syncDeletedRecords');
 
 // GET all clients with pagination
 router.get('/', authenticateToken, async (req, res) => {
@@ -118,8 +119,14 @@ router.delete('/:id', authenticateToken, async (req, res) => {
             });
         }
 
-        await prisma.client.delete({
-            where: { id: clientId }
+        await prisma.$transaction(async (tx) => {
+            await tx.client.delete({
+                where: { id: clientId }
+            });
+
+            await recordDeletedEntities([
+                { entity: 'client', recordId: clientId }
+            ], tx);
         });
 
         res.json({ message: 'Client deleted successfully' });

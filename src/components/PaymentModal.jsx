@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { X, DollarSign, Calendar, CreditCard, FileText } from 'lucide-react';
 import { format } from 'date-fns';
+import { formatCurrency } from '../utils/formatters';
 
 const PaymentModal = ({ isOpen, onClose, payment, onRegisterPayment }) => {
     const [amount, setAmount] = useState('');
@@ -25,8 +26,8 @@ const PaymentModal = ({ isOpen, onClose, payment, onRegisterPayment }) => {
     const paidSoFar = payment.paidAmount || 0;
     const remaining = totalDue - paidSoFar;
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = async (event) => {
+        event.preventDefault();
         if (!amount || parseFloat(amount) <= 0) return;
 
         setIsSubmitting(true);
@@ -47,38 +48,43 @@ const PaymentModal = ({ isOpen, onClose, payment, onRegisterPayment }) => {
     };
 
     return (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <div className="bg-white dark:bg-slate-900 rounded-3xl w-full max-w-md shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
-                <div className="bg-slate-50 dark:bg-slate-800/50 p-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
-                    <h3 className="text-xl font-bold text-slate-800 dark:text-white flex items-center gap-2">
+        <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm"
+            onClick={onClose}
+        >
+            <div
+                className="animate-in zoom-in fade-in w-full max-w-md overflow-hidden rounded-3xl bg-white shadow-2xl duration-200 dark:bg-slate-900"
+                onClick={(event) => event.stopPropagation()}
+            >
+                <div className="flex items-center justify-between border-b border-slate-100 bg-slate-50 p-6 dark:border-slate-800 dark:bg-slate-800/50">
+                    <h3 className="flex items-center gap-2 text-xl font-bold text-slate-800 dark:text-white">
                         <DollarSign className="text-emerald-500" />
                         Registrar Pago
                     </h3>
-                    <button onClick={onClose} className="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full transition-colors">
+                    <button onClick={onClose} className="rounded-full p-2 transition-colors hover:bg-slate-200 dark:hover:bg-slate-700">
                         <X size={20} className="text-slate-500" />
                     </button>
                 </div>
 
-                <form onSubmit={handleSubmit} className="p-6 space-y-6">
-                    {/* Summary Card */}
-                    <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-xl border border-blue-100 dark:border-blue-800/50 space-y-2">
+                <form onSubmit={handleSubmit} className="space-y-6 p-6">
+                    <div className="space-y-2 rounded-xl border border-blue-100 bg-blue-50 p-4 dark:border-blue-800/50 dark:bg-blue-900/20">
                         <div className="flex justify-between text-sm">
                             <span className="text-slate-500 dark:text-slate-400">Total Cuota:</span>
-                            <span className="font-bold text-slate-700 dark:text-slate-200">${totalDue.toLocaleString()}</span>
+                            <span className="font-bold text-slate-700 dark:text-slate-200">${formatCurrency(totalDue, { minimumFractionDigits: 2 })}</span>
                         </div>
                         <div className="flex justify-between text-sm">
                             <span className="text-slate-500 dark:text-slate-400">Pagado hasta ahora:</span>
-                            <span className="font-bold text-emerald-600">${paidSoFar.toLocaleString()}</span>
+                            <span className="font-bold text-emerald-600">${formatCurrency(paidSoFar, { minimumFractionDigits: 2 })}</span>
                         </div>
-                        <div className="pt-2 border-t border-blue-100 dark:border-blue-800/50 flex justify-between font-bold text-lg">
+                        <div className="flex justify-between border-t border-blue-100 pt-2 text-lg font-bold dark:border-blue-800/50">
                             <span className="text-blue-700 dark:text-blue-400">Restante:</span>
-                            <span className="text-blue-700 dark:text-blue-400">${remaining.toLocaleString()}</span>
+                            <span className="text-blue-700 dark:text-blue-400">${formatCurrency(remaining, { minimumFractionDigits: 2 })}</span>
                         </div>
                     </div>
 
                     <div className="space-y-4">
                         <div>
-                            <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">
+                            <label className="mb-2 block text-sm font-bold text-slate-700 dark:text-slate-300">
                                 Monto a Pagar
                             </label>
                             <div className="relative">
@@ -86,10 +92,10 @@ const PaymentModal = ({ isOpen, onClose, payment, onRegisterPayment }) => {
                                 <input
                                     type="number"
                                     step="0.01"
-                                    max={remaining + 0.01} // tolerance
+                                    max={remaining + 0.01}
                                     value={amount}
-                                    onChange={(e) => setAmount(e.target.value)}
-                                    className="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none font-bold text-lg"
+                                    onChange={(event) => setAmount(event.target.value)}
+                                    className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-10 pr-4 text-lg font-bold outline-none focus:ring-2 focus:ring-emerald-500 dark:border-slate-700 dark:bg-slate-800"
                                     placeholder="0.00"
                                     required
                                 />
@@ -98,7 +104,7 @@ const PaymentModal = ({ isOpen, onClose, payment, onRegisterPayment }) => {
 
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">
+                                <label className="mb-2 block text-sm font-bold text-slate-700 dark:text-slate-300">
                                     Fecha
                                 </label>
                                 <div className="relative">
@@ -106,22 +112,22 @@ const PaymentModal = ({ isOpen, onClose, payment, onRegisterPayment }) => {
                                     <input
                                         type="date"
                                         value={date}
-                                        onChange={(e) => setDate(e.target.value)}
-                                        className="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
+                                        onChange={(event) => setDate(event.target.value)}
+                                        className="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-800"
                                         required
                                     />
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">
-                                    Método
+                                <label className="mb-2 block text-sm font-bold text-slate-700 dark:text-slate-300">
+                                    Metodo
                                 </label>
                                 <div className="relative">
                                     <CreditCard className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                                     <select
                                         value={method}
-                                        onChange={(e) => setMethod(e.target.value)}
-                                        className="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none appearance-none"
+                                        onChange={(event) => setMethod(event.target.value)}
+                                        className="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-800"
                                     >
                                         <option value="Cash">Efectivo</option>
                                         <option value="Transfer">Transferencia</option>
@@ -132,15 +138,15 @@ const PaymentModal = ({ isOpen, onClose, payment, onRegisterPayment }) => {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">
+                            <label className="mb-2 block text-sm font-bold text-slate-700 dark:text-slate-300">
                                 Nota (Opcional)
                             </label>
                             <div className="relative">
                                 <FileText className="absolute left-3 top-3 text-slate-400" size={18} />
                                 <textarea
                                     value={note}
-                                    onChange={(e) => setNote(e.target.value)}
-                                    className="w-full pl-10 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none resize-none h-24"
+                                    onChange={(event) => setNote(event.target.value)}
+                                    className="h-24 w-full resize-none rounded-xl border border-slate-200 bg-slate-50 py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-800"
                                     placeholder="Detalles del pago..."
                                 />
                             </div>
@@ -151,7 +157,7 @@ const PaymentModal = ({ isOpen, onClose, payment, onRegisterPayment }) => {
                         <button
                             type="submit"
                             disabled={isSubmitting}
-                            className="w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/30 transition-all disabled:opacity-50 flex justify-center items-center gap-2"
+                            className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-500 py-4 font-bold text-white shadow-lg shadow-emerald-500/30 transition-all hover:bg-emerald-600 disabled:opacity-50"
                         >
                             {isSubmitting ? 'Registrando...' : 'Confirmar Pago'}
                         </button>

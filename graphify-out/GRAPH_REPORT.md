@@ -1,16 +1,16 @@
-# Graph Report - LoanManager  (2026-05-27)
+# Graph Report - LoanManager  (2026-09-30)
 
 ## Corpus Check
-- 112 files · ~1,345,458 words
+- 196 files · ~1,526,768 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 256 nodes · 382 edges · 16 communities detected
-- Extraction: 92% EXTRACTED · 8% INFERRED · 0% AMBIGUOUS · INFERRED: 31 edges (avg confidence: 0.8)
+- 610 nodes · 965 edges · 42 communities detected
+- Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 62 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `3f96c0f7`
+- Built from commit: `f70362b7`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -28,101 +28,173 @@
 - [[_COMMUNITY_Community 10|Community 10]]
 - [[_COMMUNITY_Community 11|Community 11]]
 - [[_COMMUNITY_Community 12|Community 12]]
+- [[_COMMUNITY_Community 13|Community 13]]
+- [[_COMMUNITY_Community 14|Community 14]]
 - [[_COMMUNITY_Community 15|Community 15]]
 - [[_COMMUNITY_Community 16|Community 16]]
 - [[_COMMUNITY_Community 17|Community 17]]
+- [[_COMMUNITY_Community 18|Community 18]]
+- [[_COMMUNITY_Community 19|Community 19]]
+- [[_COMMUNITY_Community 20|Community 20]]
+- [[_COMMUNITY_Community 21|Community 21]]
+- [[_COMMUNITY_Community 22|Community 22]]
+- [[_COMMUNITY_Community 23|Community 23]]
+- [[_COMMUNITY_Community 24|Community 24]]
+- [[_COMMUNITY_Community 25|Community 25]]
+- [[_COMMUNITY_Community 26|Community 26]]
+- [[_COMMUNITY_Community 28|Community 28]]
+- [[_COMMUNITY_Community 29|Community 29]]
+- [[_COMMUNITY_Community 30|Community 30]]
+- [[_COMMUNITY_Community 31|Community 31]]
+- [[_COMMUNITY_Community 32|Community 32]]
+- [[_COMMUNITY_Community 33|Community 33]]
+- [[_COMMUNITY_Community 35|Community 35]]
+- [[_COMMUNITY_Community 36|Community 36]]
+- [[_COMMUNITY_Community 37|Community 37]]
+- [[_COMMUNITY_Community 38|Community 38]]
+- [[_COMMUNITY_Community 39|Community 39]]
+- [[_COMMUNITY_Community 40|Community 40]]
+- [[_COMMUNITY_Community 41|Community 41]]
+- [[_COMMUNITY_Community 42|Community 42]]
+- [[_COMMUNITY_Community 43|Community 43]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `useLoans()` - 22 edges
 2. `useAuth()` - 17 edges
 3. `renderPagareFromTemplate()` - 15 edges
 4. `buildMutuoText()` - 15 edges
-5. `buildMutuoParagraphs()` - 12 edges
-6. `downloadPaymentReminder()` - 9 edges
-7. `generateWhatsAppLink()` - 8 edges
-8. `buildMutuoDocument()` - 8 edges
-9. `generateLoanContract()` - 8 edges
-10. `generateWordContract()` - 8 edges
+5. `buildMutuoParagraphs()` - 14 edges
+6. `completeAnalysis()` - 13 edges
+7. `formatStoredDate()` - 13 edges
+8. `useSession()` - 12 edges
+9. `formatCurrency()` - 12 edges
+10. `GET()` - 11 edges
 
 ## Surprising Connections (you probably didn't know these)
+- `checkAndApplyLateFees()` --calls--> `differenceInDays()`  [INFERRED]
+  server/utils/fees.js → Mobiloan/src/lib/dates.ts
 - `ProtectedRoute()` --calls--> `useAuth()`  [INFERRED]
   src/App.jsx → src/context/useAuth.js
-- `Collections()` --calls--> `useLoans()`  [INFERRED]
-  src/pages/Collections.jsx → src/context/useLoans.js
-- `NewLoan()` --calls--> `useLoans()`  [INFERRED]
-  src/pages/NewLoan.jsx → src/context/useLoans.js
-- `PagareModal()` --calls--> `isValidRut()`  [INFERRED]
-  src/components/PagareModal.jsx → src/utils/rut.js
-- `Sidebar()` --calls--> `useLoans()`  [INFERRED]
-  src/components/Sidebar.jsx → src/context/useLoans.js
+- `analyzeWithGemini()` --calls--> `boxingKnowledgePrompt()`  [INFERRED]
+  fight-ai-web-mvp/app/api/analyze/route.ts → fight-ai-web-mvp/lib/boxingKnowledge.ts
+- `IndexScreen()` --calls--> `useSession()`  [INFERRED]
+  Mobiloan/app/index.tsx → Mobiloan/src/providers/AppProviders.tsx
+- `RootNavigator()` --calls--> `useSession()`  [INFERRED]
+  Mobiloan/app/_layout.tsx → Mobiloan/src/providers/AppProviders.tsx
 
-## Communities (56 total, 4 thin omitted)
+## Communities (102 total, 19 thin omitted)
 
 ### Community 0 - "Community 0"
-Cohesion: 0.08
-Nodes (15): Footer(), Sidebar(), LoanProvider(), useAuth(), useLoans(), useTheme(), RecentActivity(), useLoanHealth() (+7 more)
+Cohesion: 0.05
+Nodes (38): PagareModal(), Footer(), Sidebar(), LoanProvider(), useAuth(), useLoans(), useTheme(), RecentActivity() (+30 more)
 
 ### Community 1 - "Community 1"
-Cohesion: 0.14
-Nodes (32): buildMutuoDocument(), buildMutuoParagraphs(), buildMutuoText(), buildPagareIntroParagraphXml(), buildPagareValueParagraphXml(), downloadBlob(), escapeXml(), fetchBinaryTemplate() (+24 more)
+Cohesion: 0.06
+Nodes (38): async(), handleSync(), IndexScreen(), AppLayout(), RootLayout(), RootNavigator(), NewClientScreen(), NewLoanScreen() (+30 more)
 
 ### Community 2 - "Community 2"
-Cohesion: 0.18
-Nodes (9): ClientDetail(), Collections(), formatCurrency(), generateEmailLink(), generateWhatsAppLink(), getReceiptMessage(), getReminderMessage(), hasPhoneNumber() (+1 more)
+Cohesion: 0.13
+Nodes (36): compareStoredDates(), getStoredDateDayLabel(), parseStoredDate(), buildMutuoDocument(), buildMutuoParagraphs(), buildMutuoText(), buildPagareIntroParagraphXml(), buildPagareValueParagraphXml() (+28 more)
 
 ### Community 3 - "Community 3"
+Cohesion: 0.15
+Nodes (33): absoluteTime(), activeStatus(), buildSegmentPrompt(), claimAndRun(), cleanGeminiJson(), completeAnalysis(), deferProviderRetry(), forceRetryIfAbandoned() (+25 more)
+
+### Community 4 - "Community 4"
+Cohesion: 0.11
+Nodes (14): derivePaymentStatus(), isPastDue(), buildMonthlySchedule(), calculateAmortization(), normalizeFrequency(), splitMonthlySchedule(), isValidDate(), isValidDateInput() (+6 more)
+
+### Community 5 - "Community 5"
+Cohesion: 0.14
+Nodes (14): analyze(), decodePreview(), frameTarget(), generateCompatibleFrame(), jumpMainPreview(), parseResponse(), playEvidence(), requestCompatibleFrame() (+6 more)
+
+### Community 6 - "Community 6"
 Cohesion: 0.27
 Nodes (16): buildCalendarFile(), createCalendarEvent(), downloadBulkLoanCalendars(), downloadCalendarBlob(), downloadLoanCalendar(), downloadPaymentReminder(), escapeIcsText(), formatCurrentUtcStamp() (+8 more)
 
-### Community 4 - "Community 4"
-Cohesion: 0.21
-Nodes (7): PagareModal(), Clients(), NewLoan(), cleanRut(), formatRutInput(), isValidRut(), normalizeRut()
+### Community 7 - "Community 7"
+Cohesion: 0.26
+Nodes (14): build_cutout_mask(), build_icon(), build_preview(), build_shadow(), build_svg(), build_symbol_mask(), draw_coin(), draw_document() (+6 more)
 
-### Community 5 - "Community 5"
-Cohesion: 0.35
-Nodes (10): build_cutout_mask(), build_icon(), build_preview(), build_shadow(), build_svg(), build_symbol_mask(), load_font(), main() (+2 more)
+### Community 8 - "Community 8"
+Cohesion: 0.27
+Nodes (11): analyzeWithGemini(), cleanGeminiJson(), field(), generateCoachJson(), interactionOutputText(), makeCompactCompatibleClip(), makeThreeMinuteClip(), normalizeReport() (+3 more)
 
-### Community 6 - "Community 6"
+### Community 9 - "Community 9"
+Cohesion: 0.23
+Nodes (10): clone(), defaultState(), derivePaymentStatus(), getStorage(), hydrateOutboxRow(), isPastDue(), loadState(), saveState() (+2 more)
+
+### Community 10 - "Community 10"
+Cohesion: 0.26
+Nodes (10): buildApiUrl(), getApiCandidates(), normalizeApiUrl(), resolveDefaultApiUrl(), resolveExpoHost(), resolveHostCandidates(), describeAttemptedUrls(), isNetworkError() (+2 more)
+
+### Community 11 - "Community 11"
+Cohesion: 0.36
+Nodes (7): shutdown(), startServer(), ensureDatabaseCompatibility(), ensureSyncDeletedRecordsTable(), ensureTransactionSyncColumns(), getTableColumns(), indexExists()
+
+### Community 12 - "Community 12"
+Cohesion: 0.42
+Nodes (10): downloadBlob(), generateLoanContract(), generateReceipt(), getAmount(), getDateLabel(), getFileSafeLabel(), getLoanDurationMonths(), getLoanInterestRate() (+2 more)
+
+### Community 13 - "Community 13"
+Cohesion: 0.42
+Nodes (10): buildScheduleTableRows(), downloadBlob(), generateWordContract(), generateWordReceipt(), getAmount(), getDateLabel(), getFileSafeLabel(), getLoanDurationMonths() (+2 more)
+
+### Community 14 - "Community 14"
+Cohesion: 0.4
+Nodes (9): buildReminderNotes(), buildReminderTitle(), createCollectionReminder(), ensureCalendarPermission(), ensureNotificationChannel(), ensureNotificationPermission(), resolveReminderDate(), resolveWritableCalendarId() (+1 more)
+
+### Community 15 - "Community 15"
 Cohesion: 0.22
 Nodes (5): AuthProvider(), ThemeProvider(), App(), ProtectedRoute(), useResponsiveDesktopScale()
 
-### Community 7 - "Community 7"
-Cohesion: 0.44
-Nodes (9): downloadBlob(), generateLoanContract(), generateReceipt(), getAmount(), getDateLabel(), getLoanDurationMonths(), getLoanInterestRate(), getScheduleRows() (+1 more)
-
-### Community 8 - "Community 8"
-Cohesion: 0.44
-Nodes (9): buildScheduleTableRows(), downloadBlob(), generateWordContract(), generateWordReceipt(), getAmount(), getDateLabel(), getLoanDurationMonths(), getLoanInterestRate() (+1 more)
-
-### Community 9 - "Community 9"
+### Community 17 - "Community 17"
 Cohesion: 0.39
 Nodes (4): buildMonthlySchedule(), calculateAmortization(), normalizeFrequency(), splitMonthlySchedule()
 
-### Community 11 - "Community 11"
+### Community 18 - "Community 18"
+Cohesion: 0.32
+Nodes (3): Get-LocalIPv4(), Show-Ready(), Write-Banner()
+
+### Community 19 - "Community 19"
+Cohesion: 0.52
+Nodes (5): chunkedFrame(), POST(), receiveBody(), renderFrame(), requestedTime()
+
+### Community 24 - "Community 24"
 Cohesion: 0.47
 Nodes (3): PortfolioChart(), RevenueChart(), useElementSize()
 
-### Community 12 - "Community 12"
+### Community 26 - "Community 26"
 Cohesion: 0.7
 Nodes (4): login(), runTests(), testCreateClient(), testCreateClientWithoutPhone()
 
+### Community 29 - "Community 29"
+Cohesion: 0.83
+Nodes (3): isLocalHostname(), middleware(), requestHostname()
+
+### Community 36 - "Community 36"
+Cohesion: 0.83
+Nodes (3): getLoanStatusFromPayments(), registerPaymentTransaction(), toAmount()
+
 ## Knowledge Gaps
-- **4 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **1 isolated node(s):** `BaseHTTPRequestHandler`
+  These have ≤1 connection - possible missing edges or undocumented components.
+- **19 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `formatRutInput()` connect `Community 4` to `Community 1`, `Community 2`?**
-  _High betweenness centrality (0.103) - this node is a cross-community bridge._
-- **Why does `formatRut()` connect `Community 1` to `Community 4`?**
-  _High betweenness centrality (0.101) - this node is a cross-community bridge._
-- **Why does `useLoans()` connect `Community 0` to `Community 2`, `Community 4`?**
-  _High betweenness centrality (0.080) - this node is a cross-community bridge._
+- **Why does `formatStoredDate()` connect `Community 0` to `Community 2`, `Community 12`, `Community 13`?**
+  _High betweenness centrality (0.023) - this node is a cross-community bridge._
+- **Why does `compareStoredDates()` connect `Community 2` to `Community 0`, `Community 12`, `Community 13`, `Community 6`?**
+  _High betweenness centrality (0.019) - this node is a cross-community bridge._
+- **Why does `formatCurrency()` connect `Community 0` to `Community 17`?**
+  _High betweenness centrality (0.016) - this node is a cross-community bridge._
 - **Are the 10 inferred relationships involving `useLoans()` (e.g. with `Sidebar()` and `RecentActivity()`) actually correct?**
   _`useLoans()` has 10 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 8 inferred relationships involving `useAuth()` (e.g. with `ProtectedRoute()` and `Footer()`) actually correct?**
   _`useAuth()` has 8 INFERRED edges - model-reasoned connections that need verification._
-- **Should `Community 0` be split into smaller, more focused modules?**
-  _Cohesion score 0.08 - nodes in this community are weakly interconnected._
-- **Should `Community 1` be split into smaller, more focused modules?**
-  _Cohesion score 0.14 - nodes in this community are weakly interconnected._
+- **Are the 3 inferred relationships involving `buildMutuoParagraphs()` (e.g. with `formatRut()` and `getStoredDateDayLabel()`) actually correct?**
+  _`buildMutuoParagraphs()` has 3 INFERRED edges - model-reasoned connections that need verification._
+- **What connects `BaseHTTPRequestHandler` to the rest of the system?**
+  _1 weakly-connected nodes found - possible documentation gaps or missing edges._

@@ -7,6 +7,7 @@ import { downloadPaymentReminder } from '../utils/calendar';
 import DashboardKPI from '../components/dashboard/DashboardKPI';
 import RecentActivity from '../components/dashboard/RecentActivity';
 import { Skeleton } from '../components/ui/Skeleton';
+import { formatCurrency } from '../utils/formatters';
 
 const getPaymentDetailPath = (loanId, paymentId) => paymentId
     ? `/loans/${loanId}?payment=${paymentId}`
@@ -137,7 +138,7 @@ const Dashboard = () => {
                                                     {alert.clientName}
                                                 </h4>
                                                 <span className={`shrink-0 text-xs font-bold ${alert.type === 'overdue' ? 'text-red-600' : 'text-amber-600'}`}>
-                                                    ${alert.amount.toFixed(0)}
+                                                    ${formatCurrency(alert.amount)}
                                                 </span>
                                             </div>
                                             <p className={`mt-0.5 text-[10px] ${alert.type === 'overdue' ? 'text-red-500' : 'text-amber-500'}`}>

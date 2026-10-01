@@ -7,6 +7,7 @@ import { Search, Phone, Mail, MapPin, MessageCircle, CreditCard, Users, ChevronL
 import { API_URL } from '../config/api';
 import { generateWhatsAppLink, hasPhoneNumber } from '../utils/communication';
 import { formatRutInput, isValidRut } from '../utils/rut';
+import { formatCurrency } from '../utils/formatters';
 
 const isValidEmail = (value) => /^[^\s@,]+@[^\s@,]+\.[^\s@,]+$/.test(value);
 
@@ -254,7 +255,7 @@ const Clients = () => {
                                     </div>
                                     {debt > 0 && (
                                         <div className="shrink-0 bg-amber-50 text-amber-700 px-3 py-1 rounded-full text-xs font-bold border border-amber-100">
-                                            ${debt.toLocaleString()}
+                                            ${formatCurrency(debt)}
                                         </div>
                                     )}
                                 </div>

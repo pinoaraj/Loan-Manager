@@ -6,9 +6,7 @@ import { useTheme } from '../context/useTheme';
 import { useLoans } from '../context/useLoans';
 import { useAuth } from '../context/useAuth';
 import { API_URL } from '../config/api';
-
-const APP_VERSION = import.meta.env.VITE_APP_VERSION;
-const APP_BUILD_STAMP = import.meta.env.VITE_APP_BUILD_STAMP;
+import loanManagerMark from '../assets/loan-manager-mark.svg';
 
 const Sidebar = ({ isMobile }) => {
     const { alerts } = useLoans();
@@ -26,16 +24,17 @@ const Sidebar = ({ isMobile }) => {
 
     if (isMobile) {
         return (
-            <div className="glass-panel flex items-center justify-between rounded-2xl p-2 shadow-2xl">
-                {menuItems.slice(0, 5).map((item) => {
+            <div className="glass-panel custom-scrollbar flex items-center gap-2 overflow-x-auto rounded-2xl p-2 shadow-2xl">
+                {menuItems.map((item) => {
                     const Icon = item.icon;
                     return (
                         <NavLink
                             key={item.path}
                             to={item.path}
-                            className={({ isActive }) => `rounded-xl p-3 transition-all ${isActive ? 'bg-teal-500 text-white shadow-lg shadow-teal-500/30' : 'text-slate-400'}`}
+                            className={({ isActive }) => `flex min-w-[84px] shrink-0 flex-col items-center gap-1 rounded-xl px-3 py-2 transition-all ${isActive ? 'bg-teal-500 text-white shadow-lg shadow-teal-500/30' : 'text-slate-400'}`}
                         >
                             <Icon size={24} />
+                            <span className="text-[11px] font-medium leading-none">{item.label}</span>
                         </NavLink>
                     );
                 })}
@@ -46,11 +45,9 @@ const Sidebar = ({ isMobile }) => {
     return (
         <div className="glass-panel flex h-full w-full min-w-0 flex-col rounded-3xl transition-all duration-300">
             <div className="border-b border-[var(--glass-border)] p-6">
-                <h1 className="flex items-center gap-2 bg-gradient-to-r from-teal-400 to-emerald-500 bg-clip-text text-2xl font-bold text-transparent">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-teal-400 to-emerald-500 text-white shadow-lg shadow-teal-500/20">
-                        LM
-                    </div>
-                    LoanManager
+                <h1 className="flex items-center gap-3 whitespace-nowrap bg-gradient-to-r from-teal-400 to-emerald-500 bg-clip-text text-xl font-bold text-transparent">
+                    <img src={loanManagerMark} alt="Loan Manager" className="h-10 w-10 shrink-0 rounded-xl" />
+                    <span>Loan Manager</span>
                 </h1>
             </div>
 
@@ -129,13 +126,13 @@ const Footer = () => {
                 </div>
             </div>
 
-            <button
-                onClick={handleExportData}
-                className="mb-2 flex w-full items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-800 px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-300 transition-all hover:border-slate-600 hover:bg-slate-700 hover:text-white"
-            >
-                <Download size={14} />
-                Exportar Excel
-            </button>
+                <button
+                    onClick={handleExportData}
+                    className="mb-2 flex w-full items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-800 px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-300 transition-all hover:border-slate-600 hover:bg-slate-700 hover:text-white"
+                >
+                    <Download size={14} />
+                    Exportar datos
+                </button>
             <button
                 onClick={async () => {
                     try {
@@ -164,11 +161,11 @@ const Footer = () => {
                 className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-800 px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-300 transition-all hover:border-slate-600 hover:bg-slate-700 hover:text-white"
             >
                 <Download size={14} />
-                Backup DB
+                Descargar respaldo
             </button>
             <div className="rounded-xl border border-slate-800 bg-slate-900/70 px-3 py-2 text-[11px] text-slate-400">
-                <p className="font-semibold text-slate-300">Version {APP_VERSION}</p>
-                <p className="truncate">Build {APP_BUILD_STAMP}</p>
+                <p className="font-semibold text-slate-300">Loan Manager Desktop</p>
+                <p>Beta privada</p>
             </div>
             <div className="flex items-center justify-between text-sm text-slate-400">
                 <button onClick={logout} className="flex items-center gap-2 transition-colors hover:text-red-400">
@@ -176,7 +173,6 @@ const Footer = () => {
                     <span>Salir</span>
                 </button>
                 <div className="flex items-center gap-2">
-                    <span className="text-xs opacity-50">v{APP_VERSION}</span>
                     <button
                         onClick={toggleTheme}
                         className="rounded-lg p-2 transition-colors hover:bg-slate-800 hover:text-white"

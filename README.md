@@ -2,17 +2,75 @@
 
 Loan Manager is a desktop-first loan management system built with React, Express, Prisma and SQLite. The main product today is the local Windows desktop app packaged with Electron. Web mode remains useful for development and local QA.
 
+The repo now also includes `Mobiloan/`, an Expo workspace for field collections that can already operate in fully local mode on Android without requiring the desktop backend to be running.
+
 ## Current desktop beta scope
 
 - Client management with `RUT`, phone, email and address
 - Loan creation can start from the client detail view with the client preselected
 - Loan creation with fixed or simple schedules
 - Payment registration with partial payments and transaction history
+- Payment alerts can deep-link into a specific installment and the payment modal closes cleanly on first click
 - Collections dashboard with alerts and upcoming due dates
+- User-facing views now hide internal loan codes and use consistent currency formatting across dashboard, collections, clients, loan detail and calculator flows
 - Excel export and import flows
 - Legal document generation for `Pagare` and `Mutuo`
 - Local packaged backend with SQLite in `AppData`
 - Prisma migrations applied at desktop startup
+- Portable and installer desktop builds rebuilt from the current workspace on `2026-06-15`
+
+## Current mobile beta scope
+
+- Local Android entry path with `Entrar en modo local`
+- Local client registration without backend
+- Local loan registration without backend
+- Local amortization schedule and payment projection
+- In-app loan calculator
+- Calendar reminders for collections using native device calendar access
+- Native collection reminders also schedule a local device notification on Android/iOS
+- Direct WhatsApp/contact shortcuts from operational screens
+- Portable local export package for later sync or desktop intake
+- Desktop import now accepts the Mobiloan portable JSON package
+- Optional later synchronization with the desktop/backend when available
+- Android beta is distributed as a standalone release APK with the JS bundle embedded, so the phone needs no PC, no Metro and no backend
+- The debug APK is development-only: it ships without a bundle and only runs while Metro serves from the PC
+
+## Android beta package
+
+Build and install the standalone APK from the `Mobiloan` workspace:
+
+```bash
+cd Mobiloan
+npm run android:release
+npm run android:install
+```
+
+Artifact:
+
+- `Mobiloan/android/app/build/outputs/apk/release/app-release.apk`
+  - `1.1.0` (`versionCode 2`), package `com.mobiloan.app`
+  - embedded `assets/index.android.bundle`, `arm64-v8a` + `x86_64`
+  - SHA256 `FE381A6BC74DBE251C63E6F0130BA7626C9294701A0CC8BE7B6195B29DFCC52C`
+  - signed with the debug keystore (fine for beta sideload, not for Play Store)
+- `Mobiloan/dist/mobiloan-beta-1.1.0.apk` (delivery copy, git-ignored)
+- `Mobiloan/dist/install-qr-beta-1.1.0.png` (Wi-Fi install QR, git-ignored)
+
+`npm run android:release` runs `expo prebuild` first, because the calendar and
+notification permissions live in the generated `android/` project, and it refuses
+to build if `AndroidManifest.xml` is missing `READ_CALENDAR`, `WRITE_CALENDAR` or
+`POST_NOTIFICATIONS`.
+
+Handoff material for the phone:
+
+- send `mobiloan-beta-1.1.0.apk` over WhatsApp, Drive or USB, or serve
+  `Mobiloan/dist` on the LAN and scan `install-qr-beta-1.1.0.png`
+
+Reference docs:
+
+- Tester install guide: `Mobiloan/docs/INSTALACION-APK-BETA.md`
+- Artifact history and gaps: `Mobiloan/docs/APK-BETA.md`
+
+Why the June artifact was replaced: the `2026-06-08` release APK had an embedded bundle but no local mode, calculator or portable export, and the newer `2026-07-01` debug APK had no bundle at all, so it only worked with Metro running on the PC.
 
 ## Legal documents
 
@@ -49,6 +107,15 @@ Because of this flow, `RUT` is now a first-class field in client creation, editi
 ### Desktop
 - Electron 33
 - electron-builder
+
+### Mobile
+- Expo 56
+- Expo Router
+- Expo SQLite
+- Expo Secure Store
+- Expo Calendar
+- Expo File System
+- Expo Sharing
 
 ## Local development
 
@@ -105,12 +172,35 @@ Installer output:
 
 - `release/LoanManager-Setup-1.0.0.exe`
 
+Portable testing build:
+
+- `release/win-unpacked/Loan Manager.exe`
+
+Prepared beta package on Desktop (latest version, ready for another PC):
+
+- `C:\Users\JP\Desktop\INSTALADOR Loan Manager Beta`
+  - `LoanManager-Setup-1.0.0.exe` (207 MB, SHA256 `B0D7F77B407522FCEB9C70C3E8292A70BF885815CD1E290C83DF4D347E2BBC44`)
+  - `Portable\win-unpacked\Loan Manager.exe` (no install needed)
+  - `LEEME-INSTALACION.txt` (steps, first use and checksum)
+
+Workspace separation notes:
+
+- Desktop product workspace remains in `C:\Users\JP\Desktop\LoanManager`
+- Mobile workspace is exposed separately through `C:\Users\JP\Desktop\Mobiloan-Workspace`
+
 Useful desktop notes:
 
 - The packaged backend runs from `resources/server/`
-- SQLite is copied to the Windows user data folder
-- Desktop startup runs `prisma migrate deploy`
+- A clean install always starts with an empty SQLite database in the Windows user data folder; the installer never ships user data or credentials
+- Desktop startup runs `prisma migrate deploy` on first packaged launch or when migrations change
+- Repeated packaged launches now reuse a cached successful migration state to avoid paying the migration cost every time
 - If packaged migrations fail, the app now stops instead of launching against an outdated schema
+- The database file is created empty before migrations run, because the Prisma schema engine fails on Windows when the SQLite file does not exist yet
+- Packaged migrations now run the Prisma CLI through Electron's own Node runtime (`ELECTRON_RUN_AS_NODE`) instead of `cmd.exe /c prisma.cmd`; the old command line broke whenever the install path contained a space, such as `C:\Program Files\Loan Manager`
+- Server logs are written to `%AppData%\loan-manager\logs` (via `LOAN_MANAGER_LOG_DIR`) with a temp-folder fallback, because a normal user cannot create folders inside `C:\Program Files\Loan Manager`
+- WhatsApp and other external links now open in the system browser instead of Electron's embedded Chromium, avoiding compatibility issues with sites like WhatsApp Web
+- App icon assets live in `build/icons/`; `app-icon.png` and `app-icon.ico` are the packaged sources and `app-icon.svg` is kept aligned for repo/documentation use
+- Revalidated on `2026-09-30` over a real Windows install at `C:\Program Files\Loan Manager`: the app starts, applies migrations and creates the first user from the registration screen
 
 ## API highlights
 
@@ -128,12 +218,19 @@ Notable endpoints used by the desktop app:
 - `POST /api/loans`
 - `GET /api/loans/:id`
 - `POST /api/payments/:id/transactions`
+- `GET /api/sync/bootstrap`
+- `GET /api/sync/changes`
+- `POST /api/sync/push`
 - `GET /api/dashboard/stats`
 - `GET /api/dashboard/alerts`
 - `GET /api/dashboard/projections`
 - `GET /api/reports/export-all`
 - `POST /api/import`
 - `GET /api/health`
+
+Sync note:
+
+- `GET /api/sync/changes` now returns both incremental upserts and `deletedIds`, so `Mobiloan` can remove clients or replaced payment schedules from local SQLite during reconciliation.
 
 ## Quality checks
 
@@ -144,6 +241,7 @@ npm run lint
 npx vitest run
 cd server && npm test
 npm run build
+npm run electron:build
 graphify update .
 ```
 
@@ -153,6 +251,11 @@ Graphify is part of the standard workflow for this repo.
 
 - Report output: `graphify-out/GRAPH_REPORT.md`
 - Team workflow: `docs/GRAPHIFY.md`
+
+Important freshness note:
+
+- The current checked-in graph report was refreshed on `2026-06-15`.
+- It already includes the latest desktop packaging work plus the new Mobiloan autonomous-local, reminder and portable-import flows.
 
 Use it before closing meaningful changes:
 
@@ -165,5 +268,20 @@ graphify explain useLoans
 ## Planning docs
 
 - Desktop deployment status: `docs/PLAN-github-deployment.md`
+- GitHub release checklist: `docs/GITHUB-RELEASE-CHECKLIST.md`
+- Beta tester guide: `docs/BETA-TESTER.md`
 - Android planning track: `docs/PLAN-android-app.md`
+- Mobile workspace notes: `Mobiloan/README.md`
 - Graphify workflow: `docs/GRAPHIFY.md`
+
+## Beta readiness
+
+Current recommendation: ready for a controlled Windows beta.
+
+- Green checks: lint, frontend tests, backend integration tests, web build, desktop installer build
+- Validated areas: login, dashboard, clients, loan detail, partial payments, collections deep-links, document generation, import/export, packaged startup
+- Mobile validated areas: Expo dependency health, typecheck, web QA export, local-only boot, local clients, local loans, calculator, calendar reminder flow, portable export package flow
+- Validation refresh on `2026-06-16`: `npm run lint`, `npx vitest run`, `cd server && npm test`, `npm run build`, `npm run rebuild-desktop`, and `npm run build:desktop-installer` all passed again from the current workspace state
+- Desktop startup note: repeated packaged launches were revalidated on June 3, 2026 and the local backend again reached healthcheck in about 1 to 2 seconds after the migration-state cache was introduced
+- Desktop build note: the latest portable app `release/win-unpacked/Loan Manager.exe` and installer `release/LoanManager-Setup-1.0.0.exe` were rebuilt on `2026-06-16`
+- Residual risks to keep watching: legal document formatting with real customer data, packaged-app smoke testing on more than one Windows machine, Android physical-device smoke testing for permissions and calendar prompts, and the later desktop import/sync workflow for purely local mobile records

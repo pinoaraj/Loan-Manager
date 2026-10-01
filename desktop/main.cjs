@@ -4,30 +4,76 @@ try {
     const fs = require('fs');
     const path = require('path');
     const { fork, spawnSync } = require('child_process');
-    const { app, BrowserWindow, dialog } = electron;
+    const { app, BrowserWindow, dialog, shell } = electron;
 
     console.log('REQUIRED ELECTRON:', electron);
 
     const SERVER_PORT = 3011;
     const SERVER_HEALTH_URL = `http://127.0.0.1:${SERVER_PORT}/api/health`;
-    const logPath = path.join(__dirname, '../debug-log.txt');
+    const SERVER_READY_TIMEOUT_MS = 45000;
+
+    function resolveLogPath() {
+        try {
+            const userDataPath = app.getPath('userData');
+            return path.join(userDataPath, 'debug-log.txt');
+        } catch (error) {
+            console.error('Failed to resolve userData log path:', error);
+            return path.join(process.cwd(), 'debug-log.txt');
+        }
+    }
 
     function log(message) {
         try {
             console.log(message);
-            fs.appendFileSync(logPath, `[${new Date().toISOString()}] ${message}\n`);
+            fs.appendFileSync(resolveLogPath(), `[${new Date().toISOString()}] ${message}\n`);
         } catch (error) {
             console.error('Failed to write to log:', error);
         }
     }
 
-    function findTemplateDb(baseDir) {
-        const candidates = [
-            path.join(baseDir, 'prisma', 'dev.db'),
-            path.join(baseDir, 'dev.db')
-        ];
+    function resolveMigrationStatePath() {
+        return path.join(app.getPath('userData'), 'migration-state.json');
+    }
 
-        return candidates.find((candidate) => fs.existsSync(candidate)) || null;
+    function getLatestMigrationName(baseDir) {
+        const migrationsDir = path.join(baseDir, 'prisma', 'migrations');
+
+        try {
+            const migrationNames = fs.readdirSync(migrationsDir, { withFileTypes: true })
+                .filter((entry) => entry.isDirectory())
+                .map((entry) => entry.name)
+                .sort();
+
+            return migrationNames.at(-1) || 'no-migrations';
+        } catch (error) {
+            log(`Unable to inspect migrations directory at ${migrationsDir}: ${error.message}`);
+            return 'unknown-migration';
+        }
+    }
+
+    function loadMigrationState() {
+        const migrationStatePath = resolveMigrationStatePath();
+
+        try {
+            if (!fs.existsSync(migrationStatePath)) {
+                return null;
+            }
+
+            return JSON.parse(fs.readFileSync(migrationStatePath, 'utf8'));
+        } catch (error) {
+            log(`Failed to read migration state: ${error.message}`);
+            return null;
+        }
+    }
+
+    function persistMigrationState(state) {
+        const migrationStatePath = resolveMigrationStatePath();
+
+        try {
+            fs.writeFileSync(migrationStatePath, JSON.stringify(state, null, 2), 'utf8');
+        } catch (error) {
+            log(`Failed to persist migration state: ${error.message}`);
+        }
     }
 
     function resolveAppIcon() {
@@ -74,7 +120,7 @@ try {
         }
     }
 
-    async function waitForServerReady(timeoutMs = 20000) {
+    async function waitForServerReady(timeoutMs = SERVER_READY_TIMEOUT_MS) {
         const startedAt = Date.now();
 
         while (Date.now() - startedAt < timeoutMs) {
@@ -175,13 +221,10 @@ try {
                 dbPath = path.join(userDataPath, 'dev.db');
 
                 if (!fs.existsSync(dbPath)) {
-                    const templateDb = findTemplateDb(cwd);
-                    if (templateDb) {
-                        fs.copyFileSync(templateDb, dbPath);
-                        log(`Database copied to userData from ${templateDb}`);
-                    } else {
-                        log('No packaged template database found. Server will create a fresh database if needed.');
-                    }
+                    // Never seed user data from the packaged app. A fresh install must start
+                    // with an empty database so the first-run registration flow works and no
+                    // developer/test data leaks into the user's machine.
+                    log('No user database found yet. A new empty database will be created for this install.');
                 }
             } else {
                 cwd = path.join(__dirname, '../server');
@@ -209,6 +252,7 @@ try {
                     PORT: SERVER_PORT,
                     DATABASE_URL: `file:${dbPath}`,
                     JWT_SECRET: jwtSecret,
+                    LOAN_MANAGER_LOG_DIR: path.join(app.getPath('userData'), 'logs'),
                     DESKTOP_APP: 'true'
                 },
                 stdio: 'pipe'
@@ -258,6 +302,22 @@ try {
             },
         });
 
+        mainWindow.webContents.on('will-navigate', (event, url) => {
+            if (/^(https?:|mailto:)/i.test(url)) {
+                event.preventDefault();
+                shell.openExternal(url);
+            }
+        });
+
+        mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+            if (/^(https?:|mailto:)/i.test(url)) {
+                shell.openExternal(url);
+                return { action: 'deny' };
+            }
+
+            return { action: 'allow' };
+        });
+
         if (isDev) {
             mainWindow.loadURL('http://localhost:5173');
             mainWindow.webContents.openDevTools();
@@ -274,10 +334,61 @@ try {
         mainWindow.loadFile(indexPath);
     }
 
+    function shouldSkipPackagedMigrations(cwd, dbPath) {
+        if (!app.isPackaged || !fs.existsSync(dbPath)) {
+            return false;
+        }
+
+        const latestMigration = getLatestMigrationName(cwd);
+        const currentKey = `${app.getVersion()}::${latestMigration}`;
+        const state = loadMigrationState();
+
+        if (!state || state.key !== currentKey) {
+            return false;
+        }
+
+        try {
+            const dbStats = fs.statSync(dbPath);
+            const dbMtimeMs = dbStats.mtimeMs;
+
+            if (typeof state.dbMtimeMsAtSuccess !== 'number') {
+                return false;
+            }
+
+            if (dbMtimeMs < state.dbMtimeMsAtSuccess) {
+                log('Database timestamp predates the last successful migration state. Prisma migrate deploy will run again.');
+                return false;
+            }
+
+            log(`Skipping Prisma migrations for packaged startup (cached state ${currentKey}).`);
+            return true;
+        } catch (error) {
+            log(`Failed to inspect database before skipping migrations: ${error.message}`);
+            return false;
+        }
+    }
+
     function runPrismaMigrations(cwd, dbPath, isPackagedBuild) {
         const prismaBinary = process.platform === 'win32'
             ? path.join(cwd, 'node_modules', '.bin', 'prisma.cmd')
             : path.join(cwd, 'node_modules', '.bin', 'prisma');
+
+        if (shouldSkipPackagedMigrations(cwd, dbPath)) {
+            return true;
+        }
+
+        // The Prisma schema engine fails on Windows when the SQLite file does not exist
+        // yet ("Schema engine error"). Creating an empty file first keeps `migrate deploy`
+        // able to build the schema from scratch on a clean install.
+        if (!fs.existsSync(dbPath)) {
+            try {
+                fs.writeFileSync(dbPath, '');
+                log(`Created empty database file at ${dbPath}`);
+            } catch (error) {
+                log(`Failed to create empty database file at ${dbPath}: ${error.message}`);
+                return false;
+            }
+        }
 
         if (!fs.existsSync(prismaBinary)) {
             log(`Prisma CLI not found at ${prismaBinary}.`);
@@ -285,22 +396,93 @@ try {
         }
 
         log(`Running Prisma migrations against ${dbPath} (${isPackagedBuild ? 'packaged' : 'development'})...`);
+        const migrationStartedAt = Date.now();
 
-        const command = process.platform === 'win32' ? 'cmd.exe' : prismaBinary;
-        const args = process.platform === 'win32'
-            ? ['/c', prismaBinary, 'migrate', 'deploy', '--schema', path.join(cwd, 'prisma', 'schema.prisma')]
-            : ['migrate', 'deploy', '--schema', path.join(cwd, 'prisma', 'schema.prisma')];
+        // Run the Prisma CLI with Electron's own Node runtime (ELECTRON_RUN_AS_NODE)
+        // instead of shelling out to `cmd.exe /c <prisma.cmd>`. The cmd.exe route broke
+        // whenever the install path contained a space (for example
+        // "C:\Program Files\Loan Manager"): the quoted batch path was re-parsed by cmd
+        // and Windows ended up trying to execute "C:\Program". Spawning the CLI entry
+        // point as a plain argument list avoids shell quoting entirely.
+        const prismaCliEntry = path.join(cwd, 'node_modules', 'prisma', 'build', 'index.js');
 
-        const migrationResult = spawnSync(command, args, {
-            cwd,
-            env: {
-                ...process.env,
-                DATABASE_URL: `file:${dbPath}`
-            },
-            encoding: 'utf8',
-            timeout: 60000,
-            windowsHide: true
-        });
+        const runPrismaCommand = (commandArgs) => {
+            if (fs.existsSync(prismaCliEntry)) {
+                return spawnSync(process.execPath, [prismaCliEntry, ...commandArgs], {
+                    cwd,
+                    env: {
+                        ...process.env,
+                        ELECTRON_RUN_AS_NODE: '1',
+                        DATABASE_URL: `file:${dbPath}`
+                    },
+                    encoding: 'utf8',
+                    timeout: 120000,
+                    windowsHide: true
+                });
+            }
+
+            log(`Prisma CLI entry point not found at ${prismaCliEntry}. Falling back to ${prismaBinary}.`);
+
+            return spawnSync(
+                process.platform === 'win32' ? 'cmd.exe' : prismaBinary,
+                process.platform === 'win32' ? ['/d', '/s', '/c', `""${prismaBinary}" ${commandArgs.map((arg) => (arg.includes(' ') ? `"${arg}"` : arg)).join(' ')}"`] : commandArgs,
+                {
+                    cwd,
+                    env: {
+                        ...process.env,
+                        DATABASE_URL: `file:${dbPath}`
+                    },
+                    encoding: 'utf8',
+                    timeout: 120000,
+                    windowsHide: true
+                }
+            );
+        };
+
+        let migrationResult = runPrismaCommand([
+            'migrate',
+            'deploy',
+            '--schema',
+            path.join(cwd, 'prisma', 'schema.prisma')
+        ]);
+
+        const combinedOutput = `${migrationResult.stdout || ''}\n${migrationResult.stderr || ''}`;
+        const hasKnownSQLiteDefaultError =
+            combinedOutput.includes('20260604120000_add_transaction_sync_fields')
+            && combinedOutput.includes('Cannot add a column with non-constant default');
+
+        if (migrationResult.status !== 0 && hasKnownSQLiteDefaultError) {
+            log('Detected failed packaged SQLite migration for transaction sync fields. Attempting automatic recovery.');
+
+            const resolveResult = runPrismaCommand([
+                'migrate',
+                'resolve',
+                '--rolled-back',
+                '20260604120000_add_transaction_sync_fields',
+                '--schema',
+                path.join(cwd, 'prisma', 'schema.prisma')
+            ]);
+
+            if (resolveResult.stdout) {
+                log(`[PRISMA RESOLVE OUT]: ${resolveResult.stdout}`);
+            }
+
+            if (resolveResult.stderr) {
+                log(`[PRISMA RESOLVE ERR]: ${resolveResult.stderr}`);
+            }
+
+            if (resolveResult.status !== 0) {
+                log(`Prisma migrate resolve failed: ${resolveResult.stderr || 'Unknown error'}`);
+                return false;
+            }
+
+            migrationResult = runPrismaCommand([
+                'migrate',
+                'deploy',
+                '--schema',
+                path.join(cwd, 'prisma', 'schema.prisma')
+            ]);
+        }
 
         if (migrationResult.error) {
             log(`Prisma migration error: ${migrationResult.error.message}`);
@@ -316,11 +498,57 @@ try {
         }
 
         if (migrationResult.status !== 0) {
+            const fallbackCompatiblePackagedError = isPackagedBuild && (
+                combinedOutput.includes('20260604120000_add_transaction_sync_fields')
+                || combinedOutput.includes('20260609143000_add_sync_deleted_records')
+                || combinedOutput.includes('table "SyncDeletedRecord" already exists')
+                || combinedOutput.includes('Error: P3009')
+            );
+
+            if (fallbackCompatiblePackagedError) {
+                log('Packaged migration fallback engaged. The server will repair compatible SQLite schema differences during startup.');
+
+                try {
+                    const latestMigration = getLatestMigrationName(cwd);
+                    const dbStats = fs.statSync(dbPath);
+                    persistMigrationState({
+                        key: `${app.getVersion()}::${latestMigration}`,
+                        appVersion: app.getVersion(),
+                        latestMigration,
+                        dbPath,
+                        dbMtimeMsAtSuccess: dbStats.mtimeMs,
+                        migratedAt: new Date().toISOString(),
+                        fallbackApplied: true
+                    });
+                } catch (error) {
+                    log(`Packaged migration fallback state persistence skipped: ${error.message}`);
+                }
+
+                return true;
+            }
+
             log(`Prisma migrate deploy failed: ${migrationResult.stderr || 'Unknown error'}`);
             return false;
         }
 
-        log('Prisma migrations completed successfully.');
+        const latestMigration = getLatestMigrationName(cwd);
+        const migrationDurationMs = Date.now() - migrationStartedAt;
+
+        try {
+            const dbStats = fs.statSync(dbPath);
+            persistMigrationState({
+                key: `${app.getVersion()}::${latestMigration}`,
+                appVersion: app.getVersion(),
+                latestMigration,
+                dbPath,
+                dbMtimeMsAtSuccess: dbStats.mtimeMs,
+                migratedAt: new Date().toISOString()
+            });
+        } catch (error) {
+            log(`Migration state persistence skipped: ${error.message}`);
+        }
+
+        log(`Prisma migrations completed successfully in ${migrationDurationMs}ms.`);
         return true;
     }
 

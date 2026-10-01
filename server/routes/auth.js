@@ -11,19 +11,19 @@ router.post('/register', async (req, res) => {
         const { username, password } = req.body;
 
         if (!username || !password) {
-            return res.status(400).json({ error: 'Username and password required' });
+            return res.status(400).json({ error: 'Usuario y contrasena son obligatorios' });
         }
 
         const existingUsersCount = await prisma.user.count();
         if (existingUsersCount > 0) {
             return res.status(403).json({
-                error: 'Registration is only available during initial setup'
+                error: 'El registro solo esta disponible durante la configuracion inicial'
             });
         }
 
         const existingUser = await prisma.user.findUnique({ where: { username } });
         if (existingUser) {
-            return res.status(400).json({ error: 'Username already taken' });
+            return res.status(400).json({ error: 'Ese usuario ya esta en uso' });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -34,7 +34,7 @@ router.post('/register', async (req, res) => {
             }
         });
 
-        res.status(201).json({ message: 'User created successfully', userId: user.id });
+        res.status(201).json({ message: 'Usuario creado correctamente', userId: user.id });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -47,12 +47,12 @@ router.post('/login', async (req, res) => {
 
         const user = await prisma.user.findUnique({ where: { username } });
         if (!user) {
-            return res.status(400).json({ error: 'Invalid credentials' });
+            return res.status(400).json({ error: 'Credenciales invalidas' });
         }
 
         const validPassword = await bcrypt.compare(password, user.password);
         if (!validPassword) {
-            return res.status(400).json({ error: 'Invalid credentials' });
+            return res.status(400).json({ error: 'Credenciales invalidas' });
         }
 
         const token = jwt.sign({ id: user.id, username: user.username, role: user.role }, JWT_SECRET, {

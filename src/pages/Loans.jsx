@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useLoans } from '../context/useLoans';
 import { Search, ChevronLeft, ChevronRight, ChevronDown, ChevronUp, Calendar } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '../context/useAuth';
-import ConfirmModal from '../components/ConfirmModal';
 import { useLoanHealth } from '../hooks/useLoanHealth';
 import { API_URL } from '../config/api';
+import { compareStoredDates, toStoredLocaleDate } from '../utils/dates';
+import { formatCurrency } from '../utils/formatters';
 
 const HEALTH_BADGE_CLASSES = {
     emerald: 'bg-emerald-100 text-emerald-700',
@@ -19,26 +19,20 @@ const HEALTH_BADGE_CLASSES = {
 const getPaymentDetailPath = (loanId, paymentId) => paymentId
     ? `/loans/${loanId}?payment=${paymentId}`
     : `/loans/${loanId}`;
-const getDisplayLoanCode = (loanId) => {
-    const value = String(loanId || '').trim();
-    return value ? `#${value.slice(-6)}` : '#------';
-};
 
 const Loans = () => {
     const navigate = useNavigate();
-    const { updateLoanStatus } = useLoans();
+    const [searchParams, setSearchParams] = useSearchParams();
     const { token, fetchWithAuth } = useAuth();
     const { getLoanHealth } = useLoanHealth();
 
     const [page, setPage] = useState(1);
     const limit = 10;
     const [searchTerm, setSearchTerm] = useState('');
-    const [statusFilter, setStatusFilter] = useState('All');
-    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-    const [confirmLoanId, setConfirmLoanId] = useState(null);
+    const [statusFilter, setStatusFilter] = useState(searchParams.get('status') || 'All');
     const [expandedLoanId, setExpandedLoanId] = useState(null);
 
-    const { data: loansData = { data: [], meta: {} }, refetch } = useQuery({
+    const { data: loansData = { data: [], meta: {} } } = useQuery({
         queryKey: ['loans', page, limit, searchTerm, statusFilter],
         queryFn: async () => {
             const response = await fetchWithAuth(`${API_URL}/loans?page=${page}&limit=${limit}&search=${searchTerm}&status=${statusFilter}`);
@@ -51,23 +45,10 @@ const Loans = () => {
     const loans = loansData.data || [];
     const meta = loansData.meta || {};
 
-    const handleMarkAsPaid = (loanId) => {
-        setConfirmLoanId(loanId);
-        setIsConfirmOpen(true);
-    };
-
-    const confirmPayment = async () => {
-        if (confirmLoanId) {
-            await updateLoanStatus(confirmLoanId, 'Paid');
-            setConfirmLoanId(null);
-            refetch();
-        }
-    };
-
     const getClientName = (loan) => loan.client?.name || 'Desconocido';
     const toggleLoan = (loanId) => setExpandedLoanId(expandedLoanId === loanId ? null : loanId);
     const getUpcomingPayments = (loan) => [...(loan.payments || [])]
-        .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))
+        .sort((first, second) => compareStoredDates(first.dueDate, second.dueDate))
         .filter((payment) => payment.status !== 'Paid');
 
     return (
@@ -83,7 +64,7 @@ const Loans = () => {
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                         <input
                             type="text"
-                            placeholder="Buscar cliente o ID..."
+                            placeholder="Buscar cliente..."
                             className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-10 pr-4 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                             value={searchTerm}
                             onChange={(event) => {
@@ -96,8 +77,16 @@ const Loans = () => {
                     <select
                         value={statusFilter}
                         onChange={(event) => {
-                            setStatusFilter(event.target.value);
+                            const nextStatus = event.target.value;
+                            setStatusFilter(nextStatus);
                             setPage(1);
+                            const nextParams = new URLSearchParams(searchParams);
+                            if (nextStatus === 'All') {
+                                nextParams.delete('status');
+                            } else {
+                                nextParams.set('status', nextStatus);
+                            }
+                            setSearchParams(nextParams, { replace: true });
                         }}
                         className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                     >
@@ -147,22 +136,19 @@ const Loans = () => {
                                                         {expandedLoanId === loan.id
                                                             ? <ChevronUp size={16} className="text-slate-400" />
                                                             : <ChevronDown size={16} className="text-slate-400" />}
-                                                        <div>
-                                                            <div className="font-semibold text-slate-900 dark:text-white">{getClientName(loan)}</div>
-                                                            <div className="font-mono text-xs tracking-wide text-slate-600 dark:text-slate-300">
-                                                                {getDisplayLoanCode(loan.id)}
-                                                            </div>
+                                                        <div className="font-semibold text-slate-900 dark:text-white">
+                                                            {getClientName(loan)}
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4 font-mono font-semibold text-slate-800 dark:text-white">
-                                                    ${Number(loan.amount || 0).toLocaleString()}
+                                                    ${formatCurrency(loan.amount)}
                                                 </td>
                                                 <td className="px-6 py-4 text-slate-700 dark:text-slate-200">
                                                     {(Number(loan.interestRate || 0) * 100).toFixed(0)}%
                                                 </td>
                                                 <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-200">
-                                                    {new Date(loan.startDate).toLocaleDateString()}
+                                                    {toStoredLocaleDate(loan.startDate)}
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     <span className={`rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider ${badgeClasses}`}>
@@ -171,14 +157,6 @@ const Loans = () => {
                                                 </td>
                                                 <td className="px-6 py-4 text-right">
                                                     <div className="flex justify-end gap-2" onClick={(event) => event.stopPropagation()}>
-                                                        {loan.status === 'Active' && (
-                                                            <button
-                                                                onClick={() => handleMarkAsPaid(loan.id)}
-                                                                className="rounded-lg border border-emerald-200 px-3 py-1.5 text-xs font-bold uppercase tracking-widest text-emerald-600 transition-all hover:border-emerald-500 hover:bg-emerald-500 hover:text-white"
-                                                            >
-                                                                Pagado
-                                                            </button>
-                                                        )}
                                                         <button
                                                             onClick={() => navigate(getPaymentDetailPath(loan.id, nextPayment?.id))}
                                                             className="rounded-lg border border-transparent px-3 py-1.5 text-xs font-bold uppercase tracking-widest text-blue-600 transition-colors hover:bg-blue-50 hover:text-blue-800 dark:text-blue-300 dark:hover:bg-slate-700"
@@ -215,10 +193,10 @@ const Loans = () => {
                                                                                     onClick={() => navigate(getPaymentDetailPath(loan.id, payment.id))}
                                                                                 >
                                                                                     <td className="px-4 py-2 font-medium text-slate-800 dark:text-slate-100">
-                                                                                        {new Date(payment.dueDate).toLocaleDateString()}
+                                                                                        {toStoredLocaleDate(payment.dueDate)}
                                                                                     </td>
                                                                                     <td className="px-4 py-2 text-right font-semibold text-slate-900 dark:text-white">
-                                                                                        ${Number(payment.amount || 0).toLocaleString()}
+                                                                                        ${formatCurrency(payment.amount)}
                                                                                     </td>
                                                                                     <td className="px-4 py-2 text-center">
                                                                                         <span className={`rounded px-2 py-0.5 text-[10px] font-bold uppercase ${payment.status === 'Overdue'
@@ -247,7 +225,7 @@ const Loans = () => {
                                                                     onClick={() => navigate(getPaymentDetailPath(loan.id, nextPayment?.id))}
                                                                     className="text-xs font-bold text-blue-700 hover:underline dark:text-blue-300"
                                                                 >
-                                                                    Ver Cronograma Completo →
+                                                                    Ver cronograma completo
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -265,7 +243,7 @@ const Loans = () => {
 
             <div className="mt-8 flex items-center justify-center gap-4">
                 <button
-                    onClick={() => setPage((old) => Math.max(old - 1, 1))}
+                    onClick={() => setPage((current) => Math.max(current - 1, 1))}
                     disabled={page === 1}
                     className="rounded-lg border border-slate-200 bg-white p-2 transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-slate-800"
                 >
@@ -277,7 +255,7 @@ const Loans = () => {
                 <button
                     onClick={() => {
                         if (!meta.totalPages || page < meta.totalPages) {
-                            setPage((old) => old + 1);
+                            setPage((current) => current + 1);
                         }
                     }}
                     disabled={meta.totalPages ? page >= meta.totalPages : false}
@@ -286,16 +264,6 @@ const Loans = () => {
                     <ChevronRight size={20} className="text-slate-600 dark:text-slate-400" />
                 </button>
             </div>
-
-            <ConfirmModal
-                isOpen={isConfirmOpen}
-                onClose={() => setIsConfirmOpen(false)}
-                onConfirm={confirmPayment}
-                title="Confirmar Pago"
-                message="Estas seguro de que quieres marcar este prestamo como pagado? Esta accion no se puede deshacer facilmente."
-                confirmText="Si, Marcar como Pagado"
-                type="success"
-            />
         </div>
     );
 };
