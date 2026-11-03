@@ -1,1174 +1,746 @@
 {
-  "C:\\Users\\JP\\Desktop\\LoanManager\\check_build.js": {
-    "mtime": 1779907178.7357736,
-    "hash": "eb024624c7bc2984d8a2bb904bdd2157"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\eslint.config.js": {
-    "mtime": 1790793462.3251467,
-    "hash": "2a7d1673547e672bda806b6d23f3854a"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\patch-desktop.ps1": {
-    "mtime": 1770673510.783379,
-    "hash": "384645015c7190f425a4c591ffeeb2f6"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\postcss.config.js": {
-    "mtime": 1765819113.6287556,
-    "hash": "b0197450f6657a0e29dfc069e083f364"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\rebuild-desktop-app.ps1": {
-    "mtime": 1770659027.0388782,
-    "hash": "a3340ad90adcb061806f10da9ca6001e"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\rebuild-desktop-final.ps1": {
-    "mtime": 1770673373.722612,
-    "hash": "b806d2ad02ab75a88d299375ecb9ed1d"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\tailwind.config.js": {
-    "mtime": 1779907178.7872725,
-    "hash": "8fecbf813a20ae11cf7bb21ee69bf574"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\test-client-creation.js": {
-    "mtime": 1779726918.895448,
-    "hash": "78e3ba6a8bbd2c9c299b66bd592b5b7f"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\test-client-creation.ps1": {
-    "mtime": 1770657515.073878,
-    "hash": "fd544909a076be05438139a452d479c0"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\vite.config.js": {
-    "mtime": 1779907178.7877724,
-    "hash": "1eba63594cce6bb750be97093ac0aade"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\vitest.config.js": {
-    "mtime": 1779907178.7882729,
-    "hash": "750e9e693989ee83e416493d940f4c3e"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\COMPARTIR_FIGHT_AI.ps1": {
-    "mtime": 1788445649.377707,
-    "hash": "c975bfd3b1f92566cfee72facab6db88"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\INSTALAR_Y_INICIAR_FIGHT_AI.ps1": {
-    "mtime": 1788384441.4957044,
-    "hash": "46bb2213eca2661412632230896efcf2"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\instrumentation.ts": {
-    "mtime": 1788354077.5010793,
-    "hash": "ae68002a9972712f4eb09955e7eea440"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\middleware.ts": {
-    "mtime": 1788445338.609574,
-    "hash": "ed4ff0a6bf21f9de1c08621c43664729"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\next-env.d.ts": {
-    "mtime": 1788379330.025256,
-    "hash": "90426577ad8f38459f3e566411c85589"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\next.config.mjs": {
-    "mtime": 1788379427.732232,
-    "hash": "e564ae58b5c15e5086dc44d69112db5d"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\playwright.config.ts": {
-    "mtime": 1788354077.5015783,
-    "hash": "b732ef8be03504e2ea6404352912455d"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\postcss.config.mjs": {
-    "mtime": 1788379306.5856495,
-    "hash": "e5a8d7fdcf00f3252faf6f3d6f592470"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\layout.tsx": {
-    "mtime": 1788354077.488079,
-    "hash": "d7d02ee5195d9c322bd08e5e6acc1438"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\page.tsx": {
-    "mtime": 1788449455.9584668,
-    "hash": "81f79d52be22c7d182ec3c9472e2fbfc"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\api\\analyze\\route.ts": {
-    "mtime": 1788448882.8967123,
-    "hash": "f1a9967f4ad8e99ca956c36c5f6805dd"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\api\\analyze-uploaded\\route.ts": {
-    "mtime": 1788378566.6234639,
-    "hash": "b1152aca0aa4132467f6f55555a23327"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\api\\demo-video\\route.ts": {
-    "mtime": 1788354077.4800797,
-    "hash": "5b9637932a628ba2f02663b2c7f0ca4f"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\api\\direct-upload\\route.ts": {
-    "mtime": 1788378546.7465284,
-    "hash": "0c10c9f32324a0159bcb7f5e21cc611c"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\api\\evidence-frames\\route.ts": {
-    "mtime": 1788354077.483081,
-    "hash": "df024de16d19b5797d3cb01b50a56b53"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\api\\health\\route.ts": {
-    "mtime": 1788378566.6254652,
-    "hash": "8b119094617fd1ae8927124cb60f4620"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\api\\preview-frame\\route.ts": {
-    "mtime": 1788449231.8527555,
-    "hash": "fcd733e51de8571d60472536eeeb8a9d"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\api\\upload\\route.ts": {
-    "mtime": 1788354077.485079,
-    "hash": "6ac02444a9964355894815a2b20e7497"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\infra\\aws\\bootstrap-ecs-fargate.ps1": {
-    "mtime": 1788354077.4960856,
-    "hash": "b32aade3e64fd611fb51acead4910c4f"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\infra\\aws\\bootstrap-fight-ai.ps1": {
-    "mtime": 1788354077.4965804,
-    "hash": "0d3576e64ba0e387cc597f2cd784105d"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\infra\\aws\\bootstrap-large-video-ingestion.ps1": {
-    "mtime": 1788354077.4970796,
-    "hash": "10da317a3ee54c4aebe45fff4fc87ee6"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\infra\\aws\\grant-cloudfront-https-permissions.ps1": {
-    "mtime": 1788354077.4985805,
-    "hash": "ea156447d09bc0d8f4593ad3036a211a"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\infra\\aws\\repair-oidc-trust.ps1": {
-    "mtime": 1788354077.5000799,
-    "hash": "ac30fc64296d259893ce839de000d70b"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\lib\\boxingKnowledge.ts": {
-    "mtime": 1788378566.6284647,
-    "hash": "0b6771e77dbda2be53b069665f9d87c1"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\qa\\foreign-port-fixture.mjs": {
-    "mtime": 1788379101.3858857,
-    "hash": "3cb05223f7259c5bf2c6635a89c22128"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\qa\\local-port-safety.ps1": {
-    "mtime": 1788445343.8689344,
-    "hash": "46c3a785780a7c8a934561d5e676fdd3"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\qa\\web-agent\\fight-ai.spec.ts": {
-    "mtime": 1788378546.749028,
-    "hash": "99ca9970cb9d68869c451026215b95d0"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\qa\\web-agent\\mock_backend.py": {
-    "mtime": 1788354077.5035791,
-    "hash": "a8137a861a31a62878a5647a221d74e5"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\scripts\\analysis-worker.mjs": {
-    "mtime": 1788354077.5040808,
-    "hash": "8e95de3965167cae4d8d4fdbec1f61a3"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\scripts\\show-remote-access.ps1": {
-    "mtime": 1788388447.27081,
-    "hash": "a62b8803a6dd450d6710333a02f8b4c8"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\scripts\\start-local.ps1": {
-    "mtime": 1788445629.8735168,
-    "hash": "36d96c562022ba0957a1d59e65dd7d76"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\scripts\\start-remote-tunnel.ps1": {
-    "mtime": 1788449459.1152532,
-    "hash": "7b93099eb56c6baec61d6fd76d8fc9df"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\scripts\\stop-local.ps1": {
-    "mtime": 1788378956.3211167,
-    "hash": "94994338840e564eddb269bff2b0a893"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\scripts\\stop-remote-tunnel.ps1": {
-    "mtime": 1788386407.965927,
-    "hash": "c6e78e77d253fafad040beab1d11c483"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\expo-env.d.ts": {
-    "mtime": 1781557723.967662,
-    "hash": "0dd9dccdb4b08595bc83df70d6a154d3"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\gradlew": {
-    "mtime": 1780585946.073759,
-    "hash": "780b1d3e23a3b82154795f73df943a14"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\java\\com\\mobiloan\\app\\MainActivity.kt": {
-    "mtime": 1780585947.352187,
-    "hash": "a05ca19bd53ebe1987615ae003eab077"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\java\\com\\mobiloan\\app\\MainApplication.kt": {
-    "mtime": 1780585947.3516762,
-    "hash": "21d8361b13d982c69910c7fd978af6aa"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\index.tsx": {
-    "mtime": 1780584809.6308925,
-    "hash": "e22276291e9abf9d453e67b7c92e3b28"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\login.tsx": {
-    "mtime": 1781551761.505862,
-    "hash": "09f89895e06a34f3529482082345a534"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\_layout.tsx": {
-    "mtime": 1780584801.4856124,
-    "hash": "6cb042679a44df63822a3e0b6a9ffd8b"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\calculator.tsx": {
-    "mtime": 1781551810.591512,
-    "hash": "cf5e31c0e3bfce127af86c1930cb40bf"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\index.tsx": {
-    "mtime": 1781557577.7842042,
-    "hash": "ebc0964c381884278a7d14ef1a4b4592"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\new-client.tsx": {
-    "mtime": 1781551826.607443,
-    "hash": "dd3924eef1c81c49cd75d163bbabbc7a"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\new-loan.tsx": {
-    "mtime": 1781551861.716447,
-    "hash": "6df2b179ee8a4dfd329f8089a3b91cd3"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\_layout.tsx": {
-    "mtime": 1781551780.3137162,
-    "hash": "4e5448b2a4e8633ae3045ea67f504047"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\clients\\[id].tsx": {
-    "mtime": 1781551894.7913842,
-    "hash": "69d44da9880565c0d0d66875142b7166"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\loans\\[id].tsx": {
-    "mtime": 1781551907.0352652,
-    "hash": "4a27503b9ec9b92155f0eb1bcb1a551c"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\scripts\\build-android-debug.ps1": {
-    "mtime": 1781874992.9030638,
-    "hash": "057e7fa31808417e726d7224b47b891b"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\scripts\\build-android-release.ps1": {
-    "mtime": 1790808197.107576,
-    "hash": "9d6291fc7c307bfe148d2f252593569c"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\scripts\\install-android-beta.ps1": {
-    "mtime": 1790807575.7185102,
-    "hash": "f44f1c17a2427a33d05bc07ebc519009"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\data\\database.ts": {
-    "mtime": 1790808272.048288,
-    "hash": "56605c8dada70b178e6951cfe3e7c146"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\data\\database.web.ts": {
-    "mtime": 1781551726.3520076,
-    "hash": "f2dd11ffe56ddb7938833f9dc880cfbc"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\hooks\\useOfflineData.ts": {
-    "mtime": 1781551736.1751988,
-    "hash": "6ef945353d020633eed8caa57a8fcaca"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\hooks\\useSyncActions.ts": {
-    "mtime": 1781551745.8749964,
-    "hash": "2a899491caab4f2aef0fe8dca263517a"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\amortization.ts": {
-    "mtime": 1790808261.8339183,
-    "hash": "2f7068f8a7a03735be6c1cba2b9d4ed6"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\calendar.ts": {
-    "mtime": 1781557687.4611676,
-    "hash": "e835455fb156efa2c28a1331b129ec9a"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\calendar.web.ts": {
-    "mtime": 1781557637.9196236,
-    "hash": "7f782cc5bddb9fad4a85d94b0cfcea41"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\config.ts": {
-    "mtime": 1781550237.9001658,
-    "hash": "18eb68b52949c232f61de0be660d827e"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\contact.ts": {
-    "mtime": 1781199928.0771952,
-    "hash": "a9c1ef34d57f971ef5a811fb5289a2ac"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\dates.ts": {
-    "mtime": 1790808239.5289652,
-    "hash": "be7f53f24849af107d8e072697e1cbbe"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\format.ts": {
-    "mtime": 1790808249.7142248,
-    "hash": "6b5642677fbbb47e2137c36349ea1834"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\mutationId.ts": {
-    "mtime": 1780584572.6317313,
-    "hash": "3cbd6a2dc20c570b16860451d1878b1e"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\secureSession.ts": {
-    "mtime": 1781536574.8736546,
-    "hash": "52219867f7425c97018597df3e90993f"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\syncPackage.ts": {
-    "mtime": 1781551959.2085204,
-    "hash": "c23df3267cf9ddc3cf4f34716d9c2b07"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\providers\\AppProviders.tsx": {
-    "mtime": 1781551751.458098,
-    "hash": "cace043b00cab82aa449326094432494"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\services\\api.ts": {
-    "mtime": 1781550682.4148443,
-    "hash": "2613da69ff4b9e66ffcfba16de3529a5"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\services\\sync.ts": {
-    "mtime": 1781551769.0079417,
-    "hash": "712b2b2273d27ebd5df0b344881611e4"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\types\\sync.ts": {
-    "mtime": 1781557281.6967602,
-    "hash": "4c54e4ff7e8016fe2c539f61f92a038e"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\ui\\styles.ts": {
-    "mtime": 1781201979.3821282,
-    "hash": "baed5c66c2af76b4d2e0a13b8d2723c9"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\app.js": {
-    "mtime": 1781557950.9876094,
-    "hash": "d313d5a7b2c5cc657ba93e49e28a4eb2"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\create-user.js": {
-    "mtime": 1777660831.4173565,
-    "hash": "738820d7de1011ea1d763ad88387332d"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\index.js": {
-    "mtime": 1781550276.833203,
-    "hash": "d1ca8f37f9396b3533f7a3420ed1f17e"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\prisma.config.ts": {
-    "mtime": 1768419923.628338,
-    "hash": "f6143a6083213d512c0beaa8d98daf63"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\test-zod-error.js": {
-    "mtime": 1770670306.690197,
-    "hash": "7368b84d57000a338936b40425fd46b5"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\lib\\prisma.js": {
-    "mtime": 1779803855.1863003,
-    "hash": "29df9ae76a1a368af0782b204e6b24b3"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\middleware\\auth.js": {
-    "mtime": 1779907178.7547727,
-    "hash": "c93076f24ee8a7c855d0685f2cfc710b"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\middleware\\rateLimiter.js": {
-    "mtime": 1770672937.3164823,
-    "hash": "2ab4a306964b922186ebb87f658ca054"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\middleware\\validation.js": {
-    "mtime": 1780582173.1918604,
-    "hash": "f6b20ca9b0b15df0e13d4d94a121a2f5"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\middleware\\validationSchemas.js": {
-    "mtime": 1781555607.9151225,
-    "hash": "1e32bb8f75d2b08196ddb1cdf1fe102f"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\prisma\\migrations\\20260114194812_init\\migration.sql": {
-    "mtime": 1768420092.8198826,
-    "hash": "56138e73c92859bd1035d6d4dc4da98b"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\prisma\\migrations\\20260114194914_add_frequency\\migration.sql": {
-    "mtime": 1768420154.3012822,
-    "hash": "2f536c87030af886295aa47b72f7bdfc"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\prisma\\migrations\\20260501171840_use_decimal_precision\\migration.sql": {
-    "mtime": 1777655920.636904,
-    "hash": "b81f7e62dbccd337405a492b8df5893e"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\prisma\\migrations\\20260526173000_add_client_rut\\migration.sql": {
-    "mtime": 1779828958.2802992,
-    "hash": "da2b688863255b0316c57e62bea84ee5"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\prisma\\migrations\\20260604120000_add_transaction_sync_fields\\migration.sql": {
-    "mtime": 1781553786.586039,
-    "hash": "5c1eb7481e02ac28819097d79aaebeae"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\prisma\\migrations\\20260609143000_add_sync_deleted_records\\migration.sql": {
-    "mtime": 1781553829.339356,
-    "hash": "d9ed9ff4a3993794128f41b25d867f71"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\routes\\ai.js": {
-    "mtime": 1777660604.7064712,
-    "hash": "3f79954e5bafae7a6640b8ca245b7339"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\routes\\auth.js": {
-    "mtime": 1779978847.6189857,
-    "hash": "308b922833f73f5b936b278fb3a67da6"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\routes\\backup.js": {
-    "mtime": 1768944795.3128812,
-    "hash": "e7c0170f618a19d0b39b67b3017e9019"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\routes\\clients.js": {
-    "mtime": 1781034683.1831453,
-    "hash": "437a7f1283fd3e283d13fc336cb4bb2b"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\routes\\dashboard.js": {
-    "mtime": 1779813174.502723,
-    "hash": "460bfd5238b89427ef8da646db51745d"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\routes\\import.js": {
-    "mtime": 1781555631.0851207,
-    "hash": "7d99b676efca316d6e51c2c74389e8b9"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\routes\\loans.js": {
-    "mtime": 1781034683.184146,
-    "hash": "2bf5be78dd7d3a784470f57601f98696"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\routes\\payments.js": {
-    "mtime": 1781013954.2282832,
-    "hash": "2306bd3f768b2247e8c3e396223f38a8"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\routes\\reports.js": {
-    "mtime": 1779978456.7796023,
-    "hash": "eba10144bd05bfd1af9888b5581bb624"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\routes\\sync.js": {
-    "mtime": 1781034643.7372904,
-    "hash": "5375edd6a3ad06f40eda04794e0bb823"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\utils\\amortization.js": {
-    "mtime": 1779907178.765274,
-    "hash": "700dc099dae23bac8d09c1e574cc79e2"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\utils\\ensureDatabaseCompatibility.js": {
-    "mtime": 1781553786.5870404,
-    "hash": "8c045036100426bdc1eeb72e745f22da"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\utils\\fees.js": {
-    "mtime": 1790793458.95778,
-    "hash": "f8cbb62be0c82ae93d60f26351436f07"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\utils\\logger.js": {
-    "mtime": 1790803979.8177755,
-    "hash": "c41e8ccba148d30ca21b39f2edd6133d"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\utils\\paymentTransactions.js": {
-    "mtime": 1781013915.3727038,
-    "hash": "b5fb0786ada892cb80b2a96fec31b563"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\utils\\syncDeletedRecords.js": {
-    "mtime": 1781034658.0204792,
-    "hash": "a6519663731d1b6dc8f63153ac70b65f"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\scripts\\generate_app_icon.py": {
-    "mtime": 1779977645.7990575,
-    "hash": "305b95d123a42b21b8a7d151865c3199"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\app.js": {
-    "mtime": 1781557950.9876094,
-    "hash": "d313d5a7b2c5cc657ba93e49e28a4eb2"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\create-user.js": {
-    "mtime": 1777660831.4173565,
-    "hash": "738820d7de1011ea1d763ad88387332d"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\index.js": {
-    "mtime": 1781550276.833203,
-    "hash": "d1ca8f37f9396b3533f7a3420ed1f17e"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\prisma.config.ts": {
-    "mtime": 1768419923.628338,
-    "hash": "f6143a6083213d512c0beaa8d98daf63"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\test-zod-error.js": {
-    "mtime": 1770670306.690197,
-    "hash": "7368b84d57000a338936b40425fd46b5"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\lib\\prisma.js": {
-    "mtime": 1779803855.1863003,
-    "hash": "29df9ae76a1a368af0782b204e6b24b3"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\middleware\\auth.js": {
-    "mtime": 1779907178.7547727,
-    "hash": "c93076f24ee8a7c855d0685f2cfc710b"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\middleware\\rateLimiter.js": {
-    "mtime": 1770672937.3164823,
-    "hash": "2ab4a306964b922186ebb87f658ca054"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\middleware\\validation.js": {
-    "mtime": 1780582173.1918604,
-    "hash": "f6b20ca9b0b15df0e13d4d94a121a2f5"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\middleware\\validationSchemas.js": {
-    "mtime": 1781555607.9151225,
-    "hash": "1e32bb8f75d2b08196ddb1cdf1fe102f"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\prisma\\migrations\\20260114194812_init\\migration.sql": {
-    "mtime": 1768420092.8198826,
-    "hash": "56138e73c92859bd1035d6d4dc4da98b"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\prisma\\migrations\\20260114194914_add_frequency\\migration.sql": {
-    "mtime": 1768420154.3012822,
-    "hash": "2f536c87030af886295aa47b72f7bdfc"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\prisma\\migrations\\20260501171840_use_decimal_precision\\migration.sql": {
-    "mtime": 1777655920.636904,
-    "hash": "b81f7e62dbccd337405a492b8df5893e"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\prisma\\migrations\\20260526173000_add_client_rut\\migration.sql": {
-    "mtime": 1779828958.2802992,
-    "hash": "da2b688863255b0316c57e62bea84ee5"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\prisma\\migrations\\20260604120000_add_transaction_sync_fields\\migration.sql": {
-    "mtime": 1781553786.586039,
-    "hash": "5c1eb7481e02ac28819097d79aaebeae"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\prisma\\migrations\\20260609143000_add_sync_deleted_records\\migration.sql": {
-    "mtime": 1781553829.339356,
-    "hash": "d9ed9ff4a3993794128f41b25d867f71"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\routes\\ai.js": {
-    "mtime": 1777660604.7064712,
-    "hash": "3f79954e5bafae7a6640b8ca245b7339"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\routes\\auth.js": {
-    "mtime": 1779978847.6189857,
-    "hash": "308b922833f73f5b936b278fb3a67da6"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\routes\\backup.js": {
-    "mtime": 1768944795.3128812,
-    "hash": "e7c0170f618a19d0b39b67b3017e9019"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\routes\\clients.js": {
-    "mtime": 1781034683.1831453,
-    "hash": "437a7f1283fd3e283d13fc336cb4bb2b"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\routes\\dashboard.js": {
-    "mtime": 1779813174.502723,
-    "hash": "460bfd5238b89427ef8da646db51745d"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\routes\\import.js": {
-    "mtime": 1781555631.0851207,
-    "hash": "7d99b676efca316d6e51c2c74389e8b9"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\routes\\loans.js": {
-    "mtime": 1781034683.184146,
-    "hash": "2bf5be78dd7d3a784470f57601f98696"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\routes\\payments.js": {
-    "mtime": 1781013954.2282832,
-    "hash": "2306bd3f768b2247e8c3e396223f38a8"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\routes\\reports.js": {
-    "mtime": 1779978456.7796023,
-    "hash": "eba10144bd05bfd1af9888b5581bb624"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\routes\\sync.js": {
-    "mtime": 1781034643.7372904,
-    "hash": "5375edd6a3ad06f40eda04794e0bb823"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\tests\\api.integration.test.js": {
-    "mtime": 1790793460.6254525,
-    "hash": "0373c857ee789bd4076a10a9db7848fa"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\utils\\amortization.js": {
-    "mtime": 1779907178.765274,
-    "hash": "700dc099dae23bac8d09c1e574cc79e2"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\utils\\ensureDatabaseCompatibility.js": {
-    "mtime": 1781553786.5870404,
-    "hash": "8c045036100426bdc1eeb72e745f22da"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\utils\\fees.js": {
-    "mtime": 1790793458.95778,
-    "hash": "f8cbb62be0c82ae93d60f26351436f07"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\utils\\logger.js": {
-    "mtime": 1790805907.3302965,
-    "hash": "ff0b335a64fea20b0bb8f5ddb0167f56"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\utils\\paymentTransactions.js": {
-    "mtime": 1781013915.3727038,
-    "hash": "b5fb0786ada892cb80b2a96fec31b563"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\utils\\syncDeletedRecords.js": {
-    "mtime": 1781034658.0204792,
-    "hash": "a6519663731d1b6dc8f63153ac70b65f"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\App.jsx": {
-    "mtime": 1780324137.313738,
-    "hash": "e89bb5ac100622aac75a0d6a5246bbbd"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\main.jsx": {
-    "mtime": 1779907178.7722828,
-    "hash": "ea2291da71b9bbbdbe37a57df5000f1c"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\components\\ConfirmModal.jsx": {
-    "mtime": 1768750097.03146,
-    "hash": "92aedd609751d7021c571506290a593a"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\components\\ErrorBoundary.jsx": {
-    "mtime": 1779978456.7821028,
-    "hash": "f844e825f70d0cd05d2f7de59dd53234"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\components\\PagareModal.jsx": {
-    "mtime": 1780324360.3870463,
-    "hash": "f55e4803a573e2692fa8b914146d4698"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\components\\PaymentModal.jsx": {
-    "mtime": 1779979224.2301595,
-    "hash": "315638d3176defd20d69565bc5e46656"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\components\\PaymentScheduleTable.jsx": {
-    "mtime": 1780324350.914493,
-    "hash": "b200e1ad83fe99319b0b9264ccb54c28"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\components\\Sidebar.jsx": {
-    "mtime": 1779978925.5369213,
-    "hash": "339d553ba8eb755141482bcc58da2b93"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\components\\dashboard\\DashboardKPI.jsx": {
-    "mtime": 1779978915.3584597,
-    "hash": "b57799f803fa8d03a12543added86470"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\components\\dashboard\\PortfolioChart.jsx": {
-    "mtime": 1779903435.4169145,
-    "hash": "5d635bc12c80a42f3829f2b01c032ef3"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\components\\dashboard\\RecentActivity.jsx": {
-    "mtime": 1779831622.1559868,
-    "hash": "ca5fe0eaf51886ec5bf2c3c0a7ac2b50"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\components\\dashboard\\RevenueChart.jsx": {
-    "mtime": 1779903435.4164207,
-    "hash": "db87b90dd24ab70c95c68de9a73f0a10"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\components\\ui\\Skeleton.jsx": {
-    "mtime": 1779831603.3106873,
-    "hash": "45813393df564530891fc37d9f7f8935"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\config\\api.js": {
-    "mtime": 1779748988.4104033,
-    "hash": "c7954c9b03ccb46040e92c7443184f1d"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\context\\auth-context.js": {
-    "mtime": 1779831591.446655,
-    "hash": "bdbf2101bcae1eb558f0da1d8aaf3d3d"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\context\\AuthContext.jsx": {
-    "mtime": 1779907178.7692733,
-    "hash": "606f7f0a4ed5bb922acf2bb78afa7a3f"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\context\\loan-context.js": {
-    "mtime": 1779831591.7041562,
-    "hash": "2044e6baef9e52111ae1749d8ac02a88"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\context\\LoanContext.jsx": {
-    "mtime": 1781555607.9171252,
-    "hash": "eeb98458f8b703b2d311b620a36412d8"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\context\\theme-context.js": {
-    "mtime": 1779831591.9580674,
-    "hash": "abc5a18e897d42fae18c1c857e7fff9b"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\context\\ThemeContext.jsx": {
-    "mtime": 1779907178.7707784,
-    "hash": "4831d98c4fd4d795879387041cb8d1a4"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\context\\useAuth.js": {
-    "mtime": 1779831591.5786567,
-    "hash": "120da216422e96bc237c2292d65e2e38"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\context\\useLoans.js": {
-    "mtime": 1779831591.8301637,
-    "hash": "e838c45a8727ad7352be03edd5d4afdd"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\context\\useTheme.js": {
-    "mtime": 1779831592.0900688,
-    "hash": "2a3dffb26ab85c2111afe24c022fc8e1"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\context\\__tests__\\LoanContext.test.jsx": {
-    "mtime": 1779831682.3889024,
-    "hash": "d598717be1c71aff2ea6f9072ace080e"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\hooks\\useElementSize.js": {
-    "mtime": 1779902954.4258814,
-    "hash": "209afc9681b99bcd277c39870b43babf"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\hooks\\useLoanHealth.js": {
-    "mtime": 1780324411.1409347,
-    "hash": "3cee78db885fb88879126534ac565664"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\Calculator.jsx": {
-    "mtime": 1779979625.0291533,
-    "hash": "6121899c28b8bdddec37a3f0405edcfe"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\ClientDetail.jsx": {
-    "mtime": 1780499785.4570599,
-    "hash": "0534b6f6605f2624e883f250d1855aeb"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\Clients.jsx": {
-    "mtime": 1779978981.0220537,
-    "hash": "e0f0491e4fcbe2b7889c7522c2e4a938"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\Collections.jsx": {
-    "mtime": 1780324423.3937366,
-    "hash": "7ab12e5d8edfc880c5b3e840715ef82a"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\Dashboard.jsx": {
-    "mtime": 1779978915.3604603,
-    "hash": "795b574303224915c36a965a7415e940"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\ImportData.jsx": {
-    "mtime": 1781555631.0861204,
-    "hash": "afe94933bc4d159e2b409b838f171f6d"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\LoanDetail.jsx": {
-    "mtime": 1780417320.6118047,
-    "hash": "5bf37981394142330b3bb097d2696647"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\LoanDetail.test.jsx": {
-    "mtime": 1779977722.9604702,
-    "hash": "c1b5e29639a01d80fa6a80eaef8419a8"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\Loans.jsx": {
-    "mtime": 1780324335.5107627,
-    "hash": "5d229ed30bca32598076497168ef0f8d"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\Login.jsx": {
-    "mtime": 1779907178.7802727,
-    "hash": "e2ae01035c471b07d042e8b2e5e7b98e"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\NewLoan.jsx": {
-    "mtime": 1779974870.3716986,
-    "hash": "4d5edabbfa351922e37acda8c2ea0f05"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\amortization.js": {
-    "mtime": 1779907178.7822788,
-    "hash": "e5f0e14a2ecfbe3996f68294d1b2c6eb"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\amortization.test.js": {
-    "mtime": 1779907178.782773,
-    "hash": "7324e2fdffe0111b88f9753d2570565e"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\calendar.js": {
-    "mtime": 1780324405.6159997,
-    "hash": "63e02f9304b5d9d631b2c0faab4aa105"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\cn.js": {
-    "mtime": 1779831592.219566,
-    "hash": "7dde284c4d01f64341ef51e7b8e56dea"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\communication.js": {
-    "mtime": 1780502057.5044816,
-    "hash": "53fda38531d081bb7fb1d56ad388cbb4"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\dates.js": {
-    "mtime": 1780324327.0796738,
-    "hash": "c3c2ce98bf1b722aab2f0d8c220a2428"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\formatters.js": {
-    "mtime": 1779978915.3549583,
-    "hash": "4d717f48076d599bbca135829cc155b6"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\mockData.js": {
-    "mtime": 1765818707.9849682,
-    "hash": "2f836a445f097ec21991cc82808e1378"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\pagareGenerator.js": {
-    "mtime": 1780324389.0484135,
-    "hash": "7534dc0b41e30dd429f075e29f8bd86b"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\pdfGenerator.js": {
-    "mtime": 1780324368.1763864,
-    "hash": "26fb7326164fae441782bf1d1d33c649"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\rut.js": {
-    "mtime": 1779829063.1879706,
-    "hash": "b1987338fd6d00838c923ccbda80b316"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\wordGenerator.js": {
-    "mtime": 1780324376.4131768,
-    "hash": "13162d1ff9adb60f19ecead8b8f2298d"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\debug-log.txt": {
-    "mtime": 1779907193.47325,
-    "hash": "bfbe71ed9e6052d6a95b8f1283f57acd"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\index.html": {
-    "mtime": 1779907178.7457798,
-    "hash": "59a3287c1a40ed1e237fc906d742d920"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\launch-log.txt": {
-    "mtime": 1790609450.768994,
-    "hash": "eacc1acb0a7e0fa879e5e8937bfc5553"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\README.md": {
-    "mtime": 1790808239.5044646,
-    "hash": "89e22eff71ae7eedbcfb1c4338a8a06e"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\BETA-TESTER.md": {
-    "mtime": 1790805605.3781025,
-    "hash": "c9a4ee8378d41426a64d028a9aeb9f91"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\GITHUB-RELEASE-CHECKLIST.md": {
-    "mtime": 1790805609.9367006,
-    "hash": "0a44a0d6ab307ea059dab6f48ece9a0d"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\GITHUB-RELEASE-NOTES.md": {
-    "mtime": 1790805284.2664013,
-    "hash": "a8fbb66a73b643ccf2c42425830195b3"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\GRAPHIFY.md": {
-    "mtime": 1790808243.779654,
-    "hash": "cd23642628ddbc6ecdb61c91b8c167b8"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\PLAN-android-app.md": {
-    "mtime": 1790808248.2251534,
-    "hash": "ba74d207649705e62c723a50ffb051c8"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\PLAN-github-deployment.md": {
-    "mtime": 1790805956.0600386,
-    "hash": "f8ce95a206bb5713205cadd6404b3681"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\PLAN-mobile-sync-contract.md": {
-    "mtime": 1780496254.3433275,
-    "hash": "748a3d35756a184f471d52f1b4545cd9"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\PLAN-partial-payments.md": {
-    "mtime": 1768929357.3426273,
-    "hash": "b3caebfd14637cf718e5b32021efc688"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\PLAN-validation-sync.md": {
-    "mtime": 1777660278.5987139,
-    "hash": "e163d2f11bba64059536698774e6bbf5"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\AGENTS.md": {
-    "mtime": 1788379112.1659212,
-    "hash": "dcea3a38648e51212a3c26279f27661f"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\README.md": {
-    "mtime": 1788378566.6219683,
-    "hash": "c0df4abd6fc6adb76ea6969c312e12ce"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\docs\\CODEX_HANDOFF_2026-08-29.md": {
-    "mtime": 1788379115.2769897,
-    "hash": "2865f5c81e2e90174358b980d293e444"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\docs\\GRAPIFY_BETA_SPEC.md": {
-    "mtime": 1788379119.1150184,
-    "hash": "7d1af0a04bdbaa075c76bb9765f35b60"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\docs\\LOCAL_PC_SERVER.md": {
-    "mtime": 1788388454.1739764,
-    "hash": "34a2b7ddf2ff1a4b57b15d447566493f"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\docs\\PROJECT_CONTINUITY.md": {
-    "mtime": 1788354077.4930794,
-    "hash": "3bcdac9b52fc1461415424914e5bfd7d"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\docs\\STATUS_2026-08-28.md": {
-    "mtime": 1788354077.493585,
-    "hash": "5715a609f57180c5a41d0698fdb701a2"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\docs\\STATUS_2026-08-31.md": {
-    "mtime": 1788354077.4940803,
-    "hash": "de281bbd28d678111826f0e55537dbd9"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\docs\\WEB_LONG_VIDEO_RUNTIME_FIX_2026-08-29.md": {
-    "mtime": 1788354077.494579,
-    "hash": "cf55f97ea9ec7004d1071cb4bbf4ea34"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\infra\\aws\\DEPLOY_NOTES.md": {
-    "mtime": 1788354077.495579,
-    "hash": "91eeca2dac364ae71ced4d03c58f2d9b"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\infra\\aws\\web-aws-deploy.template.yml": {
-    "mtime": 1788354077.5005798,
-    "hash": "3bde626a63868d2a3c286ee09af62654"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\AGENTS.md": {
-    "mtime": 1780584360.968588,
-    "hash": "0168b78417bf60f34fd1233c69591023"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\CLAUDE.md": {
-    "mtime": 1780584360.969088,
-    "hash": "5c27369b226fcf2be8a6cfe52224e767"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\README.md": {
-    "mtime": 1790808025.5650249,
-    "hash": "2d2f6fb8503f6dfb60afc1033aa84c13"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\ANDROID_SETUP.md": {
-    "mtime": 1790808009.8825402,
-    "hash": "ff9a43426b285905323d16994efcd45f"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\APK-BETA.md": {
-    "mtime": 1790808216.3792908,
-    "hash": "d53df4b84bc7791708a2017100013077"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\GRAPHIFY.md": {
-    "mtime": 1781202062.416978,
-    "hash": "9e61e3357e482a292f104e4b07faf0c2"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\INSTALACION-APK-BETA.md": {
-    "mtime": 1790808197.112577,
-    "hash": "6cd4215e6411443e91d8222049df533e"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\MAP.md": {
-    "mtime": 1790808233.0071757,
-    "hash": "d8b3d3f98b431c1cb05d0e836ff573be"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\SYNC_SMOKE.md": {
-    "mtime": 1781035178.6971138,
-    "hash": "4b620fec8b85978c6e20a1817dab30ee"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\UPDATE_LOG.md": {
-    "mtime": 1790807990.2065313,
-    "hash": "c72c2ab3b6e5c588c82fe4a27cabf147"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\github\\ANDROID_QA.md": {
-    "mtime": 1790808060.5419033,
-    "hash": "a87bd1fcf96ccb48df9f7fc4e77afe11"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\github\\CHECKLIST.md": {
-    "mtime": 1790808082.2274017,
-    "hash": "95909203cd95fdf6893d5c4bdd0482ee"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\github\\RELEASE_NOTES.md": {
-    "mtime": 1790808230.0531256,
-    "hash": "e5bded292aa8d796147d6b2d5ca3539c"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\release\\LEEME-INSTALACION-ANDROID.txt": {
-    "mtime": 1790808211.3477864,
-    "hash": "5a32b7af9ed8d0ca1071df0d341dfc0b"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\graphify-out\\converted\\pagare_template_e62ac02c.md": {
-    "mtime": 1790808273.3354177,
-    "hash": "3c57105453a9ba7f63d7459152a688e6"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\graphify-out\\converted\\pagare_template_sc_78d1f97f.md": {
-    "mtime": 1790808273.3599179,
-    "hash": "9fedb158390f9703fc389a9e887bdcc3"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\builder-debug.yml": {
-    "mtime": 1790804542.8263638,
-    "hash": "c9a5834e21aa8d519d4816259deb669d"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\builder-effective-config.yaml": {
-    "mtime": 1770673186.1957,
-    "hash": "bed16809b565bb3d711d95cd1ee438b8"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\latest.yml": {
-    "mtime": 1790804544.5193615,
-    "hash": "fb7c1de79f79a7d01335afba68274cbe"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\beta-package\\LEEME-INSTALACION.txt": {
-    "mtime": 1790805556.7003229,
-    "hash": "559e459322bd8e8e6edbae9a64de24e8"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\LICENSE.electron.txt": {
-    "mtime": 1790804026.84966,
-    "hash": "4d42118d35941e0f664dddbd83f633c5"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\LICENSES.chromium.html": {
-    "mtime": 1790804026.6030784,
-    "hash": "6ff57c0aeccdf44c39c95dee9ecea805"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\app-update.yml": {
-    "mtime": 1790804329.3199575,
-    "hash": "0d5cd47bc3fb7b87705332d1840fd3ab"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\install-qr-direct-apk.png": {
-    "mtime": 1780609413.9531567,
-    "hash": "c6222d55eb0ed98d9f7d824b66a52abf"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\install-qr-lan-apk.png": {
-    "mtime": 1780935807.9376197,
-    "hash": "b0baebfc1451fe299341eb2603c06d9d"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\install-qr-public.png": {
-    "mtime": 1780608792.349773,
-    "hash": "ad73b5163565914fd1339004b2852b9a"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\install-qr.png": {
-    "mtime": 1780596472.575077,
-    "hash": "c96e9968fae25c7aca0e1dfeba4b7238"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\mobiloan-after-fix.png": {
-    "mtime": 1780935504.643931,
-    "hash": "309e13b83a5d83974751657dc33cc540"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\mobiloan-launch.png": {
-    "mtime": 1780934541.6564474,
-    "hash": "c5119b2961bdc8aebcaee95d6c384ba6"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\mobiloan-post-login-2.png": {
-    "mtime": 1780935624.0531526,
-    "hash": "d9fa71226345839f45b17c720ec67a5c"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\mobiloan-post-login-3.png": {
-    "mtime": 1780935686.0380151,
-    "hash": "d2102050510f6481bf8f26850da16432"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\mobiloan-post-login.png": {
-    "mtime": 1780935561.5185578,
-    "hash": "fc0b4203876f84649cd659f2ab8acae8"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\mobiloan-postfix.png": {
-    "mtime": 1780934821.5425086,
-    "hash": "7790ab55979f678b4be20afcc506094b"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\mobiloan-release.png": {
-    "mtime": 1780935218.736884,
-    "hash": "fc622bb2c202f3a214918acadb932548"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\drawable-hdpi\\splashscreen_logo.png": {
-    "mtime": 1780585946.1102962,
-    "hash": "ade4f271d920c553479f8359126fe71c"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\drawable-mdpi\\splashscreen_logo.png": {
-    "mtime": 1780585946.1127973,
-    "hash": "456a586f33d48e02adee03680b872073"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\drawable-xhdpi\\splashscreen_logo.png": {
-    "mtime": 1780585946.1157963,
-    "hash": "b151f30998a8eb180038294d96108ad3"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\drawable-xxhdpi\\splashscreen_logo.png": {
-    "mtime": 1780585946.1207955,
-    "hash": "456fa27f2c9de9a9bf0d8951a9609ea4"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\drawable-xxxhdpi\\splashscreen_logo.png": {
-    "mtime": 1780585946.1243005,
-    "hash": "8724a45c38b0f973ac9713ff270a40cb"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.webp": {
-    "mtime": 1780932143.50331,
-    "hash": "2dda665a3dffd96d5c22a63d1fbd2f50"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_background.webp": {
-    "mtime": 1780932143.55431,
-    "hash": "8b804c2e3ffcb414d81159cdbe8e1338"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_foreground.webp": {
-    "mtime": 1780932143.557312,
-    "hash": "23d6c4c853d373ebc8a6b78e01a565f5"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_monochrome.webp": {
-    "mtime": 1780932143.5243104,
-    "hash": "ddc9ce93ec17a515f270e1334f4d096d"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_round.webp": {
-    "mtime": 1780932143.5173097,
-    "hash": "79cacede8a6deac09c5eb46abbd48446"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.webp": {
-    "mtime": 1780932143.50331,
-    "hash": "96dac275c08e40cdeec672e986d56d97"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_background.webp": {
-    "mtime": 1780932143.552808,
-    "hash": "5fc5ff595a9708fb1186f29d4cba0165"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_foreground.webp": {
-    "mtime": 1780932143.5568132,
-    "hash": "21c6ff184e62fe81d5d99486c994b4a1"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_monochrome.webp": {
-    "mtime": 1780932143.52481,
-    "hash": "3d7d2cdcf1efff070cd99b3a24b2af0a"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_round.webp": {
-    "mtime": 1780932143.5173097,
-    "hash": "8afd2a3c8f80ca2554a791cdaea89421"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.webp": {
-    "mtime": 1780932143.5048103,
-    "hash": "c63f369b209bb766684cd006c050f408"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_background.webp": {
-    "mtime": 1780932143.55431,
-    "hash": "1e8461bcda400d6f2e6ba0a789e9df32"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_foreground.webp": {
-    "mtime": 1780932143.557312,
-    "hash": "94e64d4a7a895c46bee57dd117eaaa4e"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_monochrome.webp": {
-    "mtime": 1780932143.52481,
-    "hash": "25ce7486d6cf2a88b12191bdc327889c"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_round.webp": {
-    "mtime": 1780932143.5173097,
-    "hash": "4016f7a08a47e6e56995cabd0fe654d8"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.webp": {
-    "mtime": 1780932143.5048103,
-    "hash": "49dec5c0e262a71a1ca684eb3d8c2640"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_background.webp": {
-    "mtime": 1780932143.5538113,
-    "hash": "3a76914a81170ce0bafc194cf299e0b8"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_foreground.webp": {
-    "mtime": 1780932143.557312,
-    "hash": "54904135a542a76951f4c4aa7618d942"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_monochrome.webp": {
-    "mtime": 1780932143.52481,
-    "hash": "c74b95ed269648784a5341dc7fc8c5d2"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_round.webp": {
-    "mtime": 1780932143.5173097,
-    "hash": "c8162b30ad76f0f8a2742dfdc184c518"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.webp": {
-    "mtime": 1780932143.5048103,
-    "hash": "c089a1bee6d9ee0b7f6b0944ac7f14e1"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_background.webp": {
-    "mtime": 1780932143.55431,
-    "hash": "11c5ebf85672a8b1a823b29ffcc023a6"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_foreground.webp": {
-    "mtime": 1780932143.557312,
-    "hash": "56f4339ea33cd98feee64cf1b83ecd24"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_monochrome.webp": {
-    "mtime": 1780932143.52481,
-    "hash": "d294024561d781537913c8be15eed1e1"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_round.webp": {
-    "mtime": 1780932143.5173097,
-    "hash": "a9062eb0baf2f2de2ef49812796ea29b"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\assets\\android-icon-background.png": {
-    "mtime": 1780584249.7454877,
-    "hash": "2d65569cc0e2afdcea0af9f9902d4173"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\assets\\android-icon-foreground.png": {
-    "mtime": 1780584249.7479868,
-    "hash": "72e71a9c846c6aa4ae32476641a00e18"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\assets\\android-icon-monochrome.png": {
-    "mtime": 1780584249.749496,
-    "hash": "1e097dab989759fc0b69440092ca22cd"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\assets\\favicon.png": {
-    "mtime": 1780584249.7504919,
-    "hash": "d9f444efbdfbe7931aa93beada07318a"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\assets\\icon.png": {
-    "mtime": 1780584249.7560058,
-    "hash": "cb975bba2216ce10a60e6c0ffe9941a2"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\assets\\splash-icon.png": {
-    "mtime": 1780584249.7574935,
-    "hash": "97dae5a0e62ad8551d8a31897b425e63"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\public\\vite.svg": {
-    "mtime": 1765467959.1390288,
-    "hash": "8e3a10e157f75ada21ab742c022d5430"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\assets\\loan-manager-mark.svg": {
-    "mtime": 1779978374.8599513,
-    "hash": "7f9fa936e162bf8bd2c4b728c65fcf51"
-  },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\assets\\react.svg": {
-    "mtime": 1765467959.1159563,
-    "hash": "f0402b67b6ce880f65666bb49e841696"
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\add_calendar_sidebar.py": {
+    "mtime": 1791479513.5571334,
+    "hash": "b4d973100c171b2f56a3550f05c7ce62"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\add_country_members.py": {
+    "mtime": 1791548154.676095,
+    "hash": "d55badb128f472fddd24abd2b2d7f647"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\add_import_link.py": {
+    "mtime": 1791548116.803648,
+    "hash": "2dec364a85ac334472b307af4a1e8dba"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\apply_vercel_audit.py": {
+    "mtime": 1791480451.7338,
+    "hash": "d5832279f38054d1b6d4ca0beaa864f9"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\audit_comprehensive_suite.py": {
+    "mtime": 1792073002.1405883,
+    "hash": "0f82421c5dda134604697c84302115ad"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\audit_runner.php": {
+    "mtime": 1792153186.068677,
+    "hash": "eb16941fa79b52118d6e6bc8f3052fad"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\check_db.php": {
+    "mtime": 1791560578.6548972,
+    "hash": "902f6e2037dc7e2bccb944b34eb6495f"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\check_superadmin.py": {
+    "mtime": 1791747424.2722237,
+    "hash": "89ae531e5f47f4234f8951076a371d12"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\embed_calendar.py": {
+    "mtime": 1791479853.6381388,
+    "hash": "150a033d2af55979211a9fc9b0d0371e"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\field_test_suite.py": {
+    "mtime": 1792071372.2171466,
+    "hash": "414f96fc73369e618421972d6ce3d155"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\fix_audit_feedback.py": {
+    "mtime": 1791483638.545591,
+    "hash": "fcc38235a3a08fb33e2b105913fc3971"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\fix_auth.py": {
+    "mtime": 1791476664.9172678,
+    "hash": "7098f3f052d6ff6f639c8048395474ee"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\fix_blur.py": {
+    "mtime": 1791485623.5413377,
+    "hash": "3cb3404efbe9dc3d24f1e9cf2c5f3014"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\fix_checkin_logic.py": {
+    "mtime": 1791485096.0147188,
+    "hash": "c7c3a9c8ed6697f5f374b678c74d8fcf"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\fix_dash_layout.py": {
+    "mtime": 1791483437.0791142,
+    "hash": "8af5d71b871d5c3e4e1f2e44691743ae"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\fix_display_title.py": {
+    "mtime": 1791479316.841031,
+    "hash": "822ba73bfb9499bf94e5ba1f1778e692"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\fix_layout_top.py": {
+    "mtime": 1791478606.324995,
+    "hash": "ae45d7ba23e9e320024e1a03d443d646"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\fix_layout_width.py": {
+    "mtime": 1791483711.8447015,
+    "hash": "35578dc097ec5f61c33419dda27172eb"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\fix_login_demo.py": {
+    "mtime": 1791482869.9014614,
+    "hash": "325f1aaa493d49af69281c45350b1d74"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\fix_login_logo_finally.py": {
+    "mtime": 1791485461.0852902,
+    "hash": "84ba03048a94614d574a14600d2eee7f"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\fix_logos.py": {
+    "mtime": 1791469008.7451005,
+    "hash": "2eb0d3290b57252fbac1aa852fd27a25"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\fix_logo_color.py": {
+    "mtime": 1791484104.4538484,
+    "hash": "94c7fe2ec4903bab360656d7fdc62f6d"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\fix_members_vars.py": {
+    "mtime": 1791482504.30787,
+    "hash": "d24455fcedefe76118f83e5421488483"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\fix_member_sidebar.py": {
+    "mtime": 1791548921.91775,
+    "hash": "21da28e9c146477d5b28dd0f90ce52ec"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\fix_menu.py": {
+    "mtime": 1791557446.6645174,
+    "hash": "7f28d20ee66cd3e7f9d164d709ab1753"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\fix_menu_proper.py": {
+    "mtime": 1791558988.44249,
+    "hash": "6c5ef83fcb9ffb4f3a50dff6cbe90cb1"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\fix_mobile_blur.py": {
+    "mtime": 1791568286.2052505,
+    "hash": "e817890f30e5ad3d8a73c07d58bfff30"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\fix_payments_render.py": {
+    "mtime": 1791560679.670184,
+    "hash": "e5125a394c447f44e1682710d5cf0fcc"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\fix_payments_sql.py": {
+    "mtime": 1791560652.1295624,
+    "hash": "dcc6c0f4a629e0a4006354824c6f0827"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\fix_php_warning.py": {
+    "mtime": 1791548904.7142408,
+    "hash": "fab6e2058e0d116d8fd8ec045e209499"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\fix_plans_sql.py": {
+    "mtime": 1791484622.1848612,
+    "hash": "0990fc5e19dc06585aaa8041a880d590"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\fix_public.py": {
+    "mtime": 1791477243.2557511,
+    "hash": "1ba2cf526996203cb5ea86eb92695e14"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\fix_public_theme.py": {
+    "mtime": 1791477206.7996666,
+    "hash": "7b9446c6528f422a3f97bc7ec762d7ed"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\fix_quotes.py": {
+    "mtime": 1791476899.534148,
+    "hash": "c9fde1a024dfb1bb43e3f775a4133e2b"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\fix_sidebar_contrast.py": {
+    "mtime": 1791568507.201207,
+    "hash": "e5d5d393bd101f0b912ef2419a2abb0c"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\full_app_audit.py": {
+    "mtime": 1791914562.4386861,
+    "hash": "28e9a18b3fef821fecc97ff8aae9d12a"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\inject_pwa.py": {
+    "mtime": 1791567928.2065566,
+    "hash": "3e33fa2544a5d6073eb0ea38859e4900"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\mobile_menu.py": {
+    "mtime": 1791484995.6279588,
+    "hash": "eefd0dc4690f1dba4b00e648ad7542be"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\patch_member.py": {
+    "mtime": 1790886424.060569,
+    "hash": "9129d6a32478cc32673b91a14d862e00"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\qa_test_pos.php": {
+    "mtime": 1791560320.7773647,
+    "hash": "294230f20684e4950088f9a4ee121358"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\qa_test_renewal.php": {
+    "mtime": 1791560593.2691362,
+    "hash": "f5b2dc0b6671e4a4dbcc9e6bacba6dc6"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\refactor.py": {
+    "mtime": 1791468691.329433,
+    "hash": "a94e77f45f7b0ab0f13834ac74261a42"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\refactor_checkin.py": {
+    "mtime": 1791485048.5518367,
+    "hash": "5355cb89fe43381ffaaa710617f21087"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\refactor_classes.py": {
+    "mtime": 1791483913.5562856,
+    "hash": "ddaded90d757e0e71cf315c4a8fae064"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\refactor_dashboard.py": {
+    "mtime": 1791482626.971902,
+    "hash": "10d751939a7aae3960d01658a69e4ee3"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\refactor_leads.py": {
+    "mtime": 1791482352.5337448,
+    "hash": "c47f29881dbfece3847f8440db9661b7"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\refactor_login.py": {
+    "mtime": 1791482661.4146206,
+    "hash": "c83936cd2ce9217987a720e50626f0a1"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\refactor_members.py": {
+    "mtime": 1791482316.8439124,
+    "hash": "de535f4dc2f608e2a7b5da378411099a"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\refactor_payments.py": {
+    "mtime": 1791482576.71061,
+    "hash": "a0c2e41d725810682e12833670a352ca"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\refactor_phase5.py": {
+    "mtime": 1791484717.6267354,
+    "hash": "71d3cbe33ea7f5fa609231ec24657a61"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\refactor_pos.py": {
+    "mtime": 1791482187.6401947,
+    "hash": "9e8f93afac867427ab1ce76aca84d2cd"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\refactor_pos_ui.py": {
+    "mtime": 1791482237.1892397,
+    "hash": "3050c354f80f03634e05c174980a2a72"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\refactor_sidebar_roles.py": {
+    "mtime": 1791548674.7289143,
+    "hash": "25e7d70d1c576d54d0c958d374acdbd6"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\refactor_waiver.py": {
+    "mtime": 1791548722.600232,
+    "hash": "3326f3f766480d7585d25dda1a2f23c0"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\restore_dojo_light.py": {
+    "mtime": 1791484638.722436,
+    "hash": "260eddee4085b4d78ffbb35cef73fec1"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\restore_image_logo.py": {
+    "mtime": 1791484315.914243,
+    "hash": "58aa0a9a5615f7a9c642ec88897448c6"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\restore_light.py": {
+    "mtime": 1791481961.741853,
+    "hash": "c8a175aafc84347c387fca7b3ae524f0"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\restore_vercel_light.py": {
+    "mtime": 1791484132.2084672,
+    "hash": "1118759437525058d974c34b11770250"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\revert_sidebar_contrast.py": {
+    "mtime": 1791576871.949129,
+    "hash": "9ed26aaaa8f6f7f4d24fb065d0282e82"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\run_qa_audit.py": {
+    "mtime": 1791753977.0777657,
+    "hash": "801c6468863e9b85a9b574f66c9a9cad"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\setup_db.py": {
+    "mtime": 1790864264.604532,
+    "hash": "96040d32acbfc44a0ebc9edb9bfc5895"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\shrink_chart.py": {
+    "mtime": 1791484799.8712375,
+    "hash": "f4dfccdacee84073d4754e552e719e03"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\stitch_generate.py": {
+    "mtime": 1792175823.0615082,
+    "hash": "950daf6aa5e3e7c0e19ed60aa6009b34"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\test_e2e_qa.py": {
+    "mtime": 1791895551.4326544,
+    "hash": "c50a89d72c4796b24da5764b163f58da"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\test_graceful_degradation.py": {
+    "mtime": 1791746451.8522398,
+    "hash": "b43b280cd759ce215843b52e0a2f3290"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\update_theme.py": {
+    "mtime": 1791476197.618268,
+    "hash": "46e3bd033bb92980234a1ac252a99795"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\config\\database.php": {
+    "mtime": 1793668204.7715604,
+    "hash": "3212b8a5348529f5b8363445052850b0"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\config\\env.example.php": {
+    "mtime": 1792696009.5429893,
+    "hash": "6f041956e5e7fce4784dc20b433313d2"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\cron\\send_reminders.php": {
+    "mtime": 1792693612.973899,
+    "hash": "5df74c1e991b9cfb8b148d70bc61c0fe"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\database\\cleanup_test_artifacts.php": {
+    "mtime": 1793657931.7553337,
+    "hash": "2f78456f137ca762573374974b1d353e"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\lang\\en.php": {
+    "mtime": 1791746698.3785715,
+    "hash": "74c74733ea6ae86bd5a98f3efffce368"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\lang\\es.php": {
+    "mtime": 1791746685.829645,
+    "hash": "2890a7aa00287adf1068fc8f862d7e8e"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\lang\\pt.php": {
+    "mtime": 1791746709.1008077,
+    "hash": "5b320e4df45263203888a327f1b343c6"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\dashboard.php": {
+    "mtime": 1793668204.7718425,
+    "hash": "d08fd6516cc2c4c01434847ab4423bcd"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\index.php": {
+    "mtime": 1793197306.157463,
+    "hash": "0337db160dfa31b21c129df4ee0dbb83"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\login.php": {
+    "mtime": 1793192392.7679973,
+    "hash": "a6152ef2030b833202abd0b64ba97a2c"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\logout.php": {
+    "mtime": 1791412467.4000983,
+    "hash": "7ba8a1de3c6af6d4e3fc29646d441c1f"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\privacy.php": {
+    "mtime": 1792072746.491464,
+    "hash": "2f878abb81aca057bd1b8a5b599d3b14"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\register.php": {
+    "mtime": 1793197362.5025494,
+    "hash": "9777052333b6940e933a5572ac5a4b79"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\register_academy.php": {
+    "mtime": 1793196011.0681987,
+    "hash": "a1ff584e38869baddd09cd01e9927079"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\superadmin.php": {
+    "mtime": 1791899155.1569042,
+    "hash": "94b008b9b39039af2ed90b49af43bf55"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\sw.js": {
+    "mtime": 1792524504.119348,
+    "hash": "91f78319db2c08bd85ec87a3d3c9a123"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\terms.php": {
+    "mtime": 1792072725.023471,
+    "hash": "6c4ca7a28752e5eeb401de3dfdaf0bc6"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\trial.php": {
+    "mtime": 1791899023.8269343,
+    "hash": "34bd16739552499200362aa85587d5b7"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\admin\\backup.php": {
+    "mtime": 1793107878.575546,
+    "hash": "e62c782571a8233b500997f6701395a9"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\admin\\calendar.php": {
+    "mtime": 1792276326.4235334,
+    "hash": "af9c8983d8d9c2bec381290fd6122bd6"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\admin\\classes.php": {
+    "mtime": 1793658893.9218812,
+    "hash": "5aaf921516cbc4d1779433ef21ccd9c7"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\admin\\events.php": {
+    "mtime": 1793641388.4301333,
+    "hash": "a3c4b552055b71a0a0c9ad7e6c7edb34"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\admin\\export.php": {
+    "mtime": 1792101076.9047537,
+    "hash": "fc2666738413de4be9b3634653b4d4d0"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\admin\\import.php": {
+    "mtime": 1793657932.0980656,
+    "hash": "21526efe0e525aa6140adf4502b3f7d9"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\admin\\leads.php": {
+    "mtime": 1793658896.302485,
+    "hash": "c32b49bc879e83b884e02554f1f72642"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\admin\\marketing.php": {
+    "mtime": 1793658779.3371375,
+    "hash": "cbe4f9f2cd0323dafec64a466d21a92e"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\admin\\members.php": {
+    "mtime": 1793658898.6492372,
+    "hash": "8a364fcf9c8c676df049608685a29111"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\admin\\payments.php": {
+    "mtime": 1793658898.76282,
+    "hash": "58269d21ccd71f540d9cfd118b790de8"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\admin\\plans.php": {
+    "mtime": 1793667993.9145474,
+    "hash": "054427b3946588633839328d9f0e831f"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\admin\\pos.php": {
+    "mtime": 1793667994.932362,
+    "hash": "372f15027254902b0c2ca6fce35096a2"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\admin\\print_schedule.php": {
+    "mtime": 1792103358.260337,
+    "hash": "9f6ff6db58c56d2b6c32c175b1f99fb1"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\admin\\retention.php": {
+    "mtime": 1793668204.7723482,
+    "hash": "a07aae7bad9199cc4d89e6dafc3f9117"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\admin\\settings.php": {
+    "mtime": 1793657932.6013715,
+    "hash": "0d280532561419a036b41fdf47309e78"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\admin\\staff.php": {
+    "mtime": 1793649724.5711212,
+    "hash": "4bc0aabdaf68bc9aebc360cea5094813"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\admin\\subscription.php": {
+    "mtime": 1793657321.2377367,
+    "hash": "47a3df9b2364a135442b09cda1d14017"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\admin\\videos.php": {
+    "mtime": 1793641404.2504644,
+    "hash": "aaaa9afe211498d61e46876627729f62"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\api\\attendance_stats.php": {
+    "mtime": 1793642968.3216512,
+    "hash": "29537e5c859d0b4da1a50eee235eca39"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\api\\biometric_auth.php": {
+    "mtime": 1793192300.0231504,
+    "hash": "3cefbdbda4a83dd29dc2b5b1d8577e4f"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\api\\boleta.php": {
+    "mtime": 1791753629.5490515,
+    "hash": "0c696d5dec36b4fbcb0427cbb89f04e4"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\api\\calendar_events.php": {
+    "mtime": 1792276132.4519663,
+    "hash": "9aee553b4eb5fa0edc712f803310304b"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\api\\dte_view.php": {
+    "mtime": 1793196586.0066848,
+    "hash": "223db1033435ace04d012a6caa1a78ef"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\api\\facial_checkin.php": {
+    "mtime": 1793192278.4951646,
+    "hash": "77bd189fe31dd7864fe641ae55f8d3e1"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\api\\global_search.php": {
+    "mtime": 1793136179.9189591,
+    "hash": "a4ad24fede0d72ed3fa50da69673b30a"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\api\\qr_checkin.php": {
+    "mtime": 1791412467.407598,
+    "hash": "7bbb294d7078755058b0f9304544d74c"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\api\\search_members.php": {
+    "mtime": 1793109192.4838972,
+    "hash": "1879fe640339b3ac270965a310fde746"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\api\\staff_actions.php": {
+    "mtime": 1793637782.1373937,
+    "hash": "71b9744498afdcbcca2550e781ab4add"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\api\\staff_clock.php": {
+    "mtime": 1793637782.2075348,
+    "hash": "4d75757e4082bb0e05f03a7aedcc6af6"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\api\\subscription_checkout.php": {
+    "mtime": 1793657933.050789,
+    "hash": "38db2e79e615b26b3e8fc65132e82f47"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\api\\subscription_emergency_unlock.php": {
+    "mtime": 1791732482.8345244,
+    "hash": "75b11760f3a44692b7568099825efd97"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\api\\upload_member_photo.php": {
+    "mtime": 1792356086.7433465,
+    "hash": "fb4ca47809a9676a44ee883db4f9c0c3"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\api\\webhook_subscription.php": {
+    "mtime": 1793107771.274429,
+    "hash": "4945a62eae6cc4d1d621dcf8d25e6375"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\assets\\js\\theme.js": {
+    "mtime": 1791481520.2387655,
+    "hash": "a76ca9725363e5303c38790b0165c259"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\components\\layout_bottom.php": {
+    "mtime": 1791468661.8160422,
+    "hash": "76d545f6f5735cbc44bffdc9222f97a8"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\components\\layout_top.php": {
+    "mtime": 1792351238.2756462,
+    "hash": "8c6d3c6ca7eecc08df1943d290b1e4f9"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\includes\\empty-state.php": {
+    "mtime": 1791481991.6827815,
+    "hash": "8140022cc876fcd1d550495a5e299309"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\includes\\format.php": {
+    "mtime": 1792081326.5140364,
+    "hash": "107e1e11f73efb596087ce21527d626f"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\includes\\kpi-card.php": {
+    "mtime": 1792157189.7322252,
+    "hash": "d04653033e8d5ae72541af453cc77a45"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\includes\\layout-end.php": {
+    "mtime": 1793642708.9747818,
+    "hash": "a5d1bd62e69ac90125d4e80047cd8032"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\includes\\layout-start.php": {
+    "mtime": 1793660039.2896101,
+    "hash": "9934146a852e2eb46d8ed3ac9cb00eff"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\includes\\theme-head.php": {
+    "mtime": 1792083204.9943273,
+    "hash": "50aabbe5293c5bf9c482ab120c330956"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\member\\dashboard.php": {
+    "mtime": 1793192446.5263114,
+    "hash": "0e563ad87e52ba901cc4720d1122b035"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\member\\events.php": {
+    "mtime": 1792157530.6644185,
+    "hash": "4d01923b90be3dcca88037e69d94c7b9"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\member\\videos.php": {
+    "mtime": 1792154469.617864,
+    "hash": "a746ace39134d36dcb86e443424dd60f"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\member\\waiver.php": {
+    "mtime": 1791549186.454902,
+    "hash": "0baf189a6e1a943c421850c248c5fca2"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\reception\\checkin.php": {
+    "mtime": 1793657933.602875,
+    "hash": "7c7e38a2329ed67bf744e67971e7dbb7"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\scripts\\build_release.php": {
+    "mtime": 1792696536.9981384,
+    "hash": "de24ec965a358ca0c74f4190d08eb490"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\scripts\\check_setup.php": {
+    "mtime": 1792097801.733509,
+    "hash": "97622250466384ad0567f91b1ed2f582"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\scripts\\cleanup_test_artifacts.php": {
+    "mtime": 1793653766.4161632,
+    "hash": "ae88f817dd2e4479aca20f2f30fc1d7e"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\scripts\\migrate.php": {
+    "mtime": 1792097842.0630088,
+    "hash": "1d2a87c27c0e64e7f54a39df84dd95f1"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\scripts\\seed_demo_complete.php": {
+    "mtime": 1792079398.2190566,
+    "hash": "d77d483089948fd2304d1120544dafc4"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\scripts\\stress_test_reception_pos.php": {
+    "mtime": 1793642968.5425003,
+    "hash": "bdb4beb648b546d162ab79c9321faa90"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\scripts\\test_staff_module.php": {
+    "mtime": 1793637782.6308444,
+    "hash": "774067a0ac54422c64dd3d9b9dfe061f"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\scripts\\verify_deploy.php": {
+    "mtime": 1793651437.5916977,
+    "hash": "fdb3ebb06dc3983bce755d56a58c82a1"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\sql\\schema.sql": {
+    "mtime": 1793199348.3182874,
+    "hash": "8aef235cd77061afb9e4869f57251631"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\sql\\schema_mysql.sql": {
+    "mtime": 1793651437.5911968,
+    "hash": "75268514031b759aae947a837aa78a85"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\src\\AttendanceManager.php": {
+    "mtime": 1793649295.7022417,
+    "hash": "1cd560ae174cdbe2254bbfbe17e33132"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\src\\Auth.php": {
+    "mtime": 1793652407.943482,
+    "hash": "a24ce99ca4f13462fc2ca932a039986d"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\src\\BackupManager.php": {
+    "mtime": 1793657933.9348607,
+    "hash": "88dc3bea267dc6b45005b719d8e3d146"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\src\\ClassSchedule.php": {
+    "mtime": 1792349311.9170363,
+    "hash": "a09e5993e6c123e311b8c258ebafcfef"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\src\\DatabaseMigration.php": {
+    "mtime": 1793199375.0691082,
+    "hash": "a55b73c240c4f36e12c05f466e8533e1"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\src\\DisciplineManager.php": {
+    "mtime": 1791475792.917125,
+    "hash": "a1a2510112b3b7590f735e67ade9842f"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\src\\ExportService.php": {
+    "mtime": 1792103185.9452825,
+    "hash": "ae0355603534458dbbc5ae15799299a3"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\src\\I18n.php": {
+    "mtime": 1791746721.5722392,
+    "hash": "3dc1aa4e84030ec36bd48d01e150eef2"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\src\\MemberManager.php": {
+    "mtime": 1793658900.0309203,
+    "hash": "e273d3ecb6ddf2c0d61c01cfed023442"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\src\\NotificationManager.php": {
+    "mtime": 1792696032.4170372,
+    "hash": "157d87ce5ebaad0540593502266d84a5"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\src\\PaymentManager.php": {
+    "mtime": 1793107996.7144313,
+    "hash": "db4139056aa46636cfdd88d0b6442e64"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\src\\SiiBillingService.php": {
+    "mtime": 1793107957.104909,
+    "hash": "8c607ad2c5431531af010fe3375be84d"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\src\\StaffManager.php": {
+    "mtime": 1793650958.367883,
+    "hash": "6e87d4aa51847fa64e5ce62646adc867"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\src\\SubscriptionGuard.php": {
+    "mtime": 1792072615.0085013,
+    "hash": "e5b993f1a1b6dde428032cd84fbec4a4"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\src\\TenantHelper.php": {
+    "mtime": 1793195879.8172872,
+    "hash": "ca79c716f74aa45f6f57e58f7108b676"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\src\\VideoHelper.php": {
+    "mtime": 1792154322.0186286,
+    "hash": "e0fe03cfe262f7de93fef3564f1e2807"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\tests\\audit_hostinger_casing.php": {
+    "mtime": 1793201218.6972156,
+    "hash": "34823e7feeb0c716267b7a4041b79a9f"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\tests\\preflight_hostinger_check.php": {
+    "mtime": 1793653766.752066,
+    "hash": "a9ab76d8d9f9f654cc91c5207575eb7c"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\tests\\test_multi_tenant_isolation.php": {
+    "mtime": 1793196862.5017667,
+    "hash": "0f46991f84af0ea922e4a830058b0771"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\tests\\test_zero_patch_audit.php": {
+    "mtime": 1793201455.684158,
+    "hash": "07b83927e4c7ae9bd719f7e85208d263"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\DEPLOY.md": {
+    "mtime": 1792696256.900339,
+    "hash": "eb15abb260b56c18a5b942c53aa84c4f"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\QA-REPORTE-REGRESION.md": {
+    "mtime": 1793106451.0033467,
+    "hash": "cb64aef6ecb3027c582953b56f9e65a8"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\QA-SII-PROMPT.md": {
+    "mtime": 1793051068.9243715,
+    "hash": "9980bb1c8d730eb2f509873515319882"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\QA-SII-REPORTE.md": {
+    "mtime": 1793051078.7668211,
+    "hash": "e35fa296664a25b8c48df4980d564309"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\README.md": {
+    "mtime": 1792696231.7366447,
+    "hash": "ff7dd935f936dce461dc9d76ba6eaa97"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\stitch_landing_redise\u00f1ada.html": {
+    "mtime": 1792176812.913134,
+    "hash": "92a81d149b0483c944ff171bf9fcfe1c"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\php\\license.txt": {
+    "mtime": 1693593348.0,
+    "hash": "4d0c50b767f6ae143c305344b89cb49e"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\php\\news.txt": {
+    "mtime": 1693593348.0,
+    "hash": "50389b0b6e26a5c2286f18e090dc02da"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\php\\readme-redist-bins.txt": {
+    "mtime": 1693593348.0,
+    "hash": "97edef06b781b3c90e14a6f1163f786e"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\php\\README.md": {
+    "mtime": 1693593348.0,
+    "hash": "a03d3d98aeefdfcc25da3986c16df45b"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\php\\snapshot.txt": {
+    "mtime": 1693593348.0,
+    "hash": "d1f52ce661ad72e0a694df6e054b8e7c"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\stitch_preview.html": {
+    "mtime": 1792178270.112126,
+    "hash": "08806e823af2f8b38a469bb7f691c73e"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\admin\\plans_stitch_single_page.html": {
+    "mtime": 1792271393.8182807,
+    "hash": "9af790dd4f0df05bfd8258d830d46dc3"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\combat_gym_master.png": {
+    "mtime": 1791898804.2238295,
+    "hash": "3325446ab4f3e8ec9b6fba358f85720b"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\stitch_landing_compacta.png": {
+    "mtime": 1792177499.7931385,
+    "hash": "168a264d13dcae451b9df2a1d5d1397d"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\stitch_landing_light_mode.png": {
+    "mtime": 1792178220.12124,
+    "hash": "3b54a6d0760a56d03c4c5f2158befdb6"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\stitch_landing_redise\u00f1ada.png": {
+    "mtime": 1792176815.7889843,
+    "hash": "034dc0946b51176b6fed1f0131dfc846"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\assets\\img\\app_icon_master.png": {
+    "mtime": 1791896386.0661914,
+    "hash": "8876968fe6e3213d713560a40d804e53"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\assets\\img\\icon-192x192.png": {
+    "mtime": 1791898878.7356656,
+    "hash": "bfb273625babd6eededd8315f135754b"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\assets\\img\\icon-512x512.png": {
+    "mtime": 1791898878.7736664,
+    "hash": "c5a2e033d1e5e124788627bec9c272d4"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\assets\\img\\logo-light.svg": {
+    "mtime": 1791897770.0054803,
+    "hash": "b85101478fc8ebb9ae6e7f2f6f9a7901"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\assets\\img\\logo.jpg": {
+    "mtime": 1790870832.348541,
+    "hash": "0b892ecd089e71d16ef93b49c185b218"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\public\\assets\\img\\logo.svg": {
+    "mtime": 1791897784.883562,
+    "hash": "5c0e4b18723bfd985c14ef74db4b8f28"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\qa-screenshots\\dte39-afecta-pos.png": {
+    "mtime": 1793051016.875445,
+    "hash": "e3fc0ecdd3e40942c2b4a4e8b2797d5e"
+  },
+  "C:\\Users\\JP\\.gemini\\antigravity\\scratch\\combat-sports-gym-management\\qa-screenshots\\dte41-exenta-membresia.png": {
+    "mtime": 1793051016.885458,
+    "hash": "1756cfb8ba0cbea4ae39a495d64ef6a9"
   }
 }

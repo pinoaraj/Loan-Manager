@@ -1,5 +1,10 @@
 # Loan Manager
 
+> **Ediciones:** esta raíz corresponde a **Loan Manager Portable**, diseñada
+> para operar localmente. La nueva edición multiempresa y con suscripciones se
+> desarrolla de forma independiente en [`saas/`](saas/README.md). La edición
+> portable no requiere Stripe, Mercado Pago, PostgreSQL ni conexión permanente.
+
 Loan Manager is a desktop-first loan management system built with React, Express, Prisma and SQLite. The main product today is the local Windows desktop app packaged with Electron. Web mode remains useful for development and local QA.
 
 The repo now also includes `Mobiloan/`, an Expo workspace for field collections that can already operate in fully local mode on Android without requiring the desktop backend to be running.

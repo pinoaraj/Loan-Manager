@@ -56,6 +56,7 @@ const portableClientSchema = z.object({
     email: optionalStringSchema,
     phone: optionalStringSchema,
     address: optionalStringSchema,
+    origin: z.enum(['local', 'server']).optional(),
     createdAt: z.string().optional(),
     updatedAt: z.string().optional()
 });
@@ -71,6 +72,7 @@ const portableLoanSchema = z.object({
     loanType: z.enum(['Fixed', 'Simple']).default('Fixed'),
     status: z.enum(['Active', 'Paid', 'Overdue', 'Closed']).optional(),
     isPaused: z.boolean().optional(),
+    origin: z.enum(['local', 'server']).optional(),
     createdAt: z.string().optional(),
     updatedAt: z.string().optional()
 });
@@ -83,6 +85,7 @@ const portablePaymentSchema = z.object({
     paidAmount: z.coerce.number().nonnegative().default(0),
     dueDate: z.string().min(1),
     status: z.enum(['Pending', 'Partial', 'Paid', 'Overdue']).optional(),
+    origin: z.enum(['local', 'server']).optional(),
     createdAt: z.string().optional(),
     updatedAt: z.string().optional()
 });

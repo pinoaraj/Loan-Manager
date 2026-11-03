@@ -288,13 +288,20 @@ const ImportData = () => {
         downloadBulkLoanCalendars(calendarEntries, `loan-manager-importacion-${new Date().toISOString().slice(0, 10)}.ics`);
         const mobileImportMeta = result.data?.mobileImportMeta;
         if (mobileImportMeta) {
-            toast.success(`Importacion Mobiloan completada. ${mobileImportMeta.importedTransactions} pagos importados.`);
+            const newPayments = mobileImportMeta.importedTransactions || 0;
+            const reusedPayments = mobileImportMeta.reusedTransactions || 0;
+            const reusedLabel = reusedPayments > 0 ? `, ${reusedPayments} ya existentes` : '';
+            toast.success(`Importacion Mobiloan completada. ${newPayments} pagos nuevos${reusedLabel}.`);
         } else {
             toast.success('Importacion completada correctamente');
         }
         setIsConfirmOpen(false);
         navigate('/loans');
     };
+
+    const clientNamesById = new Map(
+        (previewData.clients || []).map((client) => [client.id, client.name])
+    );
 
     return (
         <div className="space-y-8 p-8">
@@ -459,7 +466,9 @@ const ImportData = () => {
                                 <tbody className="divide-y">
                                     {previewData.loans.slice(0, 10).map((loan, i) => (
                                         <tr key={i}>
-                                            <td className="px-4 py-3 font-medium text-slate-700">{loan.clientName}</td>
+                                            <td className="px-4 py-3 font-medium text-slate-700">
+                                                {loan.clientName || clientNamesById.get(loan.clientId) || 'Cliente sin nombre'}
+                                            </td>
                                             <td className="px-4 py-3 font-mono text-slate-600">${formatCurrency(loan.amount)}</td>
                                             <td className="px-4 py-3 text-slate-500">{loan.startDate}</td>
                                         </tr>
