@@ -10,6 +10,7 @@ import type {
   PaymentRecord,
   PaymentTransactionRecord,
   PortableSyncPackage,
+  RecordOrigin,
   RejectedOutboxItem,
   SyncDeletedIds,
   SyncSnapshot,
@@ -40,6 +41,17 @@ const defaultState = (): WebDbState => ({
 
 const clone = <T>(value: T): T => JSON.parse(JSON.stringify(value)) as T;
 
+const inferOrigin = (id: string, prefix: string): RecordOrigin =>
+  id.startsWith(`${prefix}_`) || id.startsWith('local_') ? 'local' : 'server';
+
+const normalizeOrigin = <T extends { id: string; origin?: RecordOrigin }>(
+  record: T,
+  prefix: string,
+): T => ({
+  ...record,
+  origin: record.origin ?? inferOrigin(record.id, prefix),
+});
+
 const getStorage = () => {
   if (typeof globalThis === 'undefined' || !('localStorage' in globalThis)) {
     return null;
@@ -63,9 +75,9 @@ const loadState = (): WebDbState => {
     const parsed = JSON.parse(raw) as Partial<WebDbState>;
     return {
       meta: parsed.meta ?? {},
-      clients: parsed.clients ?? [],
-      loans: parsed.loans ?? [],
-      payments: parsed.payments ?? [],
+      clients: (parsed.clients ?? []).map((client) => normalizeOrigin(client, 'client')),
+      loans: (parsed.loans ?? []).map((loan) => normalizeOrigin(loan, 'loan')),
+      payments: (parsed.payments ?? []).map((payment) => normalizeOrigin(payment, 'payment')),
       paymentTransactions: parsed.paymentTransactions ?? [],
       outboxMutations: parsed.outboxMutations ?? [],
     };
@@ -127,10 +139,15 @@ const deriveLoanStatus = (payments: Array<Pick<PaymentRecord, 'status'>>) => {
   return 'Active' as const;
 };
 
-const upsertById = <T extends { id: string }>(target: T[], records: T[]) => {
+const upsertById = <T extends { id: string; origin?: RecordOrigin }>(target: T[], records: T[]) => {
   for (const record of records) {
     const index = target.findIndex((item) => item.id === record.id);
     const nextRecord = clone(record);
+    // Igual que el upsert SQLite: la marca `local` de un registro ya existente
+    // nunca se pisa con una copia que vuelve del backend.
+    nextRecord.origin = index >= 0
+      ? target[index].origin ?? nextRecord.origin ?? 'server'
+      : nextRecord.origin ?? 'server';
     if (index >= 0) {
       target[index] = nextRecord;
     } else {
@@ -170,11 +187,41 @@ export const localDb = {
 
   async resetSnapshot(): Promise<void> {
     await updateState((state) => {
-      state.clients = [];
-      state.loans = [];
-      state.payments = [];
-      state.paymentTransactions = [];
+      const serverPaymentIds = new Set(
+        state.payments.filter((payment) => payment.origin !== 'local').map((payment) => payment.id),
+      );
+
+      state.paymentTransactions = state.paymentTransactions.filter(
+        (transaction) => !serverPaymentIds.has(transaction.paymentId),
+      );
+      state.payments = state.payments.filter((payment) => payment.origin === 'local');
+      state.loans = state.loans.filter((loan) => loan.origin === 'local');
+
+      const localClientIds = new Set(
+        state.loans.filter((loan) => loan.origin === 'local').map((loan) => loan.clientId),
+      );
+      state.clients = state.clients.filter(
+        (client) => client.origin === 'local' || localClientIds.has(client.id),
+      );
     });
+  },
+
+  async clearSessionData(): Promise<void> {
+    await this.resetSnapshot();
+    await updateState((state) => {
+      state.outboxMutations = [];
+      state.meta = {};
+    });
+  },
+
+  async getPaymentOrigin(paymentId: string): Promise<'local' | 'server' | null> {
+    const state = loadState();
+    const payment = state.payments.find((item) => item.id === paymentId);
+    if (!payment) {
+      return null;
+    }
+
+    return payment.origin === 'local' ? 'local' : 'server';
   },
 
   async upsertClients(records: ClientRecord[]): Promise<void> {
@@ -463,6 +510,7 @@ export const localDb = {
       phone: draft.phone?.trim() || null,
       email: draft.email?.trim() || null,
       address: draft.address?.trim() || null,
+      origin: 'local',
       createdAt: now,
       updatedAt: now,
     };
@@ -496,6 +544,7 @@ export const localDb = {
       loanType: draft.loanType,
       status: 'Active',
       isPaused: false,
+      origin: 'local',
       createdAt: now,
       updatedAt: now,
     };
@@ -515,6 +564,7 @@ export const localDb = {
       paidAmount: 0,
       dueDate: item.dueDate.toISOString(),
       status: 'Pending',
+      origin: 'local',
       createdAt: now,
       updatedAt: now,
     }));

@@ -49,14 +49,30 @@ const createLocalId = (prefix: string) => `${prefix}_${Date.now()}_${Math.random
  * Los registros creados en el telefono se marcan como `local` para que una
  * sincronizacion contra el desktop nunca los borre. Todo lo que baja del
  * backend queda como `server` y si puede reemplazarse en cada bootstrap.
+ *
+ * Si la tabla ya existia antes de esta columna, el `ALTER TABLE` marca todo
+ * como `server`; por eso se corrige de inmediato la cartera creada en terreno.
+ * Los IDs generados por la app llevan prefijo (`client_`, `loan_`, `payment_`),
+ * de modo que se pueden distinguir sin depender del backend.
  */
-const ensureOriginColumn = async (database: SQLite.SQLiteDatabase, table: string) => {
+const ensureOriginColumn = async (
+  database: SQLite.SQLiteDatabase,
+  table: 'clients' | 'loans' | 'payments',
+  localIdPrefix: 'client' | 'loan' | 'payment',
+) => {
   const columns = await database.getAllAsync<{ name: string }>(`PRAGMA table_info(${table})`);
   if (columns.some((column) => column.name === 'origin')) {
     return;
   }
 
   await database.execAsync(`ALTER TABLE ${table} ADD COLUMN origin TEXT NOT NULL DEFAULT 'server'`);
+  await database.runAsync(
+    `UPDATE ${table}
+        SET origin = 'local'
+      WHERE id GLOB ?
+         OR id GLOB 'local_*'`,
+    [`${localIdPrefix}_*`],
+  );
 };
 
 const isPastDue = (dueDate: string) => {
@@ -227,9 +243,9 @@ export const localDb = {
       CREATE INDEX IF NOT EXISTS idx_outbox_status ON outbox_mutations(status);
     `);
 
-    await ensureOriginColumn(database, 'clients');
-    await ensureOriginColumn(database, 'loans');
-    await ensureOriginColumn(database, 'payments');
+    await ensureOriginColumn(database, 'clients', 'client');
+    await ensureOriginColumn(database, 'loans', 'loan');
+    await ensureOriginColumn(database, 'payments', 'payment');
   },
 
   async resetSnapshot(): Promise<void> {
@@ -244,6 +260,24 @@ export const localDb = {
       DELETE FROM clients
         WHERE origin = 'server'
           AND id NOT IN (SELECT clientId FROM loans WHERE origin = 'local');
+    `);
+  },
+
+  async clearSessionData(): Promise<void> {
+    // Logout: se descarta la copia del backend, la cola de envio y los cursores
+    // para que el siguiente usuario haga un bootstrap limpio. La cartera creada
+    // en terreno se conserva: es el trabajo del operador y no vive en el server.
+    const database = await getDatabase();
+    await database.execAsync(`
+      DELETE FROM payment_transactions
+        WHERE paymentId IN (SELECT id FROM payments WHERE origin = 'server');
+      DELETE FROM payments WHERE origin = 'server';
+      DELETE FROM loans WHERE origin = 'server';
+      DELETE FROM clients
+        WHERE origin = 'server'
+          AND id NOT IN (SELECT clientId FROM loans WHERE origin = 'local');
+      DELETE FROM outbox_mutations;
+      DELETE FROM sync_meta;
     `);
   },
 

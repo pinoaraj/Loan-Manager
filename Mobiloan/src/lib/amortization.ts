@@ -7,6 +7,20 @@ const normalizeFrequency = (frequency: LoanFrequency | string = 'monthly') => {
   return normalized === 'biweekly' ? 'bi-weekly' : normalized;
 };
 
+/**
+ * Suma meses conservando el dia calendario. `Date.setMonth` desborda en los
+ * dias 29-31 (31 de enero + 1 mes terminaba el 3 de marzo); aqui se ancla al
+ * ultimo dia del mes destino, igual que hace la banca para cuotas mensuales.
+ */
+const addMonthsClamped = (start: Date, months: number) => {
+  const year = start.getFullYear();
+  const month = start.getMonth() + months;
+  const day = start.getDate();
+  const lastDayOfTargetMonth = new Date(year, month + 1, 0).getDate();
+
+  return new Date(year, month, Math.min(day, lastDayOfTargetMonth), 12, 0, 0, 0);
+};
+
 const buildMonthlySchedule = (
   principal: number,
   monthlyRate: number,
@@ -36,8 +50,7 @@ const buildMonthlySchedule = (
       const principalPart = paymentAmount - interest;
       remainingPrincipal -= principalPart;
 
-      const dueDate = new Date(start);
-      dueDate.setMonth(dueDate.getMonth() + i);
+      const dueDate = addMonthsClamped(start, i);
       dueDate.setHours(12, 0, 0, 0);
 
       schedule.push({
@@ -57,8 +70,7 @@ const buildMonthlySchedule = (
     const interestPart = totalInterest / durationMonths;
 
     for (let i = 1; i <= durationMonths; i += 1) {
-      const dueDate = new Date(start);
-      dueDate.setMonth(dueDate.getMonth() + i);
+      const dueDate = addMonthsClamped(start, i);
       dueDate.setHours(12, 0, 0, 0);
 
       schedule.push({

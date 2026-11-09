@@ -1,5 +1,15 @@
 # Update Log
 
+## 2026-11-09
+
+- Fixed a data-loss path: a remote login/bootstrap used to wipe the portfolio created on the phone. Records now carry an `origin` flag (`local` or `server`); bootstrap replaces only `server` rows and keeps everything created in the field.
+- Added a one-time migration for installs that predate the `origin` column: rows whose ids use the app prefixes (`client_`, `loan_`, `payment_`, `local_`) are reclassified as `local` instead of being treated as backend copies.
+- Logout now clears the backend copy, the pending outbox and the sync cursors without deleting the local portfolio, so the next account starts from a clean bootstrap.
+- Fixed month-end due dates in all three amortization engines (mobile, backend, desktop frontend): `setMonth` overflowed 31 January into 3 March; dates are now clamped to the last day of the target month and anchored at local noon.
+- Added a regression test for month-end schedules (`src/utils/amortization.test.js`), now 5 tests.
+- Bumped the app to `1.2.0` (`versionCode 3`) and rebuilt the release APK as `dist/mobiloan-beta-1.2.0.apk` with `EXPO_PUBLIC_API_URL=http://192.168.4.81:3011/api`.
+- Added the install QR `dist/install-qr-beta-1.2.0.png` for LAN download from the PC.
+
 ## 2026-10-01
 
 - Found and fixed a beta-blocking gap: the native project did not declare `READ_CALENDAR` or `WRITE_CALENDAR`, so `expo-calendar` could never get calendar permission on the phone and every collection reminder failed silently on Android.

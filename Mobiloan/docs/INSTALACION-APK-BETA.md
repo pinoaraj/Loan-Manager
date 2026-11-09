@@ -5,7 +5,7 @@ Esta guia deja la app funcionando sola en el telefono: no necesita el PC encendi
 ## Que necesitas
 
 - Un celular Android (Android 7 o superior).
-- El archivo `mobiloan-beta-1.1.0.apk` transferido al telefono (por cable USB, WhatsApp, Drive o Telegram).
+- El archivo `mobiloan-beta-1.2.0.apk` transferido al telefono (por cable USB, WhatsApp, Drive o Telegram).
 
 ## Atajo: instalar escaneando un QR (misma red Wi-Fi)
 
@@ -17,8 +17,8 @@ Si el PC y el celular estan en la misma red Wi-Fi, no hace falta pasar el archiv
    python -m http.server 8099 --bind 0.0.0.0 --directory C:\Users\JP\Desktop\LoanManager\Mobiloan\dist
    ```
 
-2. Abre en pantalla `Mobiloan\dist\install-qr-beta-1.1.0.png` y escanealo con la camara del celular.
-3. El telefono abre el navegador y descarga `mobiloan-beta-1.1.0.apk`.
+2. Abre en pantalla `Mobiloan\dist\install-qr-beta-1.2.0.png` y escanealo con la camara del celular.
+3. El telefono abre el navegador y descarga `mobiloan-beta-1.2.0.apk`.
 4. Sigue los pasos 2 y 3 de esta guia.
 
 Si la descarga no abre, revisa que Windows Firewall permita Python en redes privadas, o usa la transferencia por cable.
@@ -88,7 +88,9 @@ El modo local no depende de esto.
 
 ## Notas de esta beta
 
-- Version de la app: `1.1.0` (`versionCode 2`, `com.mobiloan.app`).
+- Version de la app: `1.2.0` (`versionCode 3`, `com.mobiloan.app`).
+- La cartera creada en modo local ya no se borra al entrar con una cuenta o al sincronizar con el PC: la app distingue los registros del telefono de los que bajan del backend. Al cerrar sesion se limpia solo la copia remota, la cola de envio y los cursores.
+- Las cuotas de fin de mes ya no se corren al mes siguiente: un prestamo que empieza el 31 de enero vence el 28 de febrero, el 31 de marzo y el 30 de abril.
 - El APK esta firmado con la clave de desarrollo, por eso Android muestra el aviso de origen desconocido y Play Protect. Sirve para probar en tu telefono y para repartir a testers, no para publicar en Play Store.
 - Si mas adelante se firma con una clave propia, hay que desinstalar esta version antes de instalar la firmada.
 - No hay actualizaciones automaticas: cada version nueva se instala encima con `Instalar` nuevamente (los datos locales se conservan).

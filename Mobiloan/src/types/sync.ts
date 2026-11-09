@@ -3,6 +3,8 @@ export type LoanType = 'Fixed' | 'Simple';
 export type LoanStatus = 'Active' | 'Paid' | 'Overdue' | 'Closed';
 export type PaymentStatus = 'Pending' | 'Partial' | 'Paid' | 'Overdue';
 
+export type RecordOrigin = 'local' | 'server';
+
 export interface ClientRecord {
   id: string;
   name: string;
@@ -10,6 +12,12 @@ export interface ClientRecord {
   phone: string | null;
   email: string | null;
   address: string | null;
+  /**
+   * `local` = creado en el telefono y sobrevive a la sincronizacion.
+   * `server` = copia descargada del desktop y reemplazable en cada bootstrap.
+   * Es opcional porque el backend no lo envia; el almacenamiento lo completa.
+   */
+  origin?: RecordOrigin;
   createdAt: string;
   updatedAt: string;
 }
@@ -25,6 +33,7 @@ export interface LoanRecord {
   loanType: LoanType;
   status: LoanStatus;
   isPaused: boolean;
+  origin?: RecordOrigin;
   createdAt: string;
   updatedAt: string;
 }
@@ -37,6 +46,7 @@ export interface PaymentRecord {
   paidAmount: number;
   dueDate: string;
   status: PaymentStatus;
+  origin?: RecordOrigin;
   createdAt: string;
   updatedAt: string;
 }

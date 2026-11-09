@@ -132,6 +132,10 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
         if (nextSession) {
           await sessionStore.save(nextSession);
         } else {
+          // Al cerrar sesion se elimina la copia del backend y la cola de envio,
+          // no la cartera creada en terreno. Asi el proximo ingreso arranca con
+          // un bootstrap limpio y sin datos de la cuenta anterior.
+          await localDb.clearSessionData();
           await sessionStore.clear();
         }
 
