@@ -5,7 +5,7 @@ Esta guia deja la app funcionando sola en el telefono: no necesita el PC encendi
 ## Que necesitas
 
 - Un celular Android (Android 7 o superior).
-- El archivo `mobiloan-beta-1.2.0.apk` transferido al telefono (por cable USB, WhatsApp, Drive o Telegram).
+- El archivo `mobiloan-beta-1.2.1.apk` transferido al telefono (por cable USB, WhatsApp, Drive o Telegram).
 
 ## Atajo: instalar escaneando un QR (misma red Wi-Fi)
 
@@ -17,8 +17,8 @@ Si el PC y el celular estan en la misma red Wi-Fi, no hace falta pasar el archiv
    python -m http.server 8099 --bind 0.0.0.0 --directory C:\Users\JP\Desktop\LoanManager\Mobiloan\dist
    ```
 
-2. Abre en pantalla `Mobiloan\dist\install-qr-beta-1.2.0.png` y escanealo con la camara del celular.
-3. El telefono abre el navegador y descarga `mobiloan-beta-1.2.0.apk`.
+2. Abre en pantalla `Mobiloan\dist\install-qr-beta-1.2.1.png` y escanealo con la camara del celular.
+3. El telefono abre el navegador y descarga `mobiloan-beta-1.2.1.apk`.
 4. Sigue los pasos 2 y 3 de esta guia.
 
 Si la descarga no abre, revisa que Windows Firewall permita Python en redes privadas, o usa la transferencia por cable.
@@ -45,8 +45,10 @@ Puede aparecer un aviso de Play Protect ("app desconocida"). Es esperable en una
 ## Paso 3: primer uso
 
 1. Abre `Mobiloan` desde el cajon de apps.
-2. En la pantalla de ingreso toca `Entrar en modo local`.
-3. Ya puedes operar: no hace falta usuario, clave ni internet.
+2. En la pantalla de ingreso toca `Entrar sin PC ni internet`.
+3. Ya puedes operar: no hace falta usuario, clave, backend ni internet.
+
+La pantalla de ingreso deja ese boton como accion principal. La seccion `Sincronizar con el PC (opcional)` solo aparece para quien quiera compartir la cartera con el desktop.
 
 ## Que puedes hacer en modo local
 
@@ -88,7 +90,8 @@ El modo local no depende de esto.
 
 ## Notas de esta beta
 
-- Version de la app: `1.2.0` (`versionCode 3`, `com.mobiloan.app`).
+- Version de la app: `1.2.1` (`versionCode 4`, `com.mobiloan.app`).
+- El modo independiente es la opcion principal. Dentro de ese modo la app no muestra sincronizacion, outbox ni contadores del backend, para que quede claro que no depende del PC.
 - La cartera creada en modo local ya no se borra al entrar con una cuenta o al sincronizar con el PC: la app distingue los registros del telefono de los que bajan del backend. Al cerrar sesion se limpia solo la copia remota, la cola de envio y los cursores.
 - Las cuotas de fin de mes ya no se corren al mes siguiente: un prestamo que empieza el 31 de enero vence el 28 de febrero, el 31 de marzo y el 30 de abril.
 - El APK esta firmado con la clave de desarrollo, por eso Android muestra el aviso de origen desconocido y Play Protect. Sirve para probar en tu telefono y para repartir a testers, no para publicar en Play Store.

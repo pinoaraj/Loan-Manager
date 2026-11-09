@@ -85,12 +85,18 @@ export default function PortfolioScreen() {
     <ScrollView
       style={appStyles.screen}
       contentContainerStyle={appStyles.scroll}
-      refreshControl={<RefreshControl refreshing={syncMutation.isPending} onRefresh={handleSync} />}
+      refreshControl={
+        session?.mode === 'local' ? undefined : (
+          <RefreshControl refreshing={syncMutation.isPending} onRefresh={handleSync} />
+        )
+      }
     >
       <View style={appStyles.heroCard}>
         <Text style={appStyles.heroTitle}>Cobranza en terreno</Text>
         <Text style={appStyles.heroSubtitle}>
-          La cartera vive localmente en el telefono y se sincroniza cuando vuelve la conectividad.
+          {session?.mode === 'local'
+            ? 'Todo vive en este telefono. No necesitas PC ni internet para cobrar.'
+            : 'La cartera vive localmente en el telefono y se sincroniza cuando vuelve la conectividad.'}
         </Text>
       </View>
 
@@ -113,7 +119,9 @@ export default function PortfolioScreen() {
               }
             }}
           >
-            <Text style={appStyles.buttonMutedText}>Exportar al desktop</Text>
+            <Text style={appStyles.buttonMutedText}>
+              {session?.mode === 'local' ? 'Exportar respaldo' : 'Exportar al desktop'}
+            </Text>
           </Pressable>
         </View>
       </View>
@@ -142,9 +150,11 @@ export default function PortfolioScreen() {
         {authMessage ? (
           <Text style={appStyles.statusText}>Detalle backend: {authMessage}</Text>
         ) : null}
-        <Text style={appStyles.statusText}>
-          Ultima sincronizacion: {formatDateTime(lastSyncAt)}
-        </Text>
+        {session?.mode === 'local' ? null : (
+          <Text style={appStyles.statusText}>
+            Ultima sincronizacion: {formatDateTime(lastSyncAt)}
+          </Text>
+        )}
       </View>
 
       <View style={appStyles.statGrid}>
@@ -156,35 +166,52 @@ export default function PortfolioScreen() {
           <Text style={appStyles.statLabel}>Prestamos locales</Text>
           <Text style={appStyles.statValue}>{snapshot?.totalLoans ?? 0}</Text>
         </View>
-        <View style={appStyles.statBox}>
-          <Text style={appStyles.statLabel}>Pagos pendientes</Text>
-          <Text style={appStyles.statValue}>{snapshot?.pendingOutbox ?? 0}</Text>
-        </View>
-        <View style={appStyles.statBox}>
-          <Text style={appStyles.statLabel}>Pagos rechazados</Text>
-          <Text style={appStyles.statValue}>{snapshot?.rejectedOutbox ?? 0}</Text>
-        </View>
-        <View style={appStyles.statBox}>
-          <Text style={appStyles.statLabel}>Estado red</Text>
-          <Text style={appStyles.statValue}>{isOnline === null ? '...' : isOnline ? 'Online' : 'Offline'}</Text>
-        </View>
+        {session?.mode === 'local' ? (
+          <>
+            <View style={appStyles.statBox}>
+              <Text style={appStyles.statLabel}>Cuotas en cartera</Text>
+              <Text style={appStyles.statValue}>{snapshot?.totalPayments ?? 0}</Text>
+            </View>
+            <View style={appStyles.statBox}>
+              <Text style={appStyles.statLabel}>Cobros registrados</Text>
+              <Text style={appStyles.statValue}>{snapshot?.totalTransactions ?? 0}</Text>
+            </View>
+          </>
+        ) : (
+          <>
+            <View style={appStyles.statBox}>
+              <Text style={appStyles.statLabel}>Pagos pendientes</Text>
+              <Text style={appStyles.statValue}>{snapshot?.pendingOutbox ?? 0}</Text>
+            </View>
+            <View style={appStyles.statBox}>
+              <Text style={appStyles.statLabel}>Pagos rechazados</Text>
+              <Text style={appStyles.statValue}>{snapshot?.rejectedOutbox ?? 0}</Text>
+            </View>
+            <View style={appStyles.statBox}>
+              <Text style={appStyles.statLabel}>Estado red</Text>
+              <Text style={appStyles.statValue}>{isOnline === null ? '...' : isOnline ? 'Online' : 'Offline'}</Text>
+            </View>
+          </>
+        )}
       </View>
 
-      <View style={appStyles.card}>
-        <View style={appStyles.rowBetween}>
-          <View style={{ flex: 1 }}>
-            <Text style={appStyles.cardTitle}>Sincronizacion</Text>
-            <Text style={appStyles.cardSubtitle}>
-              Ultimo cursor: {snapshot?.lastCursor ? snapshot.lastCursor.slice(0, 19).replace('T', ' ') : 'sin sync'}
-            </Text>
+      {session?.mode !== 'local' && (
+        <View style={appStyles.card}>
+          <View style={appStyles.rowBetween}>
+            <View style={{ flex: 1 }}>
+              <Text style={appStyles.cardTitle}>Sincronizacion</Text>
+              <Text style={appStyles.cardSubtitle}>
+                Ultimo cursor: {snapshot?.lastCursor ? snapshot.lastCursor.slice(0, 19).replace('T', ' ') : 'sin sync'}
+              </Text>
+            </View>
+            <Pressable style={appStyles.buttonMuted} onPress={handleSync}>
+              <Text style={appStyles.buttonMutedText}>
+                {syncMutation.isPending ? 'Sync...' : isOnline === false ? 'Esperando red' : 'Sincronizar'}
+              </Text>
+            </Pressable>
           </View>
-          <Pressable style={appStyles.buttonMuted} onPress={handleSync}>
-            <Text style={appStyles.buttonMutedText}>
-              {syncMutation.isPending ? 'Sync...' : isOnline === false ? 'Esperando red' : 'Sincronizar'}
-            </Text>
-          </Pressable>
         </View>
-      </View>
+      )}
 
       <View style={appStyles.card}>
         <Text style={appStyles.cardTitle}>Cobranza operativa</Text>
@@ -347,154 +374,160 @@ export default function PortfolioScreen() {
 
         {clients.length === 0 && (
           <Text style={appStyles.itemText}>
-            No hay clientes locales todavia. Haz login con conexion y ejecuta la primera sincronizacion.
+            {session?.mode === 'local'
+              ? 'No hay clientes todavia. Toca "Nuevo cliente" para crear el primero.'
+              : 'No hay clientes locales todavia. Haz login con conexion y ejecuta la primera sincronizacion.'}
           </Text>
         )}
       </View>
 
-      <View style={appStyles.card}>
-        <Text style={appStyles.cardTitle}>Outbox pendiente</Text>
-        <Text style={appStyles.cardSubtitle}>
-          Pagos guardados localmente que aun no han sido confirmados por el backend.
-        </Text>
+      {session?.mode !== 'local' && (
+        <View style={appStyles.card}>
+          <Text style={appStyles.cardTitle}>Outbox pendiente</Text>
+          <Text style={appStyles.cardSubtitle}>
+            Pagos guardados localmente que aun no han sido confirmados por el backend.
+          </Text>
 
-        {pendingOutbox.map((mutation) => (
-          <View key={mutation.id} style={appStyles.listItemMuted}>
-            <View style={[appStyles.pill, { backgroundColor: '#0E7490' }]}>
-              <Text style={appStyles.pillText}>Pendiente de envio</Text>
-            </View>
-            <Text style={appStyles.itemTitle}>
-              {formatCurrency(mutation.payload.amount)} - {mutation.payload.method || 'Cash'}
-            </Text>
-            <Text style={appStyles.itemText}>
-              {mutation.clientName || 'Cliente sin contexto local'} - Cuota: {mutation.payload.paymentId}
-            </Text>
-            <Text style={appStyles.itemText}>
-              Guardado local: {formatDateTime(mutation.createdAt)}
-            </Text>
-            {mutation.dueDate && (
-              <Text style={appStyles.itemText}>
-                Vencimiento local: {formatDate(mutation.dueDate)}
-                {mutation.remainingAmount !== null
-                  ? ` - Saldo actual: ${formatCurrency(mutation.remainingAmount)}`
-                  : ''}
+          {pendingOutbox.map((mutation) => (
+            <View key={mutation.id} style={appStyles.listItemMuted}>
+              <View style={[appStyles.pill, { backgroundColor: '#0E7490' }]}>
+                <Text style={appStyles.pillText}>Pendiente de envio</Text>
+              </View>
+              <Text style={appStyles.itemTitle}>
+                {formatCurrency(mutation.payload.amount)} - {mutation.payload.method || 'Cash'}
               </Text>
-            )}
+              <Text style={appStyles.itemText}>
+                {mutation.clientName || 'Cliente sin contexto local'} - Cuota: {mutation.payload.paymentId}
+              </Text>
+              <Text style={appStyles.itemText}>
+                Guardado local: {formatDateTime(mutation.createdAt)}
+              </Text>
+              {mutation.dueDate && (
+                <Text style={appStyles.itemText}>
+                  Vencimiento local: {formatDate(mutation.dueDate)}
+                  {mutation.remainingAmount !== null
+                    ? ` - Saldo actual: ${formatCurrency(mutation.remainingAmount)}`
+                    : ''}
+                </Text>
+              )}
 
-            {mutation.loanId ? (
+              {mutation.loanId ? (
+                <View style={[appStyles.rowBetween, { marginTop: 8, flexWrap: 'wrap' }]}>
+                  <Pressable
+                    style={appStyles.buttonMuted}
+                    onPress={() =>
+                      router.push({
+                        pathname: '/(app)/loans/[id]',
+                        params: {
+                          id: String(mutation.loanId),
+                          paymentId: mutation.payload.paymentId ?? '',
+                        },
+                      })
+                    }
+                  >
+                    <Text style={appStyles.buttonMutedText}>Abrir cuota</Text>
+                  </Pressable>
+                </View>
+              ) : null}
+            </View>
+          ))}
+
+          {pendingOutbox.length === 0 && (
+            <Text style={appStyles.itemText}>
+              No hay pagos pendientes en outbox. Todo lo guardado localmente ya fue enviado o no existe aun.
+            </Text>
+          )}
+        </View>
+      )}
+
+      {session?.mode !== 'local' && (
+        <View style={appStyles.card}>
+          <Text style={appStyles.cardTitle}>Reconciliacion de outbox</Text>
+          <Text style={appStyles.cardSubtitle}>
+            Si el servidor rechaza una mutacion, queda visible aqui para reintento o descarte manual.
+          </Text>
+
+          {rejectedOutbox.map((mutation) => (
+            <View key={mutation.id} style={appStyles.listItemMuted}>
+              <View style={[appStyles.pill, { backgroundColor: '#B91C1C' }]}>
+                <Text style={appStyles.pillText}>Requiere revision</Text>
+              </View>
+              <Text style={appStyles.itemTitle}>
+                {formatCurrency(mutation.payload.amount)} - {mutation.payload.method || 'Cash'}
+              </Text>
+              <Text style={appStyles.itemText}>
+                {mutation.clientName || 'Cliente sin contexto local'} - Cuota: {mutation.payload.paymentId}
+              </Text>
+              <Text style={appStyles.itemText}>
+                Fecha local: {formatDate(mutation.payload.paymentDate)}
+              </Text>
+              {mutation.dueDate && (
+                <Text style={appStyles.itemText}>
+                  Vencimiento local: {formatDate(mutation.dueDate)}
+                  {mutation.remainingAmount !== null
+                    ? ` - Saldo actual: ${formatCurrency(mutation.remainingAmount)}`
+                    : ''}
+                </Text>
+              )}
+              <Text style={[appStyles.itemText, { color: '#B91C1C' }]}>
+                {mutation.errorCode || 'REJECTED'} - {mutation.errorMessage || 'Sin detalle'}
+              </Text>
+
               <View style={[appStyles.rowBetween, { marginTop: 8, flexWrap: 'wrap' }]}>
+                {mutation.loanId ? (
+                  <Pressable
+                    style={appStyles.buttonMuted}
+                    onPress={() =>
+                      router.push({
+                        pathname: '/(app)/loans/[id]',
+                        params: {
+                          id: String(mutation.loanId),
+                          paymentId: mutation.payload.paymentId ?? '',
+                        },
+                      })
+                    }
+                  >
+                    <Text style={appStyles.buttonMutedText}>Abrir cuota</Text>
+                  </Pressable>
+                ) : null}
                 <Pressable
                   style={appStyles.buttonMuted}
-                  onPress={() =>
-                    router.push({
-                      pathname: '/(app)/loans/[id]',
-                      params: {
-                        id: String(mutation.loanId),
-                        paymentId: mutation.payload.paymentId ?? '',
-                      },
-                    })
-                  }
+                  onPress={async () => {
+                    try {
+                      await retryRejectedMutation.mutateAsync(mutation.id);
+                      if (session && (await syncService.isOnline())) {
+                        await handleSync();
+                      }
+                    } catch (error) {
+                      Alert.alert('No se pudo reintentar', error instanceof Error ? error.message : 'Error desconocido');
+                    }
+                  }}
                 >
-                  <Text style={appStyles.buttonMutedText}>Abrir cuota</Text>
+                  <Text style={appStyles.buttonMutedText}>Reintentar</Text>
+                </Pressable>
+                <Pressable
+                  style={appStyles.buttonDanger}
+                  onPress={async () => {
+                    try {
+                      await discardRejectedMutation.mutateAsync(mutation.id);
+                    } catch (error) {
+                      Alert.alert('No se pudo descartar', error instanceof Error ? error.message : 'Error desconocido');
+                    }
+                  }}
+                >
+                  <Text style={appStyles.buttonDangerText}>Descartar</Text>
                 </Pressable>
               </View>
-            ) : null}
-          </View>
-        ))}
-
-        {pendingOutbox.length === 0 && (
-          <Text style={appStyles.itemText}>
-            No hay pagos pendientes en outbox. Todo lo guardado localmente ya fue enviado o no existe aun.
-          </Text>
-        )}
-      </View>
-
-      <View style={appStyles.card}>
-        <Text style={appStyles.cardTitle}>Reconciliacion de outbox</Text>
-        <Text style={appStyles.cardSubtitle}>
-          Si el servidor rechaza una mutacion, queda visible aqui para reintento o descarte manual.
-        </Text>
-
-        {rejectedOutbox.map((mutation) => (
-          <View key={mutation.id} style={appStyles.listItemMuted}>
-            <View style={[appStyles.pill, { backgroundColor: '#B91C1C' }]}>
-              <Text style={appStyles.pillText}>Requiere revision</Text>
             </View>
-            <Text style={appStyles.itemTitle}>
-              {formatCurrency(mutation.payload.amount)} - {mutation.payload.method || 'Cash'}
-            </Text>
-            <Text style={appStyles.itemText}>
-              {mutation.clientName || 'Cliente sin contexto local'} - Cuota: {mutation.payload.paymentId}
-            </Text>
-            <Text style={appStyles.itemText}>
-              Fecha local: {formatDate(mutation.payload.paymentDate)}
-            </Text>
-            {mutation.dueDate && (
-              <Text style={appStyles.itemText}>
-                Vencimiento local: {formatDate(mutation.dueDate)}
-                {mutation.remainingAmount !== null
-                  ? ` - Saldo actual: ${formatCurrency(mutation.remainingAmount)}`
-                  : ''}
-              </Text>
-            )}
-            <Text style={[appStyles.itemText, { color: '#B91C1C' }]}>
-              {mutation.errorCode || 'REJECTED'} - {mutation.errorMessage || 'Sin detalle'}
-            </Text>
+          ))}
 
-            <View style={[appStyles.rowBetween, { marginTop: 8, flexWrap: 'wrap' }]}>
-              {mutation.loanId ? (
-                <Pressable
-                  style={appStyles.buttonMuted}
-                  onPress={() =>
-                    router.push({
-                      pathname: '/(app)/loans/[id]',
-                      params: {
-                        id: String(mutation.loanId),
-                        paymentId: mutation.payload.paymentId ?? '',
-                      },
-                    })
-                  }
-                >
-                  <Text style={appStyles.buttonMutedText}>Abrir cuota</Text>
-                </Pressable>
-              ) : null}
-              <Pressable
-                style={appStyles.buttonMuted}
-                onPress={async () => {
-                  try {
-                    await retryRejectedMutation.mutateAsync(mutation.id);
-                    if (session && (await syncService.isOnline())) {
-                      await handleSync();
-                    }
-                  } catch (error) {
-                    Alert.alert('No se pudo reintentar', error instanceof Error ? error.message : 'Error desconocido');
-                  }
-                }}
-              >
-                <Text style={appStyles.buttonMutedText}>Reintentar</Text>
-              </Pressable>
-              <Pressable
-                style={appStyles.buttonDanger}
-                onPress={async () => {
-                  try {
-                    await discardRejectedMutation.mutateAsync(mutation.id);
-                  } catch (error) {
-                    Alert.alert('No se pudo descartar', error instanceof Error ? error.message : 'Error desconocido');
-                  }
-                }}
-              >
-                <Text style={appStyles.buttonDangerText}>Descartar</Text>
-              </Pressable>
-            </View>
-          </View>
-        ))}
-
-        {rejectedOutbox.length === 0 && (
-          <Text style={appStyles.itemText}>
-            No hay mutaciones rechazadas. La outbox esta limpia por ahora.
-          </Text>
-        )}
-      </View>
+          {rejectedOutbox.length === 0 && (
+            <Text style={appStyles.itemText}>
+              No hay mutaciones rechazadas. La outbox esta limpia por ahora.
+            </Text>
+          )}
+        </View>
+      )}
     </ScrollView>
   );
 }

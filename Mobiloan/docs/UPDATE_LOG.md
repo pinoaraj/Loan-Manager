@@ -2,6 +2,14 @@
 
 ## 2026-11-09
 
+- Reworked the entry screen so the independent mode is the primary action (`Entrar sin PC ni internet`) and desktop sync is presented as an optional section with its own explanation.
+- Hid the sync cursor, pending outbox and rejected outbox cards while the app runs in local mode; the local portfolio now shows payments and registered collections instead of backend queue counters.
+- Adjusted local-mode copy (hero, empty states, export button) so the app no longer suggests that the desktop or internet is required.
+- Bumped the app to `1.2.1` (`versionCode 4`) and rebuilt the release APK as `dist/mobiloan-beta-1.2.1.apk`.
+- Regenerated the install QR as `dist/install-qr-beta-1.2.1.png`.
+
+### 1.2.0
+
 - Fixed a data-loss path: a remote login/bootstrap used to wipe the portfolio created on the phone. Records now carry an `origin` flag (`local` or `server`); bootstrap replaces only `server` rows and keeps everything created in the field.
 - Added a one-time migration for installs that predate the `origin` column: rows whose ids use the app prefixes (`client_`, `loan_`, `payment_`, `local_`) are reclassified as `local` instead of being treated as backend copies.
 - Logout now clears the backend copy, the pending outbox and the sync cursors without deleting the local portfolio, so the next account starts from a clean bootstrap.
