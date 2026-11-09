@@ -164,6 +164,40 @@ export interface SyncSnapshot {
   lastSyncAt: string | null;
 }
 
+export interface LoanListItem extends LoanRecord {
+  clientName: string;
+  clientPhone: string | null;
+  paymentCount: number;
+  paidCount: number;
+  totalScheduled: number;
+  totalPaid: number;
+  totalRemaining: number;
+  overdueAmount: number;
+  overdueCount: number;
+  upcomingAmount: number;
+  upcomingCount: number;
+  nextDueDate: string | null;
+  maxDaysLate: number;
+}
+
+export interface DashboardStats {
+  totalClients: number;
+  totalLoans: number;
+  activeLoans: number;
+  overdueLoans: number;
+  paidLoans: number;
+  pausedLoans: number;
+  totalLent: number;
+  totalScheduled: number;
+  totalCollected: number;
+  totalOutstanding: number;
+  overdueAmount: number;
+  overduePayments: number;
+  upcomingAmount: number;
+  upcomingPayments: number;
+  healthScore: number;
+}
+
 export type CollectionFilter = 'overdue' | 'today' | 'upcoming';
 
 export interface CollectionQueueItem {

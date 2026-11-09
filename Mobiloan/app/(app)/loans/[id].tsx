@@ -1,4 +1,4 @@
-import { useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useMemo, useState } from 'react';
 import {
   Alert,
@@ -12,8 +12,20 @@ import {
 import { openPhoneCall, openWhatsApp } from '../../../src/lib/contact';
 import { createCollectionReminder } from '../../../src/lib/calendar';
 import { formatCurrency, formatDate, formatDateTime } from '../../../src/lib/format';
+import { getLoanHealth } from '../../../src/lib/loanHealth';
+import {
+  shareContractPdf,
+  shareInstallmentsCsv,
+  sharePromissoryNotePdf,
+} from '../../../src/lib/reports';
 import { useLoanDetail } from '../../../src/hooks/useOfflineData';
-import { useManualSync, useQueuePayment } from '../../../src/hooks/useSyncActions';
+import {
+  useDeleteLocalLoan,
+  useManualSync,
+  useQueuePayment,
+  useRecalculateLoan,
+  useSetLoanPaused,
+} from '../../../src/hooks/useSyncActions';
 import { useSession } from '../../../src/providers/AppProviders';
 import { syncService } from '../../../src/services/sync';
 import { appStyles } from '../../../src/ui/styles';
@@ -25,21 +37,33 @@ export default function LoanDetailScreen() {
   const detailQuery = useLoanDetail(loanId ?? '');
   const queuePayment = useQueuePayment();
   const syncMutation = useManualSync();
+  const pauseMutation = useSetLoanPaused();
+  const recalculateMutation = useRecalculateLoan();
+  const deleteLoanMutation = useDeleteLocalLoan();
   const { session, isOnline, lastSyncAt, needsReauth, authMessage, refreshAppState } = useSession();
 
   const [selectedPaymentId, setSelectedPaymentId] = useState<string | null>(null);
   const [amount, setAmount] = useState('');
   const [method, setMethod] = useState('Cash');
   const [notes, setNotes] = useState('');
+  const [documentBusy, setDocumentBusy] = useState<string | null>(null);
 
   const loan = detailQuery.data?.loan;
+  const client = detailQuery.data?.client ?? null;
   const payments = detailQuery.data?.payments ?? [];
   const transactions = detailQuery.data?.transactions ?? [];
   const selectedPayment = payments.find((payment) => payment.id === selectedPaymentId) ?? null;
   const selectedPaymentRemaining = selectedPayment
     ? Math.max(selectedPayment.amount + selectedPayment.lateFee - selectedPayment.paidAmount, 0)
     : null;
-  const canQueueSelectedPayment = Boolean(selectedPayment && selectedPaymentRemaining && selectedPaymentRemaining > 0);
+  const canQueueSelectedPayment = Boolean(
+    selectedPayment && selectedPaymentRemaining && selectedPaymentRemaining > 0,
+  );
+
+  const health = useMemo(
+    () => (loan ? getLoanHealth(loan, payments) : null),
+    [loan, payments],
+  );
 
   const groupedTransactions = useMemo(() => {
     return transactions.reduce<Record<string, typeof transactions>>((acc, transaction) => {
@@ -105,7 +129,7 @@ export default function LoanDetailScreen() {
       if (session?.mode === 'local') {
         Alert.alert(
           'Pago guardado',
-          'La transaccion quedo guardada en la base local del telefono. Este prestamo nacio en Mobiloan, asi que viaja al desktop con la exportacion portable.',
+          'La transaccion quedo guardada en la base local del telefono. Puedes exportar un respaldo desde Ajustes cuando quieras.',
         );
         return;
       }
@@ -131,45 +155,169 @@ export default function LoanDetailScreen() {
     }
   };
 
+  const handleTogglePause = async () => {
+    if (!loan) {
+      return;
+    }
+
+    try {
+      await pauseMutation.mutateAsync({ loanId: loan.id, paused: !loan.isPaused });
+      Alert.alert(
+        loan.isPaused ? 'Prestamo reanudado' : 'Prestamo pausado',
+        loan.isPaused
+          ? 'El prestamo vuelve a contar para la cobranza.'
+          : 'El prestamo deja de contar como deuda activa hasta que lo reanudes.',
+      );
+    } catch (error) {
+      Alert.alert('No se pudo actualizar', error instanceof Error ? error.message : 'Error desconocido');
+    }
+  };
+
+  const handleRecalculate = () => {
+    if (!loan) {
+      return;
+    }
+
+    if (transactions.length > 0) {
+      Alert.alert(
+        'Recalculo bloqueado',
+        'Este prestamo ya tiene pagos registrados. Para recalcular hay que eliminar los pagos primero.',
+      );
+      return;
+    }
+
+    Alert.alert(
+      'Recalcular cuotas',
+      'Se borraran las cuotas actuales y se generara un calendario nuevo con los mismos datos del prestamo. Esta accion no se puede deshacer.',
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        {
+          text: 'Recalcular',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              await recalculateMutation.mutateAsync(loan.id);
+              Alert.alert('Prestamo recalculado', 'El calendario de cuotas fue regenerado.');
+            } catch (error) {
+              Alert.alert(
+                'No se pudo recalcular',
+                error instanceof Error ? error.message : 'Error desconocido',
+              );
+            }
+          },
+        },
+      ],
+    );
+  };
+
+  const handleDelete = () => {
+    if (!loan) {
+      return;
+    }
+
+    Alert.alert(
+      'Eliminar prestamo',
+      'Se borraran el prestamo, sus cuotas y sus pagos de este telefono. Esta accion no se puede deshacer.',
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        {
+          text: 'Eliminar',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              await deleteLoanMutation.mutateAsync(loan.id);
+              router.replace('/(app)');
+            } catch (error) {
+              Alert.alert(
+                'No se pudo eliminar',
+                error instanceof Error ? error.message : 'Error desconocido',
+              );
+            }
+          },
+        },
+      ],
+    );
+  };
+
+  const handleDocument = async (kind: 'contract' | 'promissory' | 'csv') => {
+    if (!loan) {
+      return;
+    }
+
+    setDocumentBusy(kind);
+    try {
+      const input = { loan, client, payments };
+      if (kind === 'contract') {
+        await shareContractPdf(input);
+      } else if (kind === 'promissory') {
+        await sharePromissoryNotePdf(input);
+      } else {
+        await shareInstallmentsCsv(input);
+      }
+    } catch (error) {
+      Alert.alert(
+        'No se pudo generar el documento',
+        error instanceof Error ? error.message : 'Error desconocido',
+      );
+    } finally {
+      setDocumentBusy(null);
+    }
+  };
+
   return (
     <ScrollView style={appStyles.screen} contentContainerStyle={appStyles.scroll}>
       <View style={appStyles.heroCard}>
-        <Text style={appStyles.heroTitle}>{loan ? formatCurrency(loan.amount) : 'Prestamo'}</Text>
-        <Text style={appStyles.heroSubtitle}>
-          {detailQuery.data?.client?.name || 'Cliente'} - {loan?.loanType || 'N/A'} - {loan?.frequency || 'N/A'}
-        </Text>
+        <View style={appStyles.rowBetween}>
+          <View style={{ flex: 1 }}>
+            <Text style={appStyles.heroTitle}>
+              {loan ? formatCurrency(loan.amount) : 'Prestamo'}
+            </Text>
+            <Text style={appStyles.heroSubtitle}>
+              {client?.name || 'Cliente'} - {loan?.loanType || 'N/A'} - {loan?.frequency || 'N/A'}
+            </Text>
+          </View>
+          {health ? (
+            <View style={[appStyles.chip, { backgroundColor: health.backgroundColor }]}>
+              <Text style={[appStyles.chipText, { color: health.color }]}>{health.label}</Text>
+            </View>
+          ) : null}
+        </View>
+        {health ? <Text style={appStyles.heroSubtitle}>{health.description}</Text> : null}
       </View>
 
-      <View style={[appStyles.card, appStyles.statusCard, isOnline === false ? appStyles.statusWarning : appStyles.statusInfo]}>
-        <Text style={appStyles.statusTitle}>
-          {needsReauth ? 'Sesion remota vencida' : isOnline === false ? 'Cobranza offline habilitada' : 'Sync disponible'}
-        </Text>
-        <Text style={appStyles.statusText}>
-          {needsReauth
-            ? 'Puedes seguir guardando pagos en outbox, pero la app no podra confirmarlos contra el backend hasta reingresar con conexion.'
-            : isOnline === false
-            ? 'Puedes registrar pagos en outbox. No se perderan y quedaran pendientes hasta recuperar red.'
-            : 'Si la conexion responde, la app intentara sincronizar este pago apenas lo guardes.'}
-        </Text>
-        {authMessage ? (
-          <Text style={appStyles.statusText}>Detalle backend: {authMessage}</Text>
-        ) : null}
-        <Text style={appStyles.statusText}>
-          Ultima sincronizacion: {formatDateTime(lastSyncAt)}
-        </Text>
-      </View>
+      {session?.mode === 'remote' ? (
+        <View
+          style={[
+            appStyles.card,
+            appStyles.statusCard,
+            isOnline === false ? appStyles.statusWarning : appStyles.statusInfo,
+          ]}
+        >
+          <Text style={appStyles.statusTitle}>
+            {needsReauth ? 'Sesion remota vencida' : isOnline === false ? 'Sin conexion' : 'Sync disponible'}
+          </Text>
+          <Text style={appStyles.statusText}>
+            {needsReauth
+              ? 'Puedes seguir guardando pagos, pero no se confirmaran contra el escritorio hasta reingresar con conexion.'
+              : isOnline === false
+                ? 'Los pagos se guardan en el telefono y quedan pendientes hasta recuperar red.'
+                : 'Si la conexion responde, la app intentara sincronizar este pago apenas lo guardes.'}
+          </Text>
+          {authMessage ? (
+            <Text style={appStyles.statusText}>Detalle backend: {authMessage}</Text>
+          ) : null}
+          <Text style={appStyles.statusText}>Ultima sincronizacion: {formatDateTime(lastSyncAt)}</Text>
+        </View>
+      ) : null}
 
       <View style={appStyles.card}>
         <Text style={appStyles.cardTitle}>Contacto</Text>
-        <Text style={appStyles.cardSubtitle}>
-          Atajos para comunicarte con el cliente desde el telefono del cobrador.
-        </Text>
         <View style={appStyles.actionRow}>
           <Pressable
             style={appStyles.buttonMuted}
             onPress={async () => {
               try {
-                await openPhoneCall(detailQuery.data?.client?.phone);
+                await openPhoneCall(client?.phone);
               } catch (error) {
                 Alert.alert('No se pudo llamar', error instanceof Error ? error.message : 'Error desconocido');
               }
@@ -181,7 +329,7 @@ export default function LoanDetailScreen() {
             style={appStyles.buttonMuted}
             onPress={async () => {
               try {
-                await openWhatsApp(detailQuery.data?.client?.phone);
+                await openWhatsApp(client?.phone);
               } catch (error) {
                 Alert.alert('No se pudo abrir WhatsApp', error instanceof Error ? error.message : 'Error desconocido');
               }
@@ -201,12 +349,103 @@ export default function LoanDetailScreen() {
           <Text style={appStyles.statLabel}>Programado</Text>
           <Text style={appStyles.statValue}>{formatCurrency(totalScheduled)}</Text>
         </View>
+        <View style={appStyles.statBox}>
+          <Text style={appStyles.statLabel}>Saldo</Text>
+          <Text style={appStyles.statValue}>{formatCurrency(Math.max(totalScheduled - totalPaid, 0))}</Text>
+        </View>
+        <View style={appStyles.statBox}>
+          <Text style={appStyles.statLabel}>Cuotas</Text>
+          <Text style={appStyles.statValue}>
+            {payments.filter((payment) => payment.status === 'Paid').length}/{payments.length}
+          </Text>
+        </View>
       </View>
 
       <View style={appStyles.card}>
-        <Text style={appStyles.cardTitle}>Registrar pago offline</Text>
+        <Text style={appStyles.cardTitle}>Documentos</Text>
         <Text style={appStyles.cardSubtitle}>
-          Selecciona una cuota, guarda la transaccion localmente y sincroniza cuando haya red.
+          Genera el contrato, el pagare o el detalle de cuotas para compartirlo.
+        </Text>
+        <View style={appStyles.actionRow}>
+          <Pressable
+            style={appStyles.buttonMuted}
+            onPress={() => handleDocument('contract')}
+            disabled={documentBusy !== null}
+          >
+            <Text style={appStyles.buttonMutedText}>
+              {documentBusy === 'contract' ? 'Generando...' : 'Contrato PDF'}
+            </Text>
+          </Pressable>
+          <Pressable
+            style={appStyles.buttonMuted}
+            onPress={() => handleDocument('promissory')}
+            disabled={documentBusy !== null}
+          >
+            <Text style={appStyles.buttonMutedText}>
+              {documentBusy === 'promissory' ? 'Generando...' : 'Pagare PDF'}
+            </Text>
+          </Pressable>
+          <Pressable
+            style={appStyles.buttonMuted}
+            onPress={() => handleDocument('csv')}
+            disabled={documentBusy !== null}
+          >
+            <Text style={appStyles.buttonMutedText}>
+              {documentBusy === 'csv' ? 'Generando...' : 'Cuotas CSV'}
+            </Text>
+          </Pressable>
+        </View>
+      </View>
+
+      <View style={appStyles.card}>
+        <Text style={appStyles.cardTitle}>Administrar prestamo</Text>
+        <Text style={appStyles.cardSubtitle}>
+          Pausa la deuda, regenera el calendario o elimina el prestamo del telefono.
+        </Text>
+        <View style={appStyles.actionRow}>
+          <Pressable
+            style={appStyles.buttonMuted}
+            onPress={handleTogglePause}
+            disabled={pauseMutation.isPending}
+          >
+            <Text style={appStyles.buttonMutedText}>
+              {pauseMutation.isPending
+                ? 'Guardando...'
+                : loan?.isPaused
+                  ? 'Reanudar prestamo'
+                  : 'Pausar prestamo'}
+            </Text>
+          </Pressable>
+          <Pressable
+            style={appStyles.buttonMuted}
+            onPress={handleRecalculate}
+            disabled={recalculateMutation.isPending}
+          >
+            <Text style={appStyles.buttonMutedText}>
+              {recalculateMutation.isPending ? 'Recalculando...' : 'Recalcular cuotas'}
+            </Text>
+          </Pressable>
+          <Pressable
+            style={appStyles.buttonDanger}
+            onPress={handleDelete}
+            disabled={deleteLoanMutation.isPending}
+          >
+            <Text style={appStyles.buttonDangerText}>
+              {deleteLoanMutation.isPending ? 'Eliminando...' : 'Eliminar prestamo'}
+            </Text>
+          </Pressable>
+        </View>
+        {transactions.length > 0 ? (
+          <Text style={appStyles.itemText}>
+            El recalculo esta bloqueado porque este prestamo ya tiene pagos registrados.
+          </Text>
+        ) : null}
+      </View>
+
+      <View style={appStyles.card}>
+        <Text style={appStyles.cardTitle}>Registrar pago</Text>
+        <Text style={appStyles.cardSubtitle}>
+          Selecciona una cuota, guarda la transaccion y sincroniza cuando haya red.
         </Text>
         <Text style={appStyles.itemText}>
           {selectedPayment
@@ -237,9 +476,11 @@ export default function LoanDetailScreen() {
             {queuePayment.isPending
               ? 'Guardando...'
               : canQueueSelectedPayment
-                ? isOnline === false
-                  ? 'Guardar sin conexion'
-                  : 'Guardar y sincronizar'
+                ? session?.mode === 'local'
+                  ? 'Guardar pago'
+                  : isOnline === false
+                    ? 'Guardar sin conexion'
+                    : 'Guardar y sincronizar'
                 : 'Selecciona una cuota pendiente'}
           </Text>
         </Pressable>
@@ -250,8 +491,8 @@ export default function LoanDetailScreen() {
             onPress={async () => {
               try {
                 await createCollectionReminder({
-                  clientName: detailQuery.data?.client?.name || 'Cliente',
-                  clientPhone: detailQuery.data?.client?.phone,
+                  clientName: client?.name || 'Cliente',
+                  clientPhone: client?.phone,
                   paymentId: selectedPayment.id,
                   loanId: loanId ?? 'loan',
                   amount: selectedPaymentRemaining ?? selectedPayment.amount,

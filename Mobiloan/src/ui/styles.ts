@@ -180,4 +180,59 @@ export const appStyles = StyleSheet.create({
     fontSize: 11,
     fontWeight: '800',
   },
+  alertCard: {
+    backgroundColor: '#FEF2F2',
+    borderWidth: 1,
+    borderColor: '#FECACA',
+    borderRadius: 22,
+    padding: 18,
+    gap: 6,
+  },
+  alertTitle: {
+    color: '#B91C1C',
+    fontSize: 16,
+    fontWeight: '800',
+  },
+  alertText: {
+    color: '#7F1D1D',
+    fontSize: 13,
+    lineHeight: 19,
+  },
+  linkText: {
+    color: APP_THEME.accent,
+    fontSize: 13,
+    fontWeight: '800',
+  },
+  heroAction: {
+    backgroundColor: 'rgba(248, 253, 255, 0.14)',
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    borderRadius: 14,
+  },
+  heroActionText: {
+    color: '#F8FDFF',
+    fontSize: 13,
+    fontWeight: '800',
+  },
+  statValueSmall: {
+    color: APP_THEME.ink,
+    fontSize: 17,
+    fontWeight: '800',
+  },
+  chip: {
+    alignSelf: 'flex-start',
+    borderRadius: 999,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+  },
+  chipText: {
+    fontSize: 11,
+    fontWeight: '800',
+  },
+  emptyState: {
+    color: APP_THEME.slate,
+    fontSize: 13,
+    lineHeight: 19,
+    paddingVertical: 8,
+  },
 });

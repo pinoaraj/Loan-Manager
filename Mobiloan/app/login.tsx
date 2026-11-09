@@ -11,6 +11,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { formatDateTime } from '../src/lib/format';
 import { mobileApi } from '../src/services/api';
@@ -83,11 +84,12 @@ export default function LoginScreen() {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      style={appStyles.screen}
-    >
-      <ScrollView contentContainerStyle={[appStyles.scroll, { flexGrow: 1, justifyContent: 'center' }]}>
+    <SafeAreaView style={appStyles.screen} edges={['top', 'bottom']}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        style={appStyles.screen}
+      >
+        <ScrollView contentContainerStyle={[appStyles.scroll, { flexGrow: 1, justifyContent: 'center' }]}>
         <View style={appStyles.heroCard}>
           <Text style={appStyles.heroTitle}>Mobiloan</Text>
           <Text style={appStyles.heroSubtitle}>
@@ -178,6 +180,7 @@ export default function LoginScreen() {
           ) : null}
         </View>
       </ScrollView>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }

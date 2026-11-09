@@ -29,6 +29,18 @@ export const useLoanDetail = (loanId: string) =>
     enabled: Boolean(loanId),
   });
 
+export const useLoans = () =>
+  useQuery({
+    queryKey: ['loans'],
+    queryFn: () => localDb.listLoans(),
+  });
+
+export const useDashboardStats = () =>
+  useQuery({
+    queryKey: ['dashboard-stats'],
+    queryFn: () => localDb.getDashboardStats(),
+  });
+
 export const useRejectedOutbox = () =>
   useQuery({
     queryKey: ['rejected-outbox'],

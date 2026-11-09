@@ -1,14 +1,22 @@
 import * as SQLite from 'expo-sqlite';
 import { calculateAmortization } from '../lib/amortization';
-import { parseStoredDate, toLocalDateKey, toStoredDueDate, todayDateKey } from '../lib/dates';
+import {
+  differenceInDays,
+  parseStoredDate,
+  toLocalDateKey,
+  toStoredDueDate,
+  todayDateKey,
+} from '../lib/dates';
 import { createClientMutationId } from '../lib/mutationId';
 
 import type {
   ClientRecord,
   CollectionFilter,
   CollectionQueueItem,
+  DashboardStats,
   LocalClientDraft,
   LocalLoanDraft,
+  LoanListItem,
   LoanRecord,
   OutboxMutationRecord,
   PendingOutboxItem,
@@ -915,6 +923,505 @@ export const localDb = {
     }
 
     return { loan, payments };
+  },
+
+  async listLoans(): Promise<LoanListItem[]> {
+    const database = await getDatabase();
+    const loanRows = await database.getAllAsync<any>(
+      `SELECT l.*, c.name AS clientName, c.phone AS clientPhone
+       FROM loans l
+       INNER JOIN clients c ON c.id = l.clientId
+       ORDER BY l.updatedAt DESC`,
+    );
+
+    const paymentRows = await database.getAllAsync<any>(
+      `SELECT id, loanId, amount, lateFee, paidAmount, dueDate, status FROM payments`,
+    );
+
+    const paymentsByLoan = new Map<string, any[]>();
+    for (const row of paymentRows) {
+      const bucket = paymentsByLoan.get(row.loanId) ?? [];
+      bucket.push(row);
+      paymentsByLoan.set(row.loanId, bucket);
+    }
+
+    const todayKey = todayDateKey();
+    const today = new Date();
+
+    return loanRows.map((row) => {
+      const payments = paymentsByLoan.get(row.id) ?? [];
+      let paymentCount = 0;
+      let paidCount = 0;
+      let totalScheduled = 0;
+      let totalPaid = 0;
+      let overdueAmount = 0;
+      let overdueCount = 0;
+      let upcomingAmount = 0;
+      let upcomingCount = 0;
+      let nextDueDate: string | null = null;
+      let maxDaysLate = 0;
+
+      for (const payment of payments) {
+        paymentCount += 1;
+        const amount = toNumber(payment.amount);
+        const lateFee = toNumber(payment.lateFee);
+        const paidAmount = toNumber(payment.paidAmount);
+        const remaining = Math.max(amount + lateFee - paidAmount, 0);
+        totalScheduled += amount + lateFee;
+        totalPaid += paidAmount;
+
+        if (payment.status === 'Paid') {
+          paidCount += 1;
+          continue;
+        }
+
+        const dueDateKey = toLocalDateKey(payment.dueDate);
+        if (dueDateKey && dueDateKey < todayKey) {
+          overdueCount += 1;
+          overdueAmount += remaining;
+          const dueDate = parseStoredDate(payment.dueDate);
+          if (dueDate) {
+            const daysLate = differenceInDays(today, dueDate);
+            if (daysLate > maxDaysLate) {
+              maxDaysLate = daysLate;
+            }
+          }
+        } else {
+          upcomingCount += 1;
+          upcomingAmount += remaining;
+        }
+
+        if (!nextDueDate || (dueDateKey && (toLocalDateKey(nextDueDate) ?? '') > dueDateKey)) {
+          nextDueDate = payment.dueDate;
+        }
+      }
+
+      return {
+        ...row,
+        amount: toNumber(row.amount),
+        interestRate: toNumber(row.interestRate),
+        durationMonths: Number(row.durationMonths),
+        isPaused: Boolean(row.isPaused),
+        clientName: row.clientName,
+        clientPhone: row.clientPhone ?? null,
+        paymentCount,
+        paidCount,
+        totalScheduled,
+        totalPaid,
+        totalRemaining: Math.max(totalScheduled - totalPaid, 0),
+        overdueAmount,
+        overdueCount,
+        upcomingAmount,
+        upcomingCount,
+        nextDueDate,
+        maxDaysLate,
+      };
+    });
+  },
+
+  async getDashboardStats(): Promise<DashboardStats> {
+    const database = await getDatabase();
+    const clientCount = await database.getFirstAsync<{ total: number }>(
+      `SELECT COUNT(*) AS total FROM clients`,
+    );
+    const loans = await this.listLoans();
+
+    const stats = loans.reduce(
+      (acc, loan) => {
+        acc.totalLent += loan.amount;
+        acc.totalScheduled += loan.totalScheduled;
+        acc.totalCollected += loan.totalPaid;
+        acc.totalOutstanding += loan.totalRemaining;
+        acc.overdueAmount += loan.overdueAmount;
+        acc.overduePayments += loan.overdueCount;
+        acc.upcomingAmount += loan.upcomingAmount;
+        acc.upcomingPayments += loan.upcomingCount;
+
+        if (loan.isPaused) {
+          acc.pausedLoans += 1;
+        } else if (loan.status === 'Paid') {
+          acc.paidLoans += 1;
+        } else {
+          acc.activeLoans += 1;
+        }
+
+        if (!loan.isPaused && loan.overdueCount > 0) {
+          acc.overdueLoans += 1;
+        }
+
+        return acc;
+      },
+      {
+        totalClients: Number(clientCount?.total || 0),
+        totalLoans: loans.length,
+        activeLoans: 0,
+        overdueLoans: 0,
+        paidLoans: 0,
+        pausedLoans: 0,
+        totalLent: 0,
+        totalScheduled: 0,
+        totalCollected: 0,
+        totalOutstanding: 0,
+        overdueAmount: 0,
+        overduePayments: 0,
+        upcomingAmount: 0,
+        upcomingPayments: 0,
+        healthScore: 100,
+      } as DashboardStats,
+    );
+
+    stats.healthScore =
+      stats.totalScheduled > 0
+        ? Math.max(
+            0,
+            Math.min(100, Math.round((1 - stats.overdueAmount / stats.totalScheduled) * 100)),
+          )
+        : 100;
+
+    return stats;
+  },
+
+  async updateLocalClient(clientId: string, draft: LocalClientDraft): Promise<ClientRecord> {
+    const database = await getDatabase();
+    const existing = await database.getFirstAsync<ClientRecord>(
+      `SELECT * FROM clients WHERE id = ?`,
+      [clientId],
+    );
+
+    if (!existing) {
+      throw new Error('El cliente ya no existe en la base local.');
+    }
+
+    const name = draft.name.trim();
+    if (!name) {
+      throw new Error('El nombre del cliente es obligatorio.');
+    }
+
+    const now = new Date().toISOString();
+    const next: ClientRecord = {
+      ...existing,
+      name,
+      rut: draft.rut?.trim() || null,
+      phone: draft.phone?.trim() || null,
+      email: draft.email?.trim() || null,
+      address: draft.address?.trim() || null,
+      origin: 'local',
+      updatedAt: now,
+    };
+
+    await database.runAsync(
+      `UPDATE clients
+       SET name = ?, rut = ?, phone = ?, email = ?, address = ?, origin = 'local', updatedAt = ?
+       WHERE id = ?`,
+      [next.name, next.rut, next.phone, next.email, next.address, now, clientId],
+    );
+
+    return next;
+  },
+
+  async deleteLocalClient(clientId: string): Promise<void> {
+    const database = await getDatabase();
+    await database.execAsync('BEGIN');
+    try {
+      await database.runAsync(
+        `DELETE FROM payment_transactions
+         WHERE paymentId IN (
+           SELECT p.id
+           FROM payments p
+           INNER JOIN loans l ON l.id = p.loanId
+           WHERE l.clientId = ?
+         )`,
+        [clientId],
+      );
+      await database.runAsync(
+        `DELETE FROM payments WHERE loanId IN (SELECT id FROM loans WHERE clientId = ?)`,
+        [clientId],
+      );
+      await database.runAsync(`DELETE FROM loans WHERE clientId = ?`, [clientId]);
+      await database.runAsync(`DELETE FROM clients WHERE id = ?`, [clientId]);
+      await database.execAsync('COMMIT');
+    } catch (error) {
+      await database.execAsync('ROLLBACK');
+      throw error;
+    }
+  },
+
+  async setLoanPaused(loanId: string, paused: boolean): Promise<void> {
+    const database = await getDatabase();
+    await database.runAsync(
+      `UPDATE loans SET isPaused = ?, updatedAt = ? WHERE id = ?`,
+      [paused ? 1 : 0, new Date().toISOString(), loanId],
+    );
+  },
+
+  async deleteLocalLoan(loanId: string): Promise<void> {
+    const database = await getDatabase();
+    await database.execAsync('BEGIN');
+    try {
+      await database.runAsync(
+        `DELETE FROM payment_transactions WHERE paymentId IN (SELECT id FROM payments WHERE loanId = ?)`,
+        [loanId],
+      );
+      await database.runAsync(`DELETE FROM payments WHERE loanId = ?`, [loanId]);
+      await database.runAsync(`DELETE FROM loans WHERE id = ?`, [loanId]);
+      await database.execAsync('COMMIT');
+    } catch (error) {
+      await database.execAsync('ROLLBACK');
+      throw error;
+    }
+  },
+
+  async recalculateLoanSchedule(loanId: string): Promise<{
+    loan: LoanRecord;
+    payments: PaymentRecord[];
+  }> {
+    const database = await getDatabase();
+    const loanRow = await database.getFirstAsync<any>(
+      `SELECT * FROM loans WHERE id = ?`,
+      [loanId],
+    );
+
+    if (!loanRow) {
+      throw new Error('El prestamo ya no existe en la base local.');
+    }
+
+    const transactionCount = await database.getFirstAsync<{ total: number }>(
+      `SELECT COUNT(*) AS total
+       FROM payment_transactions t
+       INNER JOIN payments p ON p.id = t.paymentId
+       WHERE p.loanId = ?`,
+      [loanId],
+    );
+
+    if (Number(transactionCount?.total || 0) > 0) {
+      throw new Error('No se puede recalcular un prestamo con pagos registrados.');
+    }
+
+    const amortization = calculateAmortization(
+      toNumber(loanRow.amount),
+      toNumber(loanRow.interestRate),
+      Number(loanRow.durationMonths),
+      loanRow.startDate,
+      loanRow.frequency,
+      loanRow.loanType,
+    );
+
+    if (amortization.length === 0) {
+      throw new Error('No se pudo generar el calendario de cuotas con esos datos.');
+    }
+
+    const now = new Date().toISOString();
+    const payments: PaymentRecord[] = amortization.map((item) => ({
+      id: createLocalId('payment'),
+      loanId,
+      amount: Number(item.amount.toFixed(2)),
+      lateFee: 0,
+      paidAmount: 0,
+      dueDate: toStoredDueDate(item.dueDate),
+      status: 'Pending',
+      createdAt: now,
+      updatedAt: now,
+    }));
+
+    const loan: LoanRecord = {
+      ...loanRow,
+      amount: toNumber(loanRow.amount),
+      interestRate: toNumber(loanRow.interestRate),
+      durationMonths: Number(loanRow.durationMonths),
+      isPaused: Boolean(loanRow.isPaused),
+      status: 'Active',
+      origin: 'local',
+      updatedAt: now,
+    };
+
+    await database.execAsync('BEGIN');
+    try {
+      await database.runAsync(
+        `DELETE FROM payment_transactions WHERE paymentId IN (SELECT id FROM payments WHERE loanId = ?)`,
+        [loanId],
+      );
+      await database.runAsync(`DELETE FROM payments WHERE loanId = ?`, [loanId]);
+
+      for (const payment of payments) {
+        await database.runAsync(
+          `INSERT INTO payments (id, loanId, amount, lateFee, paidAmount, dueDate, status, origin, createdAt, updatedAt)
+           VALUES (?, ?, ?, ?, ?, ?, ?, 'local', ?, ?)`,
+          [
+            payment.id,
+            payment.loanId,
+            payment.amount,
+            payment.lateFee,
+            payment.paidAmount,
+            payment.dueDate,
+            payment.status,
+            payment.createdAt,
+            payment.updatedAt,
+          ],
+        );
+      }
+
+      await database.runAsync(
+        `UPDATE loans SET status = 'Active', origin = 'local', updatedAt = ? WHERE id = ?`,
+        [now, loanId],
+      );
+
+      await database.execAsync('COMMIT');
+    } catch (error) {
+      await database.execAsync('ROLLBACK');
+      throw error;
+    }
+
+    return { loan, payments };
+  },
+
+  async importPortableSnapshot(payload: PortableSyncPackage): Promise<{
+    clients: number;
+    loans: number;
+    payments: number;
+    transactions: number;
+  }> {
+    if (!payload || payload.version !== 1) {
+      throw new Error('El archivo no es un respaldo Mobiloan valido.');
+    }
+
+    const clients = Array.isArray(payload.clients) ? payload.clients : [];
+    const loans = Array.isArray(payload.loans) ? payload.loans : [];
+    const payments = Array.isArray(payload.payments) ? payload.payments : [];
+    const transactions = Array.isArray(payload.paymentTransactions)
+      ? payload.paymentTransactions
+      : [];
+
+    const database = await getDatabase();
+    await database.execAsync('BEGIN');
+    try {
+      for (const client of clients) {
+        if (!client?.id || !client?.name) {
+          continue;
+        }
+
+        await database.runAsync(
+          `INSERT INTO clients (id, name, rut, phone, email, address, origin, createdAt, updatedAt)
+           VALUES (?, ?, ?, ?, ?, ?, 'local', ?, ?)
+           ON CONFLICT(id) DO UPDATE SET
+             name = excluded.name,
+             rut = excluded.rut,
+             phone = excluded.phone,
+             email = excluded.email,
+             address = excluded.address,
+             updatedAt = excluded.updatedAt`,
+          [
+            client.id,
+            client.name,
+            client.rut ?? null,
+            client.phone ?? null,
+            client.email ?? null,
+            client.address ?? null,
+            client.createdAt ?? new Date().toISOString(),
+            client.updatedAt ?? new Date().toISOString(),
+          ],
+        );
+      }
+
+      for (const loan of loans) {
+        if (!loan?.id || !loan?.clientId) {
+          continue;
+        }
+
+        await database.runAsync(
+          `INSERT INTO loans (id, clientId, amount, interestRate, durationMonths, startDate, frequency, loanType, status, isPaused, origin, createdAt, updatedAt)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'local', ?, ?)
+           ON CONFLICT(id) DO UPDATE SET
+             clientId = excluded.clientId,
+             amount = excluded.amount,
+             interestRate = excluded.interestRate,
+             durationMonths = excluded.durationMonths,
+             startDate = excluded.startDate,
+             frequency = excluded.frequency,
+             loanType = excluded.loanType,
+             status = excluded.status,
+             isPaused = excluded.isPaused,
+             updatedAt = excluded.updatedAt`,
+          [
+            loan.id,
+            loan.clientId,
+            toNumber(loan.amount),
+            toNumber(loan.interestRate),
+            Number(loan.durationMonths || 0),
+            loan.startDate,
+            loan.frequency,
+            loan.loanType,
+            loan.status ?? 'Active',
+            loan.isPaused ? 1 : 0,
+            loan.createdAt ?? new Date().toISOString(),
+            loan.updatedAt ?? new Date().toISOString(),
+          ],
+        );
+      }
+
+      for (const payment of payments) {
+        if (!payment?.id || !payment?.loanId) {
+          continue;
+        }
+
+        await database.runAsync(
+          `INSERT INTO payments (id, loanId, amount, lateFee, paidAmount, dueDate, status, origin, createdAt, updatedAt)
+           VALUES (?, ?, ?, ?, ?, ?, ?, 'local', ?, ?)
+           ON CONFLICT(id) DO UPDATE SET
+             loanId = excluded.loanId,
+             amount = excluded.amount,
+             lateFee = excluded.lateFee,
+             paidAmount = excluded.paidAmount,
+             dueDate = excluded.dueDate,
+             status = excluded.status,
+             updatedAt = excluded.updatedAt`,
+          [
+            payment.id,
+            payment.loanId,
+            toNumber(payment.amount),
+            toNumber(payment.lateFee),
+            toNumber(payment.paidAmount),
+            payment.dueDate,
+            payment.status ?? 'Pending',
+            payment.createdAt ?? new Date().toISOString(),
+            payment.updatedAt ?? new Date().toISOString(),
+          ],
+        );
+      }
+
+      for (const transaction of transactions) {
+        if (!transaction?.id || !transaction?.paymentId) {
+          continue;
+        }
+
+        await database.runAsync(
+          `INSERT OR REPLACE INTO payment_transactions (id, paymentId, amount, date, method, note, createdAt, updatedAt, clientMutationId)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+          [
+            transaction.id,
+            transaction.paymentId,
+            toNumber(transaction.amount),
+            transaction.date,
+            transaction.method ?? 'Cash',
+            transaction.note ?? null,
+            transaction.createdAt ?? new Date().toISOString(),
+            transaction.updatedAt ?? new Date().toISOString(),
+            transaction.clientMutationId ?? null,
+          ],
+        );
+      }
+
+      await database.execAsync('COMMIT');
+    } catch (error) {
+      await database.execAsync('ROLLBACK');
+      throw error;
+    }
+
+    return {
+      clients: clients.length,
+      loans: loans.length,
+      payments: payments.length,
+      transactions: transactions.length,
+    };
   },
 
   async addOutboxMutation(record: OutboxMutationRecord): Promise<void> {
