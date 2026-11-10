@@ -57,7 +57,8 @@ const paymentSchema = z.object({
     amount: z.number().positive('El monto debe ser positivo'),
     date: z.string().datetime().or(z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Fecha invalida')).optional(),
     method: z.string().optional(),
-    note: z.string().optional()
+    note: z.string().optional(),
+    clientMutationId: z.string().min(1).optional()
 });
 
 module.exports = {

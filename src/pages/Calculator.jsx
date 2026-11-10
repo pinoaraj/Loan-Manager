@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { format } from 'date-fns';
 import { calculateAmortization } from '../utils/amortization';
+import { formatCurrency } from '../utils/formatters';
 
 const Calculator = () => {
     const [formData, setFormData] = useState({
@@ -236,16 +237,16 @@ const Calculator = () => {
                             </div>
                             <p className="mb-2 text-xs font-bold uppercase tracking-widest text-blue-400">Cuota Estimada</p>
                             <h3 className="mb-4 break-words text-3xl font-black text-green-400 sm:text-4xl xl:text-5xl">
-                                ${schedule[0]?.amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                ${formatCurrency(schedule[0]?.amount, { minimumFractionDigits: 2 })}
                             </h3>
                             <div className="space-y-2 border-t border-slate-800 pt-4 text-sm">
                                 <div className="flex items-center justify-between gap-3">
                                     <span className="text-slate-400">Total a Pagar</span>
-                                    <span className="text-right font-bold">${totals?.totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+                                    <span className="text-right font-bold">${formatCurrency(totals?.totalAmount, { minimumFractionDigits: 2 })}</span>
                                 </div>
                                 <div className="flex items-center justify-between gap-3">
                                     <span className="text-slate-400">Costo del Interes</span>
-                                    <span className="text-right font-bold text-blue-400">${totals?.totalInterest.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+                                    <span className="text-right font-bold text-blue-400">${formatCurrency(totals?.totalInterest, { minimumFractionDigits: 2 })}</span>
                                 </div>
                             </div>
                         </div>
@@ -292,9 +293,9 @@ const Calculator = () => {
                                         <tr key={payment.installment} className="group transition-colors hover:bg-blue-50/50">
                                             <td className="p-3 font-medium text-slate-400 transition-colors group-hover:text-blue-600 sm:p-4">{payment.installment}</td>
                                             <td className="p-3 font-medium text-slate-700 sm:p-4">{format(payment.dueDate, 'dd MMM yyyy')}</td>
-                                            <td className="p-3 text-right font-black text-slate-900 sm:p-4">${payment.amount.toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
-                                            <td className="p-3 text-right text-slate-500 sm:p-4">${payment.principal.toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
-                                            <td className="p-3 text-right font-medium text-blue-600 sm:p-4">${payment.interest.toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
+                                            <td className="p-3 text-right font-black text-slate-900 sm:p-4">${formatCurrency(payment.amount, { minimumFractionDigits: 2 })}</td>
+                                            <td className="p-3 text-right text-slate-500 sm:p-4">${formatCurrency(payment.principal, { minimumFractionDigits: 2 })}</td>
+                                            <td className="p-3 text-right font-medium text-blue-600 sm:p-4">${formatCurrency(payment.interest, { minimumFractionDigits: 2 })}</td>
                                         </tr>
                                     ))}
                                 </tbody>

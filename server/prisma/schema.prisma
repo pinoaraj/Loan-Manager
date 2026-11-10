@@ -88,7 +88,20 @@ model Transaction {
   method    String   @default("Cash") // Cash, Transfer, Card
   note      String?
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  clientMutationId String? @unique
 
   @@index([paymentId])
   @@index([date])
+  @@index([updatedAt])
+}
+
+model SyncDeletedRecord {
+  id        String   @id
+  entity    String
+  recordId  String
+  deletedAt DateTime @default(now())
+
+  @@index([entity, deletedAt])
+  @@index([recordId])
 }

@@ -5,6 +5,7 @@ const { calculateAmortization } = require('../utils/amortization');
 const { checkAndApplyLateFees } = require('../utils/fees');
 const { authenticateToken } = require('../middleware/auth');
 const prisma = require('../lib/prisma');
+const { recordDeletedEntities } = require('../utils/syncDeletedRecords');
 
 const normalizeFrequency = (frequency = 'monthly') => {
     const normalized = String(frequency).trim().toLowerCase();
@@ -232,7 +233,20 @@ router.post('/:id/recalculate', authenticateToken, async (req, res) => {
         );
 
         await prisma.$transaction(async (tx) => {
+            const existingPayments = await tx.payment.findMany({
+                where: { loanId },
+                select: { id: true }
+            });
+
             await tx.payment.deleteMany({ where: { loanId } });
+
+            await recordDeletedEntities(
+                existingPayments.map((payment) => ({
+                    entity: 'payment',
+                    recordId: payment.id
+                })),
+                tx
+            );
 
             await Promise.all(schedule.map(p =>
                 tx.payment.create({

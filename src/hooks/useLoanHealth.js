@@ -1,4 +1,5 @@
-import { differenceInDays, parseISO, startOfDay } from 'date-fns';
+import { differenceInDays, startOfDay } from 'date-fns';
+import { parseStoredDate } from '../utils/dates';
 
 export const useLoanHealth = () => {
     const getLoanHealth = (loan) => {
@@ -29,7 +30,10 @@ export const useLoanHealth = () => {
 
         loan.payments.forEach(p => {
             if (p.status !== 'Paid') {
-                const dueDate = parseISO(p.dueDate);
+                const dueDate = parseStoredDate(p.dueDate);
+                if (!dueDate) {
+                    return;
+                }
                 if (dueDate < today) {
                     const daysLate = differenceInDays(today, dueDate);
                     if (daysLate > maxDaysLate) maxDaysLate = daysLate;

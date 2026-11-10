@@ -27,8 +27,10 @@ const NewLoan = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { clients, addLoan, addClient, getLoanPreview } = useLoans();
+    const preselectedClientId = location.state?.preselectedClientId || '';
+    const requestedStep = location.state?.openStep;
 
-    const [step, setStep] = useState(1);
+    const [step, setStep] = useState(() => (requestedStep === 2 ? 2 : 1));
     const [isAddingClient, setIsAddingClient] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [errors, setErrors] = useState({});
@@ -41,7 +43,7 @@ const NewLoan = () => {
         address: ''
     });
     const [formData, setFormData] = useState({
-        clientId: '',
+        clientId: preselectedClientId,
         amount: '',
         interestRate: 0.1,
         durationMonths: 12,
@@ -70,25 +72,6 @@ const NewLoan = () => {
         () => (clients || []).find((client) => client.id === formData.clientId),
         [clients, formData.clientId]
     );
-
-    useEffect(() => {
-        const preselectedClientId = location.state?.preselectedClientId;
-        const requestedStep = location.state?.openStep;
-
-        if (!preselectedClientId || !(clients || []).some((client) => client.id === preselectedClientId)) {
-            return;
-        }
-
-        setFormData((previous) => (
-            previous.clientId === preselectedClientId
-                ? previous
-                : { ...previous, clientId: preselectedClientId }
-        ));
-
-        if (requestedStep === 2) {
-            setStep((previous) => Math.max(previous, 2));
-        }
-    }, [clients, location.state]);
 
     useEffect(() => {
         const fetchPreview = async () => {

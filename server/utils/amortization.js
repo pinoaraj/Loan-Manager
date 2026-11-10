@@ -8,9 +8,43 @@ const normalizeFrequency = (frequency = 'monthly') => {
     return normalized === 'biweekly' ? 'bi-weekly' : normalized;
 };
 
+// Las fechas "date only" llegan como medianoche UTC y en Chile se ven como el
+// dia anterior. Se reancla a mediodia local para que el dia calendario no se
+// corra al serializar, igual que hace la app movil.
+const toLocalNoon = (value) => {
+    if (value instanceof Date) {
+        const copy = new Date(value.getTime());
+        copy.setHours(12, 0, 0, 0);
+        return copy;
+    }
+
+    const match = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(value ?? '').trim());
+    const parsed = match
+        ? new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]), 12, 0, 0, 0)
+        : new Date(value);
+
+    if (Number.isNaN(parsed.getTime())) {
+        return parsed;
+    }
+
+    parsed.setHours(12, 0, 0, 0);
+    return parsed;
+};
+
+// `setMonth` desborda en los dias 29-31 (31 de enero + 1 mes terminaba el 3 de
+// marzo). Se ancla al ultimo dia del mes destino.
+const addMonthsClamped = (start, months) => {
+    const year = start.getFullYear();
+    const month = start.getMonth() + months;
+    const day = start.getDate();
+    const lastDayOfTargetMonth = new Date(year, month + 1, 0).getDate();
+
+    return new Date(year, month, Math.min(day, lastDayOfTargetMonth), 12, 0, 0, 0);
+};
+
 const buildMonthlySchedule = (principal, monthlyRate, durationMonths, startDate, loanType = 'Fixed') => {
     const schedule = [];
-    const start = new Date(startDate);
+    const start = toLocalNoon(startDate);
 
     if (loanType === 'Fixed') {
         let paymentAmount;
@@ -27,8 +61,7 @@ const buildMonthlySchedule = (principal, monthlyRate, durationMonths, startDate,
             const principalPart = paymentAmount - interest;
             remainingPrincipal -= principalPart;
 
-            const dueDate = new Date(start);
-            dueDate.setMonth(dueDate.getMonth() + i);
+            const dueDate = addMonthsClamped(start, i);
 
             schedule.push({
                 installment: i,
@@ -48,8 +81,7 @@ const buildMonthlySchedule = (principal, monthlyRate, durationMonths, startDate,
         const interestPart = totalInterest / durationMonths;
 
         for (let i = 1; i <= durationMonths; i++) {
-            const dueDate = new Date(start);
-            dueDate.setMonth(dueDate.getMonth() + i);
+            const dueDate = addMonthsClamped(start, i);
 
             schedule.push({
                 installment: i,
@@ -67,7 +99,7 @@ const buildMonthlySchedule = (principal, monthlyRate, durationMonths, startDate,
 };
 
 const splitMonthlySchedule = (monthlySchedule, startDate, partsPerMonth, dayStep) => {
-    const start = new Date(startDate);
+    const start = toLocalNoon(startDate);
     const schedule = [];
 
     monthlySchedule.forEach((payment, monthIndex) => {

@@ -1,0 +1,320 @@
+import { router } from 'expo-router';
+import { useState } from 'react';
+import {
+  Alert,
+  Pressable,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native';
+
+import {
+  usePendingOutbox,
+  useRejectedOutbox,
+  useSyncSnapshot,
+} from '../../src/hooks/useOfflineData';
+import {
+  useDiscardRejectedMutation,
+  useImportPortableSnapshot,
+  useManualSync,
+  useRetryRejectedMutation,
+} from '../../src/hooks/useSyncActions';
+import { formatCurrency, formatDate, formatDateTime } from '../../src/lib/format';
+import { pickPortableSnapshot } from '../../src/lib/reports';
+import { exportPortableSyncPackage } from '../../src/lib/syncPackage';
+import { useSession } from '../../src/providers/AppProviders';
+import { syncService } from '../../src/services/sync';
+import { appStyles } from '../../src/ui/styles';
+
+export default function SettingsScreen() {
+  const {
+    session,
+    setSession,
+    isOnline,
+    lastSyncAt,
+    needsReauth,
+    authMessage,
+    refreshAppState,
+  } = useSession();
+  const snapshotQuery = useSyncSnapshot();
+  const pendingOutboxQuery = usePendingOutbox();
+  const rejectedOutboxQuery = useRejectedOutbox();
+  const syncMutation = useManualSync();
+  const retryRejectedMutation = useRetryRejectedMutation();
+  const discardRejectedMutation = useDiscardRejectedMutation();
+  const importMutation = useImportPortableSnapshot();
+  const [exporting, setExporting] = useState(false);
+  const [importing, setImporting] = useState(false);
+
+  const snapshot = snapshotQuery.data;
+  const pendingOutbox = pendingOutboxQuery.data ?? [];
+  const rejectedOutbox = rejectedOutboxQuery.data ?? [];
+  const isLocal = session?.mode === 'local';
+
+  const handleSync = async () => {
+    if (isOnline === false) {
+      Alert.alert(
+        'Sin conexion',
+        'La cartera local sigue disponible, pero esta sincronizacion necesita conexion al backend.',
+      );
+      return;
+    }
+
+    try {
+      const results = await syncMutation.mutateAsync();
+      await Promise.all([snapshotQuery.refetch(), pendingOutboxQuery.refetch(), rejectedOutboxQuery.refetch()]);
+      await refreshAppState();
+
+      const rejected = results.filter((item) => item.status === 'rejected').length;
+      if (rejected > 0) {
+        Alert.alert('Sincronizacion con observaciones', `${rejected} movimiento(s) requieren revision.`);
+      } else {
+        Alert.alert('Sincronizacion completada', 'La cartera quedo al dia con el escritorio.');
+      }
+    } catch (error) {
+      Alert.alert('No se pudo sincronizar', error instanceof Error ? error.message : 'Error desconocido');
+    }
+  };
+
+  const handleExport = async () => {
+    setExporting(true);
+    try {
+      await exportPortableSyncPackage();
+    } catch (error) {
+      Alert.alert('No se pudo exportar', error instanceof Error ? error.message : 'Error desconocido');
+    } finally {
+      setExporting(false);
+    }
+  };
+
+  const handleImport = async () => {
+    setImporting(true);
+    try {
+      const payload = await pickPortableSnapshot();
+      if (!payload) {
+        return;
+      }
+
+      const result = await importMutation.mutateAsync(payload);
+      await refreshAppState();
+      Alert.alert(
+        'Respaldo importado',
+        `${result.clients} clientes, ${result.loans} prestamos y ${result.payments} cuotas quedaron en el telefono.`,
+      );
+    } catch (error) {
+      Alert.alert('No se pudo importar', error instanceof Error ? error.message : 'Error desconocido');
+    } finally {
+      setImporting(false);
+    }
+  };
+
+  return (
+    <ScrollView style={appStyles.screen} contentContainerStyle={appStyles.scroll}>
+      <View style={appStyles.card}>
+        <Text style={appStyles.cardTitle}>Estado de la app</Text>
+        <Text style={appStyles.itemText}>
+          Modo: {isLocal ? 'independiente (sin PC)' : 'sincronizado con el escritorio'}
+        </Text>
+        <Text style={appStyles.itemText}>Usuario: {session?.username || 'Sin sesion'}</Text>
+        <Text style={appStyles.itemText}>
+          Red: {isOnline === null ? 'verificando...' : isOnline ? 'conectado' : 'sin conexion'}
+        </Text>
+        {isLocal ? (
+          <Text style={appStyles.itemText}>
+            Todo lo que registras se guarda en este telefono. Puedes exportar un respaldo cuando
+            quieras.
+          </Text>
+        ) : (
+          <Text style={appStyles.itemText}>
+            Ultima sincronizacion: {formatDateTime(lastSyncAt)}
+            {needsReauth ? ' - La sesion remota vencio, vuelve a entrar con internet.' : ''}
+          </Text>
+        )}
+        {authMessage ? (
+          <Text style={appStyles.itemText}>Detalle backend: {authMessage}</Text>
+        ) : null}
+      </View>
+
+      <View style={appStyles.card}>
+        <Text style={appStyles.cardTitle}>Respaldo e importacion</Text>
+        <Text style={appStyles.cardSubtitle}>
+          Exporta toda la cartera a un archivo JSON o recupera un respaldo anterior.
+        </Text>
+        <View style={appStyles.actionRow}>
+          <Pressable style={appStyles.buttonMuted} onPress={handleExport} disabled={exporting}>
+            <Text style={appStyles.buttonMutedText}>
+              {exporting ? 'Exportando...' : 'Exportar respaldo'}
+            </Text>
+          </Pressable>
+          <Pressable style={appStyles.buttonMuted} onPress={handleImport} disabled={importing}>
+            <Text style={appStyles.buttonMutedText}>
+              {importing ? 'Importando...' : 'Importar respaldo'}
+            </Text>
+          </Pressable>
+        </View>
+      </View>
+
+      {!isLocal ? (
+        <View style={appStyles.card}>
+          <View style={appStyles.rowBetween}>
+            <View style={{ flex: 1 }}>
+              <Text style={appStyles.cardTitle}>Sincronizacion</Text>
+              <Text style={appStyles.cardSubtitle}>
+                Ultimo cursor:{' '}
+                {snapshot?.lastCursor
+                  ? snapshot.lastCursor.slice(0, 19).replace('T', ' ')
+                  : 'sin sincronizacion'}
+              </Text>
+            </View>
+            <Pressable style={appStyles.button} onPress={handleSync}>
+              <Text style={appStyles.buttonText}>
+                {syncMutation.isPending
+                  ? 'Sincronizando...'
+                  : isOnline === false
+                    ? 'Sin red'
+                    : 'Sincronizar'}
+              </Text>
+            </Pressable>
+          </View>
+        </View>
+      ) : null}
+
+      {!isLocal ? (
+        <View style={appStyles.card}>
+          <Text style={appStyles.cardTitle}>Pagos pendientes de envio</Text>
+          <Text style={appStyles.cardSubtitle}>
+            Pagos guardados en el telefono que aun no confirma el escritorio.
+          </Text>
+
+          {pendingOutbox.map((mutation) => (
+            <View key={mutation.id} style={appStyles.listItemMuted}>
+              <View style={[appStyles.pill, { backgroundColor: '#0E7490' }]}>
+                <Text style={appStyles.pillText}>Pendiente</Text>
+              </View>
+              <Text style={appStyles.itemTitle}>
+                {formatCurrency(mutation.payload.amount)} - {mutation.payload.method || 'Cash'}
+              </Text>
+              <Text style={appStyles.itemText}>
+                {mutation.clientName || 'Cliente sin contexto local'} - Cuota:{' '}
+                {mutation.payload.paymentId}
+              </Text>
+              <Text style={appStyles.itemText}>
+                Guardado local: {formatDateTime(mutation.createdAt)}
+              </Text>
+              {mutation.dueDate ? (
+                <Text style={appStyles.itemText}>
+                  Vence: {formatDate(mutation.dueDate)}
+                  {mutation.remainingAmount !== null
+                    ? ` - Saldo: ${formatCurrency(mutation.remainingAmount)}`
+                    : ''}
+                </Text>
+              ) : null}
+              {mutation.loanId ? (
+                <Pressable
+                  style={appStyles.buttonMuted}
+                  onPress={() =>
+                    router.push({
+                      pathname: '/(app)/loans/[id]',
+                      params: {
+                        id: String(mutation.loanId),
+                        paymentId: mutation.payload.paymentId ?? '',
+                      },
+                    })
+                  }
+                >
+                  <Text style={appStyles.buttonMutedText}>Abrir cuota</Text>
+                </Pressable>
+              ) : null}
+            </View>
+          ))}
+
+          {pendingOutbox.length === 0 ? (
+            <Text style={appStyles.emptyState}>
+              No hay pagos pendientes. Todo lo guardado ya fue enviado.
+            </Text>
+          ) : null}
+        </View>
+      ) : null}
+
+      {!isLocal ? (
+        <View style={appStyles.card}>
+          <Text style={appStyles.cardTitle}>Movimientos rechazados</Text>
+          <Text style={appStyles.cardSubtitle}>
+            Si el escritorio rechaza un pago, puedes reintentarlo o descartarlo aqui.
+          </Text>
+
+          {rejectedOutbox.map((mutation) => (
+            <View key={mutation.id} style={appStyles.listItemMuted}>
+              <View style={[appStyles.pill, { backgroundColor: '#B91C1C' }]}>
+                <Text style={appStyles.pillText}>Requiere revision</Text>
+              </View>
+              <Text style={appStyles.itemTitle}>
+                {formatCurrency(mutation.payload.amount)} - {mutation.payload.method || 'Cash'}
+              </Text>
+              <Text style={appStyles.itemText}>
+                {mutation.clientName || 'Cliente sin contexto local'} - Cuota:{' '}
+                {mutation.payload.paymentId}
+              </Text>
+              <Text style={[appStyles.itemText, { color: '#B91C1C' }]}>
+                {mutation.errorCode || 'REJECTED'} - {mutation.errorMessage || 'Sin detalle'}
+              </Text>
+
+              <View style={appStyles.actionRow}>
+                <Pressable
+                  style={appStyles.buttonMuted}
+                  onPress={async () => {
+                    try {
+                      await retryRejectedMutation.mutateAsync(mutation.id);
+                      if (session && (await syncService.isOnline())) {
+                        await handleSync();
+                      }
+                    } catch (error) {
+                      Alert.alert(
+                        'No se pudo reintentar',
+                        error instanceof Error ? error.message : 'Error desconocido',
+                      );
+                    }
+                  }}
+                >
+                  <Text style={appStyles.buttonMutedText}>Reintentar</Text>
+                </Pressable>
+                <Pressable
+                  style={appStyles.buttonDanger}
+                  onPress={async () => {
+                    try {
+                      await discardRejectedMutation.mutateAsync(mutation.id);
+                    } catch (error) {
+                      Alert.alert(
+                        'No se pudo descartar',
+                        error instanceof Error ? error.message : 'Error desconocido',
+                      );
+                    }
+                  }}
+                >
+                  <Text style={appStyles.buttonDangerText}>Descartar</Text>
+                </Pressable>
+              </View>
+            </View>
+          ))}
+
+          {rejectedOutbox.length === 0 ? (
+            <Text style={appStyles.emptyState}>No hay movimientos rechazados.</Text>
+          ) : null}
+        </View>
+      ) : null}
+
+      <View style={appStyles.card}>
+        <Text style={appStyles.cardTitle}>Sesion</Text>
+        <Pressable
+          style={appStyles.buttonDanger}
+          onPress={async () => {
+            await setSession(null);
+            router.replace('/login');
+          }}
+        >
+          <Text style={appStyles.buttonDangerText}>Salir de la app</Text>
+        </Pressable>
+      </View>
+    </ScrollView>
+  );
+}

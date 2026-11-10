@@ -1,5 +1,47 @@
 # Plan de despliegue y estado actual: Loan Manager Desktop
 
+## Estado al cierre de la beta (2026-09-30)
+
+Punto de retorno. Si hay que retomar despues del beta testing, empezar por aqui.
+
+Lo que quedo publicado:
+
+- Version: `1.0.0` (beta) publicada como pre-release `v1.0.0-beta.1`
+- Rama: `codex/publish-icon-update`
+- Commit de codigo del build publicado: `f171682` (los arreglos de arranque); la documentacion sigue en commits posteriores
+- PR abierto: `#1 Prepare desktop beta release and validate installer flow` (pendiente de merge a `main`)
+- Release en GitHub: `https://github.com/pinoaraj/Loan-Manager/releases/tag/v1.0.0-beta.1`
+  - Adjunto: `LoanManager-Setup-1.0.0.exe` (207 MB)
+  - SHA256 del instalador publicado: `B0D7F77B407522FCEB9C70C3E8292A70BF885815CD1E290C83DF4D347E2BBC44`
+
+Paquete local listo para testers:
+
+- `C:\Users\JP\Desktop\INSTALADOR Loan Manager Beta`
+  - `LoanManager-Setup-1.0.0.exe` (instalador)
+  - `LoanManager-Beta-1.0.0.zip` (mismo instalador + instructivo, para enviar por WhatsApp; SHA256 `148D9289F502A84AD9BD48E4C4E6BB9480995CAEBE9EF979178D254FCE4F73B8`)
+  - `Portable\win-unpacked\Loan Manager.exe`
+  - `LEEME-INSTALACION.txt`
+- Respaldo de los datos anteriores: `C:\Users\JP\LoanManager-backup-datos-2026-09-30`
+
+Verificacion de cierre (`2026-09-30`):
+
+- `npm run lint`: OK
+- `npx vitest run`: OK (11/11)
+- `cd server && npm test`: OK (12/12)
+- Instalacion real en `C:\Program Files\Loan Manager`: la app arranca, aplica las 6 migraciones, responde `/api/health` `200`, registra el primer usuario (`201`) y permite login (`200`)
+- Version portable probada desde el paquete del Escritorio: arranca, migra y registra el primer usuario
+
+Notas para el proximo build:
+
+- Unico cambio posterior al build publicado: `server/utils/logger.js` usa `catch {}` sin variable de error para pasar `lint`. No cambia el comportamiento; se incluia en el proximo instalador.
+- Quedan cambios locales sin commitear que no son parte de esta entrega: `Mobiloan/*`, `launch-log.txt`, `.vscode/`, `Mobiloan/scripts/install-android-beta.ps1`, `fight-ai-web-mvp/`.
+
+Pendientes cuando vuelva el feedback de testers:
+
+1. Triage de bugs por severidad y reproducibilidad.
+2. Si hace falta un build nuevo, regenerar con `npm run build:desktop-installer` y actualizar el SHA256 en `README.md`, `docs/BETA-TESTER.md` y en la release.
+3. Merge del PR `#1` a `main` cuando la beta quede aprobada.
+
 ## Foco actual
 
 - Producto principal: app local para Windows con Electron + React + Express + Prisma/SQLite.
@@ -14,17 +56,36 @@
    - La API opera con validaciones, autenticacion y pruebas automatizadas.
    - `npm test` en `server/` ya cubre el flujo principal real.
 3. Desktop
-   - `electron-builder` genera instalador y version `win-unpacked`.
+   - `electron-builder` genera version `win-unpacked` y el estado actual fue regenerado de nuevo el `2026-06-16`.
+   - `2026-09-30`: instalador regenerado, instalado en `C:\Program Files\Loan Manager` y validado de punta a punta (arranque, migraciones, registro del primer usuario y login).
    - `desktop/main.cjs` levanta el backend local en `3011`.
+   - El healthcheck del backend empaquetado ahora espera hasta `45s`.
+   - El backend empaquetado ya difiere rutas pesadas y reutiliza un estado de migracion exitosa para acelerar aperturas repetidas.
+   - Validacion local del `2026-06-02`: primer arranque empaquetado con migracion en ~`5.7s` desde `startServer` hasta `healthcheck passed`; arranque repetido posterior en ~`1.2s`.
+   - Validacion local del `2026-06-03`: `release/win-unpacked/Loan Manager.exe` volvio a iniciar correctamente y el backend local paso `/api/health` a las `13:52:03Z`.
+   - El log operativo del desktop queda en `%AppData%\\loan-manager\\debug-log.txt`.
 4. Base de datos portable
    - En produccion, Electron mueve la DB a `AppData`.
 5. Migraciones
    - El arranque empaquetado ejecuta `prisma migrate deploy`.
+   - El instalador ya no incluye ninguna base de datos ni `.env`; una instalacion limpia parte siempre con una base vacia y crea el esquema desde migraciones.
+   - El arranque empaquetado ya no usa `cmd.exe` para migrar: la CLI de Prisma se ejecuta con el runtime Node de Electron, asi que la app abre bien incluso instalada en `C:\Program Files\Loan Manager`.
+   - Los logs del backend se escriben en `%AppData%\loan-manager\logs`, no dentro de la carpeta de instalacion, porque un usuario normal no puede crear carpetas bajo `C:\Program Files`.
+   - Antes de migrar, se crea el archivo de base vacio porque el motor de esquema de Prisma falla en Windows cuando el archivo SQLite todavia no existe.
    - Si la migracion falla en build empaquetado, la app ya no continua con un esquema desactualizado.
 6. Documentos legales
    - `Pagare` usa la plantilla `pagare_template_sc.docx`.
    - `Mutuo` usa la plantilla `mutuo_template_sc.doc`.
    - El llenado usa nombre, `RUT` y direccion del cliente.
+7. UX operativa
+   - Las alertas y vistas de cobranza abren la cuota exacta por `paymentId`.
+   - Los enlaces de WhatsApp ya salen al navegador externo del sistema en desktop, en vez de abrirse dentro del Chromium embebido de Electron.
+   - El modal de pago profundo ya cierra al primer click sin reabrirse por la URL.
+   - Se eliminaron codigos internos visibles en listados y cabeceras, y se unifico el formateo monetario en vistas clave.
+   - La ruta directa `#/loans/new` ya no cae en dashboard ni en estados inestables.
+   - El detalle del prestamo, listados, cobranza, calendarios y documentos usan fecha normalizada sin corrimiento de un dia.
+8. Branding
+   - Los assets `PNG`, `ICO` y `SVG` del icono de la app ya quedaron alineados con la identidad actual de Loan Manager.
 
 ## Mejoras cerradas para beta desktop
 
@@ -33,11 +94,19 @@
 - [x] Busqueda global de clientes desde backend.
 - [x] Historial de transacciones y pagos parciales estable.
 - [x] Bloqueo de pagos invalidos y sobrepagos.
+- [x] Suma correcta de pagos parciales + pago final en backend sin concatenacion de `Decimal`.
 - [x] Recalculo bloqueado cuando existen transacciones reales.
 - [x] Plantillas legales conectadas al flujo desktop.
 - [x] Migraciones Prisma bloqueantes en app empaquetada.
 - [x] `lint`, `vitest`, pruebas backend y `build` pasando.
+- [x] `electron:build` generando instalador y `win-unpacked`.
 - [x] Warnings de Fast Refresh eliminados.
+- [x] Modal de pago profundo cerrando al primer click.
+- [x] Icono desktop actualizado y consistente en assets principales.
+- [x] Revisiones visuales de pestanas principales, iconos y legibilidad en escritorio y vista movil.
+- [x] El empaquetado excluye bases de datos, `.env`, tests y logs, y el arranque ya no copia ninguna base de datos de plantilla.
+- [x] El registro del primer usuario en una instalacion limpia fue validado de punta a punta (`POST /api/auth/register` devuelve `201`).
+- [x] `checkAndApplyLateFees` ya no pierde el historial de transacciones al aplicar mora, por lo que el detalle del prestamo sigue mostrando los pagos registrados.
 
 ## Riesgos aun vigilados
 
@@ -45,8 +114,12 @@
    - Los textos y autollenado ya salen desde plantillas reales, pero conviene seguir revisando formato final con casos de clientes reales antes de version estable.
 2. Tamano del bundle
    - El build sigue siendo valido, pero hay chunks pesados por PDF/XLSX/charting.
-3. Datos historicos
+3. Instalador NSIS
+   - El build actual dejo `LoanManager-Setup-1.0.0.exe` junto al paquete `loan-manager-1.0.0-x64.nsis.7z`; antes de distribuir fuera del entorno local conviene validar ese artefacto final como paquete de entrega.
+4. Datos historicos
    - Cualquier instalacion desktop antigua sin CLI o con entorno tocado podria exponer problemas locales propios de esa maquina; el arranque ahora falla de forma segura en vez de seguir silenciosamente.
+5. QA en multiples equipos
+   - El build local y el ejecutable empaquetado funcionan, pero la beta todavia conviene validarla al menos en una segunda maquina Windows antes de llamarla "lista para publico amplio".
 
 ## Validacion actual
 
@@ -54,10 +127,29 @@
 - `npx vitest run`: OK
 - `server/npm test`: OK
 - `npm run build`: OK
+- `npm run rebuild-desktop`: OK
+- `npm run build:desktop-installer`: OK
 - `graphify update .`: OK
 - QA visual embebido: rutas principales cargando con backend real
 - QA final web: login, dashboard, clientes, detalle cliente, nuevo prestamo, detalle prestamo, pago parcial, cobranza, documentos legales, calculadora e importacion/exportacion validados
-- QA final desktop: `win-unpacked/Loan Manager.exe` inicia, crea/usa DB en `AppData`, ejecuta migraciones y levanta backend local en `3011`
+- QA final web adicional: `#/loans/new` por URL directa validado despues del refactor de rutas
+- QA final desktop: `win-unpacked/Loan Manager.exe` inicia, ejecuta backend local en `3011` y responde `200` en `/api/health`
+- QA final desktop adicional `2026-06-02`: el arranque repetido de `win-unpacked/Loan Manager.exe` reutiliza cache de migracion y reduce la disponibilidad del backend local a cerca de `1s` a `2s`
+- QA final desktop adicional `2026-06-02`: los accesos directos corregidos y el build actualizado abren WhatsApp en el navegador externo, sin mostrar el falso error de version de Chrome dentro de Electron
+- QA final desktop adicional `2026-06-03`: smoke test manual de `release/win-unpacked/Loan Manager.exe` reconfirmado; el proceso empaquetado levanta backend local y deja evidencia en `%AppData%\\loan-manager\\debug-log.txt`
+- QA final desktop adicional `2026-06-03`: el instalador `release/LoanManager-Setup-1.0.0.exe` fue probado en instalacion silenciosa temporal y la app instalada tambien alcanzo `Server healthcheck passed`
+- QA de artefactos `2026-06-16`: `release/win-unpacked/Loan Manager.exe` y `release/LoanManager-Setup-1.0.0.exe` fueron regenerados desde el workspace actual; `latest.yml` quedo actualizado con `releaseDate` `2026-06-16T16:38:32.916Z`
+- QA backend desktop: pago parcial seguido de pago final deja `paidAmount` exacto, `status = Paid` y `transactions = 2`
+
+## Go / No-Go beta
+
+Veredicto actual: **Go para beta controlada en Windows**.
+
+Esto significa:
+
+1. el producto ya puede probarse con usuarios reales en un grupo pequeno,
+2. no hay bloqueadores tecnicos abiertos en el flujo principal,
+3. aun no conviene venderlo como release estable hasta ampliar QA de escritorio en mas de una maquina y terminar la revision legal/visual de documentos.
 
 ## Graphify
 

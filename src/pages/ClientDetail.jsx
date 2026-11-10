@@ -1,14 +1,14 @@
 import React, { Suspense, lazy, useMemo, useState } from 'react';
 import { ArrowLeft, Mail, Phone, MapPin, DollarSign, Clock, CheckCircle, AlertTriangle, Edit, Trash2, MessageCircle, Send, CreditCard } from 'lucide-react';
-import { generateWhatsAppLink, generateEmailLink, hasPhoneNumber } from '../utils/communication';
+import { generateWhatsAppLink, generateEmailLink, hasPhoneNumber, openExternalLink } from '../utils/communication';
 import { useLoans } from '../context/useLoans';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { format, parseISO } from 'date-fns';
-import { es } from 'date-fns/locale';
 import { useAuth } from '../context/useAuth';
 import { API_URL } from '../config/api';
+import { compareStoredDates, formatStoredDate } from '../utils/dates';
 import { formatRutInput, isValidRut } from '../utils/rut';
+import { formatCurrency } from '../utils/formatters';
 
 const isValidEmail = (value) => /^[^\s@,]+@[^\s@,]+\.[^\s@,]+$/.test(value);
 const PagareModal = lazy(() => import('../components/PagareModal'));
@@ -76,7 +76,7 @@ const ClientDetail = () => {
     const sortedLoans = [...clientLoans].sort((a, b) => {
         if (a.status === 'Active' && b.status !== 'Active') return -1;
         if (a.status !== 'Active' && b.status === 'Active') return 1;
-        return new Date(b.startDate) - new Date(a.startDate);
+        return compareStoredDates(b.startDate, a.startDate);
     });
 
     const getStatusColor = (status) => {
@@ -137,7 +137,7 @@ const ClientDetail = () => {
             return;
         }
 
-        if (window.confirm('¿Estas seguro de que deseas eliminar este cliente? Esta accion no se puede deshacer.')) {
+        if (window.confirm('Estas seguro de que deseas eliminar este cliente? Esta accion no se puede deshacer.')) {
             const result = await deleteClient(client.id);
             if (result.success) {
                 navigate('/clients');
@@ -169,6 +169,10 @@ const ClientDetail = () => {
                             href={generateWhatsAppLink(client.phone, `Hola ${client.name}, le escribimos desde Loan Manager.`)}
                             target="_blank"
                             rel="noreferrer"
+                            onClick={async (event) => {
+                                event.preventDefault();
+                                await openExternalLink(generateWhatsAppLink(client.phone, `Hola ${client.name}, le escribimos desde Loan Manager.`));
+                            }}
                             className="flex items-center gap-2 px-4 py-2 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 rounded-xl hover:bg-green-100 hover:text-green-800 transition-colors font-semibold shadow-sm"
                         >
                             <MessageCircle size={16} />
@@ -178,6 +182,12 @@ const ClientDetail = () => {
                     {client.email && (
                         <a
                             href={generateEmailLink(client.email, 'Consulta Loan Manager', `Hola ${client.name},`)}
+                            target="_blank"
+                            rel="noreferrer"
+                            onClick={async (event) => {
+                                event.preventDefault();
+                                await openExternalLink(generateEmailLink(client.email, 'Consulta Loan Manager', `Hola ${client.name},`));
+                            }}
                             className="flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-400 rounded-xl hover:bg-blue-100 hover:text-blue-800 transition-colors font-semibold shadow-sm"
                         >
                             <Send size={16} />
@@ -265,7 +275,7 @@ const ClientDetail = () => {
                 <div className="text-right hidden md:block border-l border-slate-100 dark:border-slate-700 pl-8">
                     <p className="text-sm text-slate-500 mb-1">Total Prestado</p>
                     <p className="text-3xl font-bold text-slate-800 dark:text-white">
-                        ${clientLoans.reduce((acc, current) => acc + current.amount, 0).toLocaleString()}
+                        ${formatCurrency(clientLoans.reduce((acc, current) => acc + Number(current.amount || 0), 0))}
                     </p>
                     <p className="text-xs text-slate-400 mt-2">
                         {clientLoans.filter((loan) => loan.status === 'Active').length} Prestamos Activos
@@ -297,9 +307,9 @@ const ClientDetail = () => {
                                             <DollarSign size={24} />
                                         </div>
                                         <div>
-                                            <p className="text-lg font-bold text-slate-800 dark:text-white">${loan.amount.toLocaleString()}</p>
+                                            <p className="text-lg font-bold text-slate-800 dark:text-white">${formatCurrency(loan.amount)}</p>
                                             <p className="text-sm text-slate-500">
-                                                {format(parseISO(loan.startDate), 'd MMM, yyyy', { locale: es })}
+                                                {formatStoredDate(loan.startDate, 'd MMM, yyyy')}
                                             </p>
                                         </div>
                                     </div>
@@ -429,3 +439,4 @@ const ClientDetail = () => {
 };
 
 export default ClientDetail;
+

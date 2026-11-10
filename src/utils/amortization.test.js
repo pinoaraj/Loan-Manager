@@ -60,4 +60,14 @@ describe('calculateAmortization', () => {
         expect(weeklySchedule.length).toBe(monthlySchedule.length * 4);
         expect(weeklySchedule[0].amount).toBeCloseTo(monthlySchedule[0].amount / 4, 2);
     });
+
+    it('clamps month-end due dates instead of overflowing into the next month', () => {
+        const schedule = calculateAmortization(1000, 0, 3, new Date(2026, 0, 31), 'monthly', 'Fixed');
+
+        expect(schedule.map((payment) => [payment.dueDate.getMonth() + 1, payment.dueDate.getDate()])).toEqual([
+            [2, 28],
+            [3, 31],
+            [4, 30],
+        ]);
+    });
 });
