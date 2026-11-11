@@ -70,7 +70,7 @@ export const getApiCandidates = () => {
 
 export const API_URL = getApiCandidates()[0] || normalizeApiUrl(resolveDefaultApiUrl());
 
-export const APP_VERSION = Constants.expoConfig?.version ?? '1.2.4';
+export const APP_VERSION = Constants.expoConfig?.version ?? '1.2.6';
 export const APP_BUILD =
   typeof Constants.expoConfig?.android?.versionCode === 'number'
     ? String(Constants.expoConfig.android.versionCode)

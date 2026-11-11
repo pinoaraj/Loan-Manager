@@ -228,7 +228,7 @@ export default function LoanDetailScreen() {
           onPress: async () => {
             try {
               await deleteLoanMutation.mutateAsync(loan.id);
-              router.replace('/(app)');
+              router.replace('/');
             } catch (error) {
               Alert.alert(
                 'No se pudo eliminar',

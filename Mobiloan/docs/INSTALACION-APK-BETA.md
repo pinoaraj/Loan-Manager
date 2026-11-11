@@ -5,7 +5,7 @@ Esta guia deja la app funcionando sola en el telefono: no necesita el PC encendi
 ## Que necesitas
 
 - Un celular Android (Android 7 o superior).
-- El archivo `mobiloan-beta-1.2.4.apk` transferido al telefono (por cable USB, WhatsApp, Drive o Telegram).
+- El archivo `mobiloan-beta-1.2.6.apk` transferido al telefono (por cable USB, WhatsApp, Drive o Telegram).
 
 ## Atajo: instalar escaneando un QR (misma red Wi-Fi)
 
@@ -17,8 +17,8 @@ Si el PC y el celular estan en la misma red Wi-Fi, no hace falta pasar el archiv
    python -m http.server 8099 --bind 0.0.0.0 --directory C:\Users\JP\Desktop\LoanManager\Mobiloan\dist
    ```
 
-2. Abre en pantalla `Mobiloan\dist\install-qr-beta-1.2.4.png` y escanealo con la camara del celular.
-3. El telefono abre el navegador y descarga `mobiloan-beta-1.2.4.apk`.
+2. Abre en pantalla `Mobiloan\dist\install-qr-beta-1.2.6.png` y escanealo con la camara del celular.
+3. El telefono abre el navegador y descarga `mobiloan-beta-1.2.6.apk`.
 4. Sigue los pasos 2 y 3 de esta guia.
 
 Si la descarga no abre, revisa que Windows Firewall permita Python en redes privadas, o usa la transferencia por cable.
@@ -49,6 +49,16 @@ Puede aparecer un aviso de Play Protect ("app desconocida"). Es esperable en una
 3. Ya puedes operar: no hace falta usuario, clave, backend ni internet.
 
 La pantalla de ingreso deja ese boton como accion principal. La seccion `Sincronizar con el PC (opcional)` solo aparece para quien quiera compartir la cartera con el desktop.
+
+## Como se organiza la app
+
+La app tiene cinco pestanas. En el telefono aparecen como barra inferior; en una tablet o con la pantalla en horizontal se convierten en una barra lateral fija, para no perder espacio vertical:
+
+- `Inicio`: resumen compacto del dia con 4 indicadores, alerta de vencidos, hasta 3 cobros prioritarios, acciones rapidas y atajos a Cartera y Analisis.
+- `Cobranza`: bandeja de cuotas vencidas, de hoy y proximas, con busqueda, llamada, WhatsApp y recordatorio.
+- `Cartera`: prestamos y clientes en una sola pantalla, con buscador, filtros y boton para crear.
+- `Analisis`: dividido en `Resumen`, `Proyeccion` y `Actividad` para que ninguna vista sea una lista interminable.
+- `Ajustes`: dividido en `App`, `Datos` y `Sync`; en modo local, `Sync` solo explica que la app no depende del PC.
 
 ## Que puedes hacer en modo local
 
@@ -92,9 +102,10 @@ El modo local no depende de esto.
 
 ## Notas de esta beta
 
-- Version de la app: `1.2.4` (`versionCode 7`, `com.mobiloan.app`).
+- Version de la app: `1.2.6` (`versionCode 9`, `com.mobiloan.app`).
+- La navegacion es adaptativa: barra inferior en telefono y barra lateral permanente cuando el ancho supera 720 dp. Ya no hay que recorrer una pantalla infinita.
 - El modo independiente es la opcion principal. Dentro de ese modo la app no muestra sincronizacion, outbox ni contadores del backend, para que quede claro que no depende del PC.
-- La pantalla principal replica el dashboard del desktop: KPIs (`Total prestado` con monto en riesgo, `Cobranza mensual` con avance de la meta, `Clientes activos`, `Salud de cartera`), barra de estado de cartera, alertas de pago, proyeccion de cobranza a 6 meses, acciones rapidas, prestamos en curso, actividad reciente y clientes.
+- `Inicio` es un tablero compacto: 4 indicadores (`Total prestado`, `Cobranza del mes`, `Vencido`, `Clientes`), alerta de vencidos, hasta 3 cobros prioritarios con WhatsApp y calendario, acciones rapidas y atajos. Las listas completas viven en sus propias pestanas.
 - Las alertas de pago y la pantalla de cobranza prellenan el mensaje de WhatsApp con el texto del desktop (aviso de vencido o recordatorio de proxima cuota, con el numero de cuota cuando aplica).
 - La ficha de prestamo permite enviar el comprobante de pago por WhatsApp de cualquier transaccion registrada.
 - `Ajustes > Reportes` permite exportar la cartera completa a CSV compatible con Excel.

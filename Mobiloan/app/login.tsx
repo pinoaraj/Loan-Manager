@@ -58,7 +58,7 @@ export default function LoginScreen() {
           `Entraste correctamente, pero la sincronizacion inicial quedo pendiente: ${syncWarning}`,
         );
       }
-      router.replace('/(app)');
+      router.replace('/');
     },
     onError: (error: Error) => {
       const offlineHint =
@@ -72,7 +72,7 @@ export default function LoginScreen() {
   });
 
   if (session) {
-    return <Redirect href="/(app)" />;
+    return <Redirect href="/" />;
   }
 
   const handleLocalAccess = async () => {
@@ -81,7 +81,7 @@ export default function LoginScreen() {
       username: 'Operador local',
       mode: 'local',
     });
-    router.replace('/(app)');
+    router.replace('/');
   };
 
   return (

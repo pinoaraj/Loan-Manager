@@ -19,13 +19,10 @@ export default function AppLayout() {
         contentStyle: { backgroundColor: APP_THEME.mist },
       }}
     >
-      <Stack.Screen name="index" options={{ title: 'Cartera' }} />
-      <Stack.Screen name="settings" options={{ title: 'Ajustes' }} />
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen name="new-client" options={{ title: 'Nuevo cliente' }} />
       <Stack.Screen name="new-loan" options={{ title: 'Nuevo prestamo' }} />
       <Stack.Screen name="calculator" options={{ title: 'Calculadora' }} />
-      <Stack.Screen name="collections" options={{ title: 'Cobranza' }} />
-      <Stack.Screen name="loans/index" options={{ title: 'Prestamos' }} />
       <Stack.Screen name="clients/[id]" options={{ title: 'Cliente' }} />
       <Stack.Screen name="loans/[id]" options={{ title: 'Prestamo' }} />
     </Stack>

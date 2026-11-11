@@ -75,7 +75,7 @@ export default function ClientDetailScreen() {
           onPress: async () => {
             try {
               await deleteMutation.mutateAsync(clientId);
-              router.replace('/(app)');
+              router.replace('/');
             } catch (error) {
               Alert.alert(
                 'No se pudo eliminar',

@@ -1,5 +1,29 @@
 # Update Log
 
+## 2026-11-11
+
+### 1.2.6
+
+- Bumped the app to `1.2.6` (`versionCode 9`) and rebuilt the standalone release APK as `dist/mobiloan-beta-1.2.6.apk`.
+- Navigation is now adaptive: bottom tab bar on phones and a permanent left sidebar (`tabBarPosition: 'left'`, `tabBarVariant: 'material'`) when the window is at least 720 dp wide, so tablets and landscape phones use the horizontal space instead of stacking content.
+- Fixed the missing `portfolio` screen registration in `(tabs)/_layout.tsx`; all five tabs (`Inicio`, `Cobranza`, `Cartera`, `Analisis`, `Ajustes`) are declared explicitly.
+- `Inicio` was rebuilt as a compact dashboard: 4 KPIs, one overdue alert, up to 3 priority collections (4 on wide screens), a 4-action quick row and two shortcuts to `Cartera`/`Analisis`. The long "En curso" and "Ultimos pagos" lists were removed from the home screen.
+- On wide screens `Inicio` lays out in two columns (`dashGrid`/`dashColumn`) to shorten vertical scroll.
+- `Analisis` is split into `Resumen | Proyeccion | Actividad` segments, and `Ajustes` into `App | Datos | Sync`; in local mode the `Sync` segment only explains that the app does not need the PC.
+- Tab content is capped at `maxWidth: 1180` and centered, so wide layouts stay readable.
+- Added `QuickAction` and extended `src/ui/styles.ts` with the quick-row, dashboard-grid, shortcut and segment styles.
+
+### 1.2.5
+
+- Bumped the app to `1.2.5` (`versionCode 8`) and rebuilt the standalone release APK as `dist/mobiloan-beta-1.2.5.apk`.
+- The app now uses a real mobile navigation shell: a bottom tab bar with `Inicio`, `Cobranza`, `Cartera`, `Analisis` and `Ajustes`, so no screen is an endless vertical scroll anymore.
+- `Inicio` is now a compact dashboard: 4 KPIs, one overdue alert, up to 3 priority collections (WhatsApp + calendar + open installment), a 2x2 quick-actions grid, up to 3 active loans and the last 3 payments, each section linking to its full tab.
+- `Cobranza` was rebuilt as a virtualized `FlatList` with sticky-style header, search, filter chips with counters, overdue/upcoming summaries and pull-to-refresh.
+- `Cartera` unifies loans and clients behind a segmented control, with search, loan status filters, per-row loan health, a create button and a floating action button.
+- New `Analisis` tab: lent/outstanding/collected summary, portfolio status bar with paid/outstanding/overdue split and PAR, monthly collection goal progress, 6-month projection chart, health KPIs, CSV export and recent activity.
+- Detail screens (`new-client`, `new-loan`, `calculator`, `clients/[id]`, `loans/[id]`) stay on the stack above the tabs; the old `Prestamos` list screen was removed because `Cartera` replaces it.
+- Added `@expo/vector-icons` for tab and action iconography, plus shared UI primitives (`TabHeader`, `KpiCard`, `ActionTile`, `SectionHeader`, `ProgressBar`, `SegmentedControl`, `EmptyState`).
+
 ## 2026-11-10
 
 ### 1.2.4
