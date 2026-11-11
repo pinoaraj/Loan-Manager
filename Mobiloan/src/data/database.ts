@@ -12,6 +12,7 @@ import { createClientMutationId } from '../lib/mutationId';
 import type {
   ClientRecord,
   CollectionFilter,
+  CollectionProjectionPoint,
   CollectionQueueItem,
   DashboardStats,
   LocalClientDraft,
@@ -20,8 +21,10 @@ import type {
   LoanRecord,
   OutboxMutationRecord,
   PendingOutboxItem,
+  PaymentAlertItem,
   PaymentRecord,
   PortableSyncPackage,
+  RecentActivityItem,
   RejectedOutboxItem,
   PaymentTransactionRecord,
   SyncSnapshot,
@@ -1067,6 +1070,9 @@ export const localDb = {
         upcomingAmount: 0,
         upcomingPayments: 0,
         healthScore: 100,
+        monthlyCollection: 0,
+        expectedCollection: 0,
+        parAmount: 0,
       } as DashboardStats,
     );
 
@@ -1078,7 +1084,187 @@ export const localDb = {
           )
         : 100;
 
+    stats.parAmount = loans
+      .filter((loan) => !loan.isPaused && loan.overdueCount > 0)
+      .reduce((sum, loan) => sum + loan.amount, 0);
+
+    const monthKey = todayDateKey().slice(0, 7);
+    const monthlyCollectionRow = await database.getFirstAsync<{ total: number | null }>(
+      `SELECT SUM(amount) AS total
+       FROM payment_transactions
+       WHERE substr(date, 1, 7) = ?`,
+      [monthKey],
+    );
+    stats.monthlyCollection = toNumber(monthlyCollectionRow?.total ?? 0);
+
+    const monthPayments = await database.getAllAsync<any>(
+      `SELECT amount, lateFee, paidAmount, dueDate
+       FROM payments
+       WHERE status != 'Paid'`,
+    );
+    stats.expectedCollection = monthPayments.reduce((sum, row) => {
+      const dueDateKey = toLocalDateKey(row.dueDate);
+      if (!dueDateKey || dueDateKey.slice(0, 7) !== monthKey) {
+        return sum;
+      }
+
+      return (
+        sum +
+        Math.max(toNumber(row.amount) + toNumber(row.lateFee) - toNumber(row.paidAmount), 0)
+      );
+    }, 0);
+
     return stats;
+  },
+
+  async listPaymentAlerts(limit = 6): Promise<PaymentAlertItem[]> {
+    const database = await getDatabase();
+    const today = new Date();
+    const todayKey = todayDateKey();
+    const horizon = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 30);
+    const horizonKey = toLocalDateKey(horizon) as string;
+
+    const rows = await database.getAllAsync<any>(
+      `SELECT
+          p.id AS paymentId,
+          p.loanId AS loanId,
+          l.clientId AS clientId,
+          c.name AS clientName,
+          c.phone AS clientPhone,
+          p.dueDate AS dueDate,
+          p.amount AS amount,
+          p.lateFee AS lateFee,
+          p.paidAmount AS paidAmount
+       FROM payments p
+       INNER JOIN loans l ON l.id = p.loanId
+       INNER JOIN clients c ON c.id = l.clientId
+       WHERE p.status != 'Paid'
+         AND IFNULL(l.isPaused, 0) = 0`,
+    );
+
+    const alerts: PaymentAlertItem[] = [];
+    for (const row of rows) {
+      const dueDateKey = toLocalDateKey(row.dueDate);
+      if (!dueDateKey || dueDateKey > horizonKey) {
+        continue;
+      }
+
+      const amount = Math.max(
+        toNumber(row.amount) + toNumber(row.lateFee) - toNumber(row.paidAmount),
+        0,
+      );
+      if (amount <= 0) {
+        continue;
+      }
+
+      const dueDate = parseStoredDate(row.dueDate);
+      const diffDays = dueDate ? differenceInDays(today, dueDate) : 0;
+      const isOverdue = dueDateKey < todayKey;
+
+      alerts.push({
+        paymentId: row.paymentId,
+        loanId: row.loanId,
+        clientId: row.clientId,
+        clientName: row.clientName,
+        clientPhone: row.clientPhone ?? null,
+        dueDate: row.dueDate,
+        amount,
+        type: isOverdue ? 'overdue' : 'upcoming',
+        daysOverdue: isOverdue ? Math.abs(diffDays) : 0,
+        daysUntil: isOverdue ? 0 : Math.abs(diffDays),
+      });
+    }
+
+    return alerts
+      .sort((left, right) => {
+        if (left.type !== right.type) {
+          return left.type === 'overdue' ? -1 : 1;
+        }
+
+        if (left.type === 'overdue') {
+          return right.daysOverdue - left.daysOverdue;
+        }
+
+        return left.daysUntil - right.daysUntil;
+      })
+      .slice(0, limit);
+  },
+
+  async listRecentActivity(limit = 5): Promise<RecentActivityItem[]> {
+    const database = await getDatabase();
+    const rows = await database.getAllAsync<any>(
+      `SELECT
+          t.id AS id,
+          t.amount AS amount,
+          t.date AS date,
+          t.method AS method,
+          t.note AS note,
+          p.loanId AS loanId,
+          l.clientId AS clientId,
+          c.name AS clientName
+       FROM payment_transactions t
+       INNER JOIN payments p ON p.id = t.paymentId
+       INNER JOIN loans l ON l.id = p.loanId
+       INNER JOIN clients c ON c.id = l.clientId
+       ORDER BY t.date DESC, t.createdAt DESC
+       LIMIT ?`,
+      [limit],
+    );
+
+    return rows.map((row) => ({
+      id: row.id,
+      loanId: row.loanId,
+      clientId: row.clientId,
+      clientName: row.clientName,
+      amount: toNumber(row.amount),
+      date: row.date,
+      method: row.method,
+      note: row.note ?? null,
+    }));
+  },
+
+  async getCollectionProjections(months = 6): Promise<CollectionProjectionPoint[]> {
+    const database = await getDatabase();
+    const today = new Date();
+    const todayKey = todayDateKey();
+    const horizon = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 180);
+    const horizonKey = toLocalDateKey(horizon) as string;
+
+    const rows = await database.getAllAsync<any>(
+      `SELECT p.dueDate AS dueDate, p.amount AS amount, p.lateFee AS lateFee, p.paidAmount AS paidAmount
+       FROM payments p
+       WHERE p.status != 'Paid'`,
+    );
+
+    const buckets = new Map<string, number>();
+    for (const row of rows) {
+      const dueDateKey = toLocalDateKey(row.dueDate);
+      if (!dueDateKey || dueDateKey < todayKey || dueDateKey > horizonKey) {
+        continue;
+      }
+
+      const remaining = Math.max(
+        toNumber(row.amount) + toNumber(row.lateFee) - toNumber(row.paidAmount),
+        0,
+      );
+      if (remaining <= 0) {
+        continue;
+      }
+
+      const monthKey = dueDateKey.slice(0, 7);
+      buckets.set(monthKey, (buckets.get(monthKey) ?? 0) + remaining);
+    }
+
+    return [...buckets.entries()]
+      .sort(([left], [right]) => left.localeCompare(right))
+      .slice(0, months)
+      .map(([monthKey, amount]) => {
+        const [year, month] = monthKey.split('-').map(Number);
+        const label = new Intl.DateTimeFormat('es-CL', { month: 'short' })
+          .format(new Date(year, month - 1, 1))
+          .replace('.', '');
+        return { monthKey, label, amount };
+      });
   },
 
   async updateLocalClient(clientId: string, draft: LocalClientDraft): Promise<ClientRecord> {

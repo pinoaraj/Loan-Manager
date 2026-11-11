@@ -11,8 +11,10 @@ import {
 
 import { openPhoneCall, openWhatsApp } from '../../../src/lib/contact';
 import { createCollectionReminder } from '../../../src/lib/calendar';
+import { differenceInDays, parseStoredDate } from '../../../src/lib/dates';
 import { formatCurrency, formatDate, formatDateTime } from '../../../src/lib/format';
 import { getLoanHealth } from '../../../src/lib/loanHealth';
+import { getReceiptMessage, getReminderMessage } from '../../../src/lib/messages';
 import {
   shareContractPdf,
   shareInstallmentsCsv,
@@ -239,6 +241,50 @@ export default function LoanDetailScreen() {
     );
   };
 
+  const handleWhatsApp = async () => {
+    if (!client) {
+      Alert.alert('Sin cliente', 'Este prestamo no tiene cliente asociado.');
+      return;
+    }
+
+    try {
+      if (!selectedPayment || !selectedPaymentRemaining || selectedPaymentRemaining <= 0) {
+        await openWhatsApp(client.phone);
+        return;
+      }
+
+      const dueDate = parseStoredDate(selectedPayment.dueDate);
+      const type = dueDate && differenceInDays(new Date(), dueDate) > 0 ? 'overdue' : 'upcoming';
+      const paymentIndex = payments.findIndex((payment) => payment.id === selectedPayment.id) + 1;
+      const message = getReminderMessage(
+        client.name,
+        selectedPaymentRemaining,
+        selectedPayment.dueDate,
+        type,
+        { paymentNumber: paymentIndex, totalPayments: payments.length },
+      );
+      await openWhatsApp(client.phone, message);
+    } catch (error) {
+      Alert.alert('No se pudo abrir WhatsApp', error instanceof Error ? error.message : 'Error desconocido');
+    }
+  };
+
+  const handleSendReceipt = async (transaction: (typeof transactions)[number]) => {
+    if (!client) {
+      return;
+    }
+
+    try {
+      const message = getReceiptMessage(client.name, transaction.amount, formatDate(transaction.date));
+      await openWhatsApp(client.phone, message);
+    } catch (error) {
+      Alert.alert(
+        'No se pudo enviar el comprobante',
+        error instanceof Error ? error.message : 'Error desconocido',
+      );
+    }
+  };
+
   const handleDocument = async (kind: 'contract' | 'promissory' | 'csv') => {
     if (!loan) {
       return;
@@ -327,13 +373,7 @@ export default function LoanDetailScreen() {
           </Pressable>
           <Pressable
             style={appStyles.buttonMuted}
-            onPress={async () => {
-              try {
-                await openWhatsApp(client?.phone);
-              } catch (error) {
-                Alert.alert('No se pudo abrir WhatsApp', error instanceof Error ? error.message : 'Error desconocido');
-              }
-            }}
+            onPress={handleWhatsApp}
           >
             <Text style={appStyles.buttonMutedText}>WhatsApp</Text>
           </Pressable>
@@ -533,10 +573,16 @@ export default function LoanDetailScreen() {
               </Text>
 
               {(groupedTransactions[payment.id] ?? []).map((transaction) => (
-                <View key={transaction.id} style={{ marginTop: 8 }}>
+                <View key={transaction.id} style={{ marginTop: 8, gap: 6 }}>
                   <Text style={appStyles.itemText}>
                     {formatDate(transaction.date)} - {transaction.method} - {formatCurrency(transaction.amount)}
                   </Text>
+                  <Pressable
+                    style={appStyles.buttonMuted}
+                    onPress={() => handleSendReceipt(transaction)}
+                  >
+                    <Text style={appStyles.buttonMutedText}>Enviar comprobante</Text>
+                  </Pressable>
                 </View>
               ))}
             </Pressable>

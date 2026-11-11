@@ -24,7 +24,10 @@ export const openPhoneCall = async (phone: string | null | undefined) => {
   await openExternalUrl(`tel:${normalized}`);
 };
 
-export const openWhatsApp = async (phone: string | null | undefined) => {
+export const openWhatsApp = async (
+  phone: string | null | undefined,
+  message?: string,
+) => {
   if (!phone) {
     throw new Error('El cliente no tiene telefono registrado.');
   }
@@ -34,5 +37,6 @@ export const openWhatsApp = async (phone: string | null | undefined) => {
     throw new Error('El telefono registrado no es valido.');
   }
 
-  await openExternalUrl(`https://wa.me/${normalized}`);
+  const suffix = message?.trim() ? `?text=${encodeURIComponent(message)}` : '';
+  await openExternalUrl(`https://wa.me/${normalized}${suffix}`);
 };

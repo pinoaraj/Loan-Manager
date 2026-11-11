@@ -4,8 +4,10 @@ import { Alert, Pressable, ScrollView, Text, TextInput, View } from 'react-nativ
 
 import { createCollectionReminder } from '../../src/lib/calendar';
 import { openPhoneCall, openWhatsApp } from '../../src/lib/contact';
+import { differenceInDays, parseStoredDate } from '../../src/lib/dates';
 import { formatCurrency, formatDate, getRelativeDueLabel } from '../../src/lib/format';
-import { useCollectionQueue } from '../../src/hooks/useOfflineData';
+import { getReminderMessage } from '../../src/lib/messages';
+import { useCollectionQueue, usePaymentAlerts } from '../../src/hooks/useOfflineData';
 import { appStyles } from '../../src/ui/styles';
 import type { CollectionFilter, CollectionQueueItem } from '../../src/types/sync';
 
@@ -22,7 +24,13 @@ export default function CollectionsScreen() {
   const [filter, setFilter] = useState<CollectionFilter>('overdue');
   const [search, setSearch] = useState('');
   const queueQuery = useCollectionQueue(filter);
+  const alertsQuery = usePaymentAlerts(500);
   const queue = queueQuery.data ?? [];
+  const alerts = alertsQuery.data ?? [];
+  const overdueAlerts = alerts.filter((alert) => alert.type === 'overdue');
+  const upcomingAlerts = alerts.filter((alert) => alert.type === 'upcoming');
+  const overdueTotal = overdueAlerts.reduce((sum, alert) => sum + alert.amount, 0);
+  const upcomingTotal = upcomingAlerts.reduce((sum, alert) => sum + alert.amount, 0);
   const term = search.trim().toLowerCase();
   const items = term
     ? queue.filter(
@@ -44,7 +52,15 @@ export default function CollectionsScreen() {
 
   const handleWhatsApp = async (item: CollectionQueueItem) => {
     try {
-      await openWhatsApp(item.clientPhone);
+      const dueDate = parseStoredDate(item.dueDate);
+      const type = dueDate && differenceInDays(new Date(), dueDate) > 0 ? 'overdue' : 'upcoming';
+      const message = getReminderMessage(
+        item.clientName,
+        getRemaining(item),
+        item.dueDate,
+        type,
+      );
+      await openWhatsApp(item.clientPhone, message);
     } catch (error) {
       Alert.alert(
         'No se pudo abrir WhatsApp',
@@ -83,6 +99,28 @@ export default function CollectionsScreen() {
         </Text>
       </View>
 
+      <View style={appStyles.alertCard}>
+        <Text style={appStyles.alertTitle}>Total vencido</Text>
+        <Text style={[appStyles.statValue, { color: '#B91C1C' }]}>
+          {formatCurrency(overdueTotal)}
+        </Text>
+        <Text style={appStyles.alertText}>
+          {overdueAlerts.length} pago{overdueAlerts.length === 1 ? '' : 's'} pendiente
+          {overdueAlerts.length === 1 ? '' : 's'}
+        </Text>
+      </View>
+
+      <View style={appStyles.infoCard}>
+        <Text style={appStyles.infoTitle}>Proximos cobros (30 dias)</Text>
+        <Text style={[appStyles.statValue, { color: '#1D4ED8' }]}>
+          {formatCurrency(upcomingTotal)}
+        </Text>
+        <Text style={appStyles.infoText}>
+          {upcomingAlerts.length} pago{upcomingAlerts.length === 1 ? '' : 's'} programado
+          {upcomingAlerts.length === 1 ? '' : 's'}
+        </Text>
+      </View>
+
       <View style={appStyles.card}>
         <TextInput
           value={search}
@@ -92,19 +130,29 @@ export default function CollectionsScreen() {
           placeholderTextColor="#94A3B8"
         />
         <View style={appStyles.actionRow}>
-          {FILTERS.map(([value, label]) => (
-            <Pressable
-              key={value}
-              style={value === filter ? appStyles.button : appStyles.buttonMuted}
-              onPress={() => setFilter(value)}
-            >
-              <Text
-                style={value === filter ? appStyles.buttonText : appStyles.buttonMutedText}
+          {FILTERS.map(([value, label]) => {
+            const count =
+              value === 'overdue'
+                ? overdueAlerts.length
+                : value === 'upcoming'
+                  ? upcomingAlerts.length
+                  : null;
+
+            return (
+              <Pressable
+                key={value}
+                style={value === filter ? appStyles.button : appStyles.buttonMuted}
+                onPress={() => setFilter(value)}
               >
-                {label}
-              </Text>
-            </Pressable>
-          ))}
+                <Text
+                  style={value === filter ? appStyles.buttonText : appStyles.buttonMutedText}
+                >
+                  {label}
+                  {count !== null ? ` (${count})` : ''}
+                </Text>
+              </Pressable>
+            );
+          })}
         </View>
       </View>
 

@@ -1,6 +1,36 @@
 # Update Log
 
-## 2026-11-09
+## 2026-11-10
+
+### 1.2.4
+
+- Bumped the app to `1.2.4` (`versionCode 7`) and rebuilt the standalone release APK as `dist/mobiloan-beta-1.2.4.apk`.
+- The home screen now mirrors the desktop dashboard: desktop-style KPIs (`Total prestado` with risk amount, `Cobranza mensual` with monthly goal progress, `Clientes activos`, `Salud de cartera`), a portfolio status bar, payment alerts, a 6-month collection projection chart, recent activity and active loans.
+- Payment alerts on the home screen and in `Cobranza` now prefill the WhatsApp message with the same reminder text used by the desktop (overdue notice or upcoming reminder, including the installment number when available).
+- `Cobranza` gained the desktop summary cards (`Total vencido` and `Proximos cobros (30 dias)`) plus per-filter counters.
+- Loan detail can now send a payment receipt over WhatsApp for any registered transaction, using the desktop receipt text.
+- Added `Exportar cartera (CSV)` in `Ajustes`, which shares the full portfolio as a semicolon-separated CSV (Excel-friendly, UTF-8 BOM).
+- Added local dashboard stats `monthlyCollection`, `expectedCollection` and `parAmount`, computed from the device database.
+
+### 1.2.3
+
+- Bumped the app to `1.2.3` (`versionCode 6`) and rebuilt the standalone release APK as `dist/mobiloan-beta-1.2.3.apk`.
+- The app version is now visible on the login screen and in `Ajustes`, so beta testers can confirm which build is installed instead of judging by the UI alone.
+- The install page now serves the new APK; the previous `1.2.1` page was still the reason the redesigned home was not visible on the phone.
+- `1.2.2` (`versionCode 5`) contained the redesign below but was never linked from the install page.
+
+### 1.2.2
+
+- Bumped the app to `1.2.2` (`versionCode 5`) and rebuilt the standalone release APK as `dist/mobiloan-beta-1.2.2.apk`.
+- Removed the nested `(app)` route header: the root stack now runs with `headerShown: false`, so each screen shows only its own title.
+- Replaced the home screen: sync/outbox cards are gone and the local portfolio now shows KPIs (capital prestado, por cobrar, cobrado, salud), overdue alerts, quick actions, active loans and clients.
+- Moved sync, pending/rejected outbox, backup export and portable import into `Ajustes`.
+- Added `Cobranza` (overdue/today/upcoming filters, search, call, WhatsApp, calendar) and `Prestamos` (search, status filter, loan health).
+- Loan detail gained health chip, pause/resume, recalculate, contract PDF, promissory note PDF, schedule CSV and delete.
+- Client detail gained inline edit and delete for locally created clients.
+- Regenerated the install page and QR as `dist/index.html` / `dist/install-qr-beta-1.2.2.png`.
+
+### 1.2.1
 
 - Reworked the entry screen so the independent mode is the primary action (`Entrar sin PC ni internet`) and desktop sync is presented as an optional section with its own explanation.
 - Hid the sync cursor, pending outbox and rejected outbox cards while the app runs in local mode; the local portfolio now shows payments and registered collections instead of backend queue counters.

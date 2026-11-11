@@ -17,6 +17,9 @@ const invalidateOfflineQueries = async () => {
     queryClient.invalidateQueries({ queryKey: ['client-detail'] }),
     queryClient.invalidateQueries({ queryKey: ['loan-detail'] }),
     queryClient.invalidateQueries({ queryKey: ['collection-queue'] }),
+    queryClient.invalidateQueries({ queryKey: ['payment-alerts'] }),
+    queryClient.invalidateQueries({ queryKey: ['recent-activity'] }),
+    queryClient.invalidateQueries({ queryKey: ['collection-projections'] }),
     queryClient.invalidateQueries({ queryKey: ['pending-outbox'] }),
     queryClient.invalidateQueries({ queryKey: ['rejected-outbox'] }),
   ]);

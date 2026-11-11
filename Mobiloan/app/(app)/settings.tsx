@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import {
+  useLoans,
   usePendingOutbox,
   useRejectedOutbox,
   useSyncSnapshot,
@@ -20,7 +21,8 @@ import {
   useRetryRejectedMutation,
 } from '../../src/hooks/useSyncActions';
 import { formatCurrency, formatDate, formatDateTime } from '../../src/lib/format';
-import { pickPortableSnapshot } from '../../src/lib/reports';
+import { APP_VERSION } from '../../src/lib/config';
+import { pickPortableSnapshot, sharePortfolioCsv } from '../../src/lib/reports';
 import { exportPortableSyncPackage } from '../../src/lib/syncPackage';
 import { useSession } from '../../src/providers/AppProviders';
 import { syncService } from '../../src/services/sync';
@@ -37,6 +39,7 @@ export default function SettingsScreen() {
     refreshAppState,
   } = useSession();
   const snapshotQuery = useSyncSnapshot();
+  const loansQuery = useLoans();
   const pendingOutboxQuery = usePendingOutbox();
   const rejectedOutboxQuery = useRejectedOutbox();
   const syncMutation = useManualSync();
@@ -44,9 +47,11 @@ export default function SettingsScreen() {
   const discardRejectedMutation = useDiscardRejectedMutation();
   const importMutation = useImportPortableSnapshot();
   const [exporting, setExporting] = useState(false);
+  const [exportingPortfolio, setExportingPortfolio] = useState(false);
   const [importing, setImporting] = useState(false);
 
   const snapshot = snapshotQuery.data;
+  const loans = loansQuery.data ?? [];
   const pendingOutbox = pendingOutboxQuery.data ?? [];
   const rejectedOutbox = rejectedOutboxQuery.data ?? [];
   const isLocal = session?.mode === 'local';
@@ -87,6 +92,22 @@ export default function SettingsScreen() {
     }
   };
 
+  const handleExportPortfolio = async () => {
+    if (loans.length === 0) {
+      Alert.alert('Sin prestamos', 'Todavia no hay prestamos para exportar.');
+      return;
+    }
+
+    setExportingPortfolio(true);
+    try {
+      await sharePortfolioCsv(loans);
+    } catch (error) {
+      Alert.alert('No se pudo exportar', error instanceof Error ? error.message : 'Error desconocido');
+    } finally {
+      setExportingPortfolio(false);
+    }
+  };
+
   const handleImport = async () => {
     setImporting(true);
     try {
@@ -112,6 +133,7 @@ export default function SettingsScreen() {
     <ScrollView style={appStyles.screen} contentContainerStyle={appStyles.scroll}>
       <View style={appStyles.card}>
         <Text style={appStyles.cardTitle}>Estado de la app</Text>
+        <Text style={appStyles.itemText}>Version: beta {APP_VERSION}</Text>
         <Text style={appStyles.itemText}>
           Modo: {isLocal ? 'independiente (sin PC)' : 'sincronizado con el escritorio'}
         </Text>
@@ -152,6 +174,27 @@ export default function SettingsScreen() {
             </Text>
           </Pressable>
         </View>
+      </View>
+
+      <View style={appStyles.card}>
+        <Text style={appStyles.cardTitle}>Reportes</Text>
+        <Text style={appStyles.cardSubtitle}>
+          Exporta la cartera completa a un archivo CSV para abrirlo en Excel.
+        </Text>
+        <View style={appStyles.actionRow}>
+          <Pressable
+            style={appStyles.buttonMuted}
+            onPress={handleExportPortfolio}
+            disabled={exportingPortfolio}
+          >
+            <Text style={appStyles.buttonMutedText}>
+              {exportingPortfolio ? 'Exportando...' : 'Exportar cartera (CSV)'}
+            </Text>
+          </Pressable>
+        </View>
+        <Text style={appStyles.itemText}>
+          {loans.length} prestamo{loans.length === 1 ? '' : 's'} en el telefono.
+        </Text>
       </View>
 
       {!isLocal ? (

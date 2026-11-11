@@ -5,7 +5,7 @@ Esta guia deja la app funcionando sola en el telefono: no necesita el PC encendi
 ## Que necesitas
 
 - Un celular Android (Android 7 o superior).
-- El archivo `mobiloan-beta-1.2.1.apk` transferido al telefono (por cable USB, WhatsApp, Drive o Telegram).
+- El archivo `mobiloan-beta-1.2.4.apk` transferido al telefono (por cable USB, WhatsApp, Drive o Telegram).
 
 ## Atajo: instalar escaneando un QR (misma red Wi-Fi)
 
@@ -17,8 +17,8 @@ Si el PC y el celular estan en la misma red Wi-Fi, no hace falta pasar el archiv
    python -m http.server 8099 --bind 0.0.0.0 --directory C:\Users\JP\Desktop\LoanManager\Mobiloan\dist
    ```
 
-2. Abre en pantalla `Mobiloan\dist\install-qr-beta-1.2.1.png` y escanealo con la camara del celular.
-3. El telefono abre el navegador y descarga `mobiloan-beta-1.2.1.apk`.
+2. Abre en pantalla `Mobiloan\dist\install-qr-beta-1.2.4.png` y escanealo con la camara del celular.
+3. El telefono abre el navegador y descarga `mobiloan-beta-1.2.4.apk`.
 4. Sigue los pasos 2 y 3 de esta guia.
 
 Si la descarga no abre, revisa que Windows Firewall permita Python en redes privadas, o usa la transferencia por cable.
@@ -57,7 +57,9 @@ La pantalla de ingreso deja ese boton como accion principal. La seccion `Sincron
 - Usar la calculadora de prestamos.
 - Crear recordatorios de cobranza en el calendario del telefono, con notificacion local.
 - Contactar por WhatsApp o llamada desde la ficha del cliente o del prestamo.
+- Enviar por WhatsApp el recordatorio de pago o el comprobante de pago, con el mismo texto que usa el desktop.
 - Exportar un paquete JSON portable para importarlo despues en Loan Manager desktop.
+- Exportar la cartera completa a CSV (`Ajustes > Reportes`) para abrirla en Excel.
 
 La cartera queda guardada en el telefono. Si cierras la app o reinicias el celular, los datos siguen ahi.
 
@@ -90,8 +92,14 @@ El modo local no depende de esto.
 
 ## Notas de esta beta
 
-- Version de la app: `1.2.1` (`versionCode 4`, `com.mobiloan.app`).
+- Version de la app: `1.2.4` (`versionCode 7`, `com.mobiloan.app`).
 - El modo independiente es la opcion principal. Dentro de ese modo la app no muestra sincronizacion, outbox ni contadores del backend, para que quede claro que no depende del PC.
+- La pantalla principal replica el dashboard del desktop: KPIs (`Total prestado` con monto en riesgo, `Cobranza mensual` con avance de la meta, `Clientes activos`, `Salud de cartera`), barra de estado de cartera, alertas de pago, proyeccion de cobranza a 6 meses, acciones rapidas, prestamos en curso, actividad reciente y clientes.
+- Las alertas de pago y la pantalla de cobranza prellenan el mensaje de WhatsApp con el texto del desktop (aviso de vencido o recordatorio de proxima cuota, con el numero de cuota cuando aplica).
+- La ficha de prestamo permite enviar el comprobante de pago por WhatsApp de cualquier transaccion registrada.
+- `Ajustes > Reportes` permite exportar la cartera completa a CSV compatible con Excel.
+- Se agrego una barra superior unica por pantalla (sin el rotulo interno `(app)`), cobranza con filtros vencidas/hoy/proximas, lista de prestamos con salud de cartera y ficha de prestamo con contrato PDF, pagare PDF, CSV, pausar/reanudar, recalcular y eliminar.
+- La ficha de cliente permite editar y eliminar clientes creados en el telefono.
 - La cartera creada en modo local ya no se borra al entrar con una cuenta o al sincronizar con el PC: la app distingue los registros del telefono de los que bajan del backend. Al cerrar sesion se limpia solo la copia remota, la cola de envio y los cursores.
 - Las cuotas de fin de mes ya no se corren al mes siguiente: un prestamo que empieza el 31 de enero vence el 28 de febrero, el 31 de marzo y el 30 de abril.
 - El APK esta firmado con la clave de desarrollo, por eso Android muestra el aviso de origen desconocido y Play Protect. Sirve para probar en tu telefono y para repartir a testers, no para publicar en Play Store.

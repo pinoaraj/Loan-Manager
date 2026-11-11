@@ -7,6 +7,27 @@ export const formatCurrency = (value: number) =>
     maximumFractionDigits: 0,
   }).format(Number.isFinite(value) ? value : 0);
 
+const COMPACT_UNITS: Array<[number, string]> = [
+  [1_000_000_000, 'MM'],
+  [1_000_000, 'M'],
+  [1_000, 'k'],
+];
+
+export const formatCompactCurrency = (value: number) => {
+  const safeValue = Number.isFinite(value) ? value : 0;
+  const absolute = Math.abs(safeValue);
+
+  for (const [limit, suffix] of COMPACT_UNITS) {
+    if (absolute >= limit) {
+      const scaled = safeValue / limit;
+      const text = scaled.toFixed(1).replace(/\.0$/, '').replace('.', ',');
+      return `$${text}${suffix}`;
+    }
+  }
+
+  return formatCurrency(safeValue);
+};
+
 const DATE_FORMATTER = new Intl.DateTimeFormat('es-CL', {
   day: '2-digit',
   month: '2-digit',

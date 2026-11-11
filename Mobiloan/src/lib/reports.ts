@@ -8,6 +8,7 @@ import { formatCurrency, formatDate } from './format';
 
 import type {
   ClientRecord,
+  LoanListItem,
   LoanRecord,
   PaymentRecord,
   PortableSyncPackage,
@@ -387,6 +388,58 @@ export const buildInstallmentsCsv = (payments: PaymentRecord[]) => {
   });
 
   return `\uFEFF${[header.join(';'), ...lines].join('\r\n')}`;
+};
+
+const csvCell = (value: string | number) => `"${String(value).replace(/"/g, '""')}"`;
+
+export const buildPortfolioCsv = (loans: LoanListItem[]) => {
+  const header = [
+    'Cliente',
+    'Telefono',
+    'Monto',
+    'Meses',
+    'Frecuencia',
+    'Estado',
+    'Programado',
+    'Pagado',
+    'Saldo',
+    'Cuotas vencidas',
+    'Monto vencido',
+    'Proxima cuota',
+  ];
+
+  const lines = loans.map((loan) =>
+    [
+      loan.clientName,
+      loan.clientPhone ?? '',
+      Math.round(loan.amount),
+      loan.durationMonths,
+      loan.frequency,
+      loan.status,
+      Math.round(loan.totalScheduled),
+      Math.round(loan.totalPaid),
+      Math.round(loan.totalRemaining),
+      loan.overdueCount,
+      Math.round(loan.overdueAmount),
+      loan.nextDueDate ? formatDate(loan.nextDueDate) : '',
+    ]
+      .map(csvCell)
+      .join(';'),
+  );
+
+  return `\uFEFF${[header.map(csvCell).join(';'), ...lines].join('\r\n')}`;
+};
+
+export const sharePortfolioCsv = async (loans: LoanListItem[]) => {
+  const csv = buildPortfolioCsv(loans);
+  const today = new Date().toISOString().slice(0, 10);
+  const fileUri = await writeTempFile(`cartera_${today}.csv`, csv);
+  await ensureSharing();
+  await Sharing.shareAsync(fileUri, {
+    mimeType: 'text/csv',
+    dialogTitle: 'Compartir cartera',
+  });
+  return fileUri;
 };
 
 const ensureSharing = async () => {

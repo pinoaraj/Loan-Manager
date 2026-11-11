@@ -14,6 +14,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { formatDateTime } from '../src/lib/format';
+import { APP_VERSION } from '../src/lib/config';
 import { mobileApi } from '../src/services/api';
 import { syncService } from '../src/services/sync';
 import { useSession } from '../src/providers/AppProviders';
@@ -179,6 +180,10 @@ export default function LoginScreen() {
             </Text>
           ) : null}
         </View>
+
+        <Text style={[appStyles.statusText, { textAlign: 'center' }]}>
+          Mobiloan beta {APP_VERSION}
+        </Text>
       </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>

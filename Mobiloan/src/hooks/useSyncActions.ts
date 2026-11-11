@@ -19,6 +19,9 @@ const invalidateAll = async (queryClient: ReturnType<typeof useQueryClient>) => 
     queryClient.invalidateQueries({ queryKey: ['loans'] }),
     queryClient.invalidateQueries({ queryKey: ['dashboard-stats'] }),
     queryClient.invalidateQueries({ queryKey: ['collection-queue'] }),
+    queryClient.invalidateQueries({ queryKey: ['payment-alerts'] }),
+    queryClient.invalidateQueries({ queryKey: ['recent-activity'] }),
+    queryClient.invalidateQueries({ queryKey: ['collection-projections'] }),
     queryClient.invalidateQueries({ queryKey: ['pending-outbox'] }),
     queryClient.invalidateQueries({ queryKey: ['rejected-outbox'] }),
   ]);

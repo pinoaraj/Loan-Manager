@@ -59,6 +59,24 @@ export const useCollectionQueue = (filter: CollectionFilter) =>
     queryFn: () => localDb.listCollectionQueue(filter),
   });
 
+export const usePaymentAlerts = (limit = 6) =>
+  useQuery({
+    queryKey: ['payment-alerts', limit],
+    queryFn: () => localDb.listPaymentAlerts(limit),
+  });
+
+export const useRecentActivity = (limit = 5) =>
+  useQuery({
+    queryKey: ['recent-activity', limit],
+    queryFn: () => localDb.listRecentActivity(limit),
+  });
+
+export const useCollectionProjections = (months = 6) =>
+  useQuery({
+    queryKey: ['collection-projections', months],
+    queryFn: () => localDb.getCollectionProjections(months),
+  });
+
 export const useAllClients = () =>
   useQuery({
     queryKey: ['clients', 'all'],

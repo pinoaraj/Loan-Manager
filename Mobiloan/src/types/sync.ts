@@ -196,9 +196,42 @@ export interface DashboardStats {
   upcomingAmount: number;
   upcomingPayments: number;
   healthScore: number;
+  monthlyCollection: number;
+  expectedCollection: number;
+  parAmount: number;
 }
 
 export type CollectionFilter = 'overdue' | 'today' | 'upcoming';
+
+export interface PaymentAlertItem {
+  paymentId: string;
+  loanId: string;
+  clientId: string;
+  clientName: string;
+  clientPhone: string | null;
+  dueDate: string;
+  amount: number;
+  type: 'overdue' | 'upcoming';
+  daysOverdue: number;
+  daysUntil: number;
+}
+
+export interface RecentActivityItem {
+  id: string;
+  loanId: string;
+  clientId: string;
+  clientName: string;
+  amount: number;
+  date: string;
+  method: string;
+  note: string | null;
+}
+
+export interface CollectionProjectionPoint {
+  monthKey: string;
+  label: string;
+  amount: number;
+}
 
 export interface CollectionQueueItem {
   paymentId: string;
