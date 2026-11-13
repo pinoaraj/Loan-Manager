@@ -1,11 +1,21 @@
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { Alert, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
+import {
+  Alert,
+  Pressable,
+  ScrollView,
+  Text,
+  TextInput,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 
 import { useCreateLocalClient } from '../../src/hooks/useSyncActions';
 import { appStyles } from '../../src/ui/styles';
 
 export default function NewClientScreen() {
+  const { width } = useWindowDimensions();
+  const isWide = width >= 720;
   const [name, setName] = useState('');
   const [rut, setRut] = useState('');
   const [phone, setPhone] = useState('');
@@ -33,6 +43,34 @@ export default function NewClientScreen() {
     }
   };
 
+  const identityFields = (
+    <>
+      <Text style={appStyles.label}>Nombre</Text>
+      <TextInput value={name} onChangeText={setName} style={appStyles.input} placeholder="Nombre completo" />
+      <Text style={appStyles.label}>RUT</Text>
+      <TextInput value={rut} onChangeText={setRut} style={appStyles.input} placeholder="12.345.678-9" />
+      <Text style={appStyles.label}>Telefono</Text>
+      <TextInput value={phone} onChangeText={setPhone} style={appStyles.input} placeholder="+569..." />
+    </>
+  );
+
+  const contactFields = (
+    <>
+      <Text style={appStyles.label}>Email</Text>
+      <TextInput value={email} onChangeText={setEmail} style={appStyles.input} placeholder="cliente@email.com" />
+      <Text style={appStyles.label}>Direccion</Text>
+      <TextInput value={address} onChangeText={setAddress} style={appStyles.input} placeholder="Direccion" />
+    </>
+  );
+
+  const createButton = (
+    <Pressable style={appStyles.button} onPress={handleCreate}>
+      <Text style={appStyles.buttonText}>
+        {createClient.isPending ? 'Guardando...' : 'Crear cliente'}
+      </Text>
+    </Pressable>
+  );
+
   return (
     <ScrollView style={appStyles.screen} contentContainerStyle={appStyles.scroll}>
       <View style={appStyles.heroCard}>
@@ -43,22 +81,21 @@ export default function NewClientScreen() {
       </View>
 
       <View style={appStyles.card}>
-        <Text style={appStyles.label}>Nombre</Text>
-        <TextInput value={name} onChangeText={setName} style={appStyles.input} placeholder="Nombre completo" />
-        <Text style={appStyles.label}>RUT</Text>
-        <TextInput value={rut} onChangeText={setRut} style={appStyles.input} placeholder="12.345.678-9" />
-        <Text style={appStyles.label}>Telefono</Text>
-        <TextInput value={phone} onChangeText={setPhone} style={appStyles.input} placeholder="+569..." />
-        <Text style={appStyles.label}>Email</Text>
-        <TextInput value={email} onChangeText={setEmail} style={appStyles.input} placeholder="cliente@email.com" />
-        <Text style={appStyles.label}>Direccion</Text>
-        <TextInput value={address} onChangeText={setAddress} style={appStyles.input} placeholder="Direccion" />
-
-        <Pressable style={appStyles.button} onPress={handleCreate}>
-          <Text style={appStyles.buttonText}>
-            {createClient.isPending ? 'Guardando...' : 'Crear cliente'}
-          </Text>
-        </Pressable>
+        {isWide ? (
+          <View style={{ gap: 14 }}>
+            <View style={appStyles.dashGrid}>
+              <View style={appStyles.dashColumn}>{identityFields}</View>
+              <View style={appStyles.dashColumn}>{contactFields}</View>
+            </View>
+            {createButton}
+          </View>
+        ) : (
+          <>
+            {identityFields}
+            {contactFields}
+            {createButton}
+          </>
+        )}
       </View>
     </ScrollView>
   );

@@ -5,7 +5,7 @@ Esta guia deja la app funcionando sola en el telefono: no necesita el PC encendi
 ## Que necesitas
 
 - Un celular Android (Android 7 o superior).
-- El archivo `mobiloan-beta-1.2.6.apk` transferido al telefono (por cable USB, WhatsApp, Drive o Telegram).
+- El archivo `mobiloan-beta-1.2.10.apk` transferido al telefono (por cable USB, WhatsApp, Drive o Telegram).
 
 ## Atajo: instalar escaneando un QR (misma red Wi-Fi)
 
@@ -17,8 +17,8 @@ Si el PC y el celular estan en la misma red Wi-Fi, no hace falta pasar el archiv
    python -m http.server 8099 --bind 0.0.0.0 --directory C:\Users\JP\Desktop\LoanManager\Mobiloan\dist
    ```
 
-2. Abre en pantalla `Mobiloan\dist\install-qr-beta-1.2.6.png` y escanealo con la camara del celular.
-3. El telefono abre el navegador y descarga `mobiloan-beta-1.2.6.apk`.
+2. Abre en pantalla `Mobiloan\dist\install-qr-beta-1.2.10.png` y escanealo con la camara del celular.
+3. El telefono abre el navegador y descarga `mobiloan-beta-1.2.10.apk`.
 4. Sigue los pasos 2 y 3 de esta guia.
 
 Si la descarga no abre, revisa que Windows Firewall permita Python en redes privadas, o usa la transferencia por cable.
@@ -102,7 +102,18 @@ El modo local no depende de esto.
 
 ## Notas de esta beta
 
-- Version de la app: `1.2.6` (`versionCode 9`, `com.mobiloan.app`).
+- Version de la app: `1.2.10` (`versionCode 13`, `com.mobiloan.app`).
+- La ficha del prestamo muestra la tabla de cuotas completa: numero, vencimiento, estado (`Pagada`, `Parcial`, `Vencida`, `Pendiente`), monto, saldo corrido y el reparto `Cap · Int` de cada cuota. El calculo se hace en el telefono con el mismo calendario del desktop.
+- Los pagos parciales quedan visibles: la cuota pasa a `Parcial`, muestra una barra de avance, `Pagado $X · Restan $Y` y la transaccion registrada con su boton `Enviar comprobante`.
+- Si eliges una cuota ya pagada, la app avisa `Cuota ... ya esta pagada por completo` en vez de mostrar un saldo de `$0`.
+- En tablet o con el telefono en horizontal, las pantallas usan dos columnas como el desktop: el detalle del prestamo separa `Contacto / Documentos / Administrar` de `Registrar pago / Cuotas`, el prestamo nuevo muestra el formulario junto a la vista previa, y la ficha del cliente separa `Ficha` de `Prestamos / Zona de riesgo`.
+- La tabla de la calculadora suma la columna `Saldo` con el saldo corrido. En el telefono cada cuota se ve como fila apilada (`1 · 13-12-2026`, monto, `Cap · Int · Saldo`) en lugar de una tabla con desplazamiento lateral.
+- La rotacion ya no esta bloqueada: al girar el telefono la app reacomoda la barra inferior como barra lateral y aprovecha el ancho.
+- Los cuatro indicadores de `Inicio` ya no se apilan: en el telefono se ven como una grilla 2x2 y en pantalla ancha como una sola fila de cuatro tarjetas. En horizontal comparten el ancho en partes iguales.
+- Los textos que no calzaban se corrigieron: frecuencia, tipo de prestamo, estado de cuota, metodo de pago y estado del prestamo se muestran en espanol (`Cuota fija`, `Mensual`, `Pagada`, `Efectivo`, `Moroso`). Los valores internos no cambian, solo la presentacion.
+- Un pago completo deja la cuota en `$0` exacto: se agrego tolerancia de 1 peso y un tope al saldo pendiente, asi no queda un sobrante de `$1` por redondeo. Al elegir una cuota, el monto se completa solo con el saldo y se recalcula despues de guardar.
+- Los textos ya no se cortan ni se salen de su espacio: nombres largos, montos y botones se ajustan al ancho disponible (incluida la accion rapida de la calculadora).
+- La calculadora quedo igual al simulador del desktop: parametros, tarjeta oscura con la cuota estimada, informacion del plan y tabla de amortizacion.
 - La navegacion es adaptativa: barra inferior en telefono y barra lateral permanente cuando el ancho supera 720 dp. Ya no hay que recorrer una pantalla infinita.
 - El modo independiente es la opcion principal. Dentro de ese modo la app no muestra sincronizacion, outbox ni contadores del backend, para que quede claro que no depende del PC.
 - `Inicio` es un tablero compacto: 4 indicadores (`Total prestado`, `Cobranza del mes`, `Vencido`, `Clientes`), alerta de vencidos, hasta 3 cobros prioritarios con WhatsApp y calendario, acciones rapidas y atajos. Las listas completas viven en sus propias pestanas.
@@ -124,3 +135,4 @@ El modo local no depende de esto.
 - La app abre pero no ve clientes: verifica que entraste con `Entrar en modo local`.
 - El recordatorio no aparece: revisa permisos de calendario y notificaciones del app en Ajustes de Android.
 - Si necesitas reinstalar por USB: conecta el telefono, acepta `Depuracion USB` y ejecuta `npm run android:install` en el PC.
+

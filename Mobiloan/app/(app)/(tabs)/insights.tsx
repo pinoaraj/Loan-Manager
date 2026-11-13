@@ -7,6 +7,7 @@ import {
   Pressable,
   RefreshControl,
   Text,
+  useWindowDimensions,
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -46,8 +47,15 @@ const ActivityRow = memo(function ActivityRow({ item }: { item: RecentActivityIt
       onPress={() => router.push({ pathname: '/(app)/loans/[id]', params: { id: item.loanId } })}
     >
       <View style={appStyles.dataRow}>
-        <Text style={appStyles.rowStrong}>{item.clientName}</Text>
-        <Text style={[appStyles.amountStrong, appStyles.amountSuccess]}>
+        <Text style={appStyles.rowStrong} numberOfLines={1}>
+          {item.clientName}
+        </Text>
+        <Text
+          style={[appStyles.amountStrong, appStyles.amountSuccess]}
+          numberOfLines={1}
+          adjustsFontSizeToFit
+          minimumFontScale={0.8}
+        >
           +{formatCurrency(item.amount)}
         </Text>
       </View>
@@ -60,6 +68,9 @@ const ActivityRow = memo(function ActivityRow({ item }: { item: RecentActivityIt
 });
 
 export default function InsightsScreen() {
+  const { width } = useWindowDimensions();
+  const isWide = width >= 720;
+  const kpiStyle = isWide ? appStyles.kpiCardWide : appStyles.kpiCardHalf;
   const [view, setView] = useState<InsightsView>('resumen');
   const [exporting, setExporting] = useState(false);
   const statsQuery = useDashboardStats();
@@ -83,8 +94,9 @@ export default function InsightsScreen() {
 
   const monthlyCollection = stats?.monthlyCollection ?? 0;
   const expectedCollection = stats?.expectedCollection ?? 0;
-  const goalProgress =
-    expectedCollection > 0 ? Math.min((monthlyCollection / expectedCollection) * 100, 100) : 0;
+  const goalRatio =
+    expectedCollection > 0 ? (monthlyCollection / expectedCollection) * 100 : 0;
+  const goalProgress = Math.min(goalRatio, 100);
   const goalRemaining = Math.max(expectedCollection - monthlyCollection, 0);
 
   const maxProjection = Math.max(...projections.map((point) => point.amount), 1);
@@ -132,18 +144,41 @@ export default function InsightsScreen() {
     <View style={appStyles.segmentBody}>
       <View style={appStyles.summaryRow}>
         <View style={appStyles.summaryCard}>
-          <Text style={appStyles.summaryLabel}>Prestado</Text>
-          <Text style={appStyles.summaryValue}>{formatCompactCurrency(stats?.totalLent ?? 0)}</Text>
+          <Text style={appStyles.summaryLabel} numberOfLines={2}>
+            Prestado
+          </Text>
+          <Text
+            style={appStyles.summaryValue}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.7}
+          >
+            {formatCompactCurrency(stats?.totalLent ?? 0)}
+          </Text>
         </View>
         <View style={appStyles.summaryCard}>
-          <Text style={appStyles.summaryLabel}>Por cobrar</Text>
-          <Text style={appStyles.summaryValue}>
+          <Text style={appStyles.summaryLabel} numberOfLines={2}>
+            Por cobrar
+          </Text>
+          <Text
+            style={appStyles.summaryValue}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.7}
+          >
             {formatCompactCurrency(stats?.totalOutstanding ?? 0)}
           </Text>
         </View>
         <View style={appStyles.summaryCard}>
-          <Text style={appStyles.summaryLabel}>Cobrado</Text>
-          <Text style={[appStyles.summaryValue, appStyles.amountSuccess]}>
+          <Text style={appStyles.summaryLabel} numberOfLines={2}>
+            Cobrado
+          </Text>
+          <Text
+            style={[appStyles.summaryValue, appStyles.amountSuccess]}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.7}
+          >
             {formatCompactCurrency(stats?.totalCollected ?? 0)}
           </Text>
         </View>
@@ -151,8 +186,12 @@ export default function InsightsScreen() {
 
       <View style={appStyles.card}>
         <View style={appStyles.dataRow}>
-          <Text style={appStyles.cardTitle}>Estado de la cartera</Text>
-          <Text style={appStyles.rowMeta}>{Math.round(paidShare)}% cobrado</Text>
+          <Text style={appStyles.cardTitle} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.8}>
+            Estado de la cartera
+          </Text>
+          <Text style={appStyles.rowMeta} numberOfLines={1}>
+            {Math.round(paidShare)}% cobrado
+          </Text>
         </View>
 
         <View style={appStyles.segmentBar}>
@@ -196,8 +235,15 @@ export default function InsightsScreen() {
         </View>
 
         <View style={appStyles.dataRow}>
-          <Text style={appStyles.dataLabel}>Mora sobre cartera (PAR)</Text>
-          <Text style={[appStyles.dataValue, appStyles.amountDanger]}>
+          <Text style={appStyles.dataLabel} numberOfLines={1}>
+            Mora sobre cartera (PAR)
+          </Text>
+          <Text
+            style={[appStyles.dataValue, appStyles.amountDanger]}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.8}
+          >
             {formatCompactCurrency(stats?.parAmount ?? 0)}
           </Text>
         </View>
@@ -205,42 +251,61 @@ export default function InsightsScreen() {
 
       <View style={appStyles.card}>
         <View style={appStyles.dataRow}>
-          <Text style={appStyles.cardTitle}>Meta de cobranza del mes</Text>
-          <Text style={appStyles.rowMeta}>{Math.round(goalProgress)}%</Text>
+          <Text style={appStyles.cardTitle} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.75}>
+            Meta de cobranza del mes
+          </Text>
+          <Text style={appStyles.rowMeta} numberOfLines={1}>
+            {expectedCollection > 0 ? `${Math.round(goalRatio)}%` : 'Sin meta'}
+          </Text>
         </View>
         <ProgressBar
           value={goalProgress}
           color={goalProgress >= 100 ? APP_THEME.success : APP_THEME.accent}
         />
         <View style={appStyles.dataRow}>
-          <Text style={appStyles.dataLabel}>
-            {formatCurrency(monthlyCollection)} de {formatCurrency(expectedCollection)}
+          <Text style={appStyles.dataLabel} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.8}>
+            {expectedCollection > 0
+              ? `${formatCurrency(monthlyCollection)} de ${formatCurrency(expectedCollection)}`
+              : `${formatCurrency(monthlyCollection)} cobrado este mes`}
           </Text>
-          <Text style={appStyles.dataValue}>
-            {goalRemaining > 0 ? `Faltan ${formatCompactCurrency(goalRemaining)}` : 'Meta cumplida'}
+          <Text
+            style={appStyles.dataValue}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.8}
+          >
+            {expectedCollection <= 0
+              ? 'Sin cuotas del mes'
+              : goalRemaining > 0
+                ? `Faltan ${formatCompactCurrency(goalRemaining)}`
+                : 'Meta cumplida'}
           </Text>
         </View>
       </View>
 
       <View style={appStyles.kpiGrid}>
         <KpiCard
+          style={kpiStyle}
           label="Prestamos"
           value={stats?.totalLoans ?? 0}
           hint={`${stats?.paidLoans ?? 0} pagados`}
         />
         <KpiCard
+          style={kpiStyle}
           label="Vencidos"
           value={stats?.overdueLoans ?? 0}
           hint={`${formatCompactCurrency(overdueAmount)} en mora`}
           tone="danger"
         />
         <KpiCard
+          style={kpiStyle}
           label="Salud de cartera"
           value={`${Math.round(stats?.healthScore ?? 0)}%`}
           hint="Pagos al dia"
           tone={(stats?.healthScore ?? 0) >= 80 ? 'success' : 'default'}
         />
         <KpiCard
+          style={kpiStyle}
           label="En pausa"
           value={stats?.pausedLoans ?? 0}
           hint="Prestamos detenidos"
@@ -273,33 +338,56 @@ export default function InsightsScreen() {
           <Text style={appStyles.rowMeta}>No hay cuotas pendientes para proyectar.</Text>
         ) : (
           <>
+            <View style={isWide ? appStyles.chartSplit : undefined}>
+            <View style={isWide ? appStyles.chartPane : undefined}>
             <View style={appStyles.chartRow}>
               {projections.map((point) => {
                 const height = Math.max(6, Math.round((point.amount / maxProjection) * 90));
 
                 return (
                   <View key={point.monthKey} style={appStyles.chartColumn}>
-                    <Text style={appStyles.chartValue} numberOfLines={1}>
+                    <Text
+                      style={appStyles.chartValue}
+                      numberOfLines={1}
+                      adjustsFontSizeToFit
+                      minimumFontScale={0.7}
+                    >
                       {formatCompactCurrency(point.amount)}
                     </Text>
                     <View style={appStyles.chartTrack}>
                       <View style={[appStyles.chartFill, { height }]} />
                     </View>
-                    <Text style={appStyles.chartLabel} numberOfLines={1}>
+                    <Text
+                      style={appStyles.chartLabel}
+                      numberOfLines={1}
+                      adjustsFontSizeToFit
+                      minimumFontScale={0.7}
+                    >
                       {point.label}
                     </Text>
                   </View>
                 );
               })}
             </View>
+            </View>
 
-            <View style={{ gap: 8 }}>
+            <View style={isWide ? [appStyles.chartPane, { gap: 8 }] : { gap: 8 }}>
               {projections.map((point) => (
                 <View key={`row-${point.monthKey}`} style={appStyles.dataRow}>
-                  <Text style={appStyles.dataLabel}>{point.label}</Text>
-                  <Text style={appStyles.dataValue}>{formatCurrency(point.amount)}</Text>
+                  <Text style={appStyles.dataLabel} numberOfLines={1}>
+                    {point.label}
+                  </Text>
+                  <Text
+                    style={appStyles.dataValue}
+                    numberOfLines={1}
+                    adjustsFontSizeToFit
+                    minimumFontScale={0.8}
+                  >
+                    {formatCurrency(point.amount)}
+                  </Text>
                 </View>
               ))}
+            </View>
             </View>
           </>
         )}

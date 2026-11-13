@@ -1,6 +1,6 @@
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { Alert, Pressable, ScrollView, Text, View } from 'react-native';
+import { Alert, Pressable, ScrollView, Text, useWindowDimensions, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import {
@@ -17,6 +17,7 @@ import {
 } from '../../../src/hooks/useSyncActions';
 import { APP_VERSION } from '../../../src/lib/config';
 import { formatCurrency, formatDate, formatDateTime } from '../../../src/lib/format';
+import { paymentMethodLabel } from '../../../src/lib/labels';
 import { pickPortableSnapshot, sharePortfolioCsv } from '../../../src/lib/reports';
 import { exportPortableSyncPackage } from '../../../src/lib/syncPackage';
 import { useSession } from '../../../src/providers/AppProviders';
@@ -33,6 +34,8 @@ const VIEWS: Array<{ value: SettingsView; label: string }> = [
 ];
 
 export default function SettingsScreen() {
+  const { width } = useWindowDimensions();
+  const isWide = width >= 720;
   const [view, setView] = useState<SettingsView>('app');
   const {
     session,
@@ -190,8 +193,7 @@ export default function SettingsScreen() {
     </View>
   );
 
-  const dataView = (
-    <View style={appStyles.segmentBody}>
+  const backupCard = (
       <View style={appStyles.card}>
         <Text style={appStyles.cardTitle}>Respaldo e importacion</Text>
         <Text style={appStyles.cardSubtitle}>
@@ -210,7 +212,9 @@ export default function SettingsScreen() {
           </Pressable>
         </View>
       </View>
+  );
 
+  const reportsCard = (
       <View style={appStyles.card}>
         <Text style={appStyles.cardTitle}>Reportes</Text>
         <Text style={appStyles.cardSubtitle}>
@@ -229,6 +233,21 @@ export default function SettingsScreen() {
           {loans.length} prestamo{loans.length === 1 ? '' : 's'} en el telefono.
         </Text>
       </View>
+  );
+
+  const dataView = (
+    <View style={appStyles.segmentBody}>
+      {isWide ? (
+        <View style={appStyles.dashGrid}>
+          <View style={appStyles.dashColumn}>{backupCard}</View>
+          <View style={appStyles.dashColumn}>{reportsCard}</View>
+        </View>
+      ) : (
+        <>
+          {backupCard}
+          {reportsCard}
+        </>
+      )}
     </View>
   );
 
@@ -255,8 +274,8 @@ export default function SettingsScreen() {
                 : 'sin sincronizacion'}
             </Text>
           </View>
-          <Pressable style={appStyles.button} onPress={handleSync}>
-            <Text style={appStyles.buttonText}>
+          <Pressable style={[appStyles.button, { flexShrink: 0 }]} onPress={handleSync}>
+            <Text style={appStyles.buttonText} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.85}>
               {syncMutation.isPending
                 ? 'Sincronizando...'
                 : isOnline === false
@@ -279,7 +298,8 @@ export default function SettingsScreen() {
               <Text style={appStyles.pillText}>Pendiente</Text>
             </View>
             <Text style={appStyles.itemTitle}>
-              {formatCurrency(mutation.payload.amount)} - {mutation.payload.method || 'Cash'}
+              {formatCurrency(mutation.payload.amount)} -{' '}
+              {paymentMethodLabel(mutation.payload.method)}
             </Text>
             <Text style={appStyles.itemText}>
               {mutation.clientName || 'Cliente sin contexto local'} - Cuota:{' '}
@@ -334,7 +354,8 @@ export default function SettingsScreen() {
               <Text style={appStyles.pillText}>Requiere revision</Text>
             </View>
             <Text style={appStyles.itemTitle}>
-              {formatCurrency(mutation.payload.amount)} - {mutation.payload.method || 'Cash'}
+              {formatCurrency(mutation.payload.amount)} -{' '}
+              {paymentMethodLabel(mutation.payload.method)}
             </Text>
             <Text style={appStyles.itemText}>
               {mutation.clientName || 'Cliente sin contexto local'} - Cuota:{' '}

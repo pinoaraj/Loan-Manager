@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import type { ComponentProps, ReactNode } from 'react';
 import { Pressable, Text, View } from 'react-native';
+import type { StyleProp, ViewStyle } from 'react-native';
 
 import { APP_THEME } from '../lib/config';
 import { appStyles } from './styles';
@@ -34,23 +35,57 @@ interface KpiCardProps {
   value: string | number;
   hint?: string;
   tone?: 'default' | 'danger' | 'success';
+  icon?: IconName;
+  iconColor?: string;
+  iconBackground?: string;
+  style?: StyleProp<ViewStyle>;
 }
 
-export function KpiCard({ label, value, hint, tone = 'default' }: KpiCardProps) {
+export function KpiCard({
+  label,
+  value,
+  hint,
+  tone = 'default',
+  icon,
+  iconColor = APP_THEME.accent,
+  iconBackground = APP_THEME.accentSoft,
+  style,
+}: KpiCardProps) {
   const valueColor =
     tone === 'danger' ? '#B91C1C' : tone === 'success' ? '#047857' : APP_THEME.ink;
 
   return (
-    <View style={appStyles.kpiCard}>
-      <Text style={appStyles.kpiLabel}>{label}</Text>
-      <Text
-        style={[appStyles.kpiValue, { color: valueColor }]}
-        numberOfLines={1}
-        adjustsFontSizeToFit
-      >
-        {value}
-      </Text>
-      {hint ? <Text style={appStyles.kpiHint}>{hint}</Text> : null}
+    <View style={[appStyles.kpiCard, style]}>
+      <View style={appStyles.kpiTop}>
+        <View style={appStyles.kpiBody}>
+          <Text style={appStyles.kpiLabel} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.8}>
+            {label}
+          </Text>
+          <Text
+            style={[appStyles.kpiValue, { color: valueColor }]}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.7}
+          >
+            {value}
+          </Text>
+          {hint ? (
+            <Text
+              style={appStyles.kpiHint}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.7}
+            >
+              {hint}
+            </Text>
+          ) : null}
+        </View>
+        {icon ? (
+          <View style={[appStyles.kpiIconWrap, { backgroundColor: iconBackground }]}>
+            <Ionicons name={icon} size={18} color={iconColor} />
+          </View>
+        ) : null}
+      </View>
     </View>
   );
 }
@@ -106,7 +141,12 @@ export function QuickAction({ icon, label, onPress, primary }: QuickActionProps)
       <View style={[appStyles.quickIcon, primary && appStyles.quickIconPrimary]}>
         <Ionicons name={icon} size={19} color={primary ? '#F8FDFF' : APP_THEME.accent} />
       </View>
-      <Text style={appStyles.quickLabel} numberOfLines={2}>
+      <Text
+        style={appStyles.quickLabel}
+        numberOfLines={1}
+        adjustsFontSizeToFit
+        minimumFontScale={0.72}
+      >
         {label}
       </Text>
     </Pressable>
@@ -176,7 +216,12 @@ export function SegmentedControl<T extends string>({
             style={[appStyles.segmentButton, active && appStyles.segmentButtonActive]}
             onPress={() => onChange(option.value)}
           >
-            <Text style={[appStyles.segmentText, active && appStyles.segmentTextActive]}>
+            <Text
+              style={[appStyles.segmentText, active && appStyles.segmentTextActive]}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.8}
+            >
               {option.label}
             </Text>
           </Pressable>

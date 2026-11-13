@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import {
   Alert,
   FlatList,
@@ -54,8 +54,15 @@ const CollectionRow = memo(function CollectionRow({
   return (
     <View style={[appStyles.compactRow, isOverdue && appStyles.compactRowDanger]}>
       <View style={appStyles.dataRow}>
-        <Text style={appStyles.rowStrong}>{item.clientName}</Text>
-        <Text style={[appStyles.amountStrong, isOverdue && appStyles.amountDanger]}>
+        <Text style={appStyles.rowStrong} numberOfLines={1}>
+          {item.clientName}
+        </Text>
+        <Text
+          style={[appStyles.amountStrong, isOverdue && appStyles.amountDanger]}
+          numberOfLines={1}
+          adjustsFontSizeToFit
+          minimumFontScale={0.8}
+        >
           {formatCurrency(remaining)}
         </Text>
       </View>
@@ -116,6 +123,19 @@ export default function CollectionsScreen() {
   const upcomingAlerts = alerts.filter((alert) => alert.type === 'upcoming');
   const overdueTotal = overdueAlerts.reduce((sum, alert) => sum + alert.amount, 0);
   const upcomingTotal = upcomingAlerts.reduce((sum, alert) => sum + alert.amount, 0);
+  const autoFilterApplied = useRef(false);
+
+  useEffect(() => {
+    if (autoFilterApplied.current || alertsQuery.data === undefined) {
+      return;
+    }
+
+    autoFilterApplied.current = true;
+    if (overdueAlerts.length === 0 && upcomingAlerts.length > 0) {
+      setFilter('upcoming');
+    }
+  }, [alertsQuery.data, overdueAlerts.length, upcomingAlerts.length]);
+
   const term = search.trim().toLowerCase();
   const items = term
     ? queue.filter(
@@ -219,8 +239,15 @@ export default function CollectionsScreen() {
 
             <View style={appStyles.summaryRow}>
               <View style={[appStyles.summaryCard, { backgroundColor: '#FEF2F2' }]}>
-                <Text style={[appStyles.summaryLabel, { color: '#B91C1C' }]}>Total vencido</Text>
-                <Text style={[appStyles.summaryValue, appStyles.amountDanger]}>
+                <Text style={[appStyles.summaryLabel, { color: '#B91C1C' }]} numberOfLines={2}>
+                  Total vencido
+                </Text>
+                <Text
+                  style={[appStyles.summaryValue, appStyles.amountDanger]}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  minimumFontScale={0.7}
+                >
                   {formatCurrency(overdueTotal)}
                 </Text>
                 <Text style={appStyles.rowMeta}>
@@ -228,10 +255,18 @@ export default function CollectionsScreen() {
                 </Text>
               </View>
               <View style={[appStyles.summaryCard, { backgroundColor: '#EFF6FF' }]}>
-                <Text style={[appStyles.summaryLabel, { color: '#1D4ED8' }]}>
+                <Text
+                  style={[appStyles.summaryLabel, { color: '#1D4ED8' }]}
+                  numberOfLines={2}
+                >
                   Proximos 30 dias
                 </Text>
-                <Text style={[appStyles.summaryValue, { color: '#1D4ED8' }]}>
+                <Text
+                  style={[appStyles.summaryValue, { color: '#1D4ED8' }]}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  minimumFontScale={0.7}
+                >
                   {formatCurrency(upcomingTotal)}
                 </Text>
                 <Text style={appStyles.rowMeta}>
@@ -269,6 +304,9 @@ export default function CollectionsScreen() {
                         appStyles.filterChipText,
                         active && appStyles.filterChipTextActive,
                       ]}
+                      numberOfLines={1}
+                      adjustsFontSizeToFit
+                      minimumFontScale={0.85}
                     >
                       {label}
                       {count !== null ? ` (${count})` : ''}

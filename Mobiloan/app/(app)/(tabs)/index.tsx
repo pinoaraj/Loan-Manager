@@ -26,7 +26,19 @@ import {
   SectionHeader,
   TabHeader,
 } from '../../../src/ui/components';
+import type { IconName } from '../../../src/ui/components';
 import { appStyles } from '../../../src/ui/styles';
+
+type KpiItem = {
+  key: string;
+  label: string;
+  value: string | number;
+  hint?: string;
+  tone?: 'default' | 'danger' | 'success';
+  icon: IconName;
+  iconColor: string;
+  iconBackground: string;
+};
 
 const go = (path: Href) => router.push(path);
 
@@ -105,37 +117,74 @@ export default function HomeScreen() {
       params: paymentId ? { id: loanId, paymentId } : { id: loanId },
     });
 
+  const kpiCards: KpiItem[] = [
+    {
+      key: 'lent',
+      label: 'Total prestado',
+      value: formatCompactCurrency(stats?.totalLent ?? 0),
+      hint: `${formatCompactCurrency(stats?.totalOutstanding ?? 0)} por cobrar`,
+      icon: 'wallet-outline',
+      iconColor: '#1D4ED8',
+      iconBackground: '#DBEAFE',
+    },
+    {
+      key: 'collection',
+      label: 'Cobranza del mes',
+      value: formatCompactCurrency(stats?.monthlyCollection ?? 0),
+      hint:
+        (stats?.expectedCollection ?? 0) > 0
+          ? `${collectionProgress}% de la meta`
+          : (stats?.monthlyCollection ?? 0) > 0
+            ? 'Sin cuotas programadas'
+            : 'Sin cuotas este mes',
+      tone: 'success',
+      icon: 'trending-up',
+      iconColor: '#047857',
+      iconBackground: '#D1FAE5',
+    },
+    {
+      key: 'overdue',
+      label: 'Vencido',
+      value: formatCompactCurrency(stats?.overdueAmount ?? 0),
+      hint: `${stats?.overduePayments ?? 0} cuota${(stats?.overduePayments ?? 0) === 1 ? '' : 's'}`,
+      tone: 'danger',
+      icon: 'alert-circle-outline',
+      iconColor: '#B91C1C',
+      iconBackground: '#FEE2E2',
+    },
+    {
+      key: 'clients',
+      label: 'Clientes',
+      value: stats?.totalClients ?? 0,
+      hint: `${stats?.activeLoans ?? 0} prestamo${(stats?.activeLoans ?? 0) === 1 ? '' : 's'} activo${(stats?.activeLoans ?? 0) === 1 ? '' : 's'}`,
+      icon: 'people-outline',
+      iconColor: '#7C3AED',
+      iconBackground: '#EDE9FE',
+    },
+  ];
+
   const kpis = (
     <View style={appStyles.kpiGrid}>
-      <KpiCard
-        label="Total prestado"
-        value={formatCompactCurrency(stats?.totalLent ?? 0)}
-        hint={`${formatCompactCurrency(stats?.totalOutstanding ?? 0)} por cobrar`}
-      />
-      <KpiCard
-        label="Cobranza del mes"
-        value={formatCompactCurrency(stats?.monthlyCollection ?? 0)}
-        hint={`${collectionProgress}% de la meta`}
-        tone="success"
-      />
-      <KpiCard
-        label="Vencido"
-        value={formatCompactCurrency(stats?.overdueAmount ?? 0)}
-        hint={`${stats?.overduePayments ?? 0} cuota${(stats?.overduePayments ?? 0) === 1 ? '' : 's'}`}
-        tone="danger"
-      />
-      <KpiCard
-        label="Clientes"
-        value={stats?.totalClients ?? 0}
-        hint={`${stats?.activeLoans ?? 0} prestamos activos`}
-      />
+      {kpiCards.map((card) => (
+        <KpiCard
+          key={card.key}
+          label={card.label}
+          value={card.value}
+          hint={card.hint}
+          tone={card.tone}
+          icon={card.icon}
+          iconColor={card.iconColor}
+          iconBackground={card.iconBackground}
+          style={isWide ? appStyles.kpiCardWide : appStyles.kpiCardHalf}
+        />
+      ))}
     </View>
   );
 
   const alertCard =
     (stats?.overduePayments ?? 0) > 0 ? (
       <Pressable style={appStyles.alertCard} onPress={() => go('/collections')}>
-        <View style={appStyles.inlineRow}>
+        <View style={appStyles.inlineRowTop}>
           <Ionicons name="alert-circle" size={22} color="#B91C1C" />
           <View style={appStyles.flexOne}>
             <Text style={appStyles.alertTitle}>
@@ -152,7 +201,7 @@ export default function HomeScreen() {
       </Pressable>
     ) : (
       <View style={appStyles.card}>
-        <View style={appStyles.inlineRow}>
+        <View style={appStyles.inlineRowTop}>
           <Ionicons name="checkmark-circle" size={22} color="#047857" />
           <View style={appStyles.flexOne}>
             <Text style={appStyles.cardTitle}>Cartera al dia</Text>
@@ -212,7 +261,9 @@ export default function HomeScreen() {
             >
               <View style={appStyles.dataRow}>
                 <View style={appStyles.flexOne}>
-                  <Text style={appStyles.rowStrong}>{alert.clientName}</Text>
+                  <Text style={appStyles.rowStrong} numberOfLines={1}>
+                    {alert.clientName}
+                  </Text>
                   <Text
                     style={[
                       appStyles.rowMeta,
@@ -227,12 +278,15 @@ export default function HomeScreen() {
                   </Text>
                   <Text style={appStyles.rowMeta}>{formatDate(alert.dueDate)}</Text>
                 </View>
-                <View style={{ alignItems: 'flex-end', gap: 8 }}>
+                <View style={{ alignItems: 'flex-end', gap: 8, maxWidth: '45%' }}>
                   <Text
                     style={[
                       appStyles.amountStrong,
                       isOverdue ? appStyles.amountDanger : appStyles.amountWarning,
                     ]}
+                    numberOfLines={1}
+                    adjustsFontSizeToFit
+                    minimumFontScale={0.75}
                   >
                     {formatCurrency(alert.amount)}
                   </Text>
@@ -311,16 +365,18 @@ export default function HomeScreen() {
         />
 
         {isWide ? (
-          <View style={appStyles.dashGrid}>
-            <View style={appStyles.dashColumn}>
-              {kpis}
-              {alertCard}
-              <SectionHeader title="Acciones rapidas" subtitle="Todo a un toque." />
-              {quickActions}
-            </View>
-            <View style={appStyles.dashColumn}>
-              {priority}
-              {shortcuts}
+          <View style={appStyles.dashStack}>
+            {kpis}
+            <View style={appStyles.dashGrid}>
+              <View style={appStyles.dashColumn}>
+                {alertCard}
+                <SectionHeader title="Acciones rapidas" subtitle="Todo a un toque." />
+                {quickActions}
+              </View>
+              <View style={appStyles.dashColumn}>
+                {priority}
+                {shortcuts}
+              </View>
             </View>
           </View>
         ) : (

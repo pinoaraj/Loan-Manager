@@ -1,6 +1,6 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { useMemo, useState } from 'react';
-import { Alert, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
+import { Alert, Pressable, ScrollView, Text, TextInput, useWindowDimensions, View } from 'react-native';
 
 import { useAllClients } from '../../src/hooks/useOfflineData';
 import { useCreateLocalLoan } from '../../src/hooks/useSyncActions';
@@ -10,6 +10,8 @@ import { formatCurrency, formatDate } from '../../src/lib/format';
 import { appStyles } from '../../src/ui/styles';
 
 export default function NewLoanScreen() {
+  const { width } = useWindowDimensions();
+  const isWide = width >= 720;
   const params = useLocalSearchParams<{ clientId?: string }>();
   const initialClientId = Array.isArray(params.clientId) ? params.clientId[0] : params.clientId;
   const clientsQuery = useAllClients();
@@ -84,15 +86,7 @@ export default function NewLoanScreen() {
     }
   };
 
-  return (
-    <ScrollView style={appStyles.screen} contentContainerStyle={appStyles.scroll}>
-      <View style={appStyles.heroCard}>
-        <Text style={appStyles.heroTitle}>Nuevo prestamo local</Text>
-        <Text style={appStyles.heroSubtitle}>
-          Genera el prestamo y su calendario de cuotas directamente desde Android.
-        </Text>
-      </View>
-
+  const clientCard = (
       <View style={appStyles.card}>
         <Text style={appStyles.cardTitle}>Cliente</Text>
         {clients.map((client) => (
@@ -101,7 +95,12 @@ export default function NewLoanScreen() {
             style={clientId === client.id ? appStyles.button : appStyles.buttonMuted}
             onPress={() => setClientId(client.id)}
           >
-            <Text style={clientId === client.id ? appStyles.buttonText : appStyles.buttonMutedText}>
+            <Text
+              style={clientId === client.id ? appStyles.buttonText : appStyles.buttonMutedText}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.8}
+            >
               {client.name}
             </Text>
           </Pressable>
@@ -110,7 +109,9 @@ export default function NewLoanScreen() {
           <Text style={appStyles.itemText}>Primero debes crear al menos un cliente local.</Text>
         )}
       </View>
+  );
 
+  const formCard = (
       <View style={appStyles.card}>
         <Text style={appStyles.label}>Monto</Text>
         <TextInput value={amount} onChangeText={setAmount} keyboardType="numeric" style={appStyles.input} />
@@ -152,12 +153,19 @@ export default function NewLoanScreen() {
         </View>
 
         <Pressable style={appStyles.button} onPress={handleCreate}>
-          <Text style={appStyles.buttonText}>
+          <Text
+            style={appStyles.buttonText}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.75}
+          >
             {createLoan.isPending ? 'Creando...' : `Crear prestamo${selectedClient ? ` para ${selectedClient.name}` : ''}`}
           </Text>
         </Pressable>
       </View>
+  );
 
+  const previewCard = (
       <View style={appStyles.card}>
         <Text style={appStyles.cardTitle}>Vista previa</Text>
         <Text style={appStyles.cardSubtitle}>
@@ -177,6 +185,32 @@ export default function NewLoanScreen() {
           </Text>
         )}
       </View>
+  );
+
+  return (
+    <ScrollView style={appStyles.screen} contentContainerStyle={appStyles.scroll}>
+      <View style={appStyles.heroCard}>
+        <Text style={appStyles.heroTitle}>Nuevo prestamo local</Text>
+        <Text style={appStyles.heroSubtitle}>
+          Genera el prestamo y su calendario de cuotas directamente desde Android.
+        </Text>
+      </View>
+
+      {isWide ? (
+        <View style={appStyles.dashGrid}>
+          <View style={appStyles.dashColumn}>
+            {clientCard}
+            {formCard}
+          </View>
+          <View style={appStyles.dashColumn}>{previewCard}</View>
+        </View>
+      ) : (
+        <View style={appStyles.dashColumn}>
+          {clientCard}
+          {formCard}
+          {previewCard}
+        </View>
+      )}
     </ScrollView>
   );
 }

@@ -8,6 +8,7 @@ import {
   RefreshControl,
   Text,
   TextInput,
+  useWindowDimensions,
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -15,6 +16,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useClients, useLoans } from '../../../src/hooks/useOfflineData';
 import { APP_THEME } from '../../../src/lib/config';
 import { formatCurrency, formatDate } from '../../../src/lib/format';
+import { frequencyLabel } from '../../../src/lib/labels';
 import { getLoanHealthSummary } from '../../../src/lib/loanHealth';
 import type { ClientRecord, LoanListItem } from '../../../src/types/sync';
 import {
@@ -75,18 +77,23 @@ const LoanRow = memo(function LoanRow({ loan }: { loan: LoanListItem }) {
       onPress={() => router.push({ pathname: '/(app)/loans/[id]', params: { id: loan.id } })}
     >
       <View style={appStyles.dataRow}>
-        <Text style={appStyles.rowStrong}>{loan.clientName}</Text>
+        <Text style={appStyles.rowStrong} numberOfLines={1}>
+          {loan.clientName}
+        </Text>
         <View style={[appStyles.chip, { backgroundColor: health.backgroundColor }]}>
-          <Text style={[appStyles.chipText, { color: health.color }]}>{health.label}</Text>
+          <Text
+            style={[appStyles.chipText, { color: health.color }]}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.8}
+          >
+            {health.label}
+          </Text>
         </View>
       </View>
       <Text style={appStyles.rowMeta}>
         {formatCurrency(loan.amount)} · {loan.durationMonths} meses ·{' '}
-        {loan.frequency === 'monthly'
-          ? 'mensual'
-          : loan.frequency === 'bi-weekly'
-            ? 'quincenal'
-            : 'semanal'}
+        {frequencyLabel(loan.frequency)}
       </Text>
       <Text style={appStyles.rowMeta}>
         Saldo {formatCurrency(loan.totalRemaining)}
@@ -119,13 +126,20 @@ const ClientRow = memo(function ClientRow({ client }: { client: ClientListItem }
           <Text style={appStyles.avatarText}>{getInitials(client.name)}</Text>
         </View>
         <View style={appStyles.flexOne}>
-          <Text style={appStyles.rowStrong}>{client.name}</Text>
-          <Text style={appStyles.rowMeta}>
+          <Text style={appStyles.rowStrong} numberOfLines={1}>
+            {client.name}
+          </Text>
+          <Text style={appStyles.rowMeta} numberOfLines={1}>
             {client.rut || 'Sin RUT'} · {client.phone || 'Sin telefono'}
           </Text>
         </View>
         <View style={[appStyles.chip, { backgroundColor: APP_THEME.accentSoft }]}>
-          <Text style={[appStyles.chipText, { color: APP_THEME.accent }]}>
+          <Text
+            style={[appStyles.chipText, { color: APP_THEME.accent }]}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.8}
+          >
             {client.activeLoanCount} activo{client.activeLoanCount === 1 ? '' : 's'}
           </Text>
         </View>
@@ -135,6 +149,8 @@ const ClientRow = memo(function ClientRow({ client }: { client: ClientListItem }
 });
 
 export default function PortfolioScreen() {
+  const { width } = useWindowDimensions();
+  const isWide = width >= 720;
   const [mode, setMode] = useState<PortfolioMode>('loans');
   const [filter, setFilter] = useState<LoanFilter>('all');
   const [search, setSearch] = useState('');
@@ -304,14 +320,16 @@ export default function PortfolioScreen() {
         />
       )}
 
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel="Crear prestamo o cliente"
-        style={appStyles.fab}
-        onPress={openNew}
-      >
-        <Ionicons name="add" size={28} color="#F8FDFF" />
-      </Pressable>
+      {isWide ? null : (
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Crear prestamo o cliente"
+          style={appStyles.fab}
+          onPress={openNew}
+        >
+          <Ionicons name="add" size={28} color="#F8FDFF" />
+        </Pressable>
+      )}
     </SafeAreaView>
   );
 }

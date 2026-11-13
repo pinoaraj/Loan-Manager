@@ -2,8 +2,8 @@
   "expo": {
     "name": "Mobiloan",
     "slug": "mobiloan",
-    "version": "1.2.6",
-    "orientation": "portrait",
+    "version": "1.2.10",
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "scheme": "mobiloan",
     "experiments": {
@@ -14,7 +14,7 @@
     },
     "android": {
       "package": "com.mobiloan.app",
-      "versionCode": 9,
+      "versionCode": 13,
       "permissions": [
         "android.permission.READ_CALENDAR",
         "android.permission.WRITE_CALENDAR",

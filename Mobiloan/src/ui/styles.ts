@@ -21,6 +21,7 @@ export const appStyles = StyleSheet.create({
     color: '#F8FDFF',
     fontSize: 24,
     fontWeight: '800',
+    flexShrink: 1,
   },
   heroSubtitle: {
     color: '#D9E2EC',
@@ -58,6 +59,7 @@ export const appStyles = StyleSheet.create({
     color: APP_THEME.ink,
     fontSize: 18,
     fontWeight: '800',
+    flexShrink: 1,
   },
   cardSubtitle: {
     color: APP_THEME.slate,
@@ -130,7 +132,9 @@ export const appStyles = StyleSheet.create({
     gap: 12,
   },
   statBox: {
-    width: '47%',
+    flexBasis: '47%',
+    flexGrow: 1,
+    minWidth: 0,
     backgroundColor: APP_THEME.card,
     borderRadius: 20,
     padding: 16,
@@ -138,13 +142,16 @@ export const appStyles = StyleSheet.create({
   },
   statLabel: {
     color: APP_THEME.slate,
-    fontSize: 12,
-    fontWeight: '700',
+    fontSize: 10.5,
+    fontWeight: '800',
+    letterSpacing: 0.5,
+    textTransform: 'uppercase',
   },
   statValue: {
     color: APP_THEME.ink,
     fontSize: 20,
     fontWeight: '800',
+    flexShrink: 1,
   },
   statSubtext: {
     color: APP_THEME.slate,
@@ -169,6 +176,7 @@ export const appStyles = StyleSheet.create({
     color: APP_THEME.ink,
     fontSize: 16,
     fontWeight: '800',
+    flexShrink: 1,
   },
   itemText: {
     color: APP_THEME.slate,
@@ -261,11 +269,22 @@ export const appStyles = StyleSheet.create({
   chartRow: {
     flexDirection: 'row',
     alignItems: 'flex-end',
+    justifyContent: 'center',
     gap: 8,
     paddingTop: 8,
   },
+  chartSplit: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 18,
+  },
+  chartPane: {
+    flex: 1,
+    minWidth: 0,
+  },
   chartColumn: {
     flex: 1,
+    maxWidth: 150,
     alignItems: 'center',
     gap: 6,
   },
@@ -287,11 +306,15 @@ export const appStyles = StyleSheet.create({
     fontSize: 11,
     fontWeight: '700',
     textTransform: 'capitalize',
+    width: '100%',
+    textAlign: 'center',
   },
   chartValue: {
     color: APP_THEME.ink,
     fontSize: 10,
     fontWeight: '800',
+    width: '100%',
+    textAlign: 'center',
   },
   activityAmount: {
     color: '#047857',
@@ -318,6 +341,7 @@ export const appStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
+    flexShrink: 1,
   },
   legendDot: {
     width: 10,
@@ -328,6 +352,7 @@ export const appStyles = StyleSheet.create({
     color: APP_THEME.slate,
     fontSize: 12,
     fontWeight: '700',
+    flexShrink: 1,
   },
   tabScreen: {
     flex: 1,
@@ -376,8 +401,21 @@ export const appStyles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: 10,
   },
+  kpiCardHalf: {
+    flexBasis: '47%',
+    flexGrow: 1,
+    minWidth: 0,
+  },
+  kpiScroll: {
+    marginHorizontal: -20,
+  },
+  kpiScrollContent: {
+    paddingHorizontal: 20,
+    gap: 10,
+    paddingVertical: 2,
+  },
   kpiCard: {
-    width: '48.4%',
+    minWidth: 0,
     backgroundColor: APP_THEME.card,
     borderRadius: 18,
     paddingHorizontal: 14,
@@ -389,15 +427,39 @@ export const appStyles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
     elevation: 1,
   },
+  kpiCardWide: {
+    flex: 1,
+    flexBasis: 0,
+    minWidth: 0,
+  },
+  kpiTop: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    gap: 8,
+  },
+  kpiBody: {
+    flex: 1,
+    minWidth: 0,
+    gap: 3,
+  },
+  kpiIconWrap: {
+    width: 36,
+    height: 36,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   kpiLabel: {
     color: APP_THEME.slate,
-    fontSize: 11,
+    fontSize: 10.5,
     fontWeight: '800',
-    letterSpacing: 0.2,
+    letterSpacing: 0.5,
+    textTransform: 'uppercase',
   },
   kpiValue: {
     color: APP_THEME.ink,
-    fontSize: 19,
+    fontSize: 21,
     fontWeight: '800',
   },
   kpiHint: {
@@ -502,11 +564,13 @@ export const appStyles = StyleSheet.create({
     color: APP_THEME.ink,
     fontSize: 15,
     fontWeight: '800',
+    flexShrink: 1,
   },
   amountStrong: {
     color: APP_THEME.ink,
     fontSize: 15,
     fontWeight: '800',
+    flexShrink: 0,
   },
   amountDanger: {
     color: '#B91C1C',
@@ -544,6 +608,73 @@ export const appStyles = StyleSheet.create({
   progressFill: {
     height: '100%',
     borderRadius: 999,
+  },
+  scheduleHead: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    paddingBottom: 6,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E2E8F0',
+  },
+  scheduleHeadText: {
+    color: APP_THEME.slate,
+    fontSize: 10,
+    fontWeight: '800',
+    letterSpacing: 0.6,
+  },
+  scheduleRow: {
+    backgroundColor: APP_THEME.card,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    gap: 7,
+  },
+  scheduleRowSelected: {
+    borderWidth: 2,
+    borderColor: APP_THEME.accent,
+    backgroundColor: '#F0FDFF',
+  },
+  scheduleRowPaid: {
+    backgroundColor: '#F0FDF9',
+    borderColor: '#CCFBF1',
+  },
+  scheduleIndex: {
+    minWidth: 26,
+    height: 26,
+    borderRadius: 9,
+    backgroundColor: '#E2E8F0',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 6,
+  },
+  scheduleIndexText: {
+    color: APP_THEME.ink,
+    fontSize: 11,
+    fontWeight: '800',
+  },
+  scheduleAmount: {
+    color: APP_THEME.ink,
+    fontSize: 16,
+    fontWeight: '800',
+    flexShrink: 1,
+  },
+  scheduleSplit: {
+    color: APP_THEME.slate,
+    fontSize: 11.5,
+    flexShrink: 1,
+  },
+  scheduleBalance: {
+    color: '#64748B',
+    fontSize: 11.5,
+    fontWeight: '700',
+    flexShrink: 1,
+  },
+  scheduleLate: {
+    color: '#BE123C',
+    fontWeight: '800',
   },
   segmented: {
     flexDirection: 'row',
@@ -618,13 +749,16 @@ export const appStyles = StyleSheet.create({
   },
   summaryLabel: {
     color: APP_THEME.slate,
-    fontSize: 11,
-    fontWeight: '700',
+    fontSize: 10.5,
+    fontWeight: '800',
+    letterSpacing: 0.5,
+    textTransform: 'uppercase',
   },
   summaryValue: {
     color: APP_THEME.ink,
-    fontSize: 17,
+    fontSize: 18,
     fontWeight: '800',
+    flexShrink: 1,
   },
   fab: {
     position: 'absolute',
@@ -702,11 +836,14 @@ export const appStyles = StyleSheet.create({
     color: APP_THEME.slate,
     fontSize: 12,
     fontWeight: '600',
+    flexShrink: 1,
   },
   dataValue: {
     color: APP_THEME.ink,
     fontSize: 13,
     fontWeight: '800',
+    flexShrink: 1,
+    textAlign: 'right',
   },
   quickRow: {
     flexDirection: 'row',
@@ -714,6 +851,7 @@ export const appStyles = StyleSheet.create({
   },
   quickAction: {
     flex: 1,
+    minWidth: 0,
     alignItems: 'center',
     gap: 6,
     backgroundColor: APP_THEME.card,
@@ -721,7 +859,7 @@ export const appStyles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#E2E8F0',
     paddingVertical: 12,
-    paddingHorizontal: 4,
+    paddingHorizontal: 2,
   },
   quickIcon: {
     width: 36,
@@ -736,15 +874,19 @@ export const appStyles = StyleSheet.create({
   },
   quickLabel: {
     color: APP_THEME.ink,
-    fontSize: 11,
+    fontSize: 11.5,
     fontWeight: '800',
     textAlign: 'center',
-    lineHeight: 14,
+    lineHeight: 15,
+    width: '100%',
   },
   iconButtonSm: {
     width: 34,
     height: 34,
     borderRadius: 12,
+  },
+  dashStack: {
+    gap: 14,
   },
   dashGrid: {
     flexDirection: 'row',
@@ -778,5 +920,155 @@ export const appStyles = StyleSheet.create({
   },
   segmentBody: {
     gap: 12,
+  },
+  inlineRowTop: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 12,
+  },
+  calcTableWrap: {
+    borderRadius: 18,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+    overflow: 'hidden',
+  },
+  calcTable: {
+    minWidth: 560,
+  },
+  calcTableWide: {
+    width: '100%',
+  },
+  calcMobileRow: {
+    backgroundColor: '#F8FAFC',
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    gap: 5,
+  },
+  calcMobileTop: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 10,
+  },
+  calcMobileTitle: {
+    flex: 1,
+    minWidth: 0,
+    color: APP_THEME.ink,
+    fontSize: 12.5,
+    fontWeight: '700',
+  },
+  calcMobileAmount: {
+    color: APP_THEME.ink,
+    fontSize: 13,
+    fontWeight: '800',
+  },
+  calcMobileMeta: {
+    color: APP_THEME.slate,
+    fontSize: 11.5,
+  },
+  calcHeadRow: {
+    flexDirection: 'row',
+    backgroundColor: '#F1F5F9',
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    gap: 8,
+  },
+  calcRow: {
+    flexDirection: 'row',
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    gap: 8,
+    borderTopWidth: 1,
+    borderTopColor: '#EEF2F7',
+    alignItems: 'center',
+  },
+  calcHeadText: {
+    color: '#475569',
+    fontSize: 10.5,
+    fontWeight: '800',
+    textTransform: 'uppercase',
+    letterSpacing: 0.4,
+  },
+  calcCellText: {
+    color: APP_THEME.ink,
+    fontSize: 11.5,
+    fontWeight: '600',
+  },
+  calcCellMuted: {
+    color: APP_THEME.slate,
+    fontSize: 11.5,
+  },
+  calcCellStrong: {
+    color: APP_THEME.ink,
+    fontSize: 11.5,
+    fontWeight: '800',
+  },
+  calcCellAccent: {
+    color: APP_THEME.accent,
+    fontSize: 11.5,
+    fontWeight: '800',
+  },
+  calcColN: {
+    width: 26,
+  },
+  calcColDate: {
+    width: 92,
+  },
+  calcColAmount: {
+    flex: 1,
+    textAlign: 'right',
+  },
+  summaryCardDark: {
+    flex: 1,
+    backgroundColor: APP_THEME.ink,
+    borderRadius: 22,
+    padding: 18,
+    gap: 8,
+    overflow: 'hidden',
+  },
+  summaryCardDarkLabel: {
+    color: '#7DD3FC',
+    fontSize: 10.5,
+    fontWeight: '800',
+    letterSpacing: 1,
+    textTransform: 'uppercase',
+  },
+  summaryCardDarkValue: {
+    color: '#4ADE80',
+    fontSize: 30,
+    fontWeight: '800',
+  },
+  summaryCardDarkRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 10,
+    paddingTop: 6,
+  },
+  summaryCardDarkKey: {
+    color: '#CBD5E1',
+    fontSize: 12,
+  },
+  summaryCardDarkVal: {
+    color: '#F8FDFF',
+    fontSize: 12,
+    fontWeight: '800',
+    textAlign: 'right',
+    flexShrink: 1,
+  },
+  calcBadge: {
+    alignSelf: 'flex-start',
+    backgroundColor: '#DBEAFE',
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+  },
+  calcBadgeText: {
+    color: '#1D4ED8',
+    fontSize: 12,
+    fontWeight: '800',
   },
 });

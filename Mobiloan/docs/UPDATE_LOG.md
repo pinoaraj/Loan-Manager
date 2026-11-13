@@ -1,5 +1,53 @@
 # Update Log
 
+## 2026-11-13
+
+### 1.2.10
+
+- Bumped the app to `1.2.10` (`versionCode 13`) and rebuilt the standalone release APK as `dist/mobiloan-beta-1.2.10.apk` (65,88 MB, SHA256 `939CD6E1D9C28AA1BB15D7BC8C8335F5B7DACF8B313EF4F0B4760EEBC556A331`).
+- Loan detail now renders the full installment table: `src/lib/schedule.ts` builds `buildInstallmentRows` on the client (no database migration) from `calculateAmortization`, scaling the split to the stored amount. Each row shows number, due date, status chip (`PAGADA`/`PARCIAL`/`VENCIDA`/`PENDIENTE`), amount, running balance, `Cap · Int`, and the transactions registered against that installment.
+- Partial payments are visible: the row keeps the `PARCIAL` chip, shows a progress bar and `Pagado $X · Restan $Y`, and lists `fecha · metodo · monto` with an `Enviar comprobante` action on the selected row.
+- Selecting a fully paid installment no longer shows "Saldo pendiente: $0"; it now reads `Cuota ... ya esta pagada por completo`.
+- Loan detail, client detail, new loan, new client and the calculator now use a two-column layout when the window is at least 720 dp wide, matching the desktop: detail (`Contacto/Stats/Documentos/Administrar` | `Registrar pago/Cuotas`), new loan (`formulario` | `vista previa`), client (`Ficha` | `Prestamos/Zona de riesgo`), `Ajustes > Datos` (`Respaldo` | `Reportes`).
+- Fixed wide-mode regressions: the four `Inicio` KPIs were squeezed into half a column (moved to a full-width row above `dashGrid`) and the sidebar was drawn under the status bar (now uses `useSafeAreaInsets`).
+- KPI cards on wide screens now share the row evenly (`flexBasis: 0`) and their hints stay on one line, so the four cards never wrap unevenly.
+- The sidebar layout reserves the bottom gesture inset (`sceneStyle.paddingBottom`), and the stack detail screens reserve it through `contentStyle.paddingBottom`, so the navigation handle no longer covers the last card.
+- `Cartera` hides the floating `+` in wide mode: it overlapped the full-width `+ Nuevo prestamo` button and duplicated it.
+- `Analisis > Proyeccion` caps each bar at 150 dp and, on wide screens, splits into chart (left) and exact monthly amounts (right).
+- Calculator amortization table now includes the `Saldo` column with the running balance (`$574.018 → ... → $0`) and fills the card width on tablets. On phones each installment is a stacked row (`1 · 13-12-2026`, `$114.804`, `Cap · Int · Saldo`) instead of a horizontally scrolling table.
+- `Analisis` KPI pills were fixed (they rendered as empty pills because `KpiCard` had no width style) and the monthly goal now shows the real ratio (`144%`) while the bar caps at 100%.
+- `app.json` unlocks rotation (`orientation: "default"`) so the phone can use the sidebar layout in landscape.
+- Verified on `MobiloanApi35` in portrait (1080x2400 @420), landscape (914 dp) and tablet size (1600x2560 @240): every tab, all `Analisis`/`Ajustes` segments, loan detail with a partial payment, client detail (view + edit), new loan, new client and the calculator.
+
+### 1.2.9
+
+- Bumped the app to `1.2.9` (`versionCode 12`) and rebuilt the standalone release APK as `dist/mobiloan-beta-1.2.9.apk` (65,87 MB, SHA256 `E1F87F407436CF92ECC804DA58D22BC76795EF28AABA1FCCA602D06EA25FE6F8`).
+- Fixed the real-phone report about stacked KPIs: `Inicio` no longer uses a horizontal `ScrollView` with fixed-width cards. The four KPIs now live in a `flexWrap` grid — 2x2 on phones (`kpiCardHalf`, `flexBasis: 47%`) and a single four-card row on wide screens (`kpiCardWide`, `flex: 1`) — so they can never pile up vertically.
+- Added `src/lib/labels.ts` with `frequencyLabel`, `loanTypeLabel`, `paymentStatusLabel`, `paymentMethodLabel` and `loanStatusLabel`, and applied it in loan detail, client detail, `Cartera`, `Ajustes` and the PDF/CSV reports. Internal values (`Cash`, `Fixed`, `monthly`, `Pending`, ...) are still stored as-is; only the presentation is translated.
+- Loan detail header now reads `Cliente · Cuota fija · Mensual` instead of `Fixed - monthly`; installment status and payment method are localized too.
+- Payment flow: added a 1-peso tolerance and `Math.min(parsedAmount, remaining)` so a full payment closes the installment at exactly `$0` instead of leaving a `$1` balance from rounding. Selecting an installment prefills the amount with `Math.round(remaining)` and the remaining balance is recalculated after saving.
+- Removed the "sincroniza cuando haya red" line from loan detail: the app is local-first, so the copy now reads `Selecciona una cuota, escribe el monto y guarda el pago.`
+- `Inicio` hints now handle the empty/partial cases: `Sin cuotas programadas`, `Sin cuotas este mes`, `Sin meta`, and singular/plural for `1 prestamo activo` / `N prestamos activos`.
+- `Cobranza` auto-selects `Proximas` on first open when there is nothing overdue but there are upcoming installments.
+- Black-box pass on a clean install (`pm clear`): local login, client, loan, full payment, partial payment, all five tabs and the `Ajustes` sub-tabs (`App | Datos | Sync`) verified on `MobiloanApi35`.
+
+### 1.2.8
+
+- Bumped the app to `1.2.8` (`versionCode 11`); superseded by `1.2.9` before distribution.
+
+### 1.2.7
+
+- Bumped the app to `1.2.7` (`versionCode 10`) and rebuilt the standalone release APK as `dist/mobiloan-beta-1.2.7.apk`.
+- Fixed text that did not fit its container (the "Calculado ra" case in the quick actions): labels, values, chips and buttons now shrink or auto-fit instead of breaking mid-word.
+- `QuickAction` and `SegmentedControl` now auto-fit their text, so the four quick actions stay in a single row on narrow phones.
+- Calculator was rebuilt to match the desktop simulator: hero header, parameters card, validation message, dark estimated-installment card, plan information block and a horizontally scrollable amortization table.
+- `Inicio` KPIs now use colored icon badges with uppercase labels, matching the desktop KPI cards; priority collections cap their amount column so the client name keeps room.
+- `Cobranza` summary cards, filter chips and collection rows auto-fit their amounts; `Cartera` loan/client rows truncate names and keep the health chip readable.
+- `Analisis` summary cards, portfolio status, PAR, monthly goal, projection chart labels and activity rows were adjusted to avoid overflow.
+- Loan detail hero, stat grid and installment rows auto-fit amounts; client detail hero and the "Nuevo prestamo" button do too.
+- `new-loan` client selector and the create button auto-fit long client names.
+- Shared styles (`styles.ts`) gained `flexShrink`/`minWidth: 0` on rows, uppercase `summaryLabel`/`statLabel`, and a `flexBasis`-based `statBox`, so two-column grids keep working on small screens.
+
 ## 2026-11-11
 
 ### 1.2.6

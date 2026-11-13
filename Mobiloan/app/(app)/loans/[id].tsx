@@ -1,11 +1,12 @@
 import { router, useLocalSearchParams } from 'expo-router';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Alert,
   Pressable,
   ScrollView,
   Text,
   TextInput,
+  useWindowDimensions,
   View,
 } from 'react-native';
 
@@ -13,8 +14,14 @@ import { openPhoneCall, openWhatsApp } from '../../../src/lib/contact';
 import { createCollectionReminder } from '../../../src/lib/calendar';
 import { differenceInDays, parseStoredDate } from '../../../src/lib/dates';
 import { formatCurrency, formatDate, formatDateTime } from '../../../src/lib/format';
+import {
+  frequencyLabel,
+  loanTypeLabel,
+  paymentMethodLabel,
+} from '../../../src/lib/labels';
 import { getLoanHealth } from '../../../src/lib/loanHealth';
 import { getReceiptMessage, getReminderMessage } from '../../../src/lib/messages';
+import { buildInstallmentRows } from '../../../src/lib/schedule';
 import {
   shareContractPdf,
   shareInstallmentsCsv,
@@ -33,6 +40,8 @@ import { syncService } from '../../../src/services/sync';
 import { appStyles } from '../../../src/ui/styles';
 
 export default function LoanDetailScreen() {
+  const { width } = useWindowDimensions();
+  const isWide = width >= 720;
   const params = useLocalSearchParams<{ id: string; paymentId?: string }>();
   const loanId = Array.isArray(params.id) ? params.id[0] : params.id;
   const preselectedPaymentId = Array.isArray(params.paymentId) ? params.paymentId[0] : params.paymentId;
@@ -46,7 +55,7 @@ export default function LoanDetailScreen() {
 
   const [selectedPaymentId, setSelectedPaymentId] = useState<string | null>(null);
   const [amount, setAmount] = useState('');
-  const [method, setMethod] = useState('Cash');
+  const [method, setMethod] = useState('Efectivo');
   const [notes, setNotes] = useState('');
   const [documentBusy, setDocumentBusy] = useState<string | null>(null);
 
@@ -75,17 +84,42 @@ export default function LoanDetailScreen() {
     }, {});
   }, [transactions]);
 
-  useEffect(() => {
-    if (preselectedPaymentId && payments.some((payment) => payment.id === preselectedPaymentId)) {
-      setSelectedPaymentId(preselectedPaymentId);
-      return;
-    }
+  const installmentRows = useMemo(
+    () => (loan ? buildInstallmentRows(loan, payments) : []),
+    [loan, payments],
+  );
 
-    if (!selectedPaymentId && payments.length > 0) {
-      const firstPendingPayment = payments.find((payment) => payment.status !== 'Paid');
-      setSelectedPaymentId(firstPendingPayment?.id ?? payments[0].id);
+  const paidInstallments = installmentRows.filter(
+    (row) => row.payment.status === 'Paid' || row.remaining === 0,
+  ).length;
+
+  const handleSelectPayment = useCallback(
+    (paymentId: string) => {
+      const payment = payments.find((item) => item.id === paymentId);
+      setSelectedPaymentId(paymentId);
+
+      if (!payment) {
+        return;
+      }
+
+      const remaining = Math.max(payment.amount + payment.lateFee - payment.paidAmount, 0);
+      setAmount(remaining > 0 ? String(Math.round(remaining)) : '');
+    },
+    [payments],
+  );
+
+  useEffect(() => {
+    const targetId =
+      preselectedPaymentId && payments.some((payment) => payment.id === preselectedPaymentId)
+        ? preselectedPaymentId
+        : !selectedPaymentId && payments.length > 0
+          ? (payments.find((payment) => payment.status !== 'Paid')?.id ?? payments[0].id)
+          : null;
+
+    if (targetId && targetId !== selectedPaymentId) {
+      handleSelectPayment(targetId);
     }
-  }, [payments, preselectedPaymentId, selectedPaymentId]);
+  }, [payments, preselectedPaymentId, selectedPaymentId, handleSelectPayment]);
 
   const totalPaid = payments.reduce((sum, payment) => sum + payment.paidAmount, 0);
   const totalScheduled = payments.reduce((sum, payment) => sum + payment.amount + payment.lateFee, 0);
@@ -107,7 +141,7 @@ export default function LoanDetailScreen() {
       return;
     }
 
-    if (selectedPaymentRemaining !== null && parsedAmount > selectedPaymentRemaining + 0.01) {
+    if (selectedPaymentRemaining !== null && parsedAmount > selectedPaymentRemaining + 1) {
       Alert.alert(
         'Monto excedido',
         `El saldo pendiente de esta cuota es ${formatCurrency(selectedPaymentRemaining)}.`,
@@ -115,23 +149,29 @@ export default function LoanDetailScreen() {
       return;
     }
 
+    const appliedAmount =
+      selectedPaymentRemaining !== null
+        ? Math.min(parsedAmount, selectedPaymentRemaining)
+        : parsedAmount;
+
     try {
       await queuePayment.mutateAsync({
         paymentId: selectedPaymentId,
-        amount: parsedAmount,
+        amount: appliedAmount,
         paymentDate: new Date().toISOString().slice(0, 10),
         method,
         notes,
       });
 
-      setAmount('');
+      const nextRemaining = Math.max((selectedPaymentRemaining ?? 0) - appliedAmount, 0);
+      setAmount(nextRemaining > 0 ? String(Math.round(nextRemaining)) : '');
       setNotes('');
       await refreshAppState();
 
       if (session?.mode === 'local') {
         Alert.alert(
           'Pago guardado',
-          'La transaccion quedo guardada en la base local del telefono. Puedes exportar un respaldo desde Ajustes cuando quieras.',
+          'La transaccion quedo guardada en el telefono. Puedes exportar un respaldo desde Ajustes cuando quieras.',
         );
         return;
       }
@@ -310,28 +350,42 @@ export default function LoanDetailScreen() {
     }
   };
 
-  return (
-    <ScrollView style={appStyles.screen} contentContainerStyle={appStyles.scroll}>
+  const heroCard = (
       <View style={appStyles.heroCard}>
         <View style={appStyles.rowBetween}>
-          <View style={{ flex: 1 }}>
-            <Text style={appStyles.heroTitle}>
+          <View style={{ flex: 1, minWidth: 0 }}>
+            <Text
+              style={appStyles.heroTitle}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.7}
+            >
               {loan ? formatCurrency(loan.amount) : 'Prestamo'}
             </Text>
-            <Text style={appStyles.heroSubtitle}>
-              {client?.name || 'Cliente'} - {loan?.loanType || 'N/A'} - {loan?.frequency || 'N/A'}
+            <Text style={appStyles.heroSubtitle} numberOfLines={2}>
+              {client?.name || 'Cliente'} · {loanTypeLabel(loan?.loanType)} ·{' '}
+              {frequencyLabel(loan?.frequency)}
             </Text>
           </View>
           {health ? (
             <View style={[appStyles.chip, { backgroundColor: health.backgroundColor }]}>
-              <Text style={[appStyles.chipText, { color: health.color }]}>{health.label}</Text>
+              <Text
+                style={[appStyles.chipText, { color: health.color }]}
+                numberOfLines={1}
+                adjustsFontSizeToFit
+                minimumFontScale={0.8}
+              >
+                {health.label}
+              </Text>
             </View>
           ) : null}
         </View>
         {health ? <Text style={appStyles.heroSubtitle}>{health.description}</Text> : null}
       </View>
+  );
 
-      {session?.mode === 'remote' ? (
+  const remoteCard =
+    session?.mode === 'remote' ? (
         <View
           style={[
             appStyles.card,
@@ -354,8 +408,9 @@ export default function LoanDetailScreen() {
           ) : null}
           <Text style={appStyles.statusText}>Ultima sincronizacion: {formatDateTime(lastSyncAt)}</Text>
         </View>
-      ) : null}
+      ) : null;
 
+      const contactCard = (
       <View style={appStyles.card}>
         <Text style={appStyles.cardTitle}>Contacto</Text>
         <View style={appStyles.actionRow}>
@@ -379,28 +434,38 @@ export default function LoanDetailScreen() {
           </Pressable>
         </View>
       </View>
+      );
 
+      const statsGrid = (
       <View style={appStyles.statGrid}>
         <View style={appStyles.statBox}>
           <Text style={appStyles.statLabel}>Pagado</Text>
-          <Text style={appStyles.statValue}>{formatCurrency(totalPaid)}</Text>
+          <Text style={appStyles.statValue} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7}>
+            {formatCurrency(totalPaid)}
+          </Text>
         </View>
         <View style={appStyles.statBox}>
           <Text style={appStyles.statLabel}>Programado</Text>
-          <Text style={appStyles.statValue}>{formatCurrency(totalScheduled)}</Text>
+          <Text style={appStyles.statValue} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7}>
+            {formatCurrency(totalScheduled)}
+          </Text>
         </View>
         <View style={appStyles.statBox}>
           <Text style={appStyles.statLabel}>Saldo</Text>
-          <Text style={appStyles.statValue}>{formatCurrency(Math.max(totalScheduled - totalPaid, 0))}</Text>
+          <Text style={appStyles.statValue} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7}>
+            {formatCurrency(Math.max(totalScheduled - totalPaid, 0))}
+          </Text>
         </View>
         <View style={appStyles.statBox}>
           <Text style={appStyles.statLabel}>Cuotas</Text>
-          <Text style={appStyles.statValue}>
+          <Text style={appStyles.statValue} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7}>
             {payments.filter((payment) => payment.status === 'Paid').length}/{payments.length}
           </Text>
         </View>
       </View>
+      );
 
+      const documentsCard = (
       <View style={appStyles.card}>
         <Text style={appStyles.cardTitle}>Documentos</Text>
         <Text style={appStyles.cardSubtitle}>
@@ -436,7 +501,9 @@ export default function LoanDetailScreen() {
           </Pressable>
         </View>
       </View>
+      );
 
+      const adminCard = (
       <View style={appStyles.card}>
         <Text style={appStyles.cardTitle}>Administrar prestamo</Text>
         <Text style={appStyles.cardSubtitle}>
@@ -481,15 +548,19 @@ export default function LoanDetailScreen() {
           </Text>
         ) : null}
       </View>
+      );
 
+      const paymentCard = (
       <View style={appStyles.card}>
         <Text style={appStyles.cardTitle}>Registrar pago</Text>
         <Text style={appStyles.cardSubtitle}>
-          Selecciona una cuota, guarda la transaccion y sincroniza cuando haya red.
+          Selecciona una cuota, escribe el monto y guarda el pago.
         </Text>
         <Text style={appStyles.itemText}>
           {selectedPayment
-            ? `Cuota seleccionada: ${formatDate(selectedPayment.dueDate)} - Saldo pendiente: ${formatCurrency(selectedPaymentRemaining ?? 0)}`
+            ? selectedPaymentRemaining && selectedPaymentRemaining > 0
+              ? `Cuota seleccionada: ${formatDate(selectedPayment.dueDate)} - Saldo pendiente: ${formatCurrency(selectedPaymentRemaining)}`
+              : `Cuota ${formatDate(selectedPayment.dueDate)} ya esta pagada por completo.`
             : 'Aun no has seleccionado una cuota.'}
         </Text>
 
@@ -503,7 +574,7 @@ export default function LoanDetailScreen() {
         />
 
         <Text style={appStyles.label}>Metodo</Text>
-        <TextInput value={method} onChangeText={setMethod} style={appStyles.input} placeholder="Cash" />
+        <TextInput value={method} onChangeText={setMethod} style={appStyles.input} placeholder="Efectivo" />
 
         <Text style={appStyles.label}>Notas</Text>
         <TextInput value={notes} onChangeText={setNotes} style={appStyles.input} placeholder="Cobrado en terreno" />
@@ -549,46 +620,158 @@ export default function LoanDetailScreen() {
           </Pressable>
         ) : null}
       </View>
+      );
 
+      const scheduleCard = (
       <View style={appStyles.card}>
-        <Text style={appStyles.cardTitle}>Cuotas</Text>
-        {payments.map((payment) => {
-          const isSelected = selectedPaymentId === payment.id;
-          const remaining = payment.amount + payment.lateFee - payment.paidAmount;
+        <View style={appStyles.rowBetween}>
+          <Text style={appStyles.cardTitle}>Cuotas</Text>
+          <Text style={appStyles.cardSubtitle} numberOfLines={1}>
+            {paidInstallments}/{installmentRows.length} pagadas
+          </Text>
+        </View>
+
+        <View style={appStyles.scheduleHead}>
+          <Text style={[appStyles.scheduleHeadText, { flex: 1 }]}>CUOTA · VENCIMIENTO</Text>
+          <Text style={appStyles.scheduleHeadText}>MONTO · SALDO</Text>
+        </View>
+
+        {installmentRows.map((row) => {
+          const isSelected = selectedPaymentId === row.payment.id;
+          const isPaid = row.payment.status === 'Paid' || row.remaining === 0;
+          const isPartial = !isPaid && row.paid > 0;
+          const dueDate = parseStoredDate(row.payment.dueDate);
+          const isOverdue = !isPaid && dueDate ? differenceInDays(new Date(), dueDate) > 0 : false;
+          const transactionsForRow = groupedTransactions[row.payment.id] ?? [];
+
+          const chip = isPaid
+            ? { label: 'PAGADA', background: '#D1FAE5', color: '#047857' }
+            : isPartial
+              ? { label: 'PARCIAL', background: '#DBEAFE', color: '#1D4ED8' }
+              : isOverdue
+                ? { label: 'VENCIDA', background: '#FEE2E2', color: '#B91C1C' }
+                : { label: 'PENDIENTE', background: '#E2E8F0', color: '#475569' };
 
           return (
             <Pressable
-              key={payment.id}
+              key={row.payment.id}
               style={[
-                appStyles.listItem,
-                isSelected ? { borderWidth: 2, borderColor: '#0E7490' } : null,
+                appStyles.scheduleRow,
+                isPaid ? appStyles.scheduleRowPaid : null,
+                isSelected ? appStyles.scheduleRowSelected : null,
               ]}
-              onPress={() => setSelectedPaymentId(payment.id)}
+              onPress={() => handleSelectPayment(row.payment.id)}
             >
-              <Text style={appStyles.itemTitle}>
-                {formatDate(payment.dueDate)} - {formatCurrency(payment.amount + payment.lateFee)}
-              </Text>
-              <Text style={appStyles.itemText}>
-                Estado: {payment.status} - Restante: {formatCurrency(Math.max(remaining, 0))}
+              <View style={appStyles.rowBetween}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, flexShrink: 1 }}>
+                  <View style={appStyles.scheduleIndex}>
+                    <Text style={appStyles.scheduleIndexText}>{row.index}</Text>
+                  </View>
+                  <Text
+                    style={appStyles.itemTitle}
+                    numberOfLines={1}
+                    adjustsFontSizeToFit
+                    minimumFontScale={0.85}
+                  >
+                    {formatDate(row.payment.dueDate)}
+                  </Text>
+                </View>
+                <View style={[appStyles.chip, { backgroundColor: chip.background }]}>
+                  <Text style={[appStyles.chipText, { color: chip.color }]}>{chip.label}</Text>
+                </View>
+              </View>
+
+              <View style={appStyles.rowBetween}>
+                <Text
+                  style={appStyles.scheduleAmount}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  minimumFontScale={0.85}
+                >
+                  {formatCurrency(row.totalDue)}
+                </Text>
+                <Text style={appStyles.scheduleBalance} numberOfLines={1}>
+                  Saldo {formatCurrency(row.balance)}
+                </Text>
+              </View>
+
+              <Text style={appStyles.scheduleSplit} numberOfLines={1}>
+                Cap {formatCurrency(row.principal)} · Int {formatCurrency(row.interest)}
+                {row.lateFee > 0 ? (
+                  <Text style={appStyles.scheduleLate}>{` · Mora ${formatCurrency(row.lateFee)}`}</Text>
+                ) : null}
               </Text>
 
-              {(groupedTransactions[payment.id] ?? []).map((transaction) => (
-                <View key={transaction.id} style={{ marginTop: 8, gap: 6 }}>
-                  <Text style={appStyles.itemText}>
-                    {formatDate(transaction.date)} - {transaction.method} - {formatCurrency(transaction.amount)}
+              {isPartial ? (
+                <View style={{ gap: 5 }}>
+                  <View style={appStyles.progressTrack}>
+                    <View
+                      style={[
+                        appStyles.progressFill,
+                        {
+                          width: `${Math.round(row.progress * 100)}%`,
+                          backgroundColor: '#0F766E',
+                        },
+                      ]}
+                    />
+                  </View>
+                  <Text style={appStyles.scheduleSplit} numberOfLines={1}>
+                    Pagado {formatCurrency(row.paid)} · Restan {formatCurrency(row.remaining)}
                   </Text>
-                  <Pressable
-                    style={appStyles.buttonMuted}
-                    onPress={() => handleSendReceipt(transaction)}
-                  >
-                    <Text style={appStyles.buttonMutedText}>Enviar comprobante</Text>
-                  </Pressable>
                 </View>
-              ))}
+              ) : null}
+
+              {isSelected && transactionsForRow.length > 0 ? (
+                <View style={{ gap: 6, marginTop: 2 }}>
+                  {transactionsForRow.map((transaction) => (
+                    <View key={transaction.id} style={{ gap: 6 }}>
+                      <Text style={appStyles.itemText}>
+                        {formatDate(transaction.date)} · {paymentMethodLabel(transaction.method)} ·{' '}
+                        {formatCurrency(transaction.amount)}
+                      </Text>
+                      <Pressable
+                        style={appStyles.buttonMuted}
+                        onPress={() => handleSendReceipt(transaction)}
+                      >
+                        <Text style={appStyles.buttonMutedText}>Enviar comprobante</Text>
+                      </Pressable>
+                    </View>
+                  ))}
+                </View>
+              ) : null}
             </Pressable>
           );
         })}
       </View>
+  );
+
+  return (
+    <ScrollView style={appStyles.screen} contentContainerStyle={appStyles.scroll}>
+      {heroCard}
+      {remoteCard}
+      {isWide ? (
+        <View style={appStyles.dashGrid}>
+          <View style={appStyles.dashColumn}>
+            {contactCard}
+            {statsGrid}
+            {documentsCard}
+            {adminCard}
+          </View>
+          <View style={appStyles.dashColumn}>
+            {paymentCard}
+            {scheduleCard}
+          </View>
+        </View>
+      ) : (
+        <View style={appStyles.dashColumn}>
+          {contactCard}
+          {statsGrid}
+          {documentsCard}
+          {adminCard}
+          {paymentCard}
+          {scheduleCard}
+        </View>
+      )}
     </ScrollView>
   );
 }

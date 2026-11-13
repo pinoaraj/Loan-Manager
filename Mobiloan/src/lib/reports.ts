@@ -5,6 +5,12 @@ import * as Sharing from 'expo-sharing';
 import { Platform } from 'react-native';
 
 import { formatCurrency, formatDate } from './format';
+import {
+  frequencyLabel,
+  loanStatusLabel,
+  loanTypeLabel,
+  paymentStatusLabel,
+} from './labels';
 
 import type {
   ClientRecord,
@@ -189,7 +195,7 @@ const renderPaymentRows = (payments: PaymentRecord[]) =>
           <td class="num">${escapeHtml(formatCurrency(payment.lateFee))}</td>
           <td class="num">${escapeHtml(formatCurrency(payment.paidAmount))}</td>
           <td class="num">${escapeHtml(formatCurrency(remaining))}</td>
-          <td>${escapeHtml(payment.status)}</td>
+          <td>${escapeHtml(paymentStatusLabel(payment.status))}</td>
         </tr>
       `;
     })
@@ -239,8 +245,8 @@ export const buildContractHtml = ({
         <div class="box"><strong>Monto prestado</strong>${escapeHtml(formatCurrency(loan.amount))}</div>
         <div class="box"><strong>Tasa de interes</strong>${escapeHtml(`${(loan.interestRate * 100).toFixed(2)}%`)}</div>
         <div class="box"><strong>Plazo</strong>${escapeHtml(`${loan.durationMonths} meses`)}</div>
-        <div class="box"><strong>Frecuencia</strong>${escapeHtml(loan.frequency)}</div>
-        <div class="box"><strong>Tipo</strong>${escapeHtml(loan.loanType)}</div>
+        <div class="box"><strong>Frecuencia</strong>${escapeHtml(frequencyLabel(loan.frequency))}</div>
+        <div class="box"><strong>Tipo</strong>${escapeHtml(loanTypeLabel(loan.loanType))}</div>
         <div class="box"><strong>Fecha de inicio</strong>${escapeHtml(formatDate(loan.startDate))}</div>
         <div class="box"><strong>Total programado</strong>${escapeHtml(formatCurrency(totalScheduled))}</div>
         <div class="box"><strong>Total pagado</strong>${escapeHtml(formatCurrency(totalPaid))}</div>
@@ -325,7 +331,7 @@ export const buildPromissoryNoteHtml = ({
 
       <h2>Forma de pago</h2>
       <p>
-        ${escapeHtml(`${payments.length} cuotas`)} con frecuencia ${escapeHtml(loan.frequency)},
+        ${escapeHtml(`${payments.length} cuotas`)} con frecuencia ${escapeHtml(frequencyLabel(loan.frequency))},
         desde el ${escapeHtml(formatDate(firstDue))} hasta el ${escapeHtml(formatDate(lastDue))}.
         El deudor se obliga al pago puntual de cada cuota y acepta la mora aplicable.
       </p>
@@ -381,7 +387,7 @@ export const buildInstallmentsCsv = (payments: PaymentRecord[]) => {
       String(Math.round(payment.lateFee)),
       String(Math.round(payment.paidAmount)),
       String(Math.round(remaining)),
-      payment.status,
+      paymentStatusLabel(payment.status),
     ]
       .map((cell) => `"${cell.replace(/"/g, '""')}"`)
       .join(';');
@@ -414,8 +420,8 @@ export const buildPortfolioCsv = (loans: LoanListItem[]) => {
       loan.clientPhone ?? '',
       Math.round(loan.amount),
       loan.durationMonths,
-      loan.frequency,
-      loan.status,
+      frequencyLabel(loan.frequency),
+      loanStatusLabel(loan.status),
       Math.round(loan.totalScheduled),
       Math.round(loan.totalPaid),
       Math.round(loan.totalRemaining),

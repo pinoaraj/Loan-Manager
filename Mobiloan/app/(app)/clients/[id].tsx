@@ -1,14 +1,17 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Alert, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
+import { Alert, Pressable, ScrollView, Text, TextInput, useWindowDimensions, View } from 'react-native';
 
 import { useClientDetail } from '../../../src/hooks/useOfflineData';
 import { useDeleteLocalClient, useUpdateLocalClient } from '../../../src/hooks/useSyncActions';
 import { formatCurrency, formatDate } from '../../../src/lib/format';
+import { frequencyLabel, loanStatusLabel, loanTypeLabel } from '../../../src/lib/labels';
 import { openPhoneCall, openWhatsApp } from '../../../src/lib/contact';
 import { appStyles } from '../../../src/ui/styles';
 
 export default function ClientDetailScreen() {
+  const { width } = useWindowDimensions();
+  const isWide = width >= 720;
   const params = useLocalSearchParams<{ id: string }>();
   const clientId = Array.isArray(params.id) ? params.id[0] : params.id;
   const detailQuery = useClientDetail(clientId ?? '');
@@ -88,15 +91,7 @@ export default function ClientDetailScreen() {
     );
   };
 
-  return (
-    <ScrollView style={appStyles.screen} contentContainerStyle={appStyles.scroll}>
-      <View style={appStyles.heroCard}>
-        <Text style={appStyles.heroTitle}>{client?.name || 'Cliente'}</Text>
-        <Text style={appStyles.heroSubtitle}>
-          {client?.rut || 'Sin RUT'} - {client?.phone || 'Sin telefono'} - {client?.email || 'Sin email'}
-        </Text>
-      </View>
-
+  const fichaCard = (
       <View style={appStyles.card}>
         <View style={appStyles.rowBetween}>
           <Text style={appStyles.cardTitle}>Ficha</Text>
@@ -182,16 +177,25 @@ export default function ClientDetailScreen() {
           </Pressable>
         </View>
       </View>
+  );
 
+  const loansCard = (
       <View style={appStyles.card}>
         <View style={appStyles.rowBetween}>
           <Text style={appStyles.cardTitle}>Prestamos</Text>
           {client ? (
             <Pressable
-              style={appStyles.buttonMuted}
+              style={[appStyles.buttonMuted, { flexShrink: 0, paddingVertical: 10 }]}
               onPress={() => router.push({ pathname: '/(app)/new-loan', params: { clientId: client.id } })}
             >
-              <Text style={appStyles.buttonMutedText}>Nuevo prestamo</Text>
+              <Text
+                style={appStyles.buttonMutedText}
+                numberOfLines={1}
+                adjustsFontSizeToFit
+                minimumFontScale={0.85}
+              >
+                Nuevo prestamo
+              </Text>
             </Pressable>
           ) : null}
         </View>
@@ -203,7 +207,8 @@ export default function ClientDetailScreen() {
           >
             <Text style={appStyles.itemTitle}>{formatCurrency(loan.amount)}</Text>
             <Text style={appStyles.itemText}>
-              {loan.loanType} - {loan.frequency} - {loan.status}
+              {loanTypeLabel(loan.loanType)} · {frequencyLabel(loan.frequency)} ·{' '}
+              {loanStatusLabel(loan.status)}
               {loan.isPaused ? ' - Pausado' : ''}
             </Text>
             <Text style={appStyles.itemText}>
@@ -216,7 +221,9 @@ export default function ClientDetailScreen() {
           <Text style={appStyles.emptyState}>Este cliente aun no tiene prestamos registrados.</Text>
         )}
       </View>
+  );
 
+  const riskCard = (
       <View style={appStyles.card}>
         <Text style={appStyles.cardTitle}>Zona de riesgo</Text>
         <Text style={appStyles.cardSubtitle}>
@@ -232,6 +239,39 @@ export default function ClientDetailScreen() {
           </Text>
         </Pressable>
       </View>
+  );
+
+  return (
+    <ScrollView style={appStyles.screen} contentContainerStyle={appStyles.scroll}>
+      <View style={appStyles.heroCard}>
+        <Text
+          style={appStyles.heroTitle}
+          numberOfLines={2}
+          adjustsFontSizeToFit
+          minimumFontScale={0.7}
+        >
+          {client?.name || 'Cliente'}
+        </Text>
+        <Text style={appStyles.heroSubtitle}>
+          {client?.rut || 'Sin RUT'} - {client?.phone || 'Sin telefono'} - {client?.email || 'Sin email'}
+        </Text>
+      </View>
+
+      {isWide ? (
+        <View style={appStyles.dashGrid}>
+          <View style={appStyles.dashColumn}>{fichaCard}</View>
+          <View style={appStyles.dashColumn}>
+            {loansCard}
+            {riskCard}
+          </View>
+        </View>
+      ) : (
+        <View style={appStyles.dashColumn}>
+          {fichaCard}
+          {loansCard}
+          {riskCard}
+        </View>
+      )}
     </ScrollView>
   );
 }

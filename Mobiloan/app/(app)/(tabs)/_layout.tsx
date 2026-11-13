@@ -2,6 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import type { ColorValue } from 'react-native';
 import { useWindowDimensions } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { APP_THEME } from '../../../src/lib/config';
 
@@ -25,6 +26,7 @@ const SIDEBAR_BREAKPOINT = 720;
 
 export default function TabsLayout() {
   const { width } = useWindowDimensions();
+  const insets = useSafeAreaInsets();
   const useSidebar = width >= SIDEBAR_BREAKPOINT;
 
   return (
@@ -45,7 +47,8 @@ export default function TabsLayout() {
               minWidth: 240,
               backgroundColor: '#FFFFFF',
               borderRightColor: '#E2E8F0',
-              paddingTop: 12,
+              paddingTop: insets.top + 12,
+              paddingBottom: Math.max(insets.bottom, 12),
             }
           : {
               backgroundColor: '#FFFFFF',
@@ -53,7 +56,11 @@ export default function TabsLayout() {
               paddingTop: 6,
             },
         tabBarItemStyle: useSidebar ? { borderRadius: 14, marginHorizontal: 8 } : undefined,
-        sceneStyle: { backgroundColor: APP_THEME.mist },
+        sceneStyle: {
+          backgroundColor: APP_THEME.mist,
+          // En modo lateral no hay barra inferior que cubra el gesto de navegacion.
+          paddingBottom: useSidebar ? insets.bottom : 0,
+        },
       }}
     >
       <Tabs.Screen
