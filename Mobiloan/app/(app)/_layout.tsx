@@ -44,6 +44,10 @@ export default function AppLayout() {
         options={{ title: 'Calculadora', contentStyle: detailContentStyle }}
       />
       <Stack.Screen
+        name="import-data"
+        options={{ title: 'Importar datos', contentStyle: detailContentStyle }}
+      />
+      <Stack.Screen
         name="clients/[id]"
         options={{ title: 'Cliente', contentStyle: detailContentStyle }}
       />

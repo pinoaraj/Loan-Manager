@@ -235,16 +235,36 @@ export default function SettingsScreen() {
       </View>
   );
 
+  const importCard = (
+    <View style={appStyles.card}>
+      <Text style={appStyles.cardTitle}>Importar desde planilla</Text>
+      <Text style={appStyles.cardSubtitle}>
+        Carga clientes y prestamos masivamente desde un archivo Excel o CSV. Tambien acepta el
+        JSON portable de Mobiloan.
+      </Text>
+      <Pressable style={appStyles.button} onPress={() => router.push('/(app)/import-data')}>
+        <Text style={appStyles.buttonText}>Abrir importador</Text>
+      </Pressable>
+      <Text style={appStyles.itemText}>
+        Revisa el mapeo de columnas y la vista previa antes de confirmar.
+      </Text>
+    </View>
+  );
+
   const dataView = (
     <View style={appStyles.segmentBody}>
       {isWide ? (
         <View style={appStyles.dashGrid}>
           <View style={appStyles.dashColumn}>{backupCard}</View>
-          <View style={appStyles.dashColumn}>{reportsCard}</View>
+          <View style={appStyles.dashColumn}>
+            {importCard}
+            {reportsCard}
+          </View>
         </View>
       ) : (
         <>
           {backupCard}
+          {importCard}
           {reportsCard}
         </>
       )}
