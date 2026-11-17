@@ -67,7 +67,7 @@ const ImportData = () => {
         const reader = new FileReader();
         reader.onload = (evt) => {
             try {
-                const parsed = JSON.parse(evt.target.result);
+                const parsed = JSON.parse(String(evt.target.result).replace(/^\uFEFF/, ''));
                 if (parsed?.source !== 'mobiloan-android' || !Array.isArray(parsed.clients) || !Array.isArray(parsed.loans)) {
                     toast.error('El JSON no corresponde a un paquete portable valido de Mobiloan');
                     return;
