@@ -12,7 +12,7 @@ import {
 
 import { openPhoneCall, openWhatsApp } from '../../../src/lib/contact';
 import { createCollectionReminder } from '../../../src/lib/calendar';
-import { differenceInDays, parseStoredDate } from '../../../src/lib/dates';
+import { differenceInDays, isValidDateInput, parseStoredDate, todayDateKey } from '../../../src/lib/dates';
 import { formatCurrency, formatDate, formatDateTime } from '../../../src/lib/format';
 import {
   frequencyLabel,
@@ -38,6 +38,7 @@ import {
 import { useSession } from '../../../src/providers/AppProviders';
 import { syncService } from '../../../src/services/sync';
 import { appStyles } from '../../../src/ui/styles';
+import { DatePickerField } from '../../../src/ui/DatePickerField';
 
 export default function LoanDetailScreen() {
   const { width } = useWindowDimensions();
@@ -57,6 +58,7 @@ export default function LoanDetailScreen() {
   const [amount, setAmount] = useState('');
   const [method, setMethod] = useState('Efectivo');
   const [notes, setNotes] = useState('');
+  const [paymentDate, setPaymentDate] = useState(todayDateKey());
   const [documentBusy, setDocumentBusy] = useState<string | null>(null);
 
   const loan = detailQuery.data?.loan;
@@ -141,6 +143,16 @@ export default function LoanDetailScreen() {
       return;
     }
 
+    if (!isValidDateInput(paymentDate)) {
+      Alert.alert('Fecha invalida', 'Elige una fecha de pago valida.');
+      return;
+    }
+
+    if (paymentDate > todayDateKey()) {
+      Alert.alert('Fecha futura', 'La fecha del pago no puede ser posterior a hoy.');
+      return;
+    }
+
     if (selectedPaymentRemaining !== null && parsedAmount > selectedPaymentRemaining + 1) {
       Alert.alert(
         'Monto excedido',
@@ -158,7 +170,7 @@ export default function LoanDetailScreen() {
       await queuePayment.mutateAsync({
         paymentId: selectedPaymentId,
         amount: appliedAmount,
-        paymentDate: new Date().toISOString().slice(0, 10),
+        paymentDate,
         method,
         notes,
       });
@@ -166,6 +178,7 @@ export default function LoanDetailScreen() {
       const nextRemaining = Math.max((selectedPaymentRemaining ?? 0) - appliedAmount, 0);
       setAmount(nextRemaining > 0 ? String(Math.round(nextRemaining)) : '');
       setNotes('');
+      setPaymentDate(todayDateKey());
       await refreshAppState();
 
       if (session?.mode === 'local') {
@@ -575,6 +588,9 @@ export default function LoanDetailScreen() {
 
         <Text style={appStyles.label}>Metodo</Text>
         <TextInput value={method} onChangeText={setMethod} style={appStyles.input} placeholder="Efectivo" />
+
+        <Text style={appStyles.label}>Fecha del pago</Text>
+        <DatePickerField value={paymentDate} onChange={setPaymentDate} />
 
         <Text style={appStyles.label}>Notas</Text>
         <TextInput value={notes} onChangeText={setNotes} style={appStyles.input} placeholder="Cobrado en terreno" />

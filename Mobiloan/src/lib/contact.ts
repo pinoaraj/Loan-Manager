@@ -40,3 +40,12 @@ export const openWhatsApp = async (
   const suffix = message?.trim() ? `?text=${encodeURIComponent(message)}` : '';
   await openExternalUrl(`https://wa.me/${normalized}${suffix}`);
 };
+
+export const openEmail = async (email: string | null | undefined) => {
+  const value = String(email ?? '').trim();
+  if (!value) {
+    throw new Error('El cliente no tiene email registrado.');
+  }
+
+  await openExternalUrl(`mailto:${value}`);
+};

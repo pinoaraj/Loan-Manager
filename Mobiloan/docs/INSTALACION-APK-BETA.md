@@ -5,7 +5,7 @@ Esta guia deja la app funcionando sola en el telefono: no necesita el PC encendi
 ## Que necesitas
 
 - Un celular Android (Android 7 o superior).
-- El archivo `mobiloan-beta-1.2.10.apk` transferido al telefono (por cable USB, WhatsApp, Drive o Telegram).
+- El archivo `mobiloan-beta-1.2.12.apk` transferido al telefono (por cable USB, WhatsApp, Drive o Telegram).
 
 ## Atajo: instalar escaneando un QR (misma red Wi-Fi)
 
@@ -17,8 +17,8 @@ Si el PC y el celular estan en la misma red Wi-Fi, no hace falta pasar el archiv
    python -m http.server 8099 --bind 0.0.0.0 --directory C:\Users\JP\Desktop\LoanManager\Mobiloan\dist
    ```
 
-2. Abre en pantalla `Mobiloan\dist\install-qr-beta-1.2.10.png` y escanealo con la camara del celular.
-3. El telefono abre el navegador y descarga `mobiloan-beta-1.2.10.apk`.
+2. Abre en pantalla `Mobiloan\dist\install-qr-beta-1.2.12.png` y escanealo con la camara del celular.
+3. El telefono abre el navegador y descarga `mobiloan-beta-1.2.12.apk`.
 4. Sigue los pasos 2 y 3 de esta guia.
 
 Si la descarga no abre, revisa que Windows Firewall permita Python en redes privadas, o usa la transferencia por cable.
@@ -69,6 +69,8 @@ La app tiene cinco pestanas. En el telefono aparecen como barra inferior; en una
 - Contactar por WhatsApp o llamada desde la ficha del cliente o del prestamo.
 - Enviar por WhatsApp el recordatorio de pago o el comprobante de pago, con el mismo texto que usa el desktop.
 - Exportar un paquete JSON portable para importarlo despues en Loan Manager desktop.
+- Importar clientes y prestamos desde una planilla Excel (`.xlsx`, `.xls`) o un CSV, con mapeo de columnas y vista previa antes de guardar.
+- Importar un respaldo JSON portable exportado desde el telefono o desde el desktop (`Ajustes > Datos > Abrir importador`).
 - Exportar la cartera completa a CSV (`Ajustes > Reportes`) para abrirla en Excel.
 
 La cartera queda guardada en el telefono. Si cierras la app o reinicias el celular, los datos siguen ahi.
@@ -102,7 +104,15 @@ El modo local no depende de esto.
 
 ## Notas de esta beta
 
-- Version de la app: `1.2.10` (`versionCode 13`, `com.mobiloan.app`).
+- Version de la app: `1.2.12` (`versionCode 15`, `com.mobiloan.app`).
+- `Inicio` quedó en una sola pantalla: saludo, 4 indicadores, acciones rápidas y hasta 3 cobros prioritarios sin desplazarse. Se quitó la tarjeta "Cartera al día" (repetía el KPI `Vencido`), el aviso aparte de vencidas (ahora la tarjeta `Vencido` abre Cobranza y dice `N cuotas · Cobrar`) y la calculadora rápida (ya está el botón `Calculadora`).
+- Los indicadores son accesibles: `Total prestado` y `Clientes` abren Cartera, `Cobranza del mes` abre Análisis y `Vencido` abre Cobranza. Si no hay atrasos, `Vencido` se pone verde con `Sin atrasos`.
+- `Nuevo préstamo` tiene buscador de clientes, permite crear el cliente en la misma pantalla, valida y formatea el RUT, separa los miles del monto, usa calendario para la fecha de inicio y muestra la vista previa con total a pagar e intereses.
+- Al registrar un pago puedes elegir la **fecha del pago** (por defecto hoy; no permite fechas futuras).
+- La ficha del cliente muestra un **resumen** con prestado, saldo por cobrar, vencido y próxima cuota, y agrega un botón `Email`.
+- Nuevo importador en `Ajustes > Datos > Abrir importador`: acepta `.xlsx`, `.xls`, `.csv` y `.json`. Detecta solo las columnas (Nombre, RUT, Monto, Interes, Plazo, Fecha inicio), permite corregirlas tocando los chips y muestra una vista previa con clientes nuevos, prestamos y filas omitidas antes de confirmar.
+- El importador tolera montos escritos como `$750.000`, fechas de Excel guardadas a las 23:59 (se anclan al dia siguiente) y archivos con BOM de Windows. Los datos crudos de la vista previa se muestran legibles (`980.000`, `2026-09-15`).
+- Los contadores del importador van en una sola fila, incluso en el telefono, y los mensajes usan singular/plural correcto (`1 cliente`, `1 prestamo`, `0 cuotas`).
 - La ficha del prestamo muestra la tabla de cuotas completa: numero, vencimiento, estado (`Pagada`, `Parcial`, `Vencida`, `Pendiente`), monto, saldo corrido y el reparto `Cap · Int` de cada cuota. El calculo se hace en el telefono con el mismo calendario del desktop.
 - Los pagos parciales quedan visibles: la cuota pasa a `Parcial`, muestra una barra de avance, `Pagado $X · Restan $Y` y la transaccion registrada con su boton `Enviar comprobante`.
 - Si eliges una cuota ya pagada, la app avisa `Cuota ... ya esta pagada por completo` en vez de mostrar un saldo de `$0`.

@@ -38,6 +38,7 @@ type KpiItem = {
   icon: IconName;
   iconColor: string;
   iconBackground: string;
+  onPress?: () => void;
 };
 
 const go = (path: Href) => router.push(path);
@@ -67,6 +68,9 @@ export default function HomeScreen() {
     (stats?.expectedCollection ?? 0) > 0
       ? Math.round(((stats?.monthlyCollection ?? 0) / (stats?.expectedCollection ?? 1)) * 100)
       : 0;
+
+  const overdueCount = stats?.overduePayments ?? 0;
+  const isUpToDate = overdueCount === 0;
 
   const isRefreshing = statsQuery.isRefetching || alertsQuery.isRefetching;
 
@@ -126,6 +130,7 @@ export default function HomeScreen() {
       icon: 'wallet-outline',
       iconColor: '#1D4ED8',
       iconBackground: '#DBEAFE',
+      onPress: () => go('/portfolio'),
     },
     {
       key: 'collection',
@@ -141,16 +146,20 @@ export default function HomeScreen() {
       icon: 'trending-up',
       iconColor: '#047857',
       iconBackground: '#D1FAE5',
+      onPress: () => go('/insights'),
     },
     {
       key: 'overdue',
       label: 'Vencido',
       value: formatCompactCurrency(stats?.overdueAmount ?? 0),
-      hint: `${stats?.overduePayments ?? 0} cuota${(stats?.overduePayments ?? 0) === 1 ? '' : 's'}`,
-      tone: 'danger',
-      icon: 'alert-circle-outline',
-      iconColor: '#B91C1C',
-      iconBackground: '#FEE2E2',
+      hint: isUpToDate
+        ? 'Sin atrasos'
+        : `${overdueCount} cuota${overdueCount === 1 ? '' : 's'} · Cobrar`,
+      tone: isUpToDate ? 'success' : 'danger',
+      icon: isUpToDate ? 'checkmark-circle-outline' : 'alert-circle-outline',
+      iconColor: isUpToDate ? '#047857' : '#B91C1C',
+      iconBackground: isUpToDate ? '#D1FAE5' : '#FEE2E2',
+      onPress: () => go('/collections'),
     },
     {
       key: 'clients',
@@ -160,6 +169,7 @@ export default function HomeScreen() {
       icon: 'people-outline',
       iconColor: '#7C3AED',
       iconBackground: '#EDE9FE',
+      onPress: () => go('/portfolio'),
     },
   ];
 
@@ -175,43 +185,12 @@ export default function HomeScreen() {
           icon={card.icon}
           iconColor={card.iconColor}
           iconBackground={card.iconBackground}
+          onPress={card.onPress}
           style={isWide ? appStyles.kpiCardWide : appStyles.kpiCardHalf}
         />
       ))}
     </View>
   );
-
-  const alertCard =
-    (stats?.overduePayments ?? 0) > 0 ? (
-      <Pressable style={appStyles.alertCard} onPress={() => go('/collections')}>
-        <View style={appStyles.inlineRowTop}>
-          <Ionicons name="alert-circle" size={22} color="#B91C1C" />
-          <View style={appStyles.flexOne}>
-            <Text style={appStyles.alertTitle}>
-              {stats?.overduePayments} cuota
-              {(stats?.overduePayments ?? 0) === 1 ? '' : 's'} vencida
-              {(stats?.overduePayments ?? 0) === 1 ? '' : 's'}
-            </Text>
-            <Text style={appStyles.alertText}>
-              {formatCurrency(stats?.overdueAmount ?? 0)} por recuperar. Toca para ir a cobranza.
-            </Text>
-          </View>
-          <Ionicons name="chevron-forward" size={20} color="#B91C1C" />
-        </View>
-      </Pressable>
-    ) : (
-      <View style={appStyles.card}>
-        <View style={appStyles.inlineRowTop}>
-          <Ionicons name="checkmark-circle" size={22} color="#047857" />
-          <View style={appStyles.flexOne}>
-            <Text style={appStyles.cardTitle}>Cartera al dia</Text>
-            <Text style={appStyles.cardSubtitle}>
-              No hay cuotas vencidas. Sigue registrando pagos para mantener el ritmo.
-            </Text>
-          </View>
-        </View>
-      </View>
-    );
 
   const quickActions = (
     <View style={appStyles.quickRow}>
@@ -228,24 +207,34 @@ export default function HomeScreen() {
   );
 
   const priority = (
-    <View style={{ gap: 10 }}>
-      <SectionHeader
-        title="Cobros prioritarios"
-        subtitle={
-          priorityAlerts.length > 0
-            ? 'Vencidos y proximos a vencer.'
-            : 'Sin cobros pendientes por ahora.'
-        }
-        actionLabel="Ver todo"
-        onAction={() => go('/collections')}
-      />
+    <View
+      style={{
+        gap: 10,
+        flexDirection: isWide ? 'row' : 'column',
+        flexWrap: isWide ? 'wrap' : 'nowrap',
+      }}
+    >
+      <View style={{ width: '100%' }}>
+        <SectionHeader
+          title="Cobros prioritarios"
+          subtitle={
+            priorityAlerts.length > 0
+              ? 'Vencidos y proximos a vencer.'
+              : 'Sin cobros pendientes por ahora.'
+          }
+          actionLabel="Ver todo"
+          onAction={() => go('/collections')}
+        />
+      </View>
 
       {priorityAlerts.length === 0 ? (
-        <EmptyState
-          icon="cash-outline"
-          title="Nada pendiente"
-          message="Cuando una cuota este por vencer aparecera aqui."
-        />
+        <View style={{ width: '100%' }}>
+          <EmptyState
+            icon="cash-outline"
+            title="Nada pendiente"
+            message="Cuando una cuota este por vencer aparecera aqui."
+          />
+        </View>
       ) : (
         priorityAlerts.map((alert) => {
           const isOverdue = alert.type === 'overdue';
@@ -256,6 +245,7 @@ export default function HomeScreen() {
               style={[
                 appStyles.compactRow,
                 isOverdue ? appStyles.compactRowDanger : appStyles.compactRowWarning,
+                isWide && { width: '49%' },
               ]}
               onPress={() => openPayment(alert.loanId, alert.paymentId)}
             >
@@ -321,27 +311,6 @@ export default function HomeScreen() {
     </View>
   );
 
-  const shortcuts = (
-    <View style={appStyles.shortcutRow}>
-      <Pressable
-        accessibilityRole="button"
-        style={appStyles.shortcutButton}
-        onPress={() => go('/portfolio')}
-      >
-        <Ionicons name="albums-outline" size={18} color={APP_THEME.accent} />
-        <Text style={appStyles.shortcutText}>Ver cartera</Text>
-      </Pressable>
-      <Pressable
-        accessibilityRole="button"
-        style={appStyles.shortcutButton}
-        onPress={() => go('/insights')}
-      >
-        <Ionicons name="stats-chart-outline" size={18} color={APP_THEME.accent} />
-        <Text style={appStyles.shortcutText}>Ver analisis</Text>
-      </Pressable>
-    </View>
-  );
-
   return (
     <SafeAreaView style={appStyles.tabScreen} edges={['top']}>
       <ScrollView
@@ -367,26 +336,14 @@ export default function HomeScreen() {
         {isWide ? (
           <View style={appStyles.dashStack}>
             {kpis}
-            <View style={appStyles.dashGrid}>
-              <View style={appStyles.dashColumn}>
-                {alertCard}
-                <SectionHeader title="Acciones rapidas" subtitle="Todo a un toque." />
-                {quickActions}
-              </View>
-              <View style={appStyles.dashColumn}>
-                {priority}
-                {shortcuts}
-              </View>
-            </View>
+            {quickActions}
+            {priority}
           </View>
         ) : (
           <View style={appStyles.segmentBody}>
             {kpis}
-            {alertCard}
-            {priority}
-            <SectionHeader title="Acciones rapidas" subtitle="Todo a un toque." />
             {quickActions}
-            {shortcuts}
+            {priority}
           </View>
         )}
       </ScrollView>

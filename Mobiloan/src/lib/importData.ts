@@ -114,6 +114,10 @@ const pad = (value: number) => String(value).padStart(2, '0');
 
 const normalizeText = (value: unknown) => String(value ?? '').trim();
 
+// Windows (Bloc de notas, PowerShell) suele guardar UTF-8 con BOM y eso rompe
+// JSON.parse y ensucia el nombre de la primera columna de un CSV.
+const stripBom = (value: string) => value.replace(/^\uFEFF/, '');
+
 const buildColumnNames = (header: unknown[]): string[] => {
   const used = new Map<string, number>();
 
@@ -208,13 +212,31 @@ export const parseImportNumber = (value: unknown): number | null => {
 
 export const parseImportDate = (value: unknown): string => {
   if (value instanceof Date && !Number.isNaN(value.getTime())) {
-    return toLocalDateKey(value) ?? todayDateKey();
+    // Los seriales de Excel a veces quedan a segundos del dia anterior por
+    // redondeo. Si cae casi a medianoche, se ancla al dia siguiente.
+    const snapped = new Date(value.getTime());
+    if (snapped.getHours() === 23 && snapped.getMinutes() >= 55) {
+      snapped.setDate(snapped.getDate() + 1);
+      snapped.setHours(0, 0, 0, 0);
+    }
+    return toLocalDateKey(snapped) ?? todayDateKey();
   }
 
   if (typeof value === 'number') {
     const parsed = XLSX.SSF.parse_date_code(value);
     if (parsed && parsed.y && parsed.m && parsed.d) {
-      return `${parsed.y}-${pad(parsed.m)}-${pad(parsed.d)}`;
+      let year = parsed.y;
+      let month = parsed.m;
+      let day = parsed.d;
+
+      if (parsed.H === 23 && parsed.M >= 55) {
+        const next = new Date(Date.UTC(year, month - 1, day + 1));
+        year = next.getUTCFullYear();
+        month = next.getUTCMonth() + 1;
+        day = next.getUTCDate();
+      }
+
+      return `${year}-${pad(month)}-${pad(day)}`;
     }
   }
 
@@ -259,6 +281,34 @@ const isPortablePackage = (value: unknown): value is PortableSyncPackage => {
   );
 };
 
+const groupDigits = (value: number): string => {
+  const [intPart, decimalPart] = String(value).split('.');
+  const negative = intPart.startsWith('-');
+  const digits = negative ? intPart.slice(1) : intPart;
+  const grouped = digits.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  return `${negative ? '-' : ''}${grouped}${decimalPart ? `,${decimalPart}` : ''}`;
+};
+
+/** Texto corto para mostrar una celda cruda en la vista previa del mapeo. */
+export const formatImportCell = (value: unknown): string => {
+  if (value === null || value === undefined) {
+    return '';
+  }
+
+  if (value instanceof Date) {
+    return Number.isNaN(value.getTime()) ? '' : parseImportDate(value);
+  }
+
+  if (typeof value === 'number') {
+    if (!Number.isFinite(value)) {
+      return '';
+    }
+    return groupDigits(Math.round(value * 100) / 100);
+  }
+
+  return normalizeText(value);
+};
+
 export const pickImportFile = async (): Promise<PickedImportFile | null> => {
   const result = await DocumentPicker.getDocumentAsync({
     type: [
@@ -292,7 +342,7 @@ export const pickImportFile = async (): Promise<PickedImportFile | null> => {
 
     let parsed: unknown;
     try {
-      parsed = JSON.parse(content);
+      parsed = JSON.parse(stripBom(content));
     } catch {
       throw new Error('El archivo JSON no contiene datos validos.');
     }
@@ -314,12 +364,13 @@ export const pickImportFile = async (): Promise<PickedImportFile | null> => {
   let workbook: XLSX.WorkBook;
   try {
     if (isCsv) {
-      // Los CSV se leen como texto para no depender de la deteccion binaria de
-      // `xlsx` y para respetar el separador real del archivo (`,` o `;`).
+      // Los CSV se leen como texto crudo: si `xlsx` interpreta las celdas,
+      // "$750.000" se convierte en 750 y "2026-04-10" en un serial de Excel.
+      // El parseo propio (parseImportNumber / parseImportDate) ya cubre ambos.
       const content = await FileSystem.readAsStringAsync(asset.uri, {
         encoding: FileSystem.EncodingType.UTF8,
       });
-      workbook = XLSX.read(content, { type: 'string', raw: false });
+      workbook = XLSX.read(stripBom(content), { type: 'string', raw: true });
     } else {
       const base64 = await FileSystem.readAsStringAsync(asset.uri, {
         encoding: FileSystem.EncodingType.Base64,
@@ -340,6 +391,7 @@ export const pickImportFile = async (): Promise<PickedImportFile | null> => {
     header: 1,
     blankrows: false,
     defval: '',
+    raw: true,
   });
 
   if (!data.length) {

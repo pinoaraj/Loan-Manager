@@ -1,12 +1,14 @@
 import { router, useLocalSearchParams } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Alert, Pressable, ScrollView, Text, TextInput, useWindowDimensions, View } from 'react-native';
 
-import { useClientDetail } from '../../../src/hooks/useOfflineData';
+import { useClientDetail, useLoans } from '../../../src/hooks/useOfflineData';
 import { useDeleteLocalClient, useUpdateLocalClient } from '../../../src/hooks/useSyncActions';
-import { formatCurrency, formatDate } from '../../../src/lib/format';
+import { formatCompactCurrency, formatCurrency, formatDate } from '../../../src/lib/format';
 import { frequencyLabel, loanStatusLabel, loanTypeLabel } from '../../../src/lib/labels';
-import { openPhoneCall, openWhatsApp } from '../../../src/lib/contact';
+import { openEmail, openPhoneCall, openWhatsApp } from '../../../src/lib/contact';
+import { formatRut, isValidRut } from '../../../src/lib/rut';
+import { APP_THEME } from '../../../src/lib/config';
 import { appStyles } from '../../../src/ui/styles';
 
 export default function ClientDetailScreen() {
@@ -15,11 +17,31 @@ export default function ClientDetailScreen() {
   const params = useLocalSearchParams<{ id: string }>();
   const clientId = Array.isArray(params.id) ? params.id[0] : params.id;
   const detailQuery = useClientDetail(clientId ?? '');
+  const loansQuery = useLoans();
   const updateMutation = useUpdateLocalClient();
   const deleteMutation = useDeleteLocalClient();
 
   const client = detailQuery.data?.client;
   const loans = detailQuery.data?.loans ?? [];
+
+  const summary = useMemo(() => {
+    const items = (loansQuery.data ?? []).filter((loan) => loan.clientId === clientId);
+    const active = items.filter((loan) => loan.status !== 'Paid' && !loan.isPaused);
+
+    const nextDueDate = active
+      .map((loan) => loan.nextDueDate)
+      .filter((value): value is string => Boolean(value))
+      .sort()[0];
+
+    return {
+      totalLent: items.reduce((sum, loan) => sum + loan.amount, 0),
+      totalRemaining: items.reduce((sum, loan) => sum + loan.totalRemaining, 0),
+      overdue: items.reduce((sum, loan) => sum + loan.overdueAmount, 0),
+      activeCount: active.length,
+      totalCount: items.length,
+      nextDueDate: nextDueDate ?? null,
+    };
+  }, [clientId, loansQuery.data]);
 
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState('');
@@ -50,10 +72,15 @@ export default function ClientDetailScreen() {
       return;
     }
 
+    if (rut.trim() && !isValidRut(rut)) {
+      Alert.alert('RUT invalido', 'Revisa el RUT, por ejemplo 12.345.678-9.');
+      return;
+    }
+
     try {
       await updateMutation.mutateAsync({
         clientId,
-        draft: { name, rut, phone, email, address },
+        draft: { name, rut: rut.trim() ? formatRut(rut) : '', phone, email, address },
       });
       setIsEditing(false);
       Alert.alert('Cliente actualizado', 'Los datos quedaron guardados en este telefono.');
@@ -106,7 +133,14 @@ export default function ClientDetailScreen() {
             <TextInput value={name} onChangeText={setName} style={appStyles.input} placeholder="Nombre completo" />
 
             <Text style={appStyles.label}>RUT</Text>
-            <TextInput value={rut} onChangeText={setRut} style={appStyles.input} placeholder="12.345.678-9" />
+            <TextInput
+              value={rut}
+              onChangeText={setRut}
+              onBlur={() => setRut((current) => (current ? formatRut(current) : current))}
+              style={appStyles.input}
+              placeholder="12.345.678-9"
+              autoCapitalize="characters"
+            />
 
             <Text style={appStyles.label}>Telefono</Text>
             <TextInput
@@ -175,8 +209,84 @@ export default function ClientDetailScreen() {
           >
             <Text style={appStyles.buttonMutedText}>WhatsApp</Text>
           </Pressable>
+          <Pressable
+            style={appStyles.buttonMuted}
+            onPress={async () => {
+              try {
+                await openEmail(client?.email);
+              } catch (error) {
+                Alert.alert('No se pudo abrir el correo', error instanceof Error ? error.message : 'Error desconocido');
+              }
+            }}
+          >
+            <Text style={appStyles.buttonMutedText}>Email</Text>
+          </Pressable>
         </View>
       </View>
+  );
+
+  const summaryCard = (
+    <View style={appStyles.card}>
+      <Text style={appStyles.cardTitle}>Resumen</Text>
+      <View style={appStyles.statGrid}>
+        <View style={[appStyles.statBox, { backgroundColor: '#F1F5F9' }]}>
+          <Text style={appStyles.statLabel}>Prestado</Text>
+          <Text
+            style={appStyles.statValue}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.7}
+          >
+            {formatCompactCurrency(summary.totalLent)}
+          </Text>
+          <Text style={appStyles.statSubtext}>
+            {summary.totalCount} prestamo{summary.totalCount === 1 ? '' : 's'} en total
+          </Text>
+        </View>
+        <View style={[appStyles.statBox, { backgroundColor: '#F1F5F9' }]}>
+          <Text style={appStyles.statLabel}>Saldo por cobrar</Text>
+          <Text
+            style={appStyles.statValue}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.7}
+          >
+            {formatCompactCurrency(summary.totalRemaining)}
+          </Text>
+          <Text style={appStyles.statSubtext}>
+            {summary.activeCount} activo{summary.activeCount === 1 ? '' : 's'}
+          </Text>
+        </View>
+        <View style={[appStyles.statBox, { backgroundColor: '#FEF2F2' }]}>
+          <Text style={appStyles.statLabel}>Vencido</Text>
+          <Text
+            style={[appStyles.statValue, { color: summary.overdue > 0 ? '#B91C1C' : APP_THEME.success }]}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.7}
+          >
+            {formatCompactCurrency(summary.overdue)}
+          </Text>
+          <Text style={appStyles.statSubtext}>
+            {summary.overdue > 0 ? 'Por recuperar' : 'Sin atrasos'}
+          </Text>
+        </View>
+        <View style={[appStyles.statBox, { backgroundColor: '#F1F5F9' }]}>
+          <Text style={appStyles.statLabel}>Proxima cuota</Text>
+          <Text
+            style={appStyles.statValue}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.7}
+          >
+            {summary.nextDueDate ? formatDate(summary.nextDueDate) : '—'}
+          </Text>
+          <Text style={appStyles.statSubtext}>
+            {summary.nextDueDate ? 'Siguiente vencimiento' : 'Sin cuotas pendientes'}
+          </Text>
+        </View>
+      </View>
+    </View>
   );
 
   const loansCard = (
@@ -259,7 +369,10 @@ export default function ClientDetailScreen() {
 
       {isWide ? (
         <View style={appStyles.dashGrid}>
-          <View style={appStyles.dashColumn}>{fichaCard}</View>
+          <View style={appStyles.dashColumn}>
+            {summaryCard}
+            {fichaCard}
+          </View>
           <View style={appStyles.dashColumn}>
             {loansCard}
             {riskCard}
@@ -267,6 +380,7 @@ export default function ClientDetailScreen() {
         </View>
       ) : (
         <View style={appStyles.dashColumn}>
+          {summaryCard}
           {fichaCard}
           {loansCard}
           {riskCard}

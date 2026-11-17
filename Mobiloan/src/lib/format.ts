@@ -7,14 +7,32 @@ export const formatCurrency = (value: number) =>
     maximumFractionDigits: 0,
   }).format(Number.isFinite(value) ? value : 0);
 
+/** Solo digitos de un monto escrito por el usuario. */
+export const digitsOnly = (value: string) => String(value ?? '').replace(/[^\d]/g, '');
+
+/** Agrupa el monto mientras se escribe: 500000 -> "500.000". */
+export const formatAmountInput = (value: string) => {
+  const digits = digitsOnly(value);
+  if (!digits) {
+    return '';
+  }
+  return new Intl.NumberFormat('es-CL').format(Number(digits));
+};
+
+/** Lee un monto con o sin separadores: "500.000" -> 500000. */
+export const parseAmountInput = (value: string) => {
+  const digits = digitsOnly(value);
+  return digits ? Number(digits) : 0;
+};
+
+
 const COMPACT_UNITS: Array<[number, string]> = [
   [1_000_000_000, 'MM'],
   [1_000_000, 'M'],
   [1_000, 'k'],
 ];
 
-export const formatCompactCurrency = (value: number) => {
-  const safeValue = Number.isFinite(value) ? value : 0;
+export const formatCompactCurrency = (value: number) => {  const safeValue = Number.isFinite(value) ? value : 0;
   const absolute = Math.abs(safeValue);
 
   for (const [limit, suffix] of COMPACT_UNITS) {

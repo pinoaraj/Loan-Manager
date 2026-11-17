@@ -1,13 +1,30 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { useMemo, useState } from 'react';
-import { Alert, Pressable, ScrollView, Text, TextInput, useWindowDimensions, View } from 'react-native';
+import {
+  Alert,
+  Pressable,
+  ScrollView,
+  Text,
+  TextInput,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 
 import { useAllClients } from '../../src/hooks/useOfflineData';
-import { useCreateLocalLoan } from '../../src/hooks/useSyncActions';
+import { useCreateLocalClient, useCreateLocalLoan } from '../../src/hooks/useSyncActions';
 import { calculateAmortization } from '../../src/lib/amortization';
 import { isValidDateInput, todayDateKey } from '../../src/lib/dates';
-import { formatCurrency, formatDate } from '../../src/lib/format';
+import { formatAmountInput, formatCurrency, formatDate, parseAmountInput } from '../../src/lib/format';
+import { formatRut, isValidRut } from '../../src/lib/rut';
 import { appStyles } from '../../src/ui/styles';
+import { DatePickerField } from '../../src/ui/DatePickerField';
+
+const PREVIEW_LIMIT = 8;
+
+const parseRate = (value: string) => {
+  const normalized = value.replace(',', '.').trim();
+  return normalized === '' ? NaN : Number(normalized);
+};
 
 export default function NewLoanScreen() {
   const { width } = useWindowDimensions();
@@ -16,10 +33,19 @@ export default function NewLoanScreen() {
   const initialClientId = Array.isArray(params.clientId) ? params.clientId[0] : params.clientId;
   const clientsQuery = useAllClients();
   const createLoan = useCreateLocalLoan();
+  const createClient = useCreateLocalClient();
 
   const [clientId, setClientId] = useState(initialClientId ?? '');
-  const [amount, setAmount] = useState('500000');
-  const [interestRate, setInterestRate] = useState('0.10');
+  const [clientSearch, setClientSearch] = useState('');
+  const [showQuickClient, setShowQuickClient] = useState(false);
+  const [quickName, setQuickName] = useState('');
+  const [quickRut, setQuickRut] = useState('');
+  const [quickPhone, setQuickPhone] = useState('');
+  const [quickEmail, setQuickEmail] = useState('');
+  const [quickAddress, setQuickAddress] = useState('');
+
+  const [amount, setAmount] = useState('500.000');
+  const [interestRate, setInterestRate] = useState('0,10');
   const [durationMonths, setDurationMonths] = useState('6');
   const [startDate, setStartDate] = useState(todayDateKey());
   const [frequency, setFrequency] = useState<'monthly' | 'bi-weekly' | 'weekly'>('monthly');
@@ -28,16 +54,91 @@ export default function NewLoanScreen() {
   const clients = clientsQuery.data ?? [];
   const selectedClient = clients.find((item) => item.id === clientId) ?? null;
 
+  const filteredClients = useMemo(() => {
+    const term = clientSearch.trim().toLowerCase();
+    if (!term) {
+      return clients;
+    }
+
+    return clients.filter((client) => {
+      const haystack = [client.name, client.rut, client.phone].filter(Boolean).join(' ').toLowerCase();
+      return haystack.includes(term);
+    });
+  }, [clientSearch, clients]);
+
+  const principal = parseAmountInput(amount);
+  const rate = parseRate(interestRate);
+  const months = Number(durationMonths);
+
   const preview = useMemo(() => {
-    const principal = Number(amount);
-    const rate = Number(interestRate);
-    const months = Number(durationMonths);
     if (!isValidDateInput(startDate)) {
       return [];
     }
+    if (!Number.isFinite(principal) || principal <= 0) {
+      return [];
+    }
+    if (!Number.isFinite(rate) || rate < 0 || rate > 1) {
+      return [];
+    }
+    if (!Number.isFinite(months) || months < 1 || months > 600) {
+      return [];
+    }
 
-    return calculateAmortization(principal, rate, months, startDate, frequency, loanType);
-  }, [amount, durationMonths, frequency, interestRate, loanType, startDate]);
+    return calculateAmortization(principal, rate, Math.floor(months), startDate, frequency, loanType);
+  }, [frequency, loanType, months, principal, rate, startDate]);
+
+  const totals = useMemo(
+    () =>
+      preview.reduce(
+        (acc, item) => ({
+          amount: acc.amount + item.amount,
+          interest: acc.interest + item.interest,
+        }),
+        { amount: 0, interest: 0 },
+      ),
+    [preview],
+  );
+
+  const resetQuickClient = () => {
+    setQuickName('');
+    setQuickRut('');
+    setQuickPhone('');
+    setQuickEmail('');
+    setQuickAddress('');
+    setShowQuickClient(false);
+  };
+
+  const handleQuickCreate = async () => {
+    if (!quickName.trim()) {
+      Alert.alert('Falta el nombre', 'Escribe el nombre del cliente.');
+      return;
+    }
+
+    if (!quickRut.trim() || !isValidRut(quickRut)) {
+      Alert.alert('RUT invalido', 'Revisa el RUT del cliente, por ejemplo 12.345.678-9.');
+      return;
+    }
+
+    if (!quickPhone.trim()) {
+      Alert.alert('Falta el telefono', 'El telefono es necesario para cobrar y enviar recordatorios.');
+      return;
+    }
+
+    try {
+      const client = await createClient.mutateAsync({
+        name: quickName.trim(),
+        rut: formatRut(quickRut),
+        phone: quickPhone.trim(),
+        email: quickEmail.trim(),
+        address: quickAddress.trim(),
+      });
+      setClientId(client.id);
+      setClientSearch('');
+      resetQuickClient();
+    } catch (error) {
+      Alert.alert('No se pudo crear el cliente', error instanceof Error ? error.message : 'Error desconocido');
+    }
+  };
 
   const handleCreate = async () => {
     if (!clientId) {
@@ -45,36 +146,42 @@ export default function NewLoanScreen() {
       return;
     }
 
-    const parsedAmount = Number(amount);
-    const parsedRate = Number(interestRate);
-    const parsedMonths = Number(durationMonths);
-
-    if (!Number.isFinite(parsedAmount) || parsedAmount <= 0) {
+    if (!Number.isFinite(principal) || principal <= 0) {
       Alert.alert('Monto invalido', 'El monto del prestamo debe ser mayor que cero.');
       return;
     }
 
-    if (!Number.isFinite(parsedRate) || parsedRate < 0) {
+    if (!Number.isFinite(rate) || rate < 0) {
       Alert.alert('Tasa invalida', 'La tasa de interes no puede ser negativa.');
       return;
     }
 
-    if (!Number.isFinite(parsedMonths) || parsedMonths < 1) {
+    if (rate > 1) {
+      Alert.alert('Tasa invalida', 'Escribe la tasa como decimal: 0,10 equivale a 10%.');
+      return;
+    }
+
+    if (!Number.isFinite(months) || months < 1) {
       Alert.alert('Plazo invalido', 'El plazo debe ser de al menos un mes.');
       return;
     }
 
+    if (months > 600) {
+      Alert.alert('Plazo invalido', 'El plazo no puede superar 50 anos (600 meses).');
+      return;
+    }
+
     if (!isValidDateInput(startDate)) {
-      Alert.alert('Fecha invalida', 'Usa el formato AAAA-MM-DD, por ejemplo 2026-06-15.');
+      Alert.alert('Fecha invalida', 'Elige una fecha de inicio valida.');
       return;
     }
 
     try {
       const result = await createLoan.mutateAsync({
         clientId,
-        amount: parsedAmount,
-        interestRate: parsedRate,
-        durationMonths: Math.floor(parsedMonths),
+        amount: principal,
+        interestRate: rate,
+        durationMonths: Math.floor(months),
         startDate,
         frequency,
         loanType,
@@ -86,105 +193,303 @@ export default function NewLoanScreen() {
     }
   };
 
-  const clientCard = (
-      <View style={appStyles.card}>
-        <Text style={appStyles.cardTitle}>Cliente</Text>
-        {clients.map((client) => (
-          <Pressable
-            key={client.id}
-            style={clientId === client.id ? appStyles.button : appStyles.buttonMuted}
-            onPress={() => setClientId(client.id)}
-          >
-            <Text
-              style={clientId === client.id ? appStyles.buttonText : appStyles.buttonMutedText}
-              numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.8}
-            >
-              {client.name}
-            </Text>
-          </Pressable>
-        ))}
-        {clients.length === 0 && (
-          <Text style={appStyles.itemText}>Primero debes crear al menos un cliente local.</Text>
-        )}
+  const quickClientForm = showQuickClient ? (
+    <View style={appStyles.nestedCard}>
+      <View style={appStyles.rowBetween}>
+        <Text style={appStyles.cardTitle}>Cliente nuevo</Text>
+        <Pressable onPress={resetQuickClient} accessibilityRole="button">
+          <Text style={appStyles.linkText}>Cancelar</Text>
+        </Pressable>
       </View>
+      <Text style={appStyles.label}>Nombre</Text>
+      <TextInput
+        value={quickName}
+        onChangeText={setQuickName}
+        style={appStyles.input}
+        placeholder="Nombre completo"
+      />
+      <Text style={appStyles.label}>RUT</Text>
+      <TextInput
+        value={quickRut}
+        onChangeText={setQuickRut}
+        onBlur={() => setQuickRut((current) => (current ? formatRut(current) : current))}
+        style={appStyles.input}
+        placeholder="12.345.678-9"
+        autoCapitalize="characters"
+      />
+      <Text style={appStyles.label}>Telefono</Text>
+      <TextInput
+        value={quickPhone}
+        onChangeText={setQuickPhone}
+        style={appStyles.input}
+        placeholder="+56 9 1234 5678"
+        keyboardType="phone-pad"
+      />
+      <Text style={appStyles.label}>Email (opcional)</Text>
+      <TextInput
+        value={quickEmail}
+        onChangeText={setQuickEmail}
+        style={appStyles.input}
+        placeholder="cliente@correo.cl"
+        keyboardType="email-address"
+        autoCapitalize="none"
+      />
+      <Text style={appStyles.label}>Direccion (opcional)</Text>
+      <TextInput
+        value={quickAddress}
+        onChangeText={setQuickAddress}
+        style={appStyles.input}
+        placeholder="Calle, numero, comuna"
+      />
+      <Pressable
+        style={[appStyles.button, createClient.isPending && { opacity: 0.7 }]}
+        onPress={handleQuickCreate}
+        disabled={createClient.isPending}
+      >
+        <Text style={appStyles.buttonText}>
+          {createClient.isPending ? 'Guardando...' : 'Guardar y elegir'}
+        </Text>
+      </Pressable>
+    </View>
+  ) : null;
+
+  const clientCard = (
+    <View style={appStyles.card}>
+      <Text style={appStyles.cardTitle}>Cliente</Text>
+
+      {selectedClient ? (
+        <View style={appStyles.selectedRow}>
+          <View style={appStyles.flexOne}>
+            <Text style={appStyles.itemTitle} numberOfLines={1}>
+              {selectedClient.name}
+            </Text>
+            <Text style={appStyles.itemText} numberOfLines={1}>
+              {[selectedClient.rut, selectedClient.phone].filter(Boolean).join(' · ') || 'Sin datos de contacto'}
+            </Text>
+          </View>
+          <Pressable
+            accessibilityRole="button"
+            onPress={() => {
+              setClientId('');
+              setClientSearch('');
+            }}
+          >
+            <Text style={appStyles.linkText}>Cambiar</Text>
+          </Pressable>
+        </View>
+      ) : (
+        <>
+          <TextInput
+            value={clientSearch}
+            onChangeText={setClientSearch}
+            style={appStyles.input}
+            placeholder="Buscar por nombre, RUT o telefono"
+            autoCapitalize="none"
+          />
+
+          {filteredClients.slice(0, 6).map((client) => (
+            <Pressable
+              key={client.id}
+              style={appStyles.selectRow}
+              onPress={() => {
+                setClientId(client.id);
+                setClientSearch('');
+              }}
+            >
+              <View style={appStyles.flexOne}>
+                <Text style={appStyles.itemTitle} numberOfLines={1}>
+                  {client.name}
+                </Text>
+                <Text style={appStyles.itemText} numberOfLines={1}>
+                  {[client.rut, client.phone].filter(Boolean).join(' · ') || 'Sin datos de contacto'}
+                </Text>
+              </View>
+              <Text style={appStyles.selectHint}>Elegir</Text>
+            </Pressable>
+          ))}
+
+          {filteredClients.length > 6 ? (
+            <Text style={appStyles.itemText}>
+              {filteredClients.length - 6} cliente{filteredClients.length - 6 === 1 ? '' : 's'} mas.
+              Afina la busqueda para verlos.
+            </Text>
+          ) : null}
+
+          {filteredClients.length === 0 ? (
+            <Text style={appStyles.itemText}>
+              {clients.length === 0
+                ? 'Todavia no hay clientes en este telefono.'
+                : 'Sin resultados para esa busqueda.'}
+            </Text>
+          ) : null}
+        </>
+      )}
+
+      {!showQuickClient ? (
+        <Pressable
+          accessibilityRole="button"
+          style={appStyles.buttonMuted}
+          onPress={() => setShowQuickClient(true)}
+        >
+          <Text style={appStyles.buttonMutedText}>+ Crear cliente nuevo</Text>
+        </Pressable>
+      ) : null}
+
+      {quickClientForm}
+    </View>
   );
 
   const formCard = (
-      <View style={appStyles.card}>
-        <Text style={appStyles.label}>Monto</Text>
-        <TextInput value={amount} onChangeText={setAmount} keyboardType="numeric" style={appStyles.input} />
-        <Text style={appStyles.label}>Tasa por periodo</Text>
-        <TextInput value={interestRate} onChangeText={setInterestRate} keyboardType="numeric" style={appStyles.input} />
-        <Text style={appStyles.label}>Plazo en meses</Text>
-        <TextInput value={durationMonths} onChangeText={setDurationMonths} keyboardType="numeric" style={appStyles.input} />
-        <Text style={appStyles.label}>Fecha inicio</Text>
-        <TextInput value={startDate} onChangeText={setStartDate} style={appStyles.input} />
+    <View style={appStyles.card}>
+      <Text style={appStyles.label}>Monto del prestamo</Text>
+      <TextInput
+        value={amount}
+        onChangeText={(text) => setAmount(formatAmountInput(text))}
+        keyboardType="number-pad"
+        style={appStyles.input}
+        placeholder="500.000"
+      />
 
-        <Text style={appStyles.label}>Frecuencia</Text>
-        <View style={appStyles.actionRow}>
-          {(['monthly', 'bi-weekly', 'weekly'] as const).map((value) => (
-            <Pressable
-              key={value}
-              style={frequency === value ? appStyles.button : appStyles.buttonMuted}
-              onPress={() => setFrequency(value)}
-            >
-              <Text style={frequency === value ? appStyles.buttonText : appStyles.buttonMutedText}>
-                {value === 'monthly' ? 'Mensual' : value === 'bi-weekly' ? 'Quincenal' : 'Semanal'}
-              </Text>
-            </Pressable>
-          ))}
+      <View style={appStyles.fieldRow}>
+        <View style={appStyles.fieldColumn}>
+          <Text style={appStyles.label}>Tasa por periodo</Text>
+          <TextInput
+            value={interestRate}
+            onChangeText={setInterestRate}
+            keyboardType="decimal-pad"
+            style={appStyles.input}
+            placeholder="0,10 = 10%"
+          />
         </View>
-
-        <Text style={appStyles.label}>Tipo</Text>
-        <View style={appStyles.actionRow}>
-          {(['Fixed', 'Simple'] as const).map((value) => (
-            <Pressable
-              key={value}
-              style={loanType === value ? appStyles.button : appStyles.buttonMuted}
-              onPress={() => setLoanType(value)}
-            >
-              <Text style={loanType === value ? appStyles.buttonText : appStyles.buttonMutedText}>
-                {value === 'Fixed' ? 'Cuota fija' : 'Interes simple'}
-              </Text>
-            </Pressable>
-          ))}
+        <View style={appStyles.fieldColumn}>
+          <Text style={appStyles.label}>Plazo en meses</Text>
+          <TextInput
+            value={durationMonths}
+            onChangeText={(text) => setDurationMonths(text.replace(/[^\d]/g, ''))}
+            keyboardType="number-pad"
+            style={appStyles.input}
+            placeholder="6"
+          />
         </View>
-
-        <Pressable style={appStyles.button} onPress={handleCreate}>
-          <Text
-            style={appStyles.buttonText}
-            numberOfLines={1}
-            adjustsFontSizeToFit
-            minimumFontScale={0.75}
-          >
-            {createLoan.isPending ? 'Creando...' : `Crear prestamo${selectedClient ? ` para ${selectedClient.name}` : ''}`}
-          </Text>
-        </Pressable>
       </View>
+
+      <Text style={appStyles.label}>Fecha inicio</Text>
+      <DatePickerField value={startDate} onChange={setStartDate} />
+
+      <Text style={appStyles.label}>Frecuencia</Text>
+      <View style={appStyles.actionRow}>
+        {(['monthly', 'bi-weekly', 'weekly'] as const).map((value) => (
+          <Pressable
+            key={value}
+            style={frequency === value ? appStyles.button : appStyles.buttonMuted}
+            onPress={() => setFrequency(value)}
+          >
+            <Text style={frequency === value ? appStyles.buttonText : appStyles.buttonMutedText}>
+              {value === 'monthly' ? 'Mensual' : value === 'bi-weekly' ? 'Quincenal' : 'Semanal'}
+            </Text>
+          </Pressable>
+        ))}
+      </View>
+
+      <Text style={appStyles.label}>Tipo</Text>
+      <View style={appStyles.actionRow}>
+        {(['Fixed', 'Simple'] as const).map((value) => (
+          <Pressable
+            key={value}
+            style={loanType === value ? appStyles.button : appStyles.buttonMuted}
+            onPress={() => setLoanType(value)}
+          >
+            <Text style={loanType === value ? appStyles.buttonText : appStyles.buttonMutedText}>
+              {value === 'Fixed' ? 'Cuota fija' : 'Interes simple'}
+            </Text>
+          </Pressable>
+        ))}
+      </View>
+
+      <Pressable
+        style={[appStyles.button, createLoan.isPending && { opacity: 0.7 }]}
+        onPress={handleCreate}
+        disabled={createLoan.isPending}
+      >
+        <Text
+          style={appStyles.buttonText}
+          numberOfLines={1}
+          adjustsFontSizeToFit
+          minimumFontScale={0.75}
+        >
+          {createLoan.isPending
+            ? 'Creando...'
+            : `Crear prestamo${selectedClient ? ` para ${selectedClient.name}` : ''}`}
+        </Text>
+      </Pressable>
+    </View>
   );
 
   const previewCard = (
-      <View style={appStyles.card}>
-        <Text style={appStyles.cardTitle}>Vista previa</Text>
-        <Text style={appStyles.cardSubtitle}>
-          Primera cuota: {formatCurrency(preview[0]?.amount ?? 0)} - Total cuotas: {preview.length}
+    <View style={appStyles.card}>
+      <Text style={appStyles.cardTitle}>Vista previa</Text>
+
+      {preview.length === 0 ? (
+        <Text style={appStyles.itemText}>
+          Revisa monto, tasa, plazo y fecha de inicio para ver el calendario.
         </Text>
-        {preview.slice(0, 6).map((payment) => (
-          <View key={payment.installment} style={appStyles.listItem}>
-            <Text style={appStyles.itemTitle}>
-              Cuota {payment.installment} - {formatCurrency(payment.amount)}
-            </Text>
-            <Text style={appStyles.itemText}>Fecha: {formatDate(payment.dueDate)}</Text>
+      ) : (
+        <>
+          <View style={appStyles.previewStats}>
+            <View style={appStyles.previewStat}>
+              <Text style={appStyles.previewStatLabel}>Cuota</Text>
+              <Text
+                style={appStyles.previewStatValue}
+                numberOfLines={1}
+                adjustsFontSizeToFit
+                minimumFontScale={0.7}
+              >
+                {formatCurrency(preview[0].amount)}
+              </Text>
+            </View>
+            <View style={appStyles.previewStat}>
+              <Text style={appStyles.previewStatLabel}>Total a pagar</Text>
+              <Text
+                style={appStyles.previewStatValue}
+                numberOfLines={1}
+                adjustsFontSizeToFit
+                minimumFontScale={0.7}
+              >
+                {formatCurrency(totals.amount)}
+              </Text>
+            </View>
+            <View style={appStyles.previewStat}>
+              <Text style={appStyles.previewStatLabel}>Intereses</Text>
+              <Text
+                style={appStyles.previewStatValue}
+                numberOfLines={1}
+                adjustsFontSizeToFit
+                minimumFontScale={0.7}
+              >
+                {formatCurrency(totals.interest)}
+              </Text>
+            </View>
           </View>
-        ))}
-        {preview.length === 0 && (
-          <Text style={appStyles.itemText}>
-            Revisa monto, tasa, plazo y fecha de inicio (AAAA-MM-DD) para ver la vista previa.
-          </Text>
-        )}
-      </View>
+
+          {preview.slice(0, PREVIEW_LIMIT).map((payment) => (
+            <View key={payment.installment} style={appStyles.previewRow}>
+              <Text style={appStyles.previewRowTitle}>Cuota {payment.installment}</Text>
+              <Text style={appStyles.previewRowDate}>{formatDate(payment.dueDate)}</Text>
+              <Text style={appStyles.previewRowAmount} numberOfLines={1}>
+                {formatCurrency(payment.amount)}
+              </Text>
+            </View>
+          ))}
+
+          {preview.length > PREVIEW_LIMIT ? (
+            <Text style={appStyles.itemText}>
+              y {preview.length - PREVIEW_LIMIT} cuota{preview.length - PREVIEW_LIMIT === 1 ? '' : 's'} mas
+              hasta {formatDate(preview[preview.length - 1].dueDate)}.
+            </Text>
+          ) : null}
+        </>
+      )}
+    </View>
   );
 
   return (
@@ -192,7 +497,7 @@ export default function NewLoanScreen() {
       <View style={appStyles.heroCard}>
         <Text style={appStyles.heroTitle}>Nuevo prestamo local</Text>
         <Text style={appStyles.heroSubtitle}>
-          Genera el prestamo y su calendario de cuotas directamente desde Android.
+          Elige o crea el cliente, define las condiciones y revisa el calendario antes de guardar.
         </Text>
       </View>
 

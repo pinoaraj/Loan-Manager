@@ -1,5 +1,37 @@
 # Update Log
 
+## 2026-11-17
+
+### 1.2.12
+
+- Bumped the app to `1.2.12` (`versionCode 15`) and rebuilt the standalone release APK as `dist/mobiloan-beta-1.2.12.apk` (67,01 MB, SHA256 `E5A4D25F9D1653FBACB9523F762C81B7FB4412D78A3E3456F79F96D0F880E51A`).
+- `Inicio` was redesigned for a single-screen layout on phones: header, 4 KPIs, quick actions and up to 3 priority collections now fit without scrolling. Removed the `Cartera al dia` card (duplicated the `Vencido` KPI), the separate overdue alert (the `Vencido` KPI is now the call to action and reads `N cuotas · Cobrar`) and the quick-calculator card (duplicated the `Calculadora` shortcut).
+- `KpiCard` gained `onPress`: `Total prestado` and `Clientes` open `Cartera`, `Cobranza del mes` opens `Analisis` and `Vencido` opens `Cobranza`. When nothing is overdue, `Vencido` switches to a green `Sin atrasos` state (semantic color instead of permanent alarm).
+- Wide screens lay the 4 priority collections out in a 2x2 grid so the tablet does not end in a single long column.
+- `new-loan` (`app/(app)/new-loan.tsx`) was rebuilt: client search by name/RUT/phone, inline quick client creation (name + valid RUT + phone), RUT formatting/validation, amount input formatted with thousands separators, monthly rate accepted with comma, native date picker for the start date, and a preview with `Cuota`, `Total a pagar` and `Intereses` plus the first eight installments.
+- Added `src/lib/rut.ts` (normalize/format/validate Chilean RUT, same algorithm as the desktop) and amount helpers in `src/lib/format.ts` (`formatAmountInput`, `parseAmountInput`).
+- Added `src/ui/DatePickerField.tsx`: a reusable calendar modal (Monday-first grid, month navigation, `Hoy` shortcut) with no native dependencies.
+- Payments now accept a **payment date**: `loans/[id]` shows a `Fecha del pago` field (today by default, future dates rejected) and sends it in the transaction payload; the schedule row and the transaction list display the chosen date.
+- Client detail gained a `Resumen` card (total lent, outstanding balance, overdue amount and next due date, computed from `useLoans`), a `Email` contact action (`openEmail` in `src/lib/contact.ts`) and RUT validation/formatting when editing.
+- `new-client` and the quick client form validate a real RUT, require a phone and a valid email shape, and format the RUT on blur.
+- Fixed the first-load blank screen on the new-loan route by forcing a clean app start before testing (no code change needed).
+- Verified on `MobiloanApi35` (1080x2400 @420): home layout with the quick calculator updating $500.000 → $800.000, client search, inline client creation (`TestDos` selected), start date 24-11-2026 applied to the new loan, preview totals $688.822 / $188.822, a payment saved with date 10-11-2026 reflected in the installment row, client summary and RUT/phone validation errors.
+
+## 2026-11-17
+
+### 1.2.11
+
+- Bumped the app to `1.2.11` (`versionCode 14`) and rebuilt the standalone release APK as `dist/mobiloan-beta-1.2.11.apk` (66,99 MB, SHA256 `B161A2ABA3FD886304EA0F1C90F57A65C287061F62AD07196B3C9930FA2C066A`).
+- Added a bulk importer at `Ajustes > Datos > Abrir importador` (`app/(app)/import-data.tsx`, `src/lib/importData.ts`) with three steps: pick file, map columns, review. It accepts `.xlsx`, `.xls`, `.csv` and portable `.json` backups, auto-detects `Nombre`, `RUT`, `Monto`, `Interes`, `Plazo` and `Fecha inicio`, and lets the user override each mapping with chips.
+- The spreadsheet path previews `clientes nuevos`, `prestamos` and `filas omitidas`, lists the parsed loans (date, term, rate, amount) and requires confirmation before writing. The portable path previews `clientes`, `prestamos`, `pagos` and `pendientes`, then upserts by id so re-importing the same backup does not duplicate rows.
+- Import parsing fixes: `$750.000`-style amounts parse correctly, Excel dates stored at 23:55–23:59 snap to the next day, and UTF-8 BOM (Windows Notepad/PowerShell) no longer breaks `JSON.parse`, `XLSX.read` or the first CSV column name.
+- Raw preview cells are formatted with `formatImportCell` (`Date` → `YYYY-MM-DD`, numbers grouped with dots) instead of showing serial numbers or unformatted decimals.
+- Import KPIs now share a single row (`kpiRow` without `wrap`, `flex: 1` boxes, `PreviewKpi` with `numberOfLines`/`adjustsFontSizeToFit`), so the fourth card no longer drops to its own line.
+- Import messages use correct singular/plural (`1 cliente`, `1 prestamo`, `0 cuotas`) in the confirmation dialog and the result alert.
+- Wide-screen review only splits into two columns when there are notices **and** a loan list; otherwise it uses the full width, removing the empty column seen on tablets.
+- Mirrored the BOM tolerance in the desktop importer (`src/pages/ImportData.jsx`).
+- Verified on `MobiloanApi35`: CSV (6 rows → 3 new clients, 4 loans, 2 skipped), XLSX (2 rows → 2 clients, 2 loans, dates `15-09-2026`/`01-10-2026`), portable JSON with BOM (1 client, 1 loan, 0 installments; re-import did not duplicate), plus the importer steps 1–3 in portrait, landscape (914 dp) and tablet (1600x2560 @240).
+
 ## 2026-11-13
 
 ### 1.2.10

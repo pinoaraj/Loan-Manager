@@ -39,6 +39,7 @@ interface KpiCardProps {
   iconColor?: string;
   iconBackground?: string;
   style?: StyleProp<ViewStyle>;
+  onPress?: () => void;
 }
 
 export function KpiCard({
@@ -50,43 +51,57 @@ export function KpiCard({
   iconColor = APP_THEME.accent,
   iconBackground = APP_THEME.accentSoft,
   style,
+  onPress,
 }: KpiCardProps) {
   const valueColor =
     tone === 'danger' ? '#B91C1C' : tone === 'success' ? '#047857' : APP_THEME.ink;
 
-  return (
-    <View style={[appStyles.kpiCard, style]}>
-      <View style={appStyles.kpiTop}>
-        <View style={appStyles.kpiBody}>
-          <Text style={appStyles.kpiLabel} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.8}>
-            {label}
-          </Text>
+  const content = (
+    <View style={appStyles.kpiTop}>
+      <View style={appStyles.kpiBody}>
+        <Text style={appStyles.kpiLabel} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.8}>
+          {label}
+        </Text>
+        <Text
+          style={[appStyles.kpiValue, { color: valueColor }]}
+          numberOfLines={1}
+          adjustsFontSizeToFit
+          minimumFontScale={0.7}
+        >
+          {value}
+        </Text>
+        {hint ? (
           <Text
-            style={[appStyles.kpiValue, { color: valueColor }]}
+            style={appStyles.kpiHint}
             numberOfLines={1}
             adjustsFontSizeToFit
             minimumFontScale={0.7}
           >
-            {value}
+            {hint}
           </Text>
-          {hint ? (
-            <Text
-              style={appStyles.kpiHint}
-              numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.7}
-            >
-              {hint}
-            </Text>
-          ) : null}
-        </View>
-        {icon ? (
-          <View style={[appStyles.kpiIconWrap, { backgroundColor: iconBackground }]}>
-            <Ionicons name={icon} size={18} color={iconColor} />
-          </View>
         ) : null}
       </View>
+      {icon ? (
+        <View style={[appStyles.kpiIconWrap, { backgroundColor: iconBackground }]}>
+          <Ionicons name={icon} size={18} color={iconColor} />
+        </View>
+      ) : null}
     </View>
+  );
+
+  if (!onPress) {
+    return <View style={[appStyles.kpiCard, style]}>{content}</View>;
+  }
+
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={`${label}: ${value}`}
+      style={({ pressed }) => [appStyles.kpiCard, style, pressed && { opacity: 0.85 }]}
+      onPress={onPress}
+    >
+      {content}
+    </Pressable>
   );
 }
 

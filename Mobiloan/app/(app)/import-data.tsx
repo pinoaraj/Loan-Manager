@@ -19,6 +19,7 @@ import { formatCurrency, formatDate, formatDateTime } from '../../src/lib/format
 import {
   buildPortablePreview,
   buildSpreadsheetPreview,
+  formatImportCell,
   IMPORT_FIELDS,
   pickImportFile,
   runSpreadsheetImport,
@@ -32,6 +33,29 @@ import type {
 } from '../../src/lib/importData';
 
 type Step = 1 | 2 | 3;
+
+function PreviewKpi({ value, label }: { value: number; label: string }) {
+  return (
+    <View style={styles.kpiBox}>
+      <Text
+        style={styles.kpiValue}
+        numberOfLines={1}
+        adjustsFontSizeToFit
+        minimumFontScale={0.7}
+      >
+        {value}
+      </Text>
+      <Text
+        style={styles.kpiLabel}
+        numberOfLines={1}
+        adjustsFontSizeToFit
+        minimumFontScale={0.7}
+      >
+        {label}
+      </Text>
+    </View>
+  );
+}
 
 const STEPS: Array<{ step: Step; label: string }> = [
   { step: 1, label: 'Archivo' },
@@ -125,7 +149,9 @@ export default function ImportDataScreen() {
         const result = await importMutation.mutateAsync(current.payload);
         Alert.alert(
           'Respaldo importado',
-          `${result.clients} clientes, ${result.loans} prestamos y ${result.payments} cuotas quedaron en el telefono.`,
+          `${result.clients} cliente${result.clients === 1 ? '' : 's'}, ${result.loans} prestamo${
+            result.loans === 1 ? '' : 's'
+          } y ${result.payments} cuota${result.payments === 1 ? '' : 's'} quedaron en el telefono.`,
         );
       } else {
         const result = await runSpreadsheetImport(current);
@@ -174,10 +200,16 @@ export default function ImportDataScreen() {
 
     const message =
       preview.source === 'mobiloan-portable'
-        ? `Se importaran ${preview.clients} clientes, ${preview.loans} prestamos y ${preview.paymentTransactions} pagos desde Mobiloan.`
-        : `Se crearan ${preview.clients.filter((client) => client.isNew).length} clientes nuevos y ${
-            preview.loans.length
-          } prestamos.`;
+        ? `Se importaran ${preview.clients} cliente${
+            preview.clients === 1 ? '' : 's'
+          }, ${preview.loans} prestamo${preview.loans === 1 ? '' : 's'} y ${
+            preview.paymentTransactions
+          } pago${preview.paymentTransactions === 1 ? '' : 's'} desde Mobiloan.`
+        : `Se crearan ${preview.clients.filter((client) => client.isNew).length} cliente${
+            preview.clients.filter((client) => client.isNew).length === 1 ? '' : 's'
+          } nuevo${
+            preview.clients.filter((client) => client.isNew).length === 1 ? '' : 's'
+          } y ${preview.loans.length} prestamo${preview.loans.length === 1 ? '' : 's'}.`;
 
     Alert.alert(
       'Confirmar importacion',
@@ -306,7 +338,7 @@ export default function ImportDataScreen() {
       const column = mapping?.[field.key] ?? '';
       const columnIndex = sheetFile?.columns.indexOf(column) ?? -1;
       const raw = columnIndex >= 0 ? row[columnIndex] : '';
-      return { label: field.label, value: String(raw ?? '').trim() || '—' };
+      return { label: field.label, value: formatImportCell(raw) || '—' };
     });
 
     return (
@@ -377,41 +409,21 @@ export default function ImportDataScreen() {
 
   const spreadsheetKpis = preview?.source === 'spreadsheet' ? (
     <View style={styles.kpiRow}>
-      <View style={styles.kpiBox}>
-        <Text style={styles.kpiValue}>
-          {preview.clients.filter((client) => client.isNew).length}
-        </Text>
-        <Text style={styles.kpiLabel}>Nuevos clientes</Text>
-      </View>
-      <View style={styles.kpiBox}>
-        <Text style={styles.kpiValue}>{preview.loans.length}</Text>
-        <Text style={styles.kpiLabel}>Prestamos</Text>
-      </View>
-      <View style={styles.kpiBox}>
-        <Text style={styles.kpiValue}>{preview.skippedCount}</Text>
-        <Text style={styles.kpiLabel}>Filas omitidas</Text>
-      </View>
+      <PreviewKpi
+        value={preview.clients.filter((client) => client.isNew).length}
+        label="Nuevos clientes"
+      />
+      <PreviewKpi value={preview.loans.length} label="Prestamos" />
+      <PreviewKpi value={preview.skippedCount} label="Filas omitidas" />
     </View>
   ) : null;
 
   const portableKpis = preview?.source === 'mobiloan-portable' ? (
     <View style={styles.kpiRow}>
-      <View style={styles.kpiBox}>
-        <Text style={styles.kpiValue}>{preview.clients}</Text>
-        <Text style={styles.kpiLabel}>Clientes</Text>
-      </View>
-      <View style={styles.kpiBox}>
-        <Text style={styles.kpiValue}>{preview.loans}</Text>
-        <Text style={styles.kpiLabel}>Prestamos</Text>
-      </View>
-      <View style={styles.kpiBox}>
-        <Text style={styles.kpiValue}>{preview.paymentTransactions}</Text>
-        <Text style={styles.kpiLabel}>Pagos</Text>
-      </View>
-      <View style={styles.kpiBox}>
-        <Text style={styles.kpiValue}>{preview.pendingOutbox}</Text>
-        <Text style={styles.kpiLabel}>Pendientes</Text>
-      </View>
+      <PreviewKpi value={preview.clients} label="Clientes" />
+      <PreviewKpi value={preview.loans} label="Prestamos" />
+      <PreviewKpi value={preview.paymentTransactions} label="Pagos" />
+      <PreviewKpi value={preview.pendingOutbox} label="Pendientes" />
     </View>
   ) : null;
 
@@ -488,12 +500,17 @@ export default function ImportDataScreen() {
       </View>
     ) : null;
 
+  const hasNotices =
+    preview?.source === 'mobiloan-portable' ||
+    (preview?.source === 'spreadsheet' && preview.skippedCount > 0);
+  const hasLoanList = preview?.source === 'spreadsheet';
+
   const reviewStep = (
     <>
       {spreadsheetKpis}
       {portableKpis}
 
-      {isWide ? (
+      {isWide && hasNotices && hasLoanList ? (
         <View style={appStyles.dashGrid}>
           <View style={appStyles.dashColumn}>{notices}</View>
           <View style={appStyles.dashColumn}>{loanList}</View>
@@ -662,12 +679,11 @@ const styles = StyleSheet.create({
   },
   kpiRow: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
     gap: 10,
   },
   kpiBox: {
-    flexGrow: 1,
-    flexBasis: 100,
+    flex: 1,
+    minWidth: 0,
     backgroundColor: APP_THEME.card,
     borderRadius: 18,
     padding: 14,
