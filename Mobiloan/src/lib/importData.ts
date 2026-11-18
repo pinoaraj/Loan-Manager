@@ -4,6 +4,7 @@ import * as XLSX from 'xlsx';
 
 import { localDb } from '../data/database';
 import { todayDateKey, toLocalDateKey } from './dates';
+import { DEFAULT_LATE_FEE_POLICY } from './lateFees';
 
 import type {
   ClientRecord,
@@ -615,6 +616,7 @@ export const runSpreadsheetImport = async (
         startDate: loan.startDate,
         frequency: 'monthly',
         loanType: 'Fixed',
+        ...DEFAULT_LATE_FEE_POLICY,
       });
       loans += 1;
     } catch (error) {

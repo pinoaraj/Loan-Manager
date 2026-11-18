@@ -1,4 +1,4 @@
-import * as Calendar from 'expo-calendar';
+import * as Calendar from 'expo-calendar/legacy';
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
 
@@ -118,38 +118,71 @@ const scheduleCollectionNotification = async (input: LocalReminderInput, reminde
 };
 
 export const createCollectionReminder = async (input: LocalReminderInput): Promise<LocalReminderResult> => {
-  await ensureCalendarPermission();
-  const calendarId = await resolveWritableCalendarId();
   const reminderDate = resolveReminderDate(input.dueDate);
   const startDate = new Date(reminderDate);
   const endDate = new Date(reminderDate.getTime() + 30 * 60 * 1000);
 
-  const eventId = await Calendar.createEventAsync(calendarId, {
-    title: buildReminderTitle(input),
-    notes: buildReminderNotes(input),
-    startDate,
-    endDate,
-    alarms: [{ relativeOffset: -24 * 60 }],
-  });
+  let calendarEventId: string | null = null;
+  let calendarError: string | null = null;
 
-  let notificationId = null;
+  /**
+   * El calendario es opcional: si el telefono no tiene una cuenta con
+   * calendario editable (o el usuario niega el permiso) igual programamos la
+   * notificacion local, que es el recordatorio que realmente importa.
+   */
+  try {
+    await ensureCalendarPermission();
+    const calendarId = await resolveWritableCalendarId();
+    calendarEventId = await Calendar.createEventAsync(calendarId, {
+      title: buildReminderTitle(input),
+      notes: buildReminderNotes(input),
+      startDate,
+      endDate,
+      alarms: [{ relativeOffset: -24 * 60 }],
+    });
+  } catch (error) {
+    calendarError =
+      error instanceof Error ? error.message : 'No se pudo crear el evento en el calendario.';
+  }
+
+  let notificationId: string | null = null;
   try {
     notificationId = await scheduleCollectionNotification(input, reminderDate);
   } catch (error) {
-    if (error instanceof Error && /notificaciones/i.test(error.message)) {
-      return {
-        calendarEventId: eventId,
-        notificationId: null,
-        scheduledFor: reminderDate.toISOString(),
-      };
+    const notificationError =
+      error instanceof Error ? error.message : 'No se pudo programar la notificacion.';
+
+    if (!calendarEventId) {
+      throw new Error(
+        [calendarError, notificationError].filter(Boolean).join(' ') ||
+          'No se pudo crear el recordatorio.',
+      );
     }
 
-    throw error;
+    // El evento de calendario si se creo; solo fallo la notificacion.
+    return {
+      calendarEventId,
+      notificationId: null,
+      scheduledFor: reminderDate.toISOString(),
+      calendarError: notificationError,
+    };
   }
 
   return {
-    calendarEventId: eventId,
+    calendarEventId,
     notificationId,
     scheduledFor: reminderDate.toISOString(),
+    calendarError,
   };
+};
+
+/** Mensaje para el alert despues de crear un recordatorio. */
+export const describeReminderResult = (result: LocalReminderResult): string => {
+  if (result.calendarEventId) {
+    return 'La cobranza quedo guardada en el calendario del telefono.';
+  }
+
+  const reason = (result.calendarError ?? 'motivo desconocido').replace(/\.+$/, '');
+
+  return `Quedo programada como notificacion en el telefono. No se pudo crear el evento en el calendario: ${reason}.`;
 };

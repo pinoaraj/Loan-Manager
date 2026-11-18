@@ -1,5 +1,21 @@
 # Update Log
 
+## 2026-11-18
+
+### 1.2.13
+
+- Bumped the app to `1.2.13` (`versionCode 16`) and rebuilt the standalone release APK as `dist/mobiloan-beta-1.2.13.apk` (67,02 MB, SHA256 `6F1312A4194EFACFE8E3103C26CF646363147D18DB46B110321D52D3598E0EFF`).
+- Added late fees (`mora`) to match the desktop: loans now store `graceDays`, `lateFeeType` (`Fixed`/`Percent`) and `lateFeeValue`, with the same defaults as the desktop (`3` days, `Fixed`, `0`) so existing loans are not charged retroactively.
+- Added `src/lib/lateFees.ts` with the shared rule: a fee is applied once to each unpaid installment whose delay exceeds the grace days (`daysOverdue > graceDays`); `Percent` charges a fraction of the installment and `Fixed` charges a flat amount.
+- `loans` gained the three columns plus an idempotent migration in `src/data/database.ts`; `LocalLoanDraft`, `upsertLoans`, `createLocalLoan`, schedule recalculation and the portable import all persist the policy.
+- `applyLateFees()` runs before `listLoans`, `getLoanDetail`, `listCollectionQueue`, `listPaymentAlerts` and `getCollectionProjections`, so portfolios, collection queues, balances and the home KPIs already include the fee. Paid installments are skipped, and overdue installments also move to `Overdue` after the grace period even when the fee amount is zero.
+- `Nuevo prestamo` gained a `Mora por atraso` section: `Monto fijo`/`Porcentaje`, the fee value and `Dias de gracia`, with a live description (`$2.000 por cuota, despues de 3 dias de gracia` or `5,00% de la cuota, ...`) and validation that a percentage cannot exceed 100%.
+- `loans/[id]` gained a `Condiciones` card (rate, term, start date and mora policy). Overdue installments keep showing `Mora $X` and the payment amount defaults to the installment plus its fee.
+- Validated on the emulator: fixed `$2.000` mora charged once to the two overdue installments of a `$150.000` loan (`Programado $193.282`), percentage `5%` mora (`Mora $3.155` per overdue installment, `Programado $258.686`) and `60` grace days suppressing the fee on a `$100.000` loan (`Programado $115.238`, no mora).
+- Fixed the `Crear recordatorio` crash: Expo SDK 56 moved the classic calendar API behind `expo-calendar/legacy`, and the deprecated `requestCalendarPermissionsAsync` import threw at runtime. `src/lib/calendar.ts` now imports from `expo-calendar/legacy`, so the calendar permission, event creation and 24-hour alarm work again.
+- Reminders no longer fail when the phone has no editable calendar (or the calendar permission is denied): the local notification is still scheduled and the alert explains that only the calendar event was skipped. `LocalReminderResult.calendarEventId` is now nullable and `describeReminderResult` builds the message for `Inicio`, `Cobranza` and the loan detail screen.
+- Added a global search (`app/(app)/search.tsx`) reachable from the magnifier icon in the `Inicio` header: it matches clients by name, RUT, phone or email and loans by client, status (including `vencido`) or amount/balance, ignoring accents and case. Empty query shows quick actions plus recent clients; results open the client or loan detail directly.
+
 ## 2026-11-17
 
 ### 1.2.12

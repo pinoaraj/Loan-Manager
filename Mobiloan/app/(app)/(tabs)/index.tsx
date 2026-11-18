@@ -12,7 +12,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { useDashboardStats, usePaymentAlerts } from '../../../src/hooks/useOfflineData';
-import { createCollectionReminder } from '../../../src/lib/calendar';
+import { createCollectionReminder, describeReminderResult } from '../../../src/lib/calendar';
 import { APP_THEME } from '../../../src/lib/config';
 import { openWhatsApp } from '../../../src/lib/contact';
 import { formatCompactCurrency, formatCurrency, formatDate } from '../../../src/lib/format';
@@ -97,7 +97,7 @@ export default function HomeScreen() {
 
   const handleAlertReminder = async (alert: PaymentAlertItem) => {
     try {
-      await createCollectionReminder({
+      const result = await createCollectionReminder({
         clientName: alert.clientName,
         clientPhone: alert.clientPhone,
         paymentId: alert.paymentId,
@@ -106,7 +106,7 @@ export default function HomeScreen() {
         dueDate: alert.dueDate,
         installmentLabel: `cuota ${formatDate(alert.dueDate)}`,
       });
-      Alert.alert('Recordatorio creado', 'La cobranza quedo guardada en el calendario del telefono.');
+      Alert.alert('Recordatorio creado', describeReminderResult(result));
     } catch (error) {
       Alert.alert(
         'No se pudo crear el recordatorio',
@@ -322,14 +322,24 @@ export default function HomeScreen() {
           title={`Hola, ${firstName}`}
           subtitle="Tu cartera en el bolsillo."
           right={
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel="Abrir ajustes"
-              style={appStyles.iconButton}
-              onPress={() => go('/settings')}
-            >
-              <Ionicons name="settings-outline" size={20} color={APP_THEME.accent} />
-            </Pressable>
+            <View style={appStyles.actionRow}>
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel="Buscar"
+                style={appStyles.iconButton}
+                onPress={() => go('/search' as Href)}
+              >
+                <Ionicons name="search-outline" size={20} color={APP_THEME.accent} />
+              </Pressable>
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel="Abrir ajustes"
+                style={appStyles.iconButton}
+                onPress={() => go('/settings')}
+              >
+                <Ionicons name="settings-outline" size={20} color={APP_THEME.accent} />
+              </Pressable>
+            </View>
           }
         />
 

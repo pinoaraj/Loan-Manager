@@ -1,5 +1,6 @@
 export type LoanFrequency = 'weekly' | 'bi-weekly' | 'monthly';
 export type LoanType = 'Fixed' | 'Simple';
+export type LateFeeType = 'Fixed' | 'Percent';
 export type LoanStatus = 'Active' | 'Paid' | 'Overdue' | 'Closed';
 export type PaymentStatus = 'Pending' | 'Partial' | 'Paid' | 'Overdue';
 
@@ -33,6 +34,12 @@ export interface LoanRecord {
   loanType: LoanType;
   status: LoanStatus;
   isPaused: boolean;
+  /** Dias de gracia antes de aplicar mora (default desktop: 3). */
+  graceDays?: number;
+  /** `Fixed` = monto fijo por cuota; `Percent` = porcentaje de la cuota. */
+  lateFeeType?: LateFeeType;
+  /** Monto en pesos o fraccion (0,05 = 5%), segun `lateFeeType`. */
+  lateFeeValue?: number;
   origin?: RecordOrigin;
   createdAt: string;
   updatedAt: string;
@@ -262,6 +269,9 @@ export interface LocalLoanDraft {
   startDate: string;
   frequency: LoanFrequency;
   loanType: LoanType;
+  graceDays: number;
+  lateFeeType: LateFeeType;
+  lateFeeValue: number;
 }
 
 export interface LocalReminderInput {
@@ -275,9 +285,11 @@ export interface LocalReminderInput {
 }
 
 export interface LocalReminderResult {
-  calendarEventId: string;
+  calendarEventId: string | null;
   notificationId: string | null;
   scheduledFor: string;
+  /** Motivo por el que no se pudo crear el evento de calendario, si aplica. */
+  calendarError?: string | null;
 }
 
 export interface PortableSyncPackage {

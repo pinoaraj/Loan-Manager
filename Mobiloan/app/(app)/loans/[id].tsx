@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 
 import { openPhoneCall, openWhatsApp } from '../../../src/lib/contact';
-import { createCollectionReminder } from '../../../src/lib/calendar';
+import { createCollectionReminder, describeReminderResult } from '../../../src/lib/calendar';
 import { differenceInDays, isValidDateInput, parseStoredDate, todayDateKey } from '../../../src/lib/dates';
 import { formatCurrency, formatDate, formatDateTime } from '../../../src/lib/format';
 import {
@@ -20,6 +20,7 @@ import {
   paymentMethodLabel,
 } from '../../../src/lib/labels';
 import { getLoanHealth } from '../../../src/lib/loanHealth';
+import { lateFeePolicyDescription, resolveLateFeePolicy } from '../../../src/lib/lateFees';
 import { getReceiptMessage, getReminderMessage } from '../../../src/lib/messages';
 import { buildInstallmentRows } from '../../../src/lib/schedule';
 import {
@@ -125,6 +126,7 @@ export default function LoanDetailScreen() {
 
   const totalPaid = payments.reduce((sum, payment) => sum + payment.paidAmount, 0);
   const totalScheduled = payments.reduce((sum, payment) => sum + payment.amount + payment.lateFee, 0);
+  const lateFeePolicy = resolveLateFeePolicy(loan);
 
   const handleQueuePayment = async () => {
     if (!selectedPaymentId) {
@@ -478,6 +480,32 @@ export default function LoanDetailScreen() {
       </View>
       );
 
+      const conditionsCard = loan ? (
+      <View style={appStyles.card}>
+        <Text style={appStyles.cardTitle}>Condiciones</Text>
+        <View style={appStyles.dataRow}>
+          <Text style={appStyles.dataLabel}>Tasa por periodo</Text>
+          <Text style={appStyles.dataValue}>
+            {`${(loan.interestRate * 100).toFixed(2).replace('.', ',')}%`}
+          </Text>
+        </View>
+        <View style={appStyles.dataRow}>
+          <Text style={appStyles.dataLabel}>Plazo</Text>
+          <Text style={appStyles.dataValue}>{`${loan.durationMonths} cuotas`}</Text>
+        </View>
+        <View style={appStyles.dataRow}>
+          <Text style={appStyles.dataLabel}>Inicio</Text>
+          <Text style={appStyles.dataValue}>{formatDate(loan.startDate)}</Text>
+        </View>
+        <View style={appStyles.dataRow}>
+          <Text style={appStyles.dataLabel}>Mora</Text>
+          <Text style={appStyles.dataValue} numberOfLines={2}>
+            {lateFeePolicyDescription(lateFeePolicy)}
+          </Text>
+        </View>
+      </View>
+      ) : null;
+
       const documentsCard = (
       <View style={appStyles.card}>
         <Text style={appStyles.cardTitle}>Documentos</Text>
@@ -617,7 +645,7 @@ export default function LoanDetailScreen() {
             style={appStyles.buttonMuted}
             onPress={async () => {
               try {
-                await createCollectionReminder({
+                const result = await createCollectionReminder({
                   clientName: client?.name || 'Cliente',
                   clientPhone: client?.phone,
                   paymentId: selectedPayment.id,
@@ -626,7 +654,7 @@ export default function LoanDetailScreen() {
                   dueDate: selectedPayment.dueDate,
                   installmentLabel: `cuota ${formatDate(selectedPayment.dueDate)}`,
                 });
-                Alert.alert('Recordatorio creado', 'La cobranza quedo guardada en el calendario del telefono.');
+                Alert.alert('Recordatorio creado', describeReminderResult(result));
               } catch (error) {
                 Alert.alert('No se pudo crear el recordatorio', error instanceof Error ? error.message : 'Error desconocido');
               }
@@ -770,6 +798,7 @@ export default function LoanDetailScreen() {
           <View style={appStyles.dashColumn}>
             {contactCard}
             {statsGrid}
+            {conditionsCard}
             {documentsCard}
             {adminCard}
           </View>
@@ -782,6 +811,7 @@ export default function LoanDetailScreen() {
         <View style={appStyles.dashColumn}>
           {contactCard}
           {statsGrid}
+          {conditionsCard}
           {documentsCard}
           {adminCard}
           {paymentCard}

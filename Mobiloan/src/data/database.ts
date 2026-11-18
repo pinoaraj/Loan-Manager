@@ -7,6 +7,11 @@ import {
   toStoredDueDate,
   todayDateKey,
 } from '../lib/dates';
+import {
+  calculateLateFee,
+  isPastGracePeriod,
+  resolveLateFeePolicy,
+} from '../lib/lateFees';
 import { createClientMutationId } from '../lib/mutationId';
 
 import type {
@@ -84,6 +89,28 @@ const ensureOriginColumn = async (
          OR id GLOB 'local_*'`,
     [`${localIdPrefix}_*`],
   );
+};
+
+/**
+ * Agrega la politica de mora a instalaciones que ya tenian la tabla `loans`.
+ * Los defaults calzan con el desktop (`3` dias, monto fijo, `0`), asi que los
+ * prestamos existentes no empiezan a cobrar mora por sorpresa.
+ */
+const ensureLateFeeColumns = async (database: SQLite.SQLiteDatabase) => {
+  const columns = await database.getAllAsync<{ name: string }>(`PRAGMA table_info(loans)`);
+  const names = new Set(columns.map((column) => column.name));
+
+  if (!names.has('graceDays')) {
+    await database.execAsync(`ALTER TABLE loans ADD COLUMN graceDays INTEGER NOT NULL DEFAULT 3`);
+  }
+
+  if (!names.has('lateFeeType')) {
+    await database.execAsync(`ALTER TABLE loans ADD COLUMN lateFeeType TEXT NOT NULL DEFAULT 'Fixed'`);
+  }
+
+  if (!names.has('lateFeeValue')) {
+    await database.execAsync(`ALTER TABLE loans ADD COLUMN lateFeeValue REAL NOT NULL DEFAULT 0`);
+  }
 };
 
 const isPastDue = (dueDate: string) => {
@@ -205,6 +232,9 @@ export const localDb = {
         loanType TEXT NOT NULL,
         status TEXT NOT NULL,
         isPaused INTEGER NOT NULL DEFAULT 0,
+        graceDays INTEGER NOT NULL DEFAULT 3,
+        lateFeeType TEXT NOT NULL DEFAULT 'Fixed',
+        lateFeeValue REAL NOT NULL DEFAULT 0,
         origin TEXT NOT NULL DEFAULT 'server',
         createdAt TEXT NOT NULL,
         updatedAt TEXT NOT NULL
@@ -257,6 +287,7 @@ export const localDb = {
     await ensureOriginColumn(database, 'clients', 'client');
     await ensureOriginColumn(database, 'loans', 'loan');
     await ensureOriginColumn(database, 'payments', 'payment');
+    await ensureLateFeeColumns(database);
   },
 
   async resetSnapshot(): Promise<void> {
@@ -322,9 +353,10 @@ export const localDb = {
   async upsertLoans(records: LoanRecord[]): Promise<void> {
     const database = await getDatabase();
     for (const record of records) {
+      const lateFeePolicy = resolveLateFeePolicy(record);
       await database.runAsync(
-        `INSERT INTO loans (id, clientId, amount, interestRate, durationMonths, startDate, frequency, loanType, status, isPaused, origin, createdAt, updatedAt)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'server', ?, ?)
+        `INSERT INTO loans (id, clientId, amount, interestRate, durationMonths, startDate, frequency, loanType, status, isPaused, graceDays, lateFeeType, lateFeeValue, origin, createdAt, updatedAt)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'server', ?, ?)
          ON CONFLICT(id) DO UPDATE SET
            clientId = excluded.clientId,
            amount = excluded.amount,
@@ -335,6 +367,9 @@ export const localDb = {
            loanType = excluded.loanType,
            status = excluded.status,
            isPaused = excluded.isPaused,
+           graceDays = excluded.graceDays,
+           lateFeeType = excluded.lateFeeType,
+           lateFeeValue = excluded.lateFeeValue,
            updatedAt = excluded.updatedAt`,
         [
           record.id,
@@ -347,6 +382,9 @@ export const localDb = {
           record.loanType,
           record.status,
           record.isPaused ? 1 : 0,
+          lateFeePolicy.graceDays,
+          lateFeePolicy.lateFeeType,
+          lateFeePolicy.lateFeeValue,
           record.createdAt,
           record.updatedAt,
         ],
@@ -638,6 +676,8 @@ export const localDb = {
 
   async listCollectionQueue(filter: CollectionFilter): Promise<CollectionQueueItem[]> {
     const database = await getDatabase();
+    await this.applyLateFees();
+
     const todayKey = todayDateKey();
 
     const rows = await database.getAllAsync<any>(
@@ -725,6 +765,8 @@ export const localDb = {
     transactions: PaymentTransactionRecord[];
   }> {
     const database = await getDatabase();
+    await this.applyLateFees(loanId);
+
     const loanRow = await database.getFirstAsync<any>(
       `SELECT * FROM loans WHERE id = ?`,
       [loanId],
@@ -847,6 +889,11 @@ export const localDb = {
       throw new Error('La fecha de inicio debe tener el formato AAAA-MM-DD.');
     }
 
+    const lateFeePolicy = resolveLateFeePolicy(draft);
+    if (lateFeePolicy.lateFeeType === 'Percent' && lateFeePolicy.lateFeeValue > 1) {
+      throw new Error('La mora porcentual no puede superar el 100% de la cuota.');
+    }
+
     const now = new Date().toISOString();
     const loan: LoanRecord = {
       id: createLocalId('loan'),
@@ -859,6 +906,7 @@ export const localDb = {
       loanType: draft.loanType,
       status: 'Active',
       isPaused: false,
+      ...lateFeePolicy,
       createdAt: now,
       updatedAt: now,
     };
@@ -889,8 +937,8 @@ export const localDb = {
     }));
 
     await database.runAsync(
-      `INSERT INTO loans (id, clientId, amount, interestRate, durationMonths, startDate, frequency, loanType, status, isPaused, origin, createdAt, updatedAt)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'local', ?, ?)`,
+      `INSERT INTO loans (id, clientId, amount, interestRate, durationMonths, startDate, frequency, loanType, status, isPaused, graceDays, lateFeeType, lateFeeValue, origin, createdAt, updatedAt)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'local', ?, ?)`,
       [
         loan.id,
         loan.clientId,
@@ -902,6 +950,9 @@ export const localDb = {
         loan.loanType,
         loan.status,
         0,
+        lateFeePolicy.graceDays,
+        lateFeePolicy.lateFeeType,
+        lateFeePolicy.lateFeeValue,
         loan.createdAt,
         loan.updatedAt,
       ],
@@ -928,8 +979,65 @@ export const localDb = {
     return { loan, payments };
   },
 
+  /**
+   * Aplica la mora una sola vez a cada cuota vencida que supero los dias de
+   * gracia. Se ejecuta antes de leer cartera, cobranza, alertas y ficha, igual
+   * que `checkAndApplyLateFees` en el desktop, para que los saldos mostrados ya
+   * incluyan el recargo.
+   */
+  async applyLateFees(loanId?: string): Promise<void> {
+    const database = await getDatabase();
+    const rows = await database.getAllAsync<any>(
+      `SELECT
+         p.id AS id,
+         p.amount AS amount,
+         p.lateFee AS lateFee,
+         p.paidAmount AS paidAmount,
+         p.dueDate AS dueDate,
+         p.status AS status,
+         l.graceDays AS graceDays,
+         l.lateFeeType AS lateFeeType,
+         l.lateFeeValue AS lateFeeValue
+       FROM payments p
+       INNER JOIN loans l ON l.id = p.loanId
+       WHERE p.status != 'Paid'
+         ${loanId ? 'AND p.loanId = ?' : ''}`,
+      loanId ? [loanId] : [],
+    );
+
+    const today = new Date();
+    for (const row of rows) {
+      const policy = resolveLateFeePolicy(row);
+      if (!isPastGracePeriod(row.dueDate, policy, today)) {
+        continue;
+      }
+
+      const amount = toNumber(row.amount);
+      const expectedFee = calculateLateFee(amount, policy);
+      const paidAmount = toNumber(row.paidAmount);
+      const status = derivePaymentStatus({
+        amount,
+        lateFee: expectedFee,
+        paidAmount,
+        dueDate: row.dueDate,
+      });
+
+      const feeChanged = Math.abs(toNumber(row.lateFee) - expectedFee) >= PAYMENT_EPSILON;
+      if (!feeChanged && status === row.status) {
+        continue;
+      }
+
+      await database.runAsync(
+        `UPDATE payments SET lateFee = ?, status = ?, updatedAt = ? WHERE id = ?`,
+        [expectedFee, status, new Date().toISOString(), row.id],
+      );
+    }
+  },
+
   async listLoans(): Promise<LoanListItem[]> {
     const database = await getDatabase();
+    await this.applyLateFees();
+
     const loanRows = await database.getAllAsync<any>(
       `SELECT l.*, c.name AS clientName, c.phone AS clientPhone
        FROM loans l
@@ -1119,6 +1227,8 @@ export const localDb = {
 
   async listPaymentAlerts(limit = 6): Promise<PaymentAlertItem[]> {
     const database = await getDatabase();
+    await this.applyLateFees();
+
     const today = new Date();
     const todayKey = todayDateKey();
     const horizon = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 30);
@@ -1225,6 +1335,8 @@ export const localDb = {
 
   async getCollectionProjections(months = 6): Promise<CollectionProjectionPoint[]> {
     const database = await getDatabase();
+    await this.applyLateFees();
+
     const today = new Date();
     const todayKey = todayDateKey();
     const horizon = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 180);
@@ -1513,9 +1625,10 @@ export const localDb = {
           continue;
         }
 
+        const lateFeePolicy = resolveLateFeePolicy(loan);
         await database.runAsync(
-          `INSERT INTO loans (id, clientId, amount, interestRate, durationMonths, startDate, frequency, loanType, status, isPaused, origin, createdAt, updatedAt)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'local', ?, ?)
+          `INSERT INTO loans (id, clientId, amount, interestRate, durationMonths, startDate, frequency, loanType, status, isPaused, graceDays, lateFeeType, lateFeeValue, origin, createdAt, updatedAt)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'local', ?, ?)
            ON CONFLICT(id) DO UPDATE SET
              clientId = excluded.clientId,
              amount = excluded.amount,
@@ -1526,6 +1639,9 @@ export const localDb = {
              loanType = excluded.loanType,
              status = excluded.status,
              isPaused = excluded.isPaused,
+             graceDays = excluded.graceDays,
+             lateFeeType = excluded.lateFeeType,
+             lateFeeValue = excluded.lateFeeValue,
              updatedAt = excluded.updatedAt`,
           [
             loan.id,
@@ -1538,6 +1654,9 @@ export const localDb = {
             loan.loanType,
             loan.status ?? 'Active',
             loan.isPaused ? 1 : 0,
+            lateFeePolicy.graceDays,
+            lateFeePolicy.lateFeeType,
+            lateFeePolicy.lateFeeValue,
             loan.createdAt ?? new Date().toISOString(),
             loan.updatedAt ?? new Date().toISOString(),
           ],

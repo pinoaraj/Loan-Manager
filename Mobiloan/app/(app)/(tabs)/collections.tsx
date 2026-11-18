@@ -13,7 +13,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { useCollectionQueue, usePaymentAlerts } from '../../../src/hooks/useOfflineData';
-import { createCollectionReminder } from '../../../src/lib/calendar';
+import { createCollectionReminder, describeReminderResult } from '../../../src/lib/calendar';
 import { APP_THEME } from '../../../src/lib/config';
 import { openPhoneCall, openWhatsApp } from '../../../src/lib/contact';
 import { differenceInDays, parseStoredDate } from '../../../src/lib/dates';
@@ -175,7 +175,7 @@ export default function CollectionsScreen() {
 
   const handleReminder = useCallback(async (item: CollectionQueueItem) => {
     try {
-      await createCollectionReminder({
+      const result = await createCollectionReminder({
         clientName: item.clientName,
         clientPhone: item.clientPhone,
         paymentId: item.paymentId,
@@ -184,7 +184,7 @@ export default function CollectionsScreen() {
         dueDate: item.dueDate,
         installmentLabel: `cuota ${formatDate(item.dueDate)}`,
       });
-      Alert.alert('Recordatorio creado', 'La cobranza quedo guardada en el calendario del telefono.');
+      Alert.alert('Recordatorio creado', describeReminderResult(result));
     } catch (error) {
       Alert.alert(
         'No se pudo crear el recordatorio',

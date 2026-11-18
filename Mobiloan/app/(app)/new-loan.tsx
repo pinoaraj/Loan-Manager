@@ -15,6 +15,7 @@ import { useCreateLocalClient, useCreateLocalLoan } from '../../src/hooks/useSyn
 import { calculateAmortization } from '../../src/lib/amortization';
 import { isValidDateInput, todayDateKey } from '../../src/lib/dates';
 import { formatAmountInput, formatCurrency, formatDate, parseAmountInput } from '../../src/lib/format';
+import { lateFeePolicyDescription, resolveLateFeePolicy } from '../../src/lib/lateFees';
 import { formatRut, isValidRut } from '../../src/lib/rut';
 import { appStyles } from '../../src/ui/styles';
 import { DatePickerField } from '../../src/ui/DatePickerField';
@@ -50,6 +51,10 @@ export default function NewLoanScreen() {
   const [startDate, setStartDate] = useState(todayDateKey());
   const [frequency, setFrequency] = useState<'monthly' | 'bi-weekly' | 'weekly'>('monthly');
   const [loanType, setLoanType] = useState<'Fixed' | 'Simple'>('Fixed');
+  const [graceDays, setGraceDays] = useState('3');
+  const [lateFeeType, setLateFeeType] = useState<'Fixed' | 'Percent'>('Fixed');
+  const [lateFeeFixed, setLateFeeFixed] = useState('0');
+  const [lateFeePercent, setLateFeePercent] = useState('0');
 
   const clients = clientsQuery.data ?? [];
   const selectedClient = clients.find((item) => item.id === clientId) ?? null;
@@ -69,6 +74,20 @@ export default function NewLoanScreen() {
   const principal = parseAmountInput(amount);
   const rate = parseRate(interestRate);
   const months = Number(durationMonths);
+  const grace = Number(graceDays);
+
+  const lateFeePolicy = useMemo(
+    () =>
+      resolveLateFeePolicy({
+        graceDays: graceDays.trim() === '' ? undefined : grace,
+        lateFeeType,
+        lateFeeValue:
+          lateFeeType === 'Percent'
+            ? parseRate(lateFeePercent) / 100
+            : parseAmountInput(lateFeeFixed),
+      }),
+    [grace, graceDays, lateFeeFixed, lateFeePercent, lateFeeType],
+  );
 
   const preview = useMemo(() => {
     if (!isValidDateInput(startDate)) {
@@ -176,6 +195,16 @@ export default function NewLoanScreen() {
       return;
     }
 
+    if (!Number.isFinite(grace) || grace < 0) {
+      Alert.alert('Dias de gracia invalidos', 'Escribe los dias de gracia antes de cobrar mora (0 o mas).');
+      return;
+    }
+
+    if (lateFeeType === 'Percent' && lateFeePolicy.lateFeeValue > 1) {
+      Alert.alert('Mora invalida', 'El porcentaje de mora no puede superar el 100% de la cuota.');
+      return;
+    }
+
     try {
       const result = await createLoan.mutateAsync({
         clientId,
@@ -185,6 +214,9 @@ export default function NewLoanScreen() {
         startDate,
         frequency,
         loanType,
+        graceDays: lateFeePolicy.graceDays,
+        lateFeeType,
+        lateFeeValue: lateFeePolicy.lateFeeValue,
       });
 
       router.replace({ pathname: '/(app)/loans/[id]', params: { id: result.loan.id } });
@@ -405,6 +437,57 @@ export default function NewLoanScreen() {
           </Pressable>
         ))}
       </View>
+
+      <Text style={appStyles.label}>Mora por atraso</Text>
+      <View style={appStyles.actionRow}>
+        {(['Fixed', 'Percent'] as const).map((value) => (
+          <Pressable
+            key={value}
+            style={lateFeeType === value ? appStyles.button : appStyles.buttonMuted}
+            onPress={() => setLateFeeType(value)}
+          >
+            <Text style={lateFeeType === value ? appStyles.buttonText : appStyles.buttonMutedText}>
+              {value === 'Fixed' ? 'Monto fijo' : 'Porcentaje'}
+            </Text>
+          </Pressable>
+        ))}
+      </View>
+
+      <View style={appStyles.fieldRow}>
+        <View style={appStyles.fieldColumn}>
+          <Text style={appStyles.label}>
+            {lateFeeType === 'Percent' ? 'Porcentaje de la cuota' : 'Monto por cuota'}
+          </Text>
+          {lateFeeType === 'Percent' ? (
+            <TextInput
+              value={lateFeePercent}
+              onChangeText={(text) => setLateFeePercent(text.replace(/[^\d,.]/g, ''))}
+              keyboardType="decimal-pad"
+              style={appStyles.input}
+              placeholder="5 = 5%"
+            />
+          ) : (
+            <TextInput
+              value={lateFeeFixed}
+              onChangeText={(text) => setLateFeeFixed(formatAmountInput(text))}
+              keyboardType="number-pad"
+              style={appStyles.input}
+              placeholder="0"
+            />
+          )}
+        </View>
+        <View style={appStyles.fieldColumn}>
+          <Text style={appStyles.label}>Dias de gracia</Text>
+          <TextInput
+            value={graceDays}
+            onChangeText={(text) => setGraceDays(text.replace(/[^\d]/g, ''))}
+            keyboardType="number-pad"
+            style={appStyles.input}
+            placeholder="3"
+          />
+        </View>
+      </View>
+      <Text style={appStyles.itemText}>{lateFeePolicyDescription(lateFeePolicy)}</Text>
 
       <Pressable
         style={[appStyles.button, createLoan.isPending && { opacity: 0.7 }]}
