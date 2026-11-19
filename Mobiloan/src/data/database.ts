@@ -32,6 +32,7 @@ import type {
   RecentActivityItem,
   RejectedOutboxItem,
   PaymentTransactionRecord,
+  ReminderTarget,
   SyncSnapshot,
   SyncDeletedIds,
 } from '../types/sync';
@@ -672,6 +673,68 @@ export const localDb = {
       updatedAt: row.updatedAt,
       activeLoanCount: Number(row.activeLoanCount || 0),
     }));
+  },
+
+  /**
+   * Cuotas impagas de prestamos activos que vencen dentro del horizonte dado.
+   * Alimenta los recordatorios automaticos (un aviso el dia anterior y otro
+   * el dia del vencimiento).
+   */
+  async listReminderTargets(daysAhead = 60): Promise<ReminderTarget[]> {
+    const database = await getDatabase();
+    await this.applyLateFees();
+
+    const todayKey = todayDateKey();
+    const horizon = new Date();
+    horizon.setDate(horizon.getDate() + Math.max(1, Math.floor(daysAhead)));
+    const horizonKey = toLocalDateKey(horizon) as string;
+
+    const rows = await database.getAllAsync<any>(
+      `SELECT
+         p.id AS paymentId,
+         p.loanId AS loanId,
+         p.amount AS amount,
+         p.lateFee AS lateFee,
+         p.paidAmount AS paidAmount,
+         p.dueDate AS dueDate,
+         c.id AS clientId,
+         c.name AS clientName,
+         c.phone AS clientPhone
+       FROM payments p
+       INNER JOIN loans l ON l.id = p.loanId
+       INNER JOIN clients c ON c.id = l.clientId
+       WHERE p.status != 'Paid'
+         AND l.isPaused = 0
+       ORDER BY p.dueDate ASC`,
+    );
+
+    return rows
+      .map((row) => {
+        const amount = toNumber(row.amount);
+        const remaining = Math.max(
+          amount + toNumber(row.lateFee) - toNumber(row.paidAmount),
+          0,
+        );
+
+        return {
+          paymentId: row.paymentId,
+          loanId: row.loanId,
+          clientId: row.clientId,
+          clientName: row.clientName,
+          clientPhone: row.clientPhone ?? null,
+          dueDate: row.dueDate,
+          remaining,
+        };
+      })
+      .filter((row) => {
+        const dueDateKey = toLocalDateKey(row.dueDate);
+        return (
+          row.remaining > 0 &&
+          dueDateKey !== null &&
+          dueDateKey >= todayKey &&
+          dueDateKey <= horizonKey
+        );
+      });
   },
 
   async listCollectionQueue(filter: CollectionFilter): Promise<CollectionQueueItem[]> {

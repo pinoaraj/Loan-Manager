@@ -1,5 +1,16 @@
 # Update Log
 
+## 2026-11-19
+
+### 1.2.14
+
+- Bumped the app to `1.2.14` (`versionCode 17`).
+- Added automatic collection reminders: `Ajustes > Recordatorios de cobro` schedules two local notifications per unpaid installment (one day before and on the due date, both at 09:00) for active loans due within the next 60 days. Automatic notifications are tagged so recalculating them never cancels the manual reminders created from `Inicio`, `Cobranza` or the loan detail.
+- `src/lib/autoReminders.ts` stores the preference in local settings, requests notification permission only when the switch is turned on, and recalculates the schedule when loans/payments change or when the app returns to the foreground. If permission is denied, the switch returns to off instead of promising reminders that cannot arrive.
+- Added `localDb.listReminderTargets(daysAhead)` (native + web mirror) to return unpaid, non-paused installments with their remaining amount and client contact data.
+- Added the `Recordatorios de cobro` card to `Ajustes`, with a switch and a short explanation of when the notices fire.
+- Fixed duplicated notices: the sync now runs through a queue (the layout fires it from two effects) and every notification uses a stable identifier, so recalculating replaces the previous notice instead of stacking copies.
+
 ## 2026-11-18
 
 ### 1.2.13

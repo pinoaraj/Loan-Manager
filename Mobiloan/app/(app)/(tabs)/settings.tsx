@@ -1,6 +1,14 @@
 import { router } from 'expo-router';
-import { useState } from 'react';
-import { Alert, Pressable, ScrollView, Text, useWindowDimensions, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import {
+  Alert,
+  Pressable,
+  ScrollView,
+  Switch,
+  Text,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import {
@@ -15,7 +23,11 @@ import {
   useManualSync,
   useRetryRejectedMutation,
 } from '../../../src/hooks/useSyncActions';
-import { APP_VERSION } from '../../../src/lib/config';
+import {
+  getAutoReminderEnabled,
+  setAutoRemindersEnabled,
+} from '../../../src/lib/autoReminders';
+import { APP_THEME, APP_VERSION } from '../../../src/lib/config';
 import { formatCurrency, formatDate, formatDateTime } from '../../../src/lib/format';
 import { paymentMethodLabel } from '../../../src/lib/labels';
 import { pickPortableSnapshot, sharePortfolioCsv } from '../../../src/lib/reports';
@@ -57,6 +69,14 @@ export default function SettingsScreen() {
   const [exporting, setExporting] = useState(false);
   const [exportingPortfolio, setExportingPortfolio] = useState(false);
   const [importing, setImporting] = useState(false);
+  const [autoReminders, setAutoReminders] = useState(false);
+  const [remindersBusy, setRemindersBusy] = useState(false);
+
+  useEffect(() => {
+    getAutoReminderEnabled()
+      .then(setAutoReminders)
+      .catch(() => setAutoReminders(false));
+  }, []);
 
   const snapshot = snapshotQuery.data;
   const loans = loansQuery.data ?? [];
@@ -126,6 +146,42 @@ export default function SettingsScreen() {
     }
   };
 
+  const handleToggleReminders = async (enabled: boolean) => {
+    setRemindersBusy(true);
+    try {
+      const result = await setAutoRemindersEnabled(enabled);
+      setAutoReminders(result.enabled);
+
+      if (!enabled) {
+        Alert.alert('Recordatorios desactivados', 'Se quitaron los avisos automaticos de cobro.');
+        return;
+      }
+
+      if (result.permissionDenied) {
+        Alert.alert(
+          'Permiso de notificaciones',
+          'Activa las notificaciones de Mobiloan en Ajustes del telefono para recibir los recordatorios.',
+        );
+        return;
+      }
+
+      Alert.alert(
+        'Recordatorios activados',
+        result.scheduled > 0
+          ? `Se programaron ${result.scheduled} avisos: un dia antes y el dia del vencimiento, a las 09:00.`
+          : 'No hay cuotas proximas dentro de los proximos 60 dias. Se programaran cuando agregues prestamos.',
+      );
+    } catch (error) {
+      setAutoReminders(!enabled);
+      Alert.alert(
+        'No se pudo actualizar',
+        error instanceof Error ? error.message : 'Error desconocido',
+      );
+    } finally {
+      setRemindersBusy(false);
+    }
+  };
+
   const handleImport = async () => {
     setImporting(true);
     try {
@@ -173,6 +229,26 @@ export default function SettingsScreen() {
         {authMessage ? (
           <Text style={appStyles.itemText}>Detalle backend: {authMessage}</Text>
         ) : null}
+      </View>
+
+      <View style={appStyles.card}>
+        <View style={appStyles.rowBetween}>
+          <Text style={appStyles.cardTitle}>Recordatorios de cobro</Text>
+          <Switch
+            value={autoReminders}
+            onValueChange={handleToggleReminders}
+            disabled={remindersBusy}
+            trackColor={{ false: '#CBD5E1', true: APP_THEME.accent }}
+            thumbColor="#F8FDFF"
+          />
+        </View>
+        <Text style={appStyles.cardSubtitle}>
+          Avisos automaticos un dia antes y el dia del vencimiento, a las 09:00.
+        </Text>
+        <Text style={appStyles.itemText}>
+          Se recalculan al abrir la app y al registrar prestamos o pagos. Solo avisan cuotas impagas
+          de prestamos activos dentro de los proximos 60 dias.
+        </Text>
       </View>
 
       <View style={appStyles.card}>

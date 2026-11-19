@@ -1,12 +1,37 @@
 import { Redirect, Stack } from 'expo-router';
+import { useEffect } from 'react';
+import { AppState } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { useLoans } from '../../src/hooks/useOfflineData';
+import { syncAutoReminders } from '../../src/lib/autoReminders';
 import { APP_THEME } from '../../src/lib/config';
 import { useSession } from '../../src/providers/AppProviders';
 
 export default function AppLayout() {
   const { session } = useSession();
   const insets = useSafeAreaInsets();
+  const loansQuery = useLoans();
+  const dataStamp = loansQuery.dataUpdatedAt;
+
+  // Recalcula los avisos cuando cambian los prestamos o pagos y al volver a
+  // primer plano, sin pedir permisos ni interrumpir al usuario.
+  useEffect(() => {
+    if (!session) {
+      return;
+    }
+    syncAutoReminders().catch(() => undefined);
+  }, [dataStamp, session]);
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', (state) => {
+      if (state === 'active' && session) {
+        syncAutoReminders().catch(() => undefined);
+      }
+    });
+
+    return () => subscription.remove();
+  }, [session]);
 
   if (!session) {
     return <Redirect href="/login" />;

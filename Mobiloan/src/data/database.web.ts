@@ -12,10 +12,12 @@ import type {
   PortableSyncPackage,
   RecordOrigin,
   RejectedOutboxItem,
+  ReminderTarget,
   SyncDeletedIds,
   SyncSnapshot,
 } from '../types/sync';
 import { calculateAmortization } from '../lib/amortization';
+import { toLocalDateKey } from '../lib/dates';
 
 const STORAGE_KEY = 'mobiloan.web.db';
 const PAYMENT_EPSILON = 0.01;
@@ -455,6 +457,47 @@ export const localDb = {
         (left, right) =>
           left.dueDate.localeCompare(right.dueDate) || left.clientName.localeCompare(right.clientName),
       );
+  },
+
+  async listReminderTargets(daysAhead = 60): Promise<ReminderTarget[]> {
+    const state = loadState();
+    const today = new Date();
+    const todayKey = toLocalDateKey(today);
+    const horizon = new Date(today);
+    horizon.setDate(horizon.getDate() + Math.max(1, Math.floor(daysAhead)));
+    const horizonKey = toLocalDateKey(horizon);
+
+    return state.payments
+      .filter((payment) => payment.status !== 'Paid')
+      .map((payment) => {
+        const loan = state.loans.find((item) => item.id === payment.loanId);
+        const client = loan ? state.clients.find((item) => item.id === loan.clientId) : null;
+
+
+        return {
+          paymentId: payment.id,
+          loanId: payment.loanId,
+          clientId: loan?.clientId ?? '',
+          clientName: client?.name ?? 'Cliente',
+          clientPhone: client?.phone ?? null,
+          dueDate: payment.dueDate,
+          remaining: Math.max(payment.amount + payment.lateFee - payment.paidAmount, 0),
+          isPaused: Boolean(loan?.isPaused),
+        };
+      })
+      .filter((row) => {
+        const dueDateKey = toLocalDateKey(row.dueDate);
+        return (
+          !row.isPaused &&
+          row.remaining > 0 &&
+          dueDateKey !== null &&
+          todayKey !== null &&
+          horizonKey !== null &&
+          dueDateKey >= todayKey &&
+          dueDateKey <= horizonKey
+        );
+      })
+      .map(({ isPaused, ...row }) => row);
   },
 
   async getClientDetail(clientId: string): Promise<{

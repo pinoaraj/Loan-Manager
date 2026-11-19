@@ -292,6 +292,17 @@ export interface LocalReminderResult {
   calendarError?: string | null;
 }
 
+/** Cuota impaga que puede generar un aviso automatico de cobro. */
+export interface ReminderTarget {
+  paymentId: string;
+  loanId: string;
+  clientId: string;
+  clientName: string;
+  clientPhone: string | null;
+  dueDate: string;
+  remaining: number;
+}
+
 export interface PortableSyncPackage {
   version: 1;
   exportedAt: string;
