@@ -56,10 +56,17 @@ const checkAndApplyLateFees = async (loan, prisma) => {
     }
 
     if (updatesMade) {
-        // Return fresh data
+        // Return fresh data. `transactions` must stay included here, otherwise the loan
+        // detail endpoints would silently lose the payment history as soon as a late fee
+        // is applied to an overdue installment.
         return await prisma.loan.findUnique({
             where: { id: loan.id },
-            include: { client: true, payments: true }
+            include: {
+                client: true,
+                payments: {
+                    include: { transactions: true }
+                }
+            }
         });
     }
 

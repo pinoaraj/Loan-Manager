@@ -75,3 +75,10 @@ graphify-out/inspect_frontend.py
 graphify-out/label_communities.py
 graphify-out/merge_extract.py
 graphify-out/prep_semantic.py
+
+# Independent Loan Manager SaaS repository
+/saas/
+
+/fight-ai-web-mvp/
+database.sqlite
+.vscode/

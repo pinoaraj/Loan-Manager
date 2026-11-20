@@ -4,8 +4,8 @@
     "hash": "eb024624c7bc2984d8a2bb904bdd2157"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\eslint.config.js": {
-    "mtime": 1779907178.7382736,
-    "hash": "2aaf2ca3392f74d91d639ff79ab9a946"
+    "mtime": 1790793462.3251467,
+    "hash": "2a7d1673547e672bda806b6d23f3854a"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\patch-desktop.ps1": {
     "mtime": 1770673510.783379,
@@ -43,17 +43,365 @@
     "mtime": 1779907178.7882729,
     "hash": "750e9e693989ee83e416493d940f4c3e"
   },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\COMPARTIR_FIGHT_AI.ps1": {
+    "mtime": 1788445649.377707,
+    "hash": "c975bfd3b1f92566cfee72facab6db88"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\INSTALAR_Y_INICIAR_FIGHT_AI.ps1": {
+    "mtime": 1788384441.4957044,
+    "hash": "46bb2213eca2661412632230896efcf2"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\instrumentation.ts": {
+    "mtime": 1788354077.5010793,
+    "hash": "ae68002a9972712f4eb09955e7eea440"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\middleware.ts": {
+    "mtime": 1788445338.609574,
+    "hash": "ed4ff0a6bf21f9de1c08621c43664729"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\next-env.d.ts": {
+    "mtime": 1788379330.025256,
+    "hash": "90426577ad8f38459f3e566411c85589"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\next.config.mjs": {
+    "mtime": 1788379427.732232,
+    "hash": "e564ae58b5c15e5086dc44d69112db5d"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\playwright.config.ts": {
+    "mtime": 1788354077.5015783,
+    "hash": "b732ef8be03504e2ea6404352912455d"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\postcss.config.mjs": {
+    "mtime": 1788379306.5856495,
+    "hash": "e5a8d7fdcf00f3252faf6f3d6f592470"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\layout.tsx": {
+    "mtime": 1788354077.488079,
+    "hash": "d7d02ee5195d9c322bd08e5e6acc1438"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\page.tsx": {
+    "mtime": 1788449455.9584668,
+    "hash": "81f79d52be22c7d182ec3c9472e2fbfc"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\api\\analyze\\route.ts": {
+    "mtime": 1788448882.8967123,
+    "hash": "f1a9967f4ad8e99ca956c36c5f6805dd"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\api\\analyze-uploaded\\route.ts": {
+    "mtime": 1788378566.6234639,
+    "hash": "b1152aca0aa4132467f6f55555a23327"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\api\\demo-video\\route.ts": {
+    "mtime": 1788354077.4800797,
+    "hash": "5b9637932a628ba2f02663b2c7f0ca4f"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\api\\direct-upload\\route.ts": {
+    "mtime": 1788378546.7465284,
+    "hash": "0c10c9f32324a0159bcb7f5e21cc611c"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\api\\evidence-frames\\route.ts": {
+    "mtime": 1788354077.483081,
+    "hash": "df024de16d19b5797d3cb01b50a56b53"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\api\\health\\route.ts": {
+    "mtime": 1788378566.6254652,
+    "hash": "8b119094617fd1ae8927124cb60f4620"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\api\\preview-frame\\route.ts": {
+    "mtime": 1788449231.8527555,
+    "hash": "fcd733e51de8571d60472536eeeb8a9d"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\app\\api\\upload\\route.ts": {
+    "mtime": 1788354077.485079,
+    "hash": "6ac02444a9964355894815a2b20e7497"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\infra\\aws\\bootstrap-ecs-fargate.ps1": {
+    "mtime": 1788354077.4960856,
+    "hash": "b32aade3e64fd611fb51acead4910c4f"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\infra\\aws\\bootstrap-fight-ai.ps1": {
+    "mtime": 1788354077.4965804,
+    "hash": "0d3576e64ba0e387cc597f2cd784105d"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\infra\\aws\\bootstrap-large-video-ingestion.ps1": {
+    "mtime": 1788354077.4970796,
+    "hash": "10da317a3ee54c4aebe45fff4fc87ee6"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\infra\\aws\\grant-cloudfront-https-permissions.ps1": {
+    "mtime": 1788354077.4985805,
+    "hash": "ea156447d09bc0d8f4593ad3036a211a"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\infra\\aws\\repair-oidc-trust.ps1": {
+    "mtime": 1788354077.5000799,
+    "hash": "ac30fc64296d259893ce839de000d70b"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\lib\\boxingKnowledge.ts": {
+    "mtime": 1788378566.6284647,
+    "hash": "0b6771e77dbda2be53b069665f9d87c1"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\qa\\foreign-port-fixture.mjs": {
+    "mtime": 1788379101.3858857,
+    "hash": "3cb05223f7259c5bf2c6635a89c22128"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\qa\\local-port-safety.ps1": {
+    "mtime": 1788445343.8689344,
+    "hash": "46c3a785780a7c8a934561d5e676fdd3"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\qa\\web-agent\\fight-ai.spec.ts": {
+    "mtime": 1788378546.749028,
+    "hash": "99ca9970cb9d68869c451026215b95d0"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\qa\\web-agent\\mock_backend.py": {
+    "mtime": 1788354077.5035791,
+    "hash": "a8137a861a31a62878a5647a221d74e5"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\scripts\\analysis-worker.mjs": {
+    "mtime": 1788354077.5040808,
+    "hash": "8e95de3965167cae4d8d4fdbec1f61a3"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\scripts\\show-remote-access.ps1": {
+    "mtime": 1788388447.27081,
+    "hash": "a62b8803a6dd450d6710333a02f8b4c8"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\scripts\\start-local.ps1": {
+    "mtime": 1788445629.8735168,
+    "hash": "36d96c562022ba0957a1d59e65dd7d76"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\scripts\\start-remote-tunnel.ps1": {
+    "mtime": 1788449459.1152532,
+    "hash": "7b93099eb56c6baec61d6fd76d8fc9df"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\scripts\\stop-local.ps1": {
+    "mtime": 1788378956.3211167,
+    "hash": "94994338840e564eddb269bff2b0a893"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\scripts\\stop-remote-tunnel.ps1": {
+    "mtime": 1788386407.965927,
+    "hash": "c6e78e77d253fafad040beab1d11c483"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\expo-env.d.ts": {
+    "mtime": 1794407169.6688719,
+    "hash": "0dd9dccdb4b08595bc83df70d6a154d3"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\gradlew": {
+    "mtime": 1780585946.073759,
+    "hash": "780b1d3e23a3b82154795f73df943a14"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\java\\com\\mobiloan\\app\\MainActivity.kt": {
+    "mtime": 1780585947.352187,
+    "hash": "a05ca19bd53ebe1987615ae003eab077"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\java\\com\\mobiloan\\app\\MainApplication.kt": {
+    "mtime": 1780585947.3516762,
+    "hash": "21d8361b13d982c69910c7fd978af6aa"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\login.tsx": {
+    "mtime": 1794407245.8653102,
+    "hash": "2a5d26036e1004d2951ab648bd542ad8"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\_layout.tsx": {
+    "mtime": 1794248322.927538,
+    "hash": "b5030a26308fd036f28f7a3bd29f1e6a"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\calculator.tsx": {
+    "mtime": 1794596839.492396,
+    "hash": "34a48d6bd7d384856e41ea2ea5a4c9fc"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\import-data.tsx": {
+    "mtime": 1794925084.5133815,
+    "hash": "9a0eedd6d6c689e87a58000a6877263c"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\new-client.tsx": {
+    "mtime": 1794948304.5732646,
+    "hash": "ee2eb95fed8b52ea33fc11c5ef9ed399"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\new-loan.tsx": {
+    "mtime": 1795024176.5481384,
+    "hash": "48e5673101bbbddcbdeb3f00df72ed44"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\search.tsx": {
+    "mtime": 1795025818.4533124,
+    "hash": "7601c827c966f5b76b1aaeba0f7cb230"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\_layout.tsx": {
+    "mtime": 1795107851.3244495,
+    "hash": "d44a21a07eb975e95c0d21391099be4d"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\(tabs)\\collections.tsx": {
+    "mtime": 1795026239.93837,
+    "hash": "27ef17ecdb16a44bca34487851a26814"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\(tabs)\\index.tsx": {
+    "mtime": 1795026903.2238474,
+    "hash": "7f112afe33a80c8131a9de5025cc175f"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\(tabs)\\insights.tsx": {
+    "mtime": 1794595593.9287488,
+    "hash": "0c32643a955e8517a69109d2a6e03bf8"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\(tabs)\\portfolio.tsx": {
+    "mtime": 1794594974.9365015,
+    "hash": "7428c5d4992440688b56ac00f1618805"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\(tabs)\\settings.tsx": {
+    "mtime": 1795108478.4230628,
+    "hash": "d96e3c945a3b4926d0b40333dd52ab29"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\(tabs)\\_layout.tsx": {
+    "mtime": 1794594433.172942,
+    "hash": "5dbfd979ee96db3a3294a851965dc81c"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\clients\\[id].tsx": {
+    "mtime": 1794948355.9191015,
+    "hash": "1a1c8980b0af7f56261de1c3e74455b9"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\app\\(app)\\loans\\[id].tsx": {
+    "mtime": 1795026246.2381928,
+    "hash": "966b9b81157e2e1087cccc51d541bfeb"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\scripts\\build-android-debug.ps1": {
+    "mtime": 1781874992.9030638,
+    "hash": "057e7fa31808417e726d7224b47b891b"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\scripts\\build-android-release.ps1": {
+    "mtime": 1790870333.1747034,
+    "hash": "300d81b158515c97ea70a2870c049eec"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\scripts\\install-android-beta.ps1": {
+    "mtime": 1790807575.7185102,
+    "hash": "f44f1c17a2427a33d05bc07ebc519009"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\data\\database.ts": {
+    "mtime": 1795107794.268404,
+    "hash": "a535f7aa8322eaee267f3121abfdebe2"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\data\\database.web.ts": {
+    "mtime": 1795107808.0371535,
+    "hash": "d1a9570ae3157891c453b372aa009487"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\hooks\\useOfflineData.ts": {
+    "mtime": 1794340247.0664723,
+    "hash": "703a1942fc13f75dd4048412e47e40c7"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\hooks\\useSyncActions.ts": {
+    "mtime": 1794340256.9841044,
+    "hash": "844354c2854364e8be3343518b2da6dd"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\amortization.ts": {
+    "mtime": 1794232033.658568,
+    "hash": "c31ff4a5b31eda52e2ffcfbc01640ffb"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\autoReminders.ts": {
+    "mtime": 1795112882.5362887,
+    "hash": "a2bbdea25c7d0caa37d9e9c6f1affb14"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\calendar.ts": {
+    "mtime": 1795026590.2422972,
+    "hash": "93b9becb82465e365cafdac2dc40f5f3"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\calendar.web.ts": {
+    "mtime": 1781557637.9196236,
+    "hash": "7f782cc5bddb9fad4a85d94b0cfcea41"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\config.ts": {
+    "mtime": 1794410869.666608,
+    "hash": "2aac9310f3ae9601213d5481919879a7"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\contact.ts": {
+    "mtime": 1794948316.417654,
+    "hash": "072f8b0b00a5106c8e5d11d765a0e749"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\dates.ts": {
+    "mtime": 1790808239.5289652,
+    "hash": "be7f53f24849af107d8e072697e1cbbe"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\format.ts": {
+    "mtime": 1794948205.3096883,
+    "hash": "956c428d83f1ed9f1bcf6757f1c560d3"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\importData.ts": {
+    "mtime": 1795023445.149392,
+    "hash": "51b2a941db17817f708b53fefdf9efa1"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\labels.ts": {
+    "mtime": 1794494212.0271134,
+    "hash": "20401bb7d68b5c197e25e59206b1f842"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\lateFees.ts": {
+    "mtime": 1795023496.430267,
+    "hash": "e13fbd7e69bbf262ea9bb2a477b8f0c5"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\loanHealth.ts": {
+    "mtime": 1794248370.2057967,
+    "hash": "3ea4baaaed994b0dafe458cc6dbc44d2"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\messages.ts": {
+    "mtime": 1794340243.576212,
+    "hash": "e7bb434b2aec4a38c69c106239296e9d"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\mutationId.ts": {
+    "mtime": 1780584572.6317313,
+    "hash": "3cbd6a2dc20c570b16860451d1878b1e"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\reports.ts": {
+    "mtime": 1794494297.829176,
+    "hash": "46356f2eaa132ca4d9dd75c290ac7ae3"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\rut.ts": {
+    "mtime": 1794948197.7640128,
+    "hash": "5e20cfccfaab15aa848a0759854be8a9"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\schedule.ts": {
+    "mtime": 1794592488.5510094,
+    "hash": "c347d95d5f10846a90288c59a4f361b7"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\secureSession.ts": {
+    "mtime": 1781536574.8736546,
+    "hash": "52219867f7425c97018597df3e90993f"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\lib\\syncPackage.ts": {
+    "mtime": 1781551959.2085204,
+    "hash": "c23df3267cf9ddc3cf4f34716d9c2b07"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\providers\\AppProviders.tsx": {
+    "mtime": 1794340256.9841044,
+    "hash": "ef1d195fa0ad0e6b8e46d6357b8d1d04"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\services\\api.ts": {
+    "mtime": 1781550682.4148443,
+    "hash": "2613da69ff4b9e66ffcfba16de3529a5"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\services\\sync.ts": {
+    "mtime": 1790808349.325634,
+    "hash": "76defa33ea227df08557347f1aa7df3f"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\types\\sync.ts": {
+    "mtime": 1795107785.1421928,
+    "hash": "a781576f1b859f5d6da55d4884bdd875"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\ui\\components.tsx": {
+    "mtime": 1794950170.8371005,
+    "hash": "81174dca41aed2faa65aa9eaa5b0fe9e"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\ui\\DatePickerField.tsx": {
+    "mtime": 1794948232.7279873,
+    "hash": "58d7bbe0a954dffaffb60338f3751dfb"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\src\\ui\\styles.ts": {
+    "mtime": 1794948274.3991792,
+    "hash": "a034a9993ec7eb089ef268318b3ecfeb"
+  },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\app.js": {
-    "mtime": 1779810288.3215885,
-    "hash": "e228f941041d6a766b24255dd5f5d36e"
+    "mtime": 1781557950.9876094,
+    "hash": "d313d5a7b2c5cc657ba93e49e28a4eb2"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\create-user.js": {
     "mtime": 1777660831.4173565,
     "hash": "738820d7de1011ea1d763ad88387332d"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\index.js": {
-    "mtime": 1779907178.7537732,
-    "hash": "f97aecbe51601c95503395530ed26386"
+    "mtime": 1781550276.833203,
+    "hash": "d1ca8f37f9396b3533f7a3420ed1f17e"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\prisma.config.ts": {
     "mtime": 1768419923.628338,
@@ -76,12 +424,12 @@
     "hash": "2ab4a306964b922186ebb87f658ca054"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\middleware\\validation.js": {
-    "mtime": 1779829016.7061775,
-    "hash": "f781add5b6f0c353da21acf838b30e79"
+    "mtime": 1780582173.1918604,
+    "hash": "f6b20ca9b0b15df0e13d4d94a121a2f5"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\middleware\\validationSchemas.js": {
-    "mtime": 1779831427.6093702,
-    "hash": "bee30ae60d45904d58e7ccdc8836058b"
+    "mtime": 1781555607.9151225,
+    "hash": "1e32bb8f75d2b08196ddb1cdf1fe102f"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\prisma\\migrations\\20260114194812_init\\migration.sql": {
     "mtime": 1768420092.8198826,
@@ -99,73 +447,705 @@
     "mtime": 1779828958.2802992,
     "hash": "da2b688863255b0316c57e62bea84ee5"
   },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\prisma\\migrations\\20260604120000_add_transaction_sync_fields\\migration.sql": {
+    "mtime": 1781553786.586039,
+    "hash": "5c1eb7481e02ac28819097d79aaebeae"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\prisma\\migrations\\20260609143000_add_sync_deleted_records\\migration.sql": {
+    "mtime": 1781553829.339356,
+    "hash": "d9ed9ff4a3993794128f41b25d867f71"
+  },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\routes\\ai.js": {
     "mtime": 1777660604.7064712,
     "hash": "3f79954e5bafae7a6640b8ca245b7339"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\routes\\auth.js": {
-    "mtime": 1779907178.7627735,
-    "hash": "fff21a83fec7d05bdbb82d3984500137"
+    "mtime": 1779978847.6189857,
+    "hash": "308b922833f73f5b936b278fb3a67da6"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\routes\\backup.js": {
     "mtime": 1768944795.3128812,
     "hash": "e7c0170f618a19d0b39b67b3017e9019"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\routes\\clients.js": {
-    "mtime": 1779907178.7632747,
-    "hash": "54ac3dafd180cbbb7da6e1b7657f5962"
+    "mtime": 1781034683.1831453,
+    "hash": "437a7f1283fd3e283d13fc336cb4bb2b"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\routes\\dashboard.js": {
     "mtime": 1779813174.502723,
     "hash": "460bfd5238b89427ef8da646db51745d"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\routes\\import.js": {
-    "mtime": 1779829039.1824899,
-    "hash": "308cb5bd528b22df2b0d6c84b3a634aa"
+    "mtime": 1781555631.0851207,
+    "hash": "7d99b676efca316d6e51c2c74389e8b9"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\routes\\loans.js": {
-    "mtime": 1779907178.763775,
-    "hash": "61787238ec7710dfe55721d5440647cf"
+    "mtime": 1781034683.184146,
+    "hash": "2bf5be78dd7d3a784470f57601f98696"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\routes\\payments.js": {
-    "mtime": 1779907178.7647736,
-    "hash": "4b8d827d3d01cafe2fa6749b8e52277b"
+    "mtime": 1781013954.2282832,
+    "hash": "2306bd3f768b2247e8c3e396223f38a8"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\routes\\reports.js": {
-    "mtime": 1779829039.057485,
-    "hash": "6ffaa37ef99939906f70431f35303aab"
+    "mtime": 1779978456.7796023,
+    "hash": "eba10144bd05bfd1af9888b5581bb624"
   },
-  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\tests\\api.integration.test.js": {
-    "mtime": 1779829039.4249823,
-    "hash": "5cca36b98b403ba6e6f761fa66b150c6"
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\routes\\sync.js": {
+    "mtime": 1781034643.7372904,
+    "hash": "5375edd6a3ad06f40eda04794e0bb823"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\utils\\amortization.js": {
     "mtime": 1779907178.765274,
     "hash": "700dc099dae23bac8d09c1e574cc79e2"
   },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\utils\\ensureDatabaseCompatibility.js": {
+    "mtime": 1781553786.5870404,
+    "hash": "8c045036100426bdc1eeb72e745f22da"
+  },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\utils\\fees.js": {
-    "mtime": 1779907178.7657743,
-    "hash": "8d4e325a8e70732fdac8a1f0ca34dec7"
+    "mtime": 1790793458.95778,
+    "hash": "f8cbb62be0c82ae93d60f26351436f07"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\utils\\logger.js": {
-    "mtime": 1770594015.7967236,
-    "hash": "f67e395af8e6dae1e56bd5b127f0c7de"
+    "mtime": 1790803979.8177755,
+    "hash": "c41e8ccba148d30ca21b39f2edd6133d"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\utils\\paymentTransactions.js": {
+    "mtime": 1781013915.3727038,
+    "hash": "b5fb0786ada892cb80b2a96fec31b563"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\server\\utils\\syncDeletedRecords.js": {
+    "mtime": 1781034658.0204792,
+    "hash": "a6519663731d1b6dc8f63153ac70b65f"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\prisma\\migrations\\20261011000100_init\\migration.sql": {
+    "mtime": 1791752112.850788,
+    "hash": "38dfdd376f73009bf47f2a33d1f67646"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\prisma\\migrations\\20261011000200_platform_admin\\migration.sql": {
+    "mtime": 1791762879.7429712,
+    "hash": "c299c5b1f1f7d5cf1c84ab128665d255"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\prisma\\migrations\\20261013000100_account_security\\migration.sql": {
+    "mtime": 1791896450.8384187,
+    "hash": "99569a0e75b37a52e244d48649ff3425"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\prisma\\migrations\\20261013000200_team_invitations\\migration.sql": {
+    "mtime": 1791897764.6509585,
+    "hash": "45359b267220797d14e972116a120256"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\prisma\\migrations\\20261015190000_add_organization_country\\migration.sql": {
+    "mtime": 1792101497.5244102,
+    "hash": "7db3e7d5f7b71c0837d7a0afc95ca0ad"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\prisma\\migrations\\20261020120000_financial_integrity\\migration.sql": {
+    "mtime": 1792527597.7915478,
+    "hash": "633b99056c7f478638d452f61e2497c6"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\scripts\\create-master.js": {
+    "mtime": 1791897073.6487117,
+    "hash": "8e331fd8c20525bec2699ebeb5eeaaed"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\app.js": {
+    "mtime": 1792529275.402098,
+    "hash": "41710a287acfbe6db57bda55de512b55"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\config.js": {
+    "mtime": 1792527777.8034656,
+    "hash": "a2911f3b42285655486d7d3a3401d4be"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\cors.js": {
+    "mtime": 1791846259.2240565,
+    "hash": "00ee7b961c18c961c60e9d7e38c07e18"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\db.js": {
+    "mtime": 1791747129.0631175,
+    "hash": "d8c0ab838c40f2061bc956d27edb2997"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\email.js": {
+    "mtime": 1791897766.4829724,
+    "hash": "5fb0bc9e78fea42e3b4f87946b23cec9"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\index.js": {
+    "mtime": 1791747195.3717148,
+    "hash": "53b9bdc92ab7fd0677a452ac9873f506"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\billing\\entitlements.js": {
+    "mtime": 1792527558.8998847,
+    "hash": "ec5814c4d79f4d12b1d67beeef14e4bf"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\billing\\plans.js": {
+    "mtime": 1792071186.9642756,
+    "hash": "c2103269c8b9e6fed94d7b8a6bd402e1"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\billing\\status.js": {
+    "mtime": 1791747144.4886498,
+    "hash": "5a040d6fd8a1992f0f602e66600a2667"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\billing\\syncSubscription.js": {
+    "mtime": 1791747603.181179,
+    "hash": "e3b71f73d86756b7286f441ba2ba0df9"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\billing\\providers\\mercadopago.js": {
+    "mtime": 1792156254.4512706,
+    "hash": "8802151c25d3869103f2d16c7f5f48ba"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\billing\\providers\\stripe.js": {
+    "mtime": 1792156252.6709495,
+    "hash": "1f4fd57f35a36732e616a3fdf5cee9e1"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\domain\\amortization.js": {
+    "mtime": 1792528073.2790403,
+    "hash": "5438e800370dc5eeb7dcc390b4ac3cf8"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\domain\\audit.js": {
+    "mtime": 1791752011.072508,
+    "hash": "5fc770b3662250978937053298e70023"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\domain\\money.js": {
+    "mtime": 1792527294.0705686,
+    "hash": "4951a84f28763b0fdd6567c00ccb510a"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\domain\\portfolioState.js": {
+    "mtime": 1792528165.0541365,
+    "hash": "edf53595d9ba30eed83dcafe7d9dbe94"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\localization\\markets.js": {
+    "mtime": 1792101488.5583088,
+    "hash": "3dcb681c78a0d59b8925a82513efbb47"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\middleware\\access.js": {
+    "mtime": 1791762911.472161,
+    "hash": "8c60967f3f257c273ac144154f81f693"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\middleware\\auth.js": {
+    "mtime": 1792527780.1998608,
+    "hash": "496a3e94274f23111a2bdde2f718b1f1"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\middleware\\masterAuth.js": {
+    "mtime": 1792527782.2859406,
+    "hash": "4cd2b05dd1a12a3a48c221abb52a791d"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\routes\\auth.js": {
+    "mtime": 1792527800.728632,
+    "hash": "1b66d7c7a4fbead39b4d0b24dffe62c4"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\routes\\billing.js": {
+    "mtime": 1792156256.179888,
+    "hash": "87fd776dc2781f3beeb1e8efaac7a627"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\routes\\clients.js": {
+    "mtime": 1792527527.642871,
+    "hash": "21151b56d0128e245fae2de6f41eb340"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\routes\\dashboard.js": {
+    "mtime": 1792527704.3716896,
+    "hash": "80a27b6682ea6a6d183c377453b515ff"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\routes\\data.js": {
+    "mtime": 1792527562.8659542,
+    "hash": "8943550e495daa36a869f8a75051dec2"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\routes\\loans.js": {
+    "mtime": 1792528180.030725,
+    "hash": "a5f08df21a8f16e390ae3c01b525c24e"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\routes\\master.js": {
+    "mtime": 1792527785.2526886,
+    "hash": "8c311bb48a2105c7374db7ac7e4facc4"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\routes\\members.js": {
+    "mtime": 1792071202.5692794,
+    "hash": "cf56044a8241787fb82a6406474a9ff8"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\routes\\organization.js": {
+    "mtime": 1792527560.8385918,
+    "hash": "2493d0ff4925624adb002cd2aff227ef"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\routes\\payments.js": {
+    "mtime": 1792528182.000295,
+    "hash": "17264429129cb865f799cbe6005c468f"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\routes\\webhooks.js": {
+    "mtime": 1791747605.9089477,
+    "hash": "94ff2b5b28382109516aa20aac72011c"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\src\\security\\session.js": {
+    "mtime": 1792527774.7762809,
+    "hash": "2ec97b702e68ed4b7bb710adb505b680"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\test\\access.test.js": {
+    "mtime": 1791763047.7685032,
+    "hash": "c8908094c8cc4096420a944a07fa9eee"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\test\\amortization.test.js": {
+    "mtime": 1791752084.1918998,
+    "hash": "ebdb0877b6b29a849bbaf73893d3780c"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\test\\beta-journey.postgres.test.js": {
+    "mtime": 1792528292.5449457,
+    "hash": "9e9daf6d2052c2d2676da71f1e860944"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\test\\billing-lifecycle.test.js": {
+    "mtime": 1792527862.4741166,
+    "hash": "f232c6ce1810d141f585242c0cc54d31"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\test\\billing.test.js": {
+    "mtime": 1792097602.625334,
+    "hash": "372841281ec8104396f9443da89e9704"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\test\\config.test.js": {
+    "mtime": 1792527866.9130912,
+    "hash": "2ebf0cb51d368910002b8c799f873439"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\test\\cors.test.js": {
+    "mtime": 1791846272.1623104,
+    "hash": "1cc73ee8ebf1275370b66563e39907a4"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\test\\data-routes.test.js": {
+    "mtime": 1792527645.6619577,
+    "hash": "c6e33e416cfafd5c5dfd8b725f0290c2"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\test\\email.test.js": {
+    "mtime": 1791896825.5958853,
+    "hash": "33e5fa5bae59b5c47fb1556dc0ccc215"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\test\\entitlements.test.js": {
+    "mtime": 1792097605.1679368,
+    "hash": "b4ef62612247ee093a3ee38f34322867"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\test\\financial-integrity.test.js": {
+    "mtime": 1792527614.0559177,
+    "hash": "fe917fcc72c4a978753ff66a07ffbafd"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\test\\headers.test.js": {
+    "mtime": 1792156656.6348124,
+    "hash": "a12d2b23a5a6b097af1b175131fe0a93"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\test\\markets.test.js": {
+    "mtime": 1792102739.393227,
+    "hash": "99ae97e6c012e6b9d0cd233d276ac5b1"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\test\\members.test.js": {
+    "mtime": 1791897974.1533759,
+    "hash": "ac1614493c12cf28ce06e741e2f74e84"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\test\\portfolio-tenant-routes.test.js": {
+    "mtime": 1792527969.416499,
+    "hash": "06f59732f86161d742fbeee223841a0e"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\test\\production-automation.test.js": {
+    "mtime": 1792529382.1958492,
+    "hash": "61c778a053213ce26bc7262bac0f47eb"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\test\\production-web.test.js": {
+    "mtime": 1792529265.7625847,
+    "hash": "42b39c659cba702c446abd2001b04459"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\test\\roles.test.js": {
+    "mtime": 1791895646.3472018,
+    "hash": "8f028598ff6e87fc8dd2a8a1762a0820"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\test\\session-security.test.js": {
+    "mtime": 1792527864.7658324,
+    "hash": "de5c4c8e6211f12d73f310bc613bc446"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\api\\test\\tenant-routes.test.js": {
+    "mtime": 1792527647.7550118,
+    "hash": "e562ef11186863ebef1087115e47dd85"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\scripts\\create-desktop-shortcut.ps1": {
+    "mtime": 1791765397.5067124,
+    "hash": "6a63395d0f419a0d75eb2448bd59673b"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\scripts\\deploy-prod.mjs": {
+    "mtime": 1792529196.819865,
+    "hash": "504a92b099be9d843f6cff4aaeb63351"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\scripts\\init-prod-env.mjs": {
+    "mtime": 1792529339.8762622,
+    "hash": "970f41d15218553ca7a244ef4fcd91dc"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\scripts\\prod-env.mjs": {
+    "mtime": 1792529337.7899423,
+    "hash": "d0f4a7f0e0b54b2b96e7530063300c92"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\scripts\\start-local.ps1": {
+    "mtime": 1791895903.815157,
+    "hash": "2cf3815aad2de46e9dcab1a2489bc571"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\scripts\\verify-prod.mjs": {
+    "mtime": 1792529342.1205566,
+    "hash": "2c644959bd2126ec5cee98ab98993e0a"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\playwright.config.js": {
+    "mtime": 1792069458.1921473,
+    "hash": "b66fd677bc5a2ae28db9ced44d80a19f"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\vite.config.js": {
+    "mtime": 1792008586.0895405,
+    "hash": "e50a631d3587b6b2d0225ac425237980"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\e2e\\accessibility.spec.js": {
+    "mtime": 1792100427.0423448,
+    "hash": "01b19350be9109ed4da004a497455043"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\e2e\\roles.spec.js": {
+    "mtime": 1792156413.5762143,
+    "hash": "66267fc39c76ec2efec3303096f63dfb"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\public\\sw.js": {
+    "mtime": 1791753505.8595753,
+    "hash": "ae49dd5ed15e4b418b9690fac8301e28"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\scripts\\check-bundle-budget.js": {
+    "mtime": 1792006743.3224957,
+    "hash": "2b3f13a6c1b3817902ab15f09c9c699b"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\scripts\\generate-pwa-icons.js": {
+    "mtime": 1791765388.6572416,
+    "hash": "ba92b9b0530d5ea876d89d192a79947e"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\api-url.js": {
+    "mtime": 1791925941.0920477,
+    "hash": "2519a1370dd5ded2f1c5acd8bb1d5529"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\api.js": {
+    "mtime": 1792527821.2852743,
+    "hash": "4acbc3dd22567c6990e2b960f88b1d38"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\App.jsx": {
+    "mtime": 1792152497.0595045,
+    "hash": "2432cd774067eb1b6a8229774eb61c9d"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\formatters.js": {
+    "mtime": 1792102660.8809347,
+    "hash": "f9815ca9a450db4347a29e50fc0fb027"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\main.jsx": {
+    "mtime": 1791846454.9554305,
+    "hash": "384fa2d28e3ced520fb2b81de4777077"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\components\\AuthScreen.jsx": {
+    "mtime": 1791764447.8701863,
+    "hash": "b89f0d1a25945f1199ad5f075b23a6eb"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\components\\BillingView.jsx": {
+    "mtime": 1792156303.1841767,
+    "hash": "28de89d7857fd53427d8f632c9be8614"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\components\\ClientsView.jsx": {
+    "mtime": 1791752170.085601,
+    "hash": "d5dc8465ee1f76fc68df1046939704a2"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\components\\ConfirmModal.jsx": {
+    "mtime": 1792006080.843232,
+    "hash": "0c778807bbc4b6b761cd02d3c9cccf08"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\components\\DashboardView.jsx": {
+    "mtime": 1791752157.45196,
+    "hash": "b538aef59bde91d1a15fcc6ef1058047"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\components\\ErrorBoundary.jsx": {
+    "mtime": 1779978456.7821028,
+    "hash": "f844e825f70d0cd05d2f7de59dd53234"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\components\\InstallApp.jsx": {
+    "mtime": 1791753430.8389542,
+    "hash": "5a4296aeab498ba0966c6ccaf2c4349b"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\components\\LoansView.jsx": {
+    "mtime": 1792527417.0528557,
+    "hash": "488123767a94a7e232145a72a1c58b4c"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\components\\MasterApp.jsx": {
+    "mtime": 1792068991.400979,
+    "hash": "a214b74bb80ff6b6677a113987d32cae"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\components\\PagareModal.jsx": {
+    "mtime": 1792102887.1749802,
+    "hash": "872739d63299102ebd2189be9703d692"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\components\\PaymentModal.jsx": {
+    "mtime": 1792527414.544969,
+    "hash": "bdc4b215b13f18d17a79659b9436979b"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\components\\PaymentScheduleTable.jsx": {
+    "mtime": 1792152510.3308272,
+    "hash": "01362135c2128fe09872728238c03c29"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\components\\Shell.jsx": {
+    "mtime": 1791753399.2361646,
+    "hash": "6a02a5ae808484b423abc20c99151951"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\components\\Sidebar.jsx": {
+    "mtime": 1792152499.1153848,
+    "hash": "06a251406cb2afe6d8eadbd9ffafb68a"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\components\\dashboard\\DashboardKPI.jsx": {
+    "mtime": 1792102612.3044004,
+    "hash": "b9d2d7bddc120f2d1970208c9a8258c2"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\components\\dashboard\\PortfolioChart.jsx": {
+    "mtime": 1791847889.2417262,
+    "hash": "a2ece661791fd2cb5dfbfc3a025577ee"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\components\\dashboard\\RecentActivity.jsx": {
+    "mtime": 1792102880.7328143,
+    "hash": "da6a305757f003db56edd4f0c1901070"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\components\\dashboard\\RevenueChart.jsx": {
+    "mtime": 1792102882.6587193,
+    "hash": "cc40cce33a1807f86bd862ff6944f250"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\components\\ui\\Skeleton.jsx": {
+    "mtime": 1779831603.3106873,
+    "hash": "45813393df564530891fc37d9f7f8935"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\config\\api.js": {
+    "mtime": 1791846475.0153322,
+    "hash": "105181d6fbb82a3be9b7d991c51929d0"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\context\\auth-context.js": {
+    "mtime": 1779831591.446655,
+    "hash": "bdbf2101bcae1eb558f0da1d8aaf3d3d"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\context\\AuthContext.jsx": {
+    "mtime": 1792527819.159934,
+    "hash": "5c34c8e04e768bcde5c4c0c58504f93c"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\context\\loan-context.js": {
+    "mtime": 1779831591.7041562,
+    "hash": "2044e6baef9e52111ae1749d8ac02a88"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\context\\LoanContext.jsx": {
+    "mtime": 1792006600.4162953,
+    "hash": "ab87fdbd869945f199ab2963801558fd"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\context\\theme-context.js": {
+    "mtime": 1779831591.9580674,
+    "hash": "abc5a18e897d42fae18c1c857e7fff9b"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\context\\ThemeContext.jsx": {
+    "mtime": 1779907178.7707784,
+    "hash": "4831d98c4fd4d795879387041cb8d1a4"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\context\\useAuth.js": {
+    "mtime": 1779831591.5786567,
+    "hash": "120da216422e96bc237c2292d65e2e38"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\context\\useLoans.js": {
+    "mtime": 1779831591.8301637,
+    "hash": "e838c45a8727ad7352be03edd5d4afdd"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\context\\useTheme.js": {
+    "mtime": 1779831592.0900688,
+    "hash": "2a3dffb26ab85c2111afe24c022fc8e1"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\context\\__tests__\\LoanContext.test.jsx": {
+    "mtime": 1779831682.3889024,
+    "hash": "d598717be1c71aff2ea6f9072ace080e"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\hooks\\useDialogFocus.js": {
+    "mtime": 1792006079.039956,
+    "hash": "b6b7993c658e7766cac878a41ef457cb"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\hooks\\useElementSize.js": {
+    "mtime": 1779902954.4258814,
+    "hash": "209afc9681b99bcd277c39870b43babf"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\hooks\\useLoanHealth.js": {
+    "mtime": 1780324411.1409347,
+    "hash": "3cee78db885fb88879126534ac565664"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\i18n\\catalogs.js": {
+    "mtime": 1792156304.9888263,
+    "hash": "5fd6216dd09b6907f9d12a0f12c7cf6f"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\pages\\AcceptInvitation.jsx": {
+    "mtime": 1792069559.1433775,
+    "hash": "20e02a85378539c98733f475fb0315f7"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\pages\\Billing.jsx": {
+    "mtime": 1792156301.4273398,
+    "hash": "a10a2c9844b7007bf6a779e196673d06"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\pages\\Calculator.jsx": {
+    "mtime": 1792102618.6869786,
+    "hash": "eca60a81df79632c4b50250a243c8420"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\pages\\ClientDetail.jsx": {
+    "mtime": 1792155848.7319038,
+    "hash": "2dfef357062947badf2b42181c122de7"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\pages\\Clients.jsx": {
+    "mtime": 1792152501.7595327,
+    "hash": "5493ebeaba4ef27f363fad2d6661359f"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\pages\\Collections.jsx": {
+    "mtime": 1792102625.673265,
+    "hash": "193867cf0e3c505c1dae73f82b3174bc"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\pages\\Dashboard.jsx": {
+    "mtime": 1792155713.0979111,
+    "hash": "d00a8a5b11bbb0a546e06dc49e552003"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\pages\\ImportData.jsx": {
+    "mtime": 1792102629.8200676,
+    "hash": "f6158c004fde4e7bd67b47657f3c55cd"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\pages\\Landing.jsx": {
+    "mtime": 1792100480.1516724,
+    "hash": "9dc82d8e072670a8444ea75434e1f9d0"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\pages\\LoanDetail.jsx": {
+    "mtime": 1792155935.3856244,
+    "hash": "4fb57795f9c01ba079f750f9f484cecc"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\pages\\LoanDetail.test.jsx": {
+    "mtime": 1779977722.9604702,
+    "hash": "c1b5e29639a01d80fa6a80eaef8419a8"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\pages\\Loans.jsx": {
+    "mtime": 1792152503.6548562,
+    "hash": "6e6842a5e66ff3d5e9aa957afd3f4890"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\pages\\Login.jsx": {
+    "mtime": 1792101568.956082,
+    "hash": "30c48ccd762b52babd17ff6f477ec0aa"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\pages\\Members.jsx": {
+    "mtime": 1791897871.9780803,
+    "hash": "198b4ef4fdee20dc231c40f17af14c6d"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\pages\\NewLoan.jsx": {
+    "mtime": 1792102884.5052652,
+    "hash": "dcf3d1e0be29bbffdd838a4901037033"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\pages\\Settings.jsx": {
+    "mtime": 1792101550.9131844,
+    "hash": "53e063d39744995e8743a16bee93f4e3"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\pages\\VerifyEmail.jsx": {
+    "mtime": 1792069565.9756455,
+    "hash": "0632b9933cc1f29c558a4e279a0f2ded"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\utils\\amortization.js": {
+    "mtime": 1779907178.7822788,
+    "hash": "e5f0e14a2ecfbe3996f68294d1b2c6eb"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\utils\\amortization.test.js": {
+    "mtime": 1779907178.782773,
+    "hash": "7324e2fdffe0111b88f9753d2570565e"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\utils\\calendar.js": {
+    "mtime": 1792102889.0671637,
+    "hash": "cca20a074a2c91e5b8c14835610aae36"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\utils\\cn.js": {
+    "mtime": 1779831592.219566,
+    "hash": "7dde284c4d01f64341ef51e7b8e56dea"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\utils\\communication.js": {
+    "mtime": 1792102658.836927,
+    "hash": "bc56649c61b708547f7d0d2e3b7613c5"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\utils\\dates.js": {
+    "mtime": 1780324327.0796738,
+    "hash": "c3c2ce98bf1b722aab2f0d8c220a2428"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\utils\\downloadResponse.js": {
+    "mtime": 1792006011.4780757,
+    "hash": "5dd021147cef7a8c620b428726c8fba8"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\utils\\formatters.js": {
+    "mtime": 1792102582.1203895,
+    "hash": "44498f85927d0c063be639129c2930ae"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\utils\\mockData.js": {
+    "mtime": 1765818707.9849682,
+    "hash": "2f836a445f097ec21991cc82808e1378"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\utils\\pagareGenerator.js": {
+    "mtime": 1780324389.0484135,
+    "hash": "7534dc0b41e30dd429f075e29f8bd86b"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\utils\\pdfGenerator.js": {
+    "mtime": 1792102712.47978,
+    "hash": "128bc342ce0b62ad93e6dcfc995ed3d5"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\utils\\permissions.js": {
+    "mtime": 1792152495.0494213,
+    "hash": "8dab6d6e22850d021fded24ccb2e8cb6"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\utils\\rut.js": {
+    "mtime": 1779829063.1879706,
+    "hash": "b1987338fd6d00838c923ccbda80b316"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\utils\\wordGenerator.js": {
+    "mtime": 1792102714.4230165,
+    "hash": "66afc9bf43ebe332351c24ed4100ddb6"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\test\\accessibility-contract.test.js": {
+    "mtime": 1792006739.0300817,
+    "hash": "c4997fedf461acf640b1eca35f2891ea"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\test\\api-contract.test.js": {
+    "mtime": 1792006740.790949,
+    "hash": "efca9013d7f4bbb6a022bbd19ee44606"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\test\\api-url.test.js": {
+    "mtime": 1791925948.1198375,
+    "hash": "046ad4d9f8ebdcc432b0ec4f73c61e69"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\test\\communication.test.js": {
+    "mtime": 1792102737.5756402,
+    "hash": "fe1f5465baf806d8a57c809b5d220e9a"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\test\\dev-start.test.js": {
+    "mtime": 1792008639.731429,
+    "hash": "35c95823c40c3f0eb9a478ff1af8122d"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\test\\formatters.test.js": {
+    "mtime": 1792102781.2526217,
+    "hash": "c455b87f3d805bd3a31ca96bdaca4ce8"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\test\\i18n.test.js": {
+    "mtime": 1791747261.7385716,
+    "hash": "21cd0bb1502708b72ca1595455190068"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\test\\landing-contract.test.js": {
+    "mtime": 1792100487.1140604,
+    "hash": "93025ba2ea1cf619af16b7cbffbc1aa5"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\test\\permissions.test.js": {
+    "mtime": 1792152514.7490885,
+    "hash": "81bc44885fa50b82c4d99e9b09152ec7"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\test\\pwa.test.js": {
+    "mtime": 1791753507.6800783,
+    "hash": "6594a5a6cd54aac698d7f97df62aef6a"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\test\\security-config.test.js": {
+    "mtime": 1791896026.5621314,
+    "hash": "9e5c319e7cd5b19d4555099f1dce7ebf"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\scripts\\generate_app_icon.py": {
-    "mtime": 1779911284.0480995,
-    "hash": "2930414cbc34876f487e02a1f35bb38c"
+    "mtime": 1779977645.7990575,
+    "hash": "305b95d123a42b21b8a7d151865c3199"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\app.js": {
-    "mtime": 1779810288.3215885,
-    "hash": "e228f941041d6a766b24255dd5f5d36e"
+    "mtime": 1781557950.9876094,
+    "hash": "d313d5a7b2c5cc657ba93e49e28a4eb2"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\create-user.js": {
     "mtime": 1777660831.4173565,
     "hash": "738820d7de1011ea1d763ad88387332d"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\index.js": {
-    "mtime": 1779907178.7537732,
-    "hash": "f97aecbe51601c95503395530ed26386"
+    "mtime": 1781550276.833203,
+    "hash": "d1ca8f37f9396b3533f7a3420ed1f17e"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\prisma.config.ts": {
     "mtime": 1768419923.628338,
@@ -188,12 +1168,12 @@
     "hash": "2ab4a306964b922186ebb87f658ca054"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\middleware\\validation.js": {
-    "mtime": 1779829016.7061775,
-    "hash": "f781add5b6f0c353da21acf838b30e79"
+    "mtime": 1780582173.1918604,
+    "hash": "f6b20ca9b0b15df0e13d4d94a121a2f5"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\middleware\\validationSchemas.js": {
-    "mtime": 1779831427.6093702,
-    "hash": "bee30ae60d45904d58e7ccdc8836058b"
+    "mtime": 1793654500.5209837,
+    "hash": "e7265d9e8431fb0a98ab0db9e4ef6c61"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\prisma\\migrations\\20260114194812_init\\migration.sql": {
     "mtime": 1768420092.8198826,
@@ -211,61 +1191,89 @@
     "mtime": 1779828958.2802992,
     "hash": "da2b688863255b0316c57e62bea84ee5"
   },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\prisma\\migrations\\20260604120000_add_transaction_sync_fields\\migration.sql": {
+    "mtime": 1781553786.586039,
+    "hash": "5c1eb7481e02ac28819097d79aaebeae"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\prisma\\migrations\\20260609143000_add_sync_deleted_records\\migration.sql": {
+    "mtime": 1781553829.339356,
+    "hash": "d9ed9ff4a3993794128f41b25d867f71"
+  },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\routes\\ai.js": {
     "mtime": 1777660604.7064712,
     "hash": "3f79954e5bafae7a6640b8ca245b7339"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\routes\\auth.js": {
-    "mtime": 1779907178.7627735,
-    "hash": "fff21a83fec7d05bdbb82d3984500137"
+    "mtime": 1779978847.6189857,
+    "hash": "308b922833f73f5b936b278fb3a67da6"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\routes\\backup.js": {
     "mtime": 1768944795.3128812,
     "hash": "e7c0170f618a19d0b39b67b3017e9019"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\routes\\clients.js": {
-    "mtime": 1779907178.7632747,
-    "hash": "54ac3dafd180cbbb7da6e1b7657f5962"
+    "mtime": 1781034683.1831453,
+    "hash": "437a7f1283fd3e283d13fc336cb4bb2b"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\routes\\dashboard.js": {
     "mtime": 1779813174.502723,
     "hash": "460bfd5238b89427ef8da646db51745d"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\routes\\import.js": {
-    "mtime": 1779829039.1824899,
-    "hash": "308cb5bd528b22df2b0d6c84b3a634aa"
+    "mtime": 1793654608.745586,
+    "hash": "a0bb27cb6c9c24b1ed2b2d293fe9d94a"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\routes\\loans.js": {
-    "mtime": 1779907178.763775,
-    "hash": "61787238ec7710dfe55721d5440647cf"
+    "mtime": 1781034683.184146,
+    "hash": "2bf5be78dd7d3a784470f57601f98696"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\routes\\payments.js": {
-    "mtime": 1779907178.7647736,
-    "hash": "4b8d827d3d01cafe2fa6749b8e52277b"
+    "mtime": 1781013954.2282832,
+    "hash": "2306bd3f768b2247e8c3e396223f38a8"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\routes\\reports.js": {
-    "mtime": 1779829039.057485,
-    "hash": "6ffaa37ef99939906f70431f35303aab"
+    "mtime": 1779978456.7796023,
+    "hash": "eba10144bd05bfd1af9888b5581bb624"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\routes\\sync.js": {
+    "mtime": 1781034643.7372904,
+    "hash": "5375edd6a3ad06f40eda04794e0bb823"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\tests\\api.integration.test.js": {
-    "mtime": 1779829039.4249823,
-    "hash": "5cca36b98b403ba6e6f761fa66b150c6"
+    "mtime": 1790793460.6254525,
+    "hash": "0373c857ee789bd4076a10a9db7848fa"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\tests\\mobiloan-import.test.js": {
+    "mtime": 1793654634.2370028,
+    "hash": "17edb3861340d82dcd09073a7f2f120d"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\utils\\amortization.js": {
-    "mtime": 1779907178.765274,
-    "hash": "700dc099dae23bac8d09c1e574cc79e2"
+    "mtime": 1794232056.7772741,
+    "hash": "b03405d3cd643a4009fc2b27852fc7aa"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\utils\\ensureDatabaseCompatibility.js": {
+    "mtime": 1781553786.5870404,
+    "hash": "8c045036100426bdc1eeb72e745f22da"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\utils\\fees.js": {
-    "mtime": 1779907178.7657743,
-    "hash": "8d4e325a8e70732fdac8a1f0ca34dec7"
+    "mtime": 1790793458.95778,
+    "hash": "f8cbb62be0c82ae93d60f26351436f07"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\server\\utils\\logger.js": {
-    "mtime": 1770594015.7967236,
-    "hash": "f67e395af8e6dae1e56bd5b127f0c7de"
+    "mtime": 1790805907.3302965,
+    "hash": "ff0b335a64fea20b0bb8f5ddb0167f56"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\utils\\paymentTransactions.js": {
+    "mtime": 1781013915.3727038,
+    "hash": "b5fb0786ada892cb80b2a96fec31b563"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\server\\utils\\syncDeletedRecords.js": {
+    "mtime": 1781034658.0204792,
+    "hash": "a6519663731d1b6dc8f63153ac70b65f"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\App.jsx": {
-    "mtime": 1779907178.7667737,
-    "hash": "5ef2883b1f6659b11007527b1cb95568"
+    "mtime": 1780324137.313738,
+    "hash": "e89bb5ac100622aac75a0d6a5246bbbd"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\main.jsx": {
     "mtime": 1779907178.7722828,
@@ -276,28 +1284,28 @@
     "hash": "92aedd609751d7021c571506290a593a"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\components\\ErrorBoundary.jsx": {
-    "mtime": 1779907178.767273,
-    "hash": "43d9a98fb47498499253f43010c3bf00"
+    "mtime": 1779978456.7821028,
+    "hash": "f844e825f70d0cd05d2f7de59dd53234"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\components\\PagareModal.jsx": {
-    "mtime": 1779911986.1574736,
-    "hash": "a26377342592397499a22411f3976f67"
+    "mtime": 1780324360.3870463,
+    "hash": "f55e4803a573e2692fa8b914146d4698"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\components\\PaymentModal.jsx": {
-    "mtime": 1768831390.8644805,
-    "hash": "b8f41bbdcef995b8ec89f4271062c4a3"
+    "mtime": 1779979224.2301595,
+    "hash": "315638d3176defd20d69565bc5e46656"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\components\\PaymentScheduleTable.jsx": {
-    "mtime": 1779918604.8689685,
-    "hash": "9d3a988641b262d3cbca5edc4a5b652b"
+    "mtime": 1780324350.914493,
+    "hash": "b200e1ad83fe99319b0b9264ccb54c28"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\components\\Sidebar.jsx": {
-    "mtime": 1779907178.7687764,
-    "hash": "207a386537aa9af7a3ef2dbc04e891df"
+    "mtime": 1779978925.5369213,
+    "hash": "339d553ba8eb755141482bcc58da2b93"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\components\\dashboard\\DashboardKPI.jsx": {
-    "mtime": 1777653422.2135172,
-    "hash": "57d974f6c5ce4cb14291d9d7dcdbcf69"
+    "mtime": 1779978915.3584597,
+    "hash": "b57799f803fa8d03a12543added86470"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\components\\dashboard\\PortfolioChart.jsx": {
     "mtime": 1779903435.4169145,
@@ -332,8 +1340,8 @@
     "hash": "2044e6baef9e52111ae1749d8ac02a88"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\context\\LoanContext.jsx": {
-    "mtime": 1779907178.7702732,
-    "hash": "92381c47ebd664be4db1ecbd06e2afad"
+    "mtime": 1781555607.9171252,
+    "hash": "eeb98458f8b703b2d311b620a36412d8"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\context\\theme-context.js": {
     "mtime": 1779831591.9580674,
@@ -364,88 +1372,100 @@
     "hash": "209afc9681b99bcd277c39870b43babf"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\hooks\\useLoanHealth.js": {
-    "mtime": 1768933165.8055217,
-    "hash": "7fafc2d7580d98d0614b91449279a219"
+    "mtime": 1780324411.1409347,
+    "hash": "3cee78db885fb88879126534ac565664"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\Calculator.jsx": {
-    "mtime": 1779909023.0174527,
-    "hash": "d4c9588dd9fee9a1a794f3e9d4f7e372"
+    "mtime": 1779979625.0291533,
+    "hash": "6121899c28b8bdddec37a3f0405edcfe"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\ClientDetail.jsx": {
-    "mtime": 1779910850.876635,
-    "hash": "7298e7f7dd76620b72b49493a7424d22"
+    "mtime": 1780499785.4570599,
+    "hash": "0534b6f6605f2624e883f250d1855aeb"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\Clients.jsx": {
-    "mtime": 1779909023.0154512,
-    "hash": "15e4832590d88b56937c4763f4f430e3"
+    "mtime": 1779978981.0220537,
+    "hash": "e0f0491e4fcbe2b7889c7522c2e4a938"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\Collections.jsx": {
-    "mtime": 1779918479.3505926,
-    "hash": "69ba98c229e3ada2dc4780054b48b4fb"
+    "mtime": 1780324423.3937366,
+    "hash": "7ab12e5d8edfc880c5b3e840715ef82a"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\Dashboard.jsx": {
-    "mtime": 1779918493.0427854,
-    "hash": "a455a50260cdee55e71d4860983402fb"
+    "mtime": 1779978915.3604603,
+    "hash": "795b574303224915c36a965a7415e940"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\ImportData.jsx": {
-    "mtime": 1779907178.7777724,
-    "hash": "2972a8ea6b5fca599efb8dc3450120b9"
+    "mtime": 1794923184.153741,
+    "hash": "365fb77dcdddf6d45e4e5b756f8b3cb6"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\LoanDetail.jsx": {
-    "mtime": 1779918595.8391044,
-    "hash": "cf03f69d8ec8eeab14cf4ab020c7e40b"
+    "mtime": 1780417320.6118047,
+    "hash": "5bf37981394142330b3bb097d2696647"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\LoanDetail.test.jsx": {
+    "mtime": 1779977722.9604702,
+    "hash": "c1b5e29639a01d80fa6a80eaef8419a8"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\Loans.jsx": {
-    "mtime": 1779919940.0448282,
-    "hash": "73367e9496d3a8fdef1e5d53e747bcf5"
+    "mtime": 1780324335.5107627,
+    "hash": "5d229ed30bca32598076497168ef0f8d"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\Login.jsx": {
     "mtime": 1779907178.7802727,
     "hash": "e2ae01035c471b07d042e8b2e5e7b98e"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\pages\\NewLoan.jsx": {
-    "mtime": 1779910209.5715413,
-    "hash": "a1063f1f5c81b2fb28fb92813bdbeddb"
+    "mtime": 1779974870.3716986,
+    "hash": "4d5edabbfa351922e37acda8c2ea0f05"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\amortization.js": {
-    "mtime": 1779907178.7822788,
-    "hash": "e5f0e14a2ecfbe3996f68294d1b2c6eb"
+    "mtime": 1794232056.7772741,
+    "hash": "31da7200e95efe8598214e9707d72dd6"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\amortization.test.js": {
-    "mtime": 1779907178.782773,
-    "hash": "7324e2fdffe0111b88f9753d2570565e"
+    "mtime": 1794232112.0281687,
+    "hash": "735bbe5ab6b322a9b49ee1c142bd7c1b"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\calendar.js": {
-    "mtime": 1779907178.7837732,
-    "hash": "ee8548d87ab0262ce7146142aa6b1919"
+    "mtime": 1780324405.6159997,
+    "hash": "63e02f9304b5d9d631b2c0faab4aa105"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\cn.js": {
     "mtime": 1779831592.219566,
     "hash": "7dde284c4d01f64341ef51e7b8e56dea"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\communication.js": {
-    "mtime": 1779907178.7847729,
-    "hash": "a8dd886f95a1d2008fc84bd4b5de9d48"
+    "mtime": 1780502057.5044816,
+    "hash": "53fda38531d081bb7fb1d56ad388cbb4"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\dates.js": {
+    "mtime": 1780324327.0796738,
+    "hash": "c3c2ce98bf1b722aab2f0d8c220a2428"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\formatters.js": {
+    "mtime": 1779978915.3549583,
+    "hash": "4d717f48076d599bbca135829cc155b6"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\mockData.js": {
     "mtime": 1765818707.9849682,
     "hash": "2f836a445f097ec21991cc82808e1378"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\pagareGenerator.js": {
-    "mtime": 1779916982.6233337,
-    "hash": "ece1c5923bf1361f6c17554a9fb9fdb6"
+    "mtime": 1780324389.0484135,
+    "hash": "7534dc0b41e30dd429f075e29f8bd86b"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\pdfGenerator.js": {
-    "mtime": 1779921522.0280204,
-    "hash": "5b5ecbca97c5894118c90b4b9fad4921"
+    "mtime": 1780324368.1763864,
+    "hash": "26fb7326164fae441782bf1d1d33c649"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\rut.js": {
     "mtime": 1779829063.1879706,
     "hash": "b1987338fd6d00838c923ccbda80b316"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\utils\\wordGenerator.js": {
-    "mtime": 1779911878.2165496,
-    "hash": "434289d2b7df2395f526adf010545a82"
+    "mtime": 1780324376.4131768,
+    "hash": "13162d1ff9adb60f19ecead8b8f2298d"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\debug-log.txt": {
     "mtime": 1779907193.47325,
@@ -456,24 +1476,40 @@
     "hash": "59a3287c1a40ed1e237fc906d742d920"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\launch-log.txt": {
-    "mtime": 1779907178.7467766,
-    "hash": "5429b353448b47d93fdd7771001badd3"
+    "mtime": 1791559549.1767852,
+    "hash": "1099df97aa6643547aff457d8cb948cd"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\README.md": {
-    "mtime": 1779918636.1381586,
-    "hash": "0127f73e023131a214452a5bbe29bc31"
+    "mtime": 1791747264.4888449,
+    "hash": "327821806a0ce9c0cdd661d67d49c7f3"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\BETA-TESTER.md": {
+    "mtime": 1790805605.3781025,
+    "hash": "c9a4ee8378d41426a64d028a9aeb9f91"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\GITHUB-RELEASE-CHECKLIST.md": {
+    "mtime": 1790805609.9367006,
+    "hash": "0a44a0d6ab307ea059dab6f48ece9a0d"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\GITHUB-RELEASE-NOTES.md": {
+    "mtime": 1790805284.2664013,
+    "hash": "a8fbb66a73b643ccf2c42425830195b3"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\GRAPHIFY.md": {
-    "mtime": 1779716266.6234615,
-    "hash": "412f208ee5230dab29c26fc1a63b5acc"
+    "mtime": 1790808243.779654,
+    "hash": "cd23642628ddbc6ecdb61c91b8c167b8"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\PLAN-android-app.md": {
-    "mtime": 1779832192.333675,
-    "hash": "f2b67bc5298ff8a1f16f80e97af985ab"
+    "mtime": 1790808248.2251534,
+    "hash": "ba74d207649705e62c723a50ffb051c8"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\PLAN-github-deployment.md": {
-    "mtime": 1779889453.510437,
-    "hash": "4a8533000665abf0d03ee4225b649769"
+    "mtime": 1790805956.0600386,
+    "hash": "f8ce95a206bb5713205cadd6404b3681"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\PLAN-mobile-sync-contract.md": {
+    "mtime": 1780496254.3433275,
+    "hash": "748a3d35756a184f471d52f1b4545cd9"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\docs\\PLAN-partial-payments.md": {
     "mtime": 1768929357.3426273,
@@ -483,41 +1519,453 @@
     "mtime": 1777660278.5987139,
     "hash": "e163d2f11bba64059536698774e6bbf5"
   },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\AGENTS.md": {
+    "mtime": 1788379112.1659212,
+    "hash": "dcea3a38648e51212a3c26279f27661f"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\README.md": {
+    "mtime": 1788378566.6219683,
+    "hash": "c0df4abd6fc6adb76ea6969c312e12ce"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\docs\\CODEX_HANDOFF_2026-08-29.md": {
+    "mtime": 1788379115.2769897,
+    "hash": "2865f5c81e2e90174358b980d293e444"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\docs\\GRAPIFY_BETA_SPEC.md": {
+    "mtime": 1788379119.1150184,
+    "hash": "7d1af0a04bdbaa075c76bb9765f35b60"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\docs\\LOCAL_PC_SERVER.md": {
+    "mtime": 1788388454.1739764,
+    "hash": "34a2b7ddf2ff1a4b57b15d447566493f"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\docs\\PROJECT_CONTINUITY.md": {
+    "mtime": 1788354077.4930794,
+    "hash": "3bcdac9b52fc1461415424914e5bfd7d"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\docs\\STATUS_2026-08-28.md": {
+    "mtime": 1788354077.493585,
+    "hash": "5715a609f57180c5a41d0698fdb701a2"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\docs\\STATUS_2026-08-31.md": {
+    "mtime": 1788354077.4940803,
+    "hash": "de281bbd28d678111826f0e55537dbd9"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\docs\\WEB_LONG_VIDEO_RUNTIME_FIX_2026-08-29.md": {
+    "mtime": 1788354077.494579,
+    "hash": "cf55f97ea9ec7004d1071cb4bbf4ea34"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\infra\\aws\\DEPLOY_NOTES.md": {
+    "mtime": 1788354077.495579,
+    "hash": "91eeca2dac364ae71ced4d03c58f2d9b"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\fight-ai-web-mvp\\infra\\aws\\web-aws-deploy.template.yml": {
+    "mtime": 1788354077.5005798,
+    "hash": "3bde626a63868d2a3c286ee09af62654"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\AGENTS.md": {
+    "mtime": 1780584360.968588,
+    "hash": "0168b78417bf60f34fd1233c69591023"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\CLAUDE.md": {
+    "mtime": 1780584360.969088,
+    "hash": "5c27369b226fcf2be8a6cfe52224e767"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\README.md": {
+    "mtime": 1790870354.1734662,
+    "hash": "972ec121b87527e1553db7463cb249e9"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\ANDROID_SETUP.md": {
+    "mtime": 1790808009.8825402,
+    "hash": "ff9a43426b285905323d16994efcd45f"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\APK-BETA.md": {
+    "mtime": 1790863970.6359484,
+    "hash": "d6d48aa035ab610f40dd7d423f13814f"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\GRAPHIFY.md": {
+    "mtime": 1781202062.416978,
+    "hash": "9e61e3357e482a292f104e4b07faf0c2"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\INSTALACION-APK-BETA.md": {
+    "mtime": 1795112381.6216228,
+    "hash": "76827da447f9b7ced468cc95e947b9cb"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\MAP.md": {
+    "mtime": 1790808233.0071757,
+    "hash": "d8b3d3f98b431c1cb05d0e836ff573be"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\SYNC_SMOKE.md": {
+    "mtime": 1781035178.6971138,
+    "hash": "4b620fec8b85978c6e20a1817dab30ee"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\docs\\UPDATE_LOG.md": {
+    "mtime": 1795112934.1930013,
+    "hash": "bfbaf7041583797632c2911527e6ed4d"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\github\\ANDROID_QA.md": {
+    "mtime": 1790808060.5419033,
+    "hash": "a87bd1fcf96ccb48df9f7fc4e77afe11"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\github\\CHECKLIST.md": {
+    "mtime": 1790808082.2274017,
+    "hash": "95909203cd95fdf6893d5c4bdd0482ee"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\github\\RELEASE_NOTES.md": {
+    "mtime": 1790863958.7404807,
+    "hash": "9bb8b926eeb526351a27f94ba47eee0f"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\release\\LEEME-INSTALACION-ANDROID.txt": {
+    "mtime": 1790808211.3477864,
+    "hash": "5a32b7af9ed8d0ca1071df0d341dfc0b"
+  },
   "C:\\Users\\JP\\Desktop\\LoanManager\\graphify-out\\converted\\pagare_template_e62ac02c.md": {
-    "mtime": 1779921554.4477544,
+    "mtime": 1795113358.7739463,
     "hash": "3c57105453a9ba7f63d7459152a688e6"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\graphify-out\\converted\\pagare_template_sc_78d1f97f.md": {
-    "mtime": 1779921554.478263,
+    "mtime": 1795113358.824646,
     "hash": "9fedb158390f9703fc389a9e887bdcc3"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\builder-debug.yml": {
-    "mtime": 1779921281.7144134,
-    "hash": "f852cd632b05c041e5c3e1e18f100f0c"
+    "mtime": 1790804542.8263638,
+    "hash": "c9a5834e21aa8d519d4816259deb669d"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\builder-effective-config.yaml": {
     "mtime": 1770673186.1957,
     "hash": "bed16809b565bb3d711d95cd1ee438b8"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\latest.yml": {
-    "mtime": 1779921283.3477845,
-    "hash": "9d0883974cb4d1f26af8373f4d4620ac"
+    "mtime": 1790804544.5193615,
+    "hash": "fb7c1de79f79a7d01335afba68274cbe"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\release\\beta-package\\LEEME-INSTALACION.txt": {
+    "mtime": 1790805556.7003229,
+    "hash": "559e459322bd8e8e6edbae9a64de24e8"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\LICENSE.electron.txt": {
-    "mtime": 1779920977.5349555,
+    "mtime": 1790804026.84966,
     "hash": "4d42118d35941e0f664dddbd83f633c5"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\LICENSES.chromium.html": {
-    "mtime": 1779920977.1433094,
+    "mtime": 1790804026.6030784,
     "hash": "6ff57c0aeccdf44c39c95dee9ecea805"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\release\\win-unpacked\\resources\\app-update.yml": {
-    "mtime": 1779921052.2913003,
+    "mtime": 1790804329.3199575,
     "hash": "0d5cd47bc3fb7b87705332d1840fd3ab"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\commercial-landing-redesign.md": {
+    "mtime": 1792100536.8266938,
+    "hash": "c1eb85f8fa9f46713a43f532f0d495f4"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\compose.yml": {
+    "mtime": 1791752311.2345958,
+    "hash": "08084102cfc0b6a5f0e9812dc0a18ff6"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\README.md": {
+    "mtime": 1792529357.3350782,
+    "hash": "4e7dbd407578b36da5c8377825507b0c"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\render.yaml": {
+    "mtime": 1792528163.0012636,
+    "hash": "228ea577c61ff40c25195c68a58d174e"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\docs\\ADR-002-RESPONSIVE-UI-SHELL.md": {
+    "mtime": 1791848130.1127062,
+    "hash": "79d7e7b180ae897b9a39558816fc86e3"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\docs\\BETA_OPERATIONS.md": {
+    "mtime": 1791763135.5204158,
+    "hash": "1d158e0301c21b9dbe04712ad1ebaa6f"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\docs\\BETA_ROADMAP.md": {
+    "mtime": 1791895266.4027562,
+    "hash": "a20a7d65a2fe4b2166f8c0241df2326e"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\docs\\BILLING_SANDBOX_RUNBOOK.md": {
+    "mtime": 1792156365.3637214,
+    "hash": "6627a0625ea0c18ab36190463931f597"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\docs\\FRONTEND_V0_AUDIT.md": {
+    "mtime": 1792070388.4104137,
+    "hash": "827dc0b4765763a14fce2970280ea978"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\docs\\GRAPHIFY.md": {
+    "mtime": 1791848347.8740177,
+    "hash": "4083906c6b360373cdb58fea61d59712"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\docs\\HOSTINGER_DEPLOYMENT.md": {
+    "mtime": 1792529355.3289104,
+    "hash": "2b48fa8cfd2bb7fa6633f15d9409076c"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\docs\\HOSTING_EVALUATION.md": {
+    "mtime": 1792156983.8524919,
+    "hash": "c5d054a7666d003b2944ccbb9f2e8de1"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\docs\\SALE_READINESS_AUDIT.md": {
+    "mtime": 1792156910.0327182,
+    "hash": "861693efcd10f26dc0d399845a576c6e"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\index.html": {
+    "mtime": 1791753501.2669437,
+    "hash": "47e5bd0a6a84bcbe80361529cc93b241"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\graphify-out\\converted\\pagare_template_e51b3b88.md": {
+    "mtime": 1795113361.312819,
+    "hash": "3c57105453a9ba7f63d7459152a688e6"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\graphify-out\\converted\\pagare_template_sc_9dab90f5.md": {
+    "mtime": 1795113361.382286,
+    "hash": "9fedb158390f9703fc389a9e887bdcc3"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\install-qr-direct-apk.png": {
+    "mtime": 1780609413.9531567,
+    "hash": "c6222d55eb0ed98d9f7d824b66a52abf"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\install-qr-lan-apk.png": {
+    "mtime": 1780935807.9376197,
+    "hash": "b0baebfc1451fe299341eb2603c06d9d"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\install-qr-public.png": {
+    "mtime": 1780608792.349773,
+    "hash": "ad73b5163565914fd1339004b2852b9a"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\install-qr.png": {
+    "mtime": 1780596472.575077,
+    "hash": "c96e9968fae25c7aca0e1dfeba4b7238"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\mobiloan-after-fix.png": {
+    "mtime": 1780935504.643931,
+    "hash": "309e13b83a5d83974751657dc33cc540"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\mobiloan-launch.png": {
+    "mtime": 1780934541.6564474,
+    "hash": "c5119b2961bdc8aebcaee95d6c384ba6"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\mobiloan-post-login-2.png": {
+    "mtime": 1780935624.0531526,
+    "hash": "d9fa71226345839f45b17c720ec67a5c"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\mobiloan-post-login-3.png": {
+    "mtime": 1780935686.0380151,
+    "hash": "d2102050510f6481bf8f26850da16432"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\mobiloan-post-login.png": {
+    "mtime": 1780935561.5185578,
+    "hash": "fc0b4203876f84649cd659f2ab8acae8"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\mobiloan-postfix.png": {
+    "mtime": 1780934821.5425086,
+    "hash": "7790ab55979f678b4be20afcc506094b"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\mobiloan-release.png": {
+    "mtime": 1780935218.736884,
+    "hash": "fc622bb2c202f3a214918acadb932548"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\drawable-hdpi\\notification_icon.png": {
+    "mtime": 1795112972.2081258,
+    "hash": "2393a0aad48d3ac2175bff3d927818b2"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\drawable-hdpi\\splashscreen_logo.png": {
+    "mtime": 1780585946.1102962,
+    "hash": "ade4f271d920c553479f8359126fe71c"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\drawable-mdpi\\notification_icon.png": {
+    "mtime": 1795112972.2076235,
+    "hash": "470f1ea29e26c4869de841a66917133c"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\drawable-mdpi\\splashscreen_logo.png": {
+    "mtime": 1780585946.1127973,
+    "hash": "456a586f33d48e02adee03680b872073"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\drawable-xhdpi\\notification_icon.png": {
+    "mtime": 1795112972.211123,
+    "hash": "96dac275c08e40cdeec672e986d56d97"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\drawable-xhdpi\\splashscreen_logo.png": {
+    "mtime": 1780585946.1157963,
+    "hash": "b151f30998a8eb180038294d96108ad3"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\drawable-xxhdpi\\notification_icon.png": {
+    "mtime": 1795112972.2116318,
+    "hash": "2dda665a3dffd96d5c22a63d1fbd2f50"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\drawable-xxhdpi\\splashscreen_logo.png": {
+    "mtime": 1780585946.1207955,
+    "hash": "456fa27f2c9de9a9bf0d8951a9609ea4"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\drawable-xxxhdpi\\notification_icon.png": {
+    "mtime": 1795112972.2126236,
+    "hash": "c63f369b209bb766684cd006c050f408"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\drawable-xxxhdpi\\splashscreen_logo.png": {
+    "mtime": 1780585946.1243005,
+    "hash": "8724a45c38b0f973ac9713ff270a40cb"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.webp": {
+    "mtime": 1795112972.124706,
+    "hash": "2dda665a3dffd96d5c22a63d1fbd2f50"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_background.webp": {
+    "mtime": 1795112972.1733644,
+    "hash": "8b804c2e3ffcb414d81159cdbe8e1338"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_foreground.webp": {
+    "mtime": 1795112972.1814868,
+    "hash": "23d6c4c853d373ebc8a6b78e01a565f5"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_monochrome.webp": {
+    "mtime": 1795112972.161336,
+    "hash": "ddc9ce93ec17a515f270e1334f4d096d"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_round.webp": {
+    "mtime": 1795112972.143264,
+    "hash": "79cacede8a6deac09c5eb46abbd48446"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.webp": {
+    "mtime": 1795112972.1277363,
+    "hash": "96dac275c08e40cdeec672e986d56d97"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_background.webp": {
+    "mtime": 1795112972.1733644,
+    "hash": "5fc5ff595a9708fb1186f29d4cba0165"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_foreground.webp": {
+    "mtime": 1795112972.1804874,
+    "hash": "21c6ff184e62fe81d5d99486c994b4a1"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_monochrome.webp": {
+    "mtime": 1795112972.1608372,
+    "hash": "3d7d2cdcf1efff070cd99b3a24b2af0a"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_round.webp": {
+    "mtime": 1795112972.143264,
+    "hash": "8afd2a3c8f80ca2554a791cdaea89421"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.webp": {
+    "mtime": 1795112972.124706,
+    "hash": "c63f369b209bb766684cd006c050f408"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_background.webp": {
+    "mtime": 1795112972.1749723,
+    "hash": "1e8461bcda400d6f2e6ba0a789e9df32"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_foreground.webp": {
+    "mtime": 1795112972.1814868,
+    "hash": "94e64d4a7a895c46bee57dd117eaaa4e"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_monochrome.webp": {
+    "mtime": 1795112972.161336,
+    "hash": "25ce7486d6cf2a88b12191bdc327889c"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_round.webp": {
+    "mtime": 1795112972.1452787,
+    "hash": "4016f7a08a47e6e56995cabd0fe654d8"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.webp": {
+    "mtime": 1795112972.123698,
+    "hash": "49dec5c0e262a71a1ca684eb3d8c2640"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_background.webp": {
+    "mtime": 1795112972.1738634,
+    "hash": "3a76914a81170ce0bafc194cf299e0b8"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_foreground.webp": {
+    "mtime": 1795112972.1814868,
+    "hash": "54904135a542a76951f4c4aa7618d942"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_monochrome.webp": {
+    "mtime": 1795112972.1618352,
+    "hash": "c74b95ed269648784a5341dc7fc8c5d2"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_round.webp": {
+    "mtime": 1795112972.1452787,
+    "hash": "c8162b30ad76f0f8a2742dfdc184c518"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.webp": {
+    "mtime": 1795112972.1262372,
+    "hash": "c089a1bee6d9ee0b7f6b0944ac7f14e1"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_background.webp": {
+    "mtime": 1795112972.1749723,
+    "hash": "11c5ebf85672a8b1a823b29ffcc023a6"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_foreground.webp": {
+    "mtime": 1795112972.1819873,
+    "hash": "56f4339ea33cd98feee64cf1b83ecd24"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_monochrome.webp": {
+    "mtime": 1795112972.161336,
+    "hash": "d294024561d781537913c8be15eed1e1"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_round.webp": {
+    "mtime": 1795112972.1452787,
+    "hash": "a9062eb0baf2f2de2ef49812796ea29b"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\assets\\android-icon-background.png": {
+    "mtime": 1780584249.7454877,
+    "hash": "2d65569cc0e2afdcea0af9f9902d4173"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\assets\\android-icon-foreground.png": {
+    "mtime": 1780584249.7479868,
+    "hash": "72e71a9c846c6aa4ae32476641a00e18"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\assets\\android-icon-monochrome.png": {
+    "mtime": 1780584249.749496,
+    "hash": "1e097dab989759fc0b69440092ca22cd"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\assets\\favicon.png": {
+    "mtime": 1780584249.7504919,
+    "hash": "d9f444efbdfbe7931aa93beada07318a"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\assets\\icon.png": {
+    "mtime": 1780584249.7560058,
+    "hash": "cb975bba2216ce10a60e6c0ffe9941a2"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\Mobiloan\\assets\\splash-icon.png": {
+    "mtime": 1780584249.7574935,
+    "hash": "97dae5a0e62ad8551d8a31897b425e63"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\public\\vite.svg": {
     "mtime": 1765467959.1390288,
     "hash": "8e3a10e157f75ada21ab742c022d5430"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\public\\icons\\icon-180.png": {
+    "mtime": 1792529411.4,
+    "hash": "4202ce4675bfb063f58c4671203eb10a"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\public\\icons\\icon-192.png": {
+    "mtime": 1792529411.402,
+    "hash": "61b51e465024116d0f4659d3d393ed00"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\public\\icons\\icon-512.png": {
+    "mtime": 1792529411.409,
+    "hash": "399d732295165f5ba602c982db19f23a"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\public\\icons\\icon-maskable-512.png": {
+    "mtime": 1792529411.399,
+    "hash": "ca402cd298d83e92fe03ebc91dad8ada"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\public\\icons\\icon-maskable.svg": {
+    "mtime": 1791753392.9295404,
+    "hash": "1bad98c13aa1b1b929bea364007275a6"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\public\\icons\\icon.svg": {
+    "mtime": 1791753391.102093,
+    "hash": "6733d0fb1736176b0285aa3931f87149"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\assets\\loan-manager-mark.svg": {
+    "mtime": 1779978374.8599513,
+    "hash": "7f9fa936e162bf8bd2c4b728c65fcf51"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\saas\\web\\src\\assets\\react.svg": {
+    "mtime": 1765467959.1159563,
+    "hash": "f0402b67b6ce880f65666bb49e841696"
+  },
+  "C:\\Users\\JP\\Desktop\\LoanManager\\src\\assets\\loan-manager-mark.svg": {
+    "mtime": 1779978374.8599513,
+    "hash": "7f9fa936e162bf8bd2c4b728c65fcf51"
   },
   "C:\\Users\\JP\\Desktop\\LoanManager\\src\\assets\\react.svg": {
     "mtime": 1765467959.1159563,

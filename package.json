@@ -77,7 +77,15 @@
         "from": "server",
         "to": "server",
         "filter": [
-          "**/*"
+          "**/*",
+          "!**/*.db",
+          "!**/*.db-journal",
+          "!**/*.db-wal",
+          "!**/*.db-shm",
+          "!**/tests/**",
+          "!**/logs/**",
+          "!**/*.log",
+          "!**/.env"
         ]
       },
       {

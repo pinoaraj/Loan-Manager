@@ -1,23 +1,35 @@
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
-require('dotenv').config();
 
 const prisma = require('./lib/prisma');
 const logger = require('./utils/logger');
 const { loginLimiter, registerLimiter, apiLimiter } = require('./middleware/rateLimiter');
-const authRoutes = require('./routes/auth');
-const clientRoutes = require('./routes/clients');
-const loanRoutes = require('./routes/loans');
-const paymentRoutes = require('./routes/payments');
-const dashboardRoutes = require('./routes/dashboard');
-const backupRoutes = require('./routes/backup');
-const reportRoutes = require('./routes/reports');
-const importRoutes = require('./routes/import');
-const aiRoutes = require('./routes/ai');
+
+function lazyRoute(loader) {
+    let router;
+
+    return (req, res, next) => {
+        try {
+            router ??= loader();
+            return router(req, res, next);
+        } catch (error) {
+            return next(error);
+        }
+    };
+}
 
 function createApp() {
     const app = express();
+    const normalizeOrigin = (value) => String(value || '').trim().replace(/\/+$/, '');
+    const isLoopbackOrigin = (value) => {
+        try {
+            const url = new URL(value);
+            return url.hostname === '127.0.0.1' || url.hostname === 'localhost';
+        } catch {
+            return false;
+        }
+    };
 
     app.use(helmet({
         contentSecurityPolicy: {
@@ -44,21 +56,29 @@ function createApp() {
         'http://127.0.0.1:5173',
         'http://localhost:4173',
         'http://127.0.0.1:4173',
+        'http://localhost:19006',
+        'http://127.0.0.1:19006',
+        'http://localhost:19007',
+        'http://127.0.0.1:19007',
         'app://localhost'
     ];
     const envOrigins = process.env.CORS_ORIGINS?.split(',')
-        .map(origin => origin.trim())
+        .map(origin => normalizeOrigin(origin))
         .filter(Boolean) || [];
-    const allowedOrigins = [...new Set([...defaultOrigins, ...envOrigins])];
+    const allowedOrigins = [...new Set([...defaultOrigins, ...envOrigins].map(normalizeOrigin))];
 
     app.use(cors({
         origin: (origin, callback) => {
             if (!origin) return callback(null, true);
 
-            if (allowedOrigins.includes(origin)) {
+            const normalizedOrigin = normalizeOrigin(origin);
+            const loopbackAllowed = isLoopbackOrigin(normalizedOrigin);
+            const exactAllowed = allowedOrigins.includes(normalizedOrigin);
+
+            if (exactAllowed || loopbackAllowed) {
                 callback(null, true);
             } else {
-                logger.warn(`CORS blocked request from origin: ${origin}`);
+                logger.warn(`CORS blocked request from origin: ${origin} (normalized=${normalizedOrigin}, exactAllowed=${exactAllowed}, loopbackAllowed=${loopbackAllowed})`);
                 callback(new Error('Not allowed by CORS'));
             }
         },
@@ -72,17 +92,18 @@ function createApp() {
 
     app.use('/api/auth/login', loginLimiter);
     app.use('/api/auth/register', registerLimiter);
-    app.use('/api/auth', authRoutes);
+    app.use('/api/auth', lazyRoute(() => require('./routes/auth')));
 
     app.use('/api/', apiLimiter);
-    app.use('/api/clients', clientRoutes);
-    app.use('/api/loans', loanRoutes);
-    app.use('/api/payments', paymentRoutes);
-    app.use('/api/dashboard', dashboardRoutes);
-    app.use('/api/backup', backupRoutes);
-    app.use('/api/reports', reportRoutes);
-    app.use('/api/import', importRoutes);
-    app.use('/api/ai', aiRoutes);
+    app.use('/api/clients', lazyRoute(() => require('./routes/clients')));
+    app.use('/api/loans', lazyRoute(() => require('./routes/loans')));
+    app.use('/api/payments', lazyRoute(() => require('./routes/payments')));
+    app.use('/api/sync', lazyRoute(() => require('./routes/sync')));
+    app.use('/api/dashboard', lazyRoute(() => require('./routes/dashboard')));
+    app.use('/api/backup', lazyRoute(() => require('./routes/backup')));
+    app.use('/api/reports', lazyRoute(() => require('./routes/reports')));
+    app.use('/api/import', lazyRoute(() => require('./routes/import')));
+    app.use('/api/ai', lazyRoute(() => require('./routes/ai')));
 
     app.get('/api/health', async (req, res) => {
         try {

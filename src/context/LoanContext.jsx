@@ -294,11 +294,11 @@ export const LoanProvider = ({ children }) => {
         }
     }, [fetchWithAuth, invalidateData]);
 
-    const importData = useCallback(async (clientsData, loansData) => {
+    const importData = useCallback(async (payload) => {
         try {
             const res = await fetchWithAuth(`${API_URL}/import`, {
                 method: 'POST',
-                body: JSON.stringify({ clients: clientsData, loans: loansData })
+                body: JSON.stringify(payload)
             });
 
             const data = await res.json();

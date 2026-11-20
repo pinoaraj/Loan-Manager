@@ -2,6 +2,7 @@ import { AlignmentType, Document, HeadingLevel, Packer, Paragraph, TextRun } fro
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import PizZip from 'pizzip';
+import { compareStoredDates, formatStoredDate, getStoredDateDayLabel, parseStoredDate } from './dates';
 import { formatRut } from './rut';
 
 const PAGARE_TEMPLATE_FILE = 'pagare_template_sc.docx';
@@ -74,9 +75,10 @@ const getText = (value, fallback = '________________') => {
 const getLoanInterestRate = (loan) => Number(loan?.interestRate ?? loan?.rate ?? 0);
 const getLoanDurationMonths = (loan) => Number(loan?.durationMonths ?? loan?.term ?? 0);
 const getLoanAmount = (loan) => Number(loan?.amount ?? 0);
-const getInstallmentAmount = (loan) => Number(loan?.payments?.[0]?.amount ?? 0);
-const getFirstDueDate = (loan) => (loan?.payments?.[0]?.dueDate ? new Date(loan.payments[0].dueDate) : null);
-const getLastDueDate = (loan) => (loan?.payments?.length ? new Date(loan.payments[loan.payments.length - 1].dueDate) : null);
+const getSortedPayments = (loan) => [...(loan?.payments || [])].sort((a, b) => compareStoredDates(a.dueDate, b.dueDate));
+const getInstallmentAmount = (loan) => Number(getSortedPayments(loan)[0]?.amount ?? 0);
+const getFirstDueDate = (loan) => parseStoredDate(getSortedPayments(loan)[0]?.dueDate);
+const getLastDueDate = (loan) => parseStoredDate(getSortedPayments(loan).at(-1)?.dueDate);
 
 const formatMoney = (value) => Number(value || 0).toLocaleString('es-CL', {
     minimumFractionDigits: 0,
@@ -225,10 +227,10 @@ const buildMutuoParagraphs = (loan, client) => {
     const durationMonths = getLoanDurationMonths(loan);
     const firstDueDate = getFirstDueDate(loan);
     const lastDueDate = getLastDueDate(loan);
-    const dueDay = firstDueDate ? format(firstDueDate, 'd') : '__';
+    const dueDay = getStoredDateDayLabel(firstDueDate);
     const annualRate = `${(getAnnualRate(loan) * 100).toFixed(2)}%`;
-    const firstDueDateLabel = firstDueDate ? format(firstDueDate, "d 'de' MMMM 'de' yyyy", { locale: es }) : '________________';
-    const lastDueDateLabel = lastDueDate ? format(lastDueDate, "d 'de' MMMM 'de' yyyy", { locale: es }) : '________________';
+    const firstDueDateLabel = formatStoredDate(firstDueDate, "d 'de' MMMM 'de' yyyy", '________________');
+    const lastDueDateLabel = formatStoredDate(lastDueDate, "d 'de' MMMM 'de' yyyy", '________________');
 
     return [
         new Paragraph({

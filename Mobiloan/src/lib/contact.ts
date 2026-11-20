@@ -1,0 +1,51 @@
+import { Linking } from 'react-native';
+
+const normalizePhone = (value: string) => value.replace(/[^\d]/g, '');
+
+const openExternalUrl = async (url: string) => {
+  const supported = await Linking.canOpenURL(url);
+  if (!supported) {
+    throw new Error('El dispositivo no puede abrir este enlace.');
+  }
+
+  await Linking.openURL(url);
+};
+
+export const openPhoneCall = async (phone: string | null | undefined) => {
+  if (!phone) {
+    throw new Error('El cliente no tiene telefono registrado.');
+  }
+
+  const normalized = normalizePhone(phone);
+  if (!normalized) {
+    throw new Error('El telefono registrado no es valido.');
+  }
+
+  await openExternalUrl(`tel:${normalized}`);
+};
+
+export const openWhatsApp = async (
+  phone: string | null | undefined,
+  message?: string,
+) => {
+  if (!phone) {
+    throw new Error('El cliente no tiene telefono registrado.');
+  }
+
+  const normalized = normalizePhone(phone);
+  if (!normalized) {
+    throw new Error('El telefono registrado no es valido.');
+  }
+
+  const suffix = message?.trim() ? `?text=${encodeURIComponent(message)}` : '';
+  await openExternalUrl(`https://wa.me/${normalized}${suffix}`);
+};
+
+export const openEmail = async (email: string | null | undefined) => {
+  const value = String(email ?? '').trim();
+  if (!value) {
+    throw new Error('El cliente no tiene email registrado.');
+  }
+
+  await openExternalUrl(`mailto:${value}`);
+};
